@@ -26,10 +26,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build docs
+      - uses: actions/setup-haskell@v1.1
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
+      - name: Build docs
         run: runhaskell Setup.hs haddock --executables
     strategy:
       fail-fast: true
