@@ -24,14 +24,9 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: haskell/actions/setup@v2
-        with:
-          ghc-version: ${{ matrix.ghc }}
-          cabal-version: ${{ matrix.cabal }}
-      - name: Build docs
-        run: runhaskell Setup.hs haddock --executables
+
+  # Single deploy job since we're just deploying
+  deploy:
     strategy:
       fail-fast: true
       matrix:
@@ -39,22 +34,26 @@ jobs:
           - os: ubuntu-latest
             ghc: '8.8'
             cabal: '3.0'
-
-  # Single deploy job since we're just deploying
-  deploy:
-    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: haskell/actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: ${{ matrix.cabal }}
+      - name: Build docs
+        run: echo "DOCDIR=$(dirname $(cabal v2-haddock --haddock-all | tail -1))" >> $GITHUB_ENV
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: 'dist/doc/html/mut/mut'
+          path: $DOCDIR
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
