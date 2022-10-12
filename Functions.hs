@@ -11,7 +11,7 @@ import Data.Ord
 import Type
 
 
-{- Utility functions -}
+-- * Utility/"Application" Functions #util#
 -- | Remove duplicate items from a list
 rmDups :: (Eq a, Ord a) => [a] -> [a]
 rmDups = map head . group . sort
@@ -47,7 +47,7 @@ avgDistanceFromMultiplesOf5 :: [Int] -> Float
 avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
 
 
-{- Domain -}
+-- * More specific/"Domain" functions
 
 -- | Take the most best option for a team captain
 bestCaptainOption :: Option -> Option
