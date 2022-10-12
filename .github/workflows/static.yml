@@ -28,6 +28,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Build docs
+        run: runhaskell Setup.hs haddock --executables
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Pages
