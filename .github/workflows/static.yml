@@ -22,12 +22,22 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build docs
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: ${{ matrix.cabal }}
         run: runhaskell Setup.hs haddock --executables
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - os: ubuntu-latest
+            ghc: '8.8'
+            cabal: '3.0'
 
   # Single deploy job since we're just deploying
   deploy:
