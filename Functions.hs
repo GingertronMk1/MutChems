@@ -1,7 +1,5 @@
-{-|
-Module: Functions
-
--}
+-- |
+-- Module: Functions
 module Functions where
 
 import Data
@@ -10,8 +8,8 @@ import Data.List
 import Data.Ord
 import Type
 
-
 -- * Utility/"Application" Functions #util#
+
 -- | Remove duplicate items from a list
 rmDups :: (Eq a, Ord a) => [a] -> [a]
 rmDups = map head . group . sort
@@ -24,20 +22,6 @@ padRight l padding str = str ++ replicate (l - length str) padding
 mean :: (Integral a) => [a] -> Float
 mean ls = fromIntegral (length ls) / fromIntegral (sum ls)
 
--- | Comma-separate a number for human reading
-makeNumberHumanReadable :: Int -> String
-makeNumberHumanReadable =
-  reverse
-    . intercalate ","
-    . makeNumberHumanReadable'
-    . reverse
-    . show
-  where
-    makeNumberHumanReadable' [] = []
-    makeNumberHumanReadable' xs =
-      let (firstNum, restNums) = splitAt 3 xs
-       in firstNum : makeNumberHumanReadable' restNums
-
 -- | Take the minimum distance from a multiple of 5 that a number is
 distanceFrom5 :: Int -> Int
 distanceFrom5 n = (\v -> min v (5 - v)) $ mod n 5
@@ -45,7 +29,6 @@ distanceFrom5 n = (\v -> min v (5 - v)) $ mod n 5
 -- | Take the average distance from a multiple of 5 that a list of numbers are
 avgDistanceFromMultiplesOf5 :: [Int] -> Float
 avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
-
 
 -- * More specific/"Domain" functions
 
@@ -107,6 +90,55 @@ playerTeamToOption =
     . groupBy (\(_, t1) (_, t2) -> t1 == t2)
     . sortOn snd
 
+-- | Sort a lineup by popularity (frequency) of teams
+popularitySort :: Lineup -> Lineup
+popularitySort l = map (DB.second $ sortBy $ popSort' l) l
+  where
+    popSort' l' t1 t2 = compare (popSort'' t2 l') (popSort'' t1 l')
+    popSort'' t = length . filter (== t) . concatMap snd
+
+-- | How many Options will a given Lineup generate
+numOptionsFn :: Lineup -> Int
+numOptionsFn = product . map (length . snd)
+
+-- | Get a list of all Teams in a lineup
+allTeamsFn :: Lineup -> [Team]
+allTeamsFn = rmDups . concatMap snd
+
+-- | Filter a Lineup such that it contains only teams that could be a viable Option
+popFilter :: Lineup -> Lineup
+popFilter l =
+  let allTeams = concatMap snd l
+      numOfOneTeam t = length . filter (t ==) $ allTeams
+      filterTeamList = filter (\t -> numOfOneTeam t > 4 || t == captainTeam)
+   in filter (not . null . snd) . map (DB.second filterTeamList) $ l
+
+-- | Convert a Lineup to a list of lists of Players and Teams
+lineupToPlayerTeams :: Lineup -> [[(Player, Team)]]
+lineupToPlayerTeams = mapM (\(p, ts) -> [(p, t) | t <- ts])
+
+-- | The function to fold a list of options down into the best one
+-- | It generates a list such that it can be printed and give some idea
+-- | Of progress
+foldFunction :: [Option] -> [Option]
+foldFunction [] = []
+foldFunction options = foldFunction' options []
+  where
+    foldFunction' [] _ = []
+    foldFunction' (o : os) biggestO =
+      if orderOptions o biggestO == GT
+        then o : foldFunction' os o
+        else foldFunction' os biggestO
+
+-- * Prettily printing values
+
+-- | Nicely print a Lineup
+ppSquad :: Lineup -> IO ()
+ppSquad =
+  putStrLn
+    . intercalate "\n"
+    . map (\(p, ts) -> p ++ ": " ++ intercalate ", " ts)
+
 -- | Nicely print an Option
 ppOption :: Option -> String
 ppOption o =
@@ -144,49 +176,16 @@ ppOptions = intercalate "\n\n" . map ppOption
 putPPOptions :: [Option] -> IO ()
 putPPOptions = putStrLn . ppOptions
 
--- | Sort a lineup by popularity (frequency) of teams
-popularitySort :: Lineup -> Lineup
-popularitySort l = map (DB.second $ sortBy $ popSort' l) l
-  where popSort' l' t1 t2 = compare (popSort'' t2 l') (popSort'' t1 l')
-        popSort'' t = length . filter (== t) . concatMap snd
-
--- | How many Options will a given Lineup generate
-numOptionsFn :: Lineup -> Int
-numOptionsFn = product . map (length . snd)
-
--- | Get a list of all Teams in a lineup
-allTeamsFn :: Lineup -> [Team]
-allTeamsFn = rmDups . concatMap snd
-
--- | Filter a Lineup such that it contains only teams that could be a viable Option
-popFilter :: Lineup -> Lineup
-popFilter l =
-  let allTeams = concatMap snd l
-      numOfOneTeam t = length . filter (t==) $ allTeams
-      filterTeamList = filter (\t -> numOfOneTeam t > 4 || t == captainTeam)
-   in filter (not . null . snd) . map (DB.second filterTeamList) $ l
-
--- | Convert a Lineup to a list of lists of Players and Teams
-lineupToPlayerTeams :: Lineup -> [[(Player, Team)]]
-lineupToPlayerTeams = mapM (\(p, ts) -> [(p, t) | t <- ts])
-
--- | The function to fold a list of options down into the best one
--- | It generates a list such that it can be printed and give some idea
--- | Of progress
-foldFunction :: [Option] -> [Option]
-foldFunction [] = []
-foldFunction options = foldFunction' options []
-  where foldFunction' [] _ = []
-        foldFunction' (o : os) biggestO =
-          if orderOptions o biggestO == GT
-          then o : foldFunction' os o
-          else foldFunction' os biggestO
-
-{- Useful for debugging/testing -}
-
--- | Nicely print a Lineup
-ppSquad :: Lineup -> IO()
-ppSquad = 
-  putStrLn
-  . intercalate "\n"
-  . map (\(p, ts) -> p ++ ": " ++ intercalate ", " ts)
+-- | Comma-separate a number for human reading
+makeNumberHumanReadable :: Int -> String
+makeNumberHumanReadable =
+  reverse
+    . intercalate ","
+    . makeNumberHumanReadable'
+    . reverse
+    . show
+  where
+    makeNumberHumanReadable' [] = []
+    makeNumberHumanReadable' xs =
+      let (firstNum, restNums) = splitAt 3 xs
+       in firstNum : makeNumberHumanReadable' restNums
