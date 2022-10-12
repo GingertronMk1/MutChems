@@ -37,7 +37,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            ghc: '8.8'
+            ghc: '8.10'
             cabal: '3.0'
 
   # Single deploy job since we're just deploying
