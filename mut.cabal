@@ -11,8 +11,8 @@ extra-source-files:   CHANGELOG.mmain
 
 executable mut
   main-is:            Main.hs
-  other-modules:      CalculatedData, Data, Functions, Type
+  other-modules:      CalculatedData, Data, Functions.Application, Functions.Domain, Type
   build-depends:      base >=4.13 && <4.14
   default-language:   Haskell2010
   ghc-options:        -Wall
-  hs-source-dirs:     src
+  hs-source-dirs:     src, src/functions
