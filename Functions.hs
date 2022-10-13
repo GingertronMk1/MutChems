@@ -105,8 +105,23 @@ foldFunction options = foldFunction' options []
 -- into players with all team chemistries in the lineup
 convert32TeamPlayers :: Lineup -> Lineup
 convert32TeamPlayers l =
-  let allTeams = filter (/=all32Teams) . rmDups . concatMap snd $ l
-  in map (\(p, ts) -> (p, if ts == [all32Teams] then allTeams else ts)) l
+  map
+    ( convert32TeamPlayer
+        ( filter (/= all32Teams)
+            . rmDups
+            . concatMap snd
+            $ l
+        )
+    )
+    l
+
+-- | Take a single player, and if they can have all 32 team chemistries, give him
+-- the chemistries of all teams provided
+convert32TeamPlayer :: [Team] -> PlayerTeams -> PlayerTeams
+convert32TeamPlayer ts (p, pts) =
+  if all32Teams `elem` pts
+    then (p, ts)
+    else (p, pts)
 
 -- * Prettily printing values
 
@@ -167,3 +182,12 @@ makeNumberHumanReadable =
     makeNumberHumanReadable' xs =
       let (firstNum, restNums) = splitAt 3 xs
        in firstNum : makeNumberHumanReadable' restNums
+
+-- | Give me the number of each team chemistry in the lineup
+numOfEachTeam :: Lineup -> [(Team, Int)]
+numOfEachTeam = 
+  sortOn (Down . snd)
+  . map (\g -> (head g, length g))
+  . group
+  . sort
+  . concatMap snd
