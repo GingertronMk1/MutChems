@@ -45,7 +45,7 @@ jobs:
           cabal-version: ${{ matrix.cabal }}
       - name: Build docs
         run: >
-          ./bin/build-docs | tee docdir.txt
+          ./bin/build-docs.sh | tee docdir.txt
           echo "DOCDIR=$(cat docdir.txt | tail -1)" >> $GITHUB_ENV
       - name: Setup Pages
         uses: actions/configure-pages@v2
