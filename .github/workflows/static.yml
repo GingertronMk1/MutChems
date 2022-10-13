@@ -7,6 +7,7 @@ on:
     branches: ["main"]
     paths:
       - '**.hs'
+      - '.github/workflows/**/*.yml'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -45,8 +46,8 @@ jobs:
           cabal-version: ${{ matrix.cabal }}
       - name: Build docs
         run: >
-          ./bin/build-docs.sh | tee docdir.txt
-          echo "DOCDIR=$(cat docdir.txt | tail -1)" >> $GITHUB_ENV
+          ./bin/build-docs.sh | tee docdir.txt;
+          echo "DOCDIR=$(cat docdir.txt | tail -1)" >> $GITHUB_ENV;
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
