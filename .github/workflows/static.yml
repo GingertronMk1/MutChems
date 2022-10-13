@@ -45,12 +45,10 @@ jobs:
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
-      - name: Build app
-        run: cabal build
       - name: Build docs
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
-          echo "DOCDIR=$(basedir $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
+          echo "DOCDIR=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
