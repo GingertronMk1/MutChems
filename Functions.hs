@@ -101,6 +101,8 @@ foldFunction options = foldFunction' options []
         then o : foldFunction' os o
         else foldFunction' os biggestO
 
+-- | Takes a lineup and converts any players who can have all 32 team chems
+-- into players with all team chemistries in the lineup
 convert32TeamPlayers :: Lineup -> Lineup
 convert32TeamPlayers l =
   let allTeams = rmDups . concatMap snd $ l
