@@ -8,7 +8,7 @@ import Data.List
 import Data.Ord
 import Type
 
--- * Utility/"Application" Functions #util#
+-- * Utility (Application) Functions
 
 -- | Remove duplicate items from a list
 rmDups :: (Eq a, Ord a) => [a] -> [a]
@@ -30,7 +30,7 @@ distanceFrom5 n = (\v -> min v (5 - v)) $ mod n 5
 avgDistanceFromMultiplesOf5 :: [Int] -> Float
 avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
 
--- * More specific/"Domain" functions
+-- * More specific (Domain) functions
 
 -- | Returns whether tps2 should be higher up the list than tps1
 orderOptions :: Option -> Option -> Ordering
