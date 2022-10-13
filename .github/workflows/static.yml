@@ -46,7 +46,7 @@ jobs:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
       - name: Build app
-        run: cabal build
+        run: cabal install && cabal build
       - name: Build docs
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
