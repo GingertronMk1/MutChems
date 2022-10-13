@@ -1,6 +1,6 @@
 -- |
--- Module: Functions.Application
-module Functions.Application where
+-- Module: Application
+module Application where
 
 import Data.List
 

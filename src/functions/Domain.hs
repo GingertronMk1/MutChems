@@ -1,8 +1,8 @@
 -- |
 -- Module: Domain
-module Functions.Domain where
+module Domain where
 
-import Functions.Application
+import Application
 import Data
 import Data.Bifunctor as DB
 import Data.List
