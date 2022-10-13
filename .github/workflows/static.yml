@@ -44,7 +44,9 @@ jobs:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
       - name: Build docs
-        run: echo "DOCDIR=$(dirname $(./bin/build-docs.sh))" >> $GITHUB_ENV
+        run: >
+          ./bin/build-docs | tee docdir.txt
+          echo "DOCDIR=$(cat docdir.txt | tail -1)" >> $GITHUB_ENV
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
