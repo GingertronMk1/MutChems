@@ -11,7 +11,6 @@ import Functions
 squad :: Lineup
 squad =
   popularitySort
-  . convert32TeamPlayers
   $ concatMap
     (concatMap snd)
     [ offense,
@@ -21,4 +20,7 @@ squad =
 
 -- | The squad but filtered by popularity
 popSquad :: Lineup
-popSquad = popFilter squad
+popSquad = 
+  convert32TeamPlayers
+  . popFilter
+  $ squad
