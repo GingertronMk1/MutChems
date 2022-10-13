@@ -27,7 +27,7 @@ offense =
       ]
     ),
     ( "te",
-      [ ("Dave Casper", ["Raiders", "Titans", "Vikings", "Legends"]),
+      [ ("Dave Casper", [all32Teams]),
         ("Evan Engram", ["Giants", "Jaguars"])
       ]
     ),
