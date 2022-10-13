@@ -31,7 +31,7 @@ jobs:
         include:
           - os: ubuntu-latest
             ghc: '8.8'
-            cabal: '3.0'
+            cabal: '3.2'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
