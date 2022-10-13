@@ -11,6 +11,7 @@ import Functions
 squad :: Lineup
 squad =
   popularitySort
+  . convert32TeamPlayers
   $ concatMap
     (concatMap snd)
     [ offense,

@@ -32,34 +32,6 @@ avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
 
 -- * More specific/"Domain" functions
 
--- | Take the most best option for a team captain
-bestCaptainOption :: Option -> Option
-bestCaptainOption = last . bestCaptainOption'
-
--- | Generate a list of options for the team captain, and order them from "worst" to "best"
-bestCaptainOption' :: Option -> [Option]
-bestCaptainOption' o =
-  if captainTeam `elem` map fst o
-    then
-      let captainName = head . snd . head $ filter (\(t, _) -> t == captainTeam) o
-          remaining = filter (\(t, _) -> t /= captainTeam) o
-       in sortBy orderOptions . map (sortOn (Down . length . snd)) . iterativeApplicationFn (DB.second (captainName :)) $ remaining
-    else [o]
-
--- | Apply a function to each item in a list, returning a list of lists containing
--- | the result of each application
-iterativeApplicationFn :: (Eq a) => (a -> a) -> [a] -> [[a]]
-iterativeApplicationFn _ [] = []
-iterativeApplicationFn f xs = iterativeApplicationFn' f xs xs
-
--- | Helper function for iterativeApplicationFn
-iterativeApplicationFn' :: Eq a => (a -> a) -> [a] -> [a] -> [[a]]
-iterativeApplicationFn' _ [] cs = [cs]
-iterativeApplicationFn' _ _ [] = []
-iterativeApplicationFn' fn bs (c : cs) =
-  let bs' = filter (/= c) bs
-   in (fn c : bs') : iterativeApplicationFn' fn bs' cs
-
 -- | Returns whether tps2 should be higher up the list than tps1
 orderOptions :: Option -> Option -> Ordering
 orderOptions o1 o2 =
@@ -81,8 +53,7 @@ orderOptions' xs ys
 -- | Convert a list of players and teams to an Option
 playerTeamToOption :: [(Player, Team)] -> Option
 playerTeamToOption =
-  bestCaptainOption
-    . sortOn (Down . length . snd)
+  sortOn (Down . length . snd)
     . map
       ( (\(ps, t : _) -> (t, ps))
           . unzip
@@ -129,6 +100,11 @@ foldFunction options = foldFunction' options []
       if orderOptions o biggestO == GT
         then o : foldFunction' os o
         else foldFunction' os biggestO
+
+convert32TeamPlayers :: Lineup -> Lineup
+convert32TeamPlayers l =
+  let allTeams = rmDups . concatMap snd $ l
+  in map (\(p, ts) -> (p, if ts == [captainTeam] then allTeams else ts)) l
 
 -- * Prettily printing values
 
