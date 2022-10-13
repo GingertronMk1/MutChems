@@ -6,8 +6,8 @@ module Data where
 import Type
 
 -- | A useful shorthand for any player who can have all 32 teams
-captainTeam :: Team
-captainTeam = "CAPTAIN"
+all32Teams :: Team
+all32Teams = "all32"
 
 -- | The offensive players
 offense :: LiterateLineup
@@ -95,7 +95,7 @@ defense =
       ]
     ),
     ( "dt",
-      [ ("Sam Adams", [captainTeam]),
+      [ ("Sam Adams", [all32Teams]),
         ("Deforest Buckner", ["49ers", "Colts"])
       ]
     )

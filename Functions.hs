@@ -81,7 +81,7 @@ popFilter :: Lineup -> Lineup
 popFilter l =
   let allTeams = concatMap snd l
       numOfOneTeam t = length . filter (t ==) $ allTeams
-      filterTeamList = filter (\t -> numOfOneTeam t > 4 || t == captainTeam)
+      filterTeamList = filter (\t -> numOfOneTeam t > 4 || t == all32Teams)
    in filter (not . null . snd) . map (DB.second filterTeamList) $ l
 
 -- | Convert a Lineup to a list of lists of Players and Teams
@@ -105,8 +105,8 @@ foldFunction options = foldFunction' options []
 -- into players with all team chemistries in the lineup
 convert32TeamPlayers :: Lineup -> Lineup
 convert32TeamPlayers l =
-  let allTeams = rmDups . concatMap snd $ l
-  in map (\(p, ts) -> (p, if ts == [captainTeam] then allTeams else ts)) l
+  let allTeams = filter (/=all32Teams) . rmDups . concatMap snd $ l
+  in map (\(p, ts) -> (p, if ts == [all32Teams] then allTeams else ts)) l
 
 -- * Prettily printing values
 
