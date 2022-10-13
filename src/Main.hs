@@ -4,7 +4,7 @@ Module: Main
 
 module Main where
 
-import Functions.Domain
+import Domain
 import CalculatedData
 
 -- | The important bit
