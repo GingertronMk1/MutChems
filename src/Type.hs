@@ -1,6 +1,5 @@
-{-|
-Module: Type
--}
+-- |
+-- Module: Type
 module Type where
 
 -- | Team is shorthand for a String - it is just the name of a team

@@ -1,17 +1,15 @@
-{-|
-Module: Functions.Domain
-
-Domain functions, i.e. those which are more specific to this project and the
-data structures it contains
--}
-
+-- |
+-- Module: Functions.Domain
+--
+-- Domain functions, i.e. those which are more specific to this project and the
+-- data structures it contains
 module Functions.Domain where
 
-import Functions.Application
 import Data
 import Data.Bifunctor as DB
 import Data.List
 import Data.Ord
+import Functions.Application
 import Type
 
 -- * More specific (Domain) functions
@@ -157,9 +155,9 @@ makeNumberHumanReadable =
 
 -- | Give me the number of each team chemistry in the lineup
 numOfEachTeam :: Lineup -> [(Team, Int)]
-numOfEachTeam = 
+numOfEachTeam =
   sortOn (Down . snd)
-  . map (\g -> (head g, length g))
-  . group
-  . sort
-  . concatMap snd
+    . map (\g -> (head g, length g))
+    . group
+    . sort
+    . concatMap snd

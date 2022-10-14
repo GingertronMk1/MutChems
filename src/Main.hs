@@ -1,7 +1,5 @@
-{-|
-Module: Main
--}
-
+-- |
+-- Module: Main
 module Main where
 
 import CalculatedData
@@ -11,9 +9,8 @@ import Functions.Domain
 main :: IO ()
 main =
   putStrLn
-  . ppOptions
-  . foldFunction
-  . map playerTeamToOption
-  . lineupToPlayerTeams
-  $ popSquad
-
+    . ppOptions
+    . foldFunction
+    . map playerTeamToOption
+    . lineupToPlayerTeams
+    $ popSquad

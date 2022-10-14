@@ -1,14 +1,11 @@
-{-|
-
-Module: Functions.Application
-
-Application functions, i.e. those which do not care about any types I've created
--}
-
+-- |
+--
+-- Module: Functions.Application
+--
+-- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
 import Data.List
-
 
 -- | Remove duplicate items from a list
 rmDups :: (Eq a, Ord a) => [a] -> [a]
@@ -41,4 +38,3 @@ orderListOfInts xs ys
     num5s = length . filter (== 0) . map (`mod` 5)
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
-
