@@ -2,13 +2,13 @@
 
 Module: Functions.Application
 
+Application functions, i.e. those which do not care about any types I've created
 -}
 
 module Functions.Application where
 
 import Data.List
 
--- * Utility (Application) Functions
 
 -- | Remove duplicate items from a list
 rmDups :: (Eq a, Ord a) => [a] -> [a]

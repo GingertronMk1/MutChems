@@ -1,6 +1,8 @@
 {-|
 Module: Functions.Domain
 
+Domain functions, i.e. those which are more specific to this project and the
+data structures it contains
 -}
 
 module Functions.Domain where
