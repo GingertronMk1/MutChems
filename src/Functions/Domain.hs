@@ -20,19 +20,7 @@ import Type
 orderOptions :: Option -> Option -> Ordering
 orderOptions o1 o2 =
   let lengths = map (length . snd) . take 3
-   in fst $ orderOptions' (lengths o1) (lengths o2)
-
--- | Helper function for orderOptions
-orderOptions' :: [Int] -> [Int] -> (Ordering, String)
-orderOptions' xs ys
-  | sumComp /= EQ = (sumComp, "Sum")
-  | numComp /= EQ = (numComp, "5s")
-  | otherwise = (distComp, "Dist")
-  where
-    sumComp = compare (sum xs) (sum ys)
-    num5s = length . filter (== 0) . map (`mod` 5)
-    numComp = compare (num5s xs) (num5s ys)
-    distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
+   in fst $ orderListOfInts (lengths o1) (lengths o2)
 
 -- | Convert a list of players and teams to an Option
 playerTeamToOption :: [(Player, Team)] -> Option
