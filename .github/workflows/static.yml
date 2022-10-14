@@ -41,7 +41,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: haskell/actions/setup@v2
+      - name: Cache GHC install
+        id: cache-haskell
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/.ghcup
+          key: ${{ matrix.os }}-${{ matrix.ghc }}-${{ matrix.cabal }}
+      - if: ${{ steps.cache-haskell.outputs.cache-hit != 'true' }}
+        uses: haskell/actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
