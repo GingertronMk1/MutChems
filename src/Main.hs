@@ -4,8 +4,8 @@ Module: Main
 
 module Main where
 
-import Domain
 import CalculatedData
+import Functions.Domain
 
 -- | The important bit
 main :: IO ()

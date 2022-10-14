@@ -5,7 +5,7 @@ module CalculatedData where
 
 import Data
 import Type
-import Domain
+import Functions.Domain
 
 -- | The constituent parts of a squad combined and sorted by popularity of team
 squad :: Lineup
