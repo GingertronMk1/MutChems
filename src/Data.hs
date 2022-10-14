@@ -66,7 +66,8 @@ defense :: LiterateLineup
 defense =
   [ ( "mlb",
       [ ("Kiko Alonso", ["Legends", "Bills", "Dolphins", "Eagles", "Saints"]),
-        ("Tremaine Edmunds", ["Bills"])
+        ("Tremaine Edmunds", ["Bills"]),
+        ("Devin White", ["Buccaneers"])
       ]
     ),
     ( "rolb",
@@ -91,7 +92,8 @@ defense =
       [ ("Stephon Gilmore", ["Colts", "Bills", "Panthers", "Patriots"]),
         ("Sauce Gardner", ["Jets"]),
         ("Casey Hayward Jr", ["Raiders", "Packers", "Chargers", "Falcons"]),
-        ("Sidney Jones IV", ["Seahawks", "Eagles", "Jaguars"])
+        ("Sidney Jones IV", ["Seahawks", "Eagles", "Jaguars"]),
+        ("Rasul Douglas", ["Packers", "Eagles", "Panthers"])
       ]
     ),
     ( "dt",
