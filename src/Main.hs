@@ -3,6 +3,7 @@
 module Main where
 
 import CalculatedData
+import Functions.Display
 import Functions.Domain
 
 -- | The important bit
@@ -13,4 +14,4 @@ main =
     . foldFunction
     . map playerTeamToOption
     . lineupToPlayerTeams
-    $ popSquad
+    $ filteredSquad
