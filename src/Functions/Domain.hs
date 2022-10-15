@@ -17,7 +17,7 @@ import Type
 -- | Returns whether tps2 should be higher up the list than tps1
 orderOptions :: Option -> Option -> Ordering
 orderOptions o1 o2 =
-  let lengths = map (length . snd) . take 3
+  let lengths = map (length . convertMultiples . snd) . take 3
    in fst $ orderListOfInts (lengths o1) (lengths o2)
 
 -- | Convert a list of players and teams to an Option
@@ -42,21 +42,35 @@ popularitySort l = map (DB.second $ sortBy $ popSort' l) l
 numOptionsFn :: Lineup -> Int
 numOptionsFn = product . map (length . snd)
 
--- | Get a list of all Teams in a lineup
+-- | Get a list of all unique Teams in a Lineup
 allTeamsFn :: Lineup -> [Team]
-allTeamsFn = rmDups . concatMap snd
+allTeamsFn = rmDups . allTeamsWithNumbers
+
+-- | Get a list of all Teams in a Lineup
+allTeamsWithNumbers :: Lineup -> [Team]
+allTeamsWithNumbers = concatMap (convertMultiples . snd)
 
 -- | Filter a Lineup such that it contains only teams that could be a viable Option
 popFilter :: Lineup -> Lineup
 popFilter l =
-  let allTeams = concatMap snd l
+  let allTeams = allTeamsWithNumbers l
       numOfOneTeam t = length . filter (t ==) $ allTeams
-      filterTeamList = filter (\t -> numOfOneTeam t > 4 || t == all32Teams)
+      filterTeamList = filter (\t -> (numOfOneTeam . fst . breakStringWithNumber $ t) > 4 || t == all32Teams)
    in filter (not . null . snd) . map (DB.second filterTeamList) $ l
 
 -- | Convert a Lineup to a list of lists of Players and Teams
 lineupToPlayerTeams :: Lineup -> [[(Player, Team)]]
-lineupToPlayerTeams = mapM (\(p, ts) -> [(p, t) | t <- ts])
+lineupToPlayerTeams = mapM (\(p, ts) -> lineupToPlayerTeams' p ts)
+
+-- | Helper for lineupToPlayerTeams
+lineupToPlayerTeams' :: Player -> [Team] -> [(Player, Team)]
+lineupToPlayerTeams' p = map (lineupToPlayerTeams'' p)
+
+-- | Adding the number of a given team chemistry to the player's name
+lineupToPlayerTeams'' :: Player -> Team -> (Player, Team)
+lineupToPlayerTeams'' p t =
+  let (t', tn) = break (=='|') t 
+   in (p ++ tn, t')
 
 -- | The function to fold a list of options down into the best one
 -- | It generates a list such that it can be printed and give some idea
@@ -118,5 +132,7 @@ numOfEachTeam =
     . sort
     . concatMap snd
 
+-- | Helper for calculatedData such that I can more easily see the effect of the
+-- popFilter function
 processSquad :: Lineup -> Lineup
 processSquad = popularitySort . convert32TeamPlayers

@@ -18,7 +18,7 @@ ppSquad =
 ppOption :: Option -> String
 ppOption o =
   let longestTeamNameLength = length . maximumBy (comparing length) . map fst $ o
-      largestNumber = length . show . maximum . map (length . snd) $ o
+      largestNumber = length . show . maximum . map (length . convertMultiples . snd) $ o
       indent = replicate 2 ' '
    in intercalate "\n"
         . map
@@ -26,7 +26,7 @@ ppOption o =
               indent
                 ++ padRight longestTeamNameLength ' ' team
                 ++ " | "
-                ++ padRight largestNumber ' ' ((show . length) p)
+                ++ padRight largestNumber ' ' ((show . length . convertMultiples) p)
                 ++ " | "
                 ++ player
                 ++ concatMap

@@ -116,3 +116,6 @@ specialTeams =
     )
   ]
 
+-- | Team affinity strategy card
+strategy :: PlayerTeams
+strategy = ("Strategy", ["none"])

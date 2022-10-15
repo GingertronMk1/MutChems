@@ -38,3 +38,24 @@ orderListOfInts xs ys
     num5s = length . filter (== 0) . map (`mod` 5)
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
+
+-- | A function to convert a string of format "<Data>|<Number>" into a tuple of
+-- the described format
+breakStringWithNumber :: String -> (String, Int)
+breakStringWithNumber t =
+  let (t', tn') = break (=='|') t
+      tn'' = if tn' == "" then 1 else read (drop 1 tn') :: Int
+   in (t', tn'')
+
+-- | Taking a list of strings and replicating them by the number given in `breakStringWithNumber`
+-- to make length calculations relatively straightforward
+convertSingleToMultiple :: String -> [String]
+convertSingleToMultiple t =
+  let (t', tn') = breakStringWithNumber t
+   in replicate tn' t'
+
+-- | Mapping convertSingleToMultiple over an array of strings and concatenating
+-- the result
+convertMultiples :: [String] -> [String]
+convertMultiples = concatMap convertSingleToMultiple
+
