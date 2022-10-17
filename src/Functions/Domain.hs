@@ -60,7 +60,7 @@ popFilter l =
 
 -- | Convert a Lineup to a list of lists of Players and Teams
 lineupToPlayerTeams :: Lineup -> [[(Player, Team)]]
-lineupToPlayerTeams = mapM (\(p, ts) -> lineupToPlayerTeams' p ts)
+lineupToPlayerTeams = mapM (uncurry lineupToPlayerTeams')
 
 -- | Helper for lineupToPlayerTeams
 lineupToPlayerTeams' :: Player -> [Team] -> [(Player, Team)]
@@ -103,9 +103,11 @@ convert32TeamPlayers l =
 -- the chemistries of all teams provided
 convert32TeamPlayer :: [Team] -> PlayerTeams -> PlayerTeams
 convert32TeamPlayer ts (p, pts) =
-  if all32Teams `elem` pts
-    then (p, ts)
-    else (p, pts)
+  -- Filtering those cards with multiple team chems e.g. 3x Raiders
+  let filteredTeams = rmDups . map (fst . breakStringWithNumber) $ ts 
+  in if all32Teams `elem` pts
+      then (p, filteredTeams)
+      else (p, pts)
 
 -- * Prettily printing values
 

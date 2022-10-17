@@ -12,7 +12,9 @@ main :: IO ()
 main =
   putStrLn
     . ppOptions
-    . sortBy orderOptions
+    . reverse
+    . take 3
+    . sortBy (flip orderOptions)
     . map playerTeamToOption
     . lineupToPlayerTeams
     $ filteredSquad

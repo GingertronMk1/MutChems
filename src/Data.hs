@@ -18,8 +18,9 @@ offense =
       ]
     ),
     ( "hb",
-      [ ("Cordarrelle Patterson", ["Bears", "Falcons", "Raiders", "Patriots", "Vikings"]),
-        ("Demarco Murray", ["Cowboys", "Eagles", "Titans", "Legends"])
+      [ ("Eric Dickerson", ["Legends", "Colts", "Raiders", "Rams", "Falcons"]),
+        ("Cordarrelle Patterson", ["Bears", "Falcons", "Raiders", "Patriots", "Vikings"]),
+        ("Ezekiel Elliott", ["Cowboys"])
       ]
     ),
     ( "fb",
@@ -118,4 +119,4 @@ specialTeams =
 
 -- | Team affinity strategy card
 strategy :: PlayerTeams
-strategy = ("Strategy", ["none"])
+strategy = ("Strategy", ["Raiders|3"])
