@@ -1,6 +1,5 @@
-{-|
-Module: Data
--}
+-- |
+-- Module: Data
 module Data where
 
 import Type
@@ -18,7 +17,7 @@ offense =
       ]
     ),
     ( "hb",
-      [ ("Eric Dickerson", ["Legends", "Colts", "Raiders", "Rams", "Falcons"]),
+      [ ("Eric Dickerson", ["Legends", "Rams", "Colts", "Falcons", "Raiders"]),
         ("Cordarrelle Patterson", ["Bears", "Falcons", "Raiders", "Patriots", "Vikings"]),
         ("Ezekiel Elliott", ["Cowboys"])
       ]
@@ -33,15 +32,14 @@ offense =
       ]
     ),
     ( "wr",
-      [
-        ("Larry Fitzgerald", ["Cardinals", "Legends"]),
-        ("Michael Crabtree", ["49ers", "Ravens", "Cardinals", "Raiders", "Legends"]),
-        ("DJ Moore", ["Panthers"]),
-        ("Brandin Cooks", ["Patriots", "Rams", "Saints", "Texans"])
+      [ ("Michael Crabtree", ["49ers", "Ravens", "Cardinals", "Raiders", "Legends"]),
+        ("Deebo Samuel ", ["49ers"]),
+        ("DJ Moore", ["Panthers"])
       ]
     ),
     ( "lt",
-      [ ("Orlando Brown", ["Chiefs", "Ravens"])
+      [ ("Garrett Bolles", ["Broncos"]),
+        ("Orlando Brown", ["Chiefs", "Ravens"])
       ]
     ),
     ( "lg",
@@ -79,6 +77,19 @@ defense =
       [ ("Ted Hendricks", ["Colts", "Packers", "Raiders", "Legends"])
       ]
     ),
+    ( "dt",
+      [ ("Sam Adams", [all32Teams]),
+        ("Deforest Buckner", ["49ers", "Colts"])
+      ]
+    ),
+    ( "le",
+      [ ("Chase Young", ["Commanders"])
+      ]
+    ),
+    ( "re",
+      [ ("Aidan Hutchinson", ["Lions"])
+      ]
+    ),
     ( "ss",
       [ ("Harrison Smith", ["Vikings"]),
         ("Grant Delpit", ["Browns"])
@@ -95,11 +106,6 @@ defense =
         ("Casey Hayward Jr", ["Raiders", "Packers", "Chargers", "Falcons"]),
         ("Sidney Jones IV", ["Seahawks", "Eagles", "Jaguars"]),
         ("Rasul Douglas", ["Packers", "Eagles", "Panthers"])
-      ]
-    ),
-    ( "dt",
-      [ ("Sam Adams", [all32Teams]),
-        ("Deforest Buckner", ["49ers", "Colts"])
       ]
     )
   ]
@@ -119,4 +125,4 @@ specialTeams =
 
 -- | Team affinity strategy card
 strategy :: PlayerTeams
-strategy = ("Strategy", ["Raiders|3"])
+strategy = ("None", [])
