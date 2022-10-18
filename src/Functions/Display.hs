@@ -28,7 +28,7 @@ ppOption o =
                 ++ " | "
                 ++ padRight largestNumber ' ' ((show . length . convertMultiples) p)
                 ++ " | "
-                ++ player
+                ++ breakAndPPString player
                 ++ concatMap
                   ( \player' ->
                       "\n"
@@ -37,7 +37,7 @@ ppOption o =
                         ++ " | "
                         ++ replicate largestNumber ' '
                         ++ " | "
-                        ++ player'
+                        ++ breakAndPPString player'
                   )
                   players
           )
@@ -50,3 +50,12 @@ ppOptions = intercalate "\n\n" . map ppOption
 -- | Print a nicely formatted list of Options
 putPPOptions :: [Option] -> IO ()
 putPPOptions = putStrLn . ppOptions
+
+-- | Take a String and Int tuple and print it nicely
+ppBrokenString :: (String, Int) -> String
+ppBrokenString (p, 1) = p
+ppBrokenString (p, n) = p  ++ " (x" ++ show n ++ ")"
+
+-- | Take a pipe-separated string and print it nicely
+breakAndPPString :: String -> String
+breakAndPPString = ppBrokenString . breakStringWithNumber
