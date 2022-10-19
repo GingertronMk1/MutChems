@@ -33,7 +33,7 @@ playerTeamToOption =
 
 -- | Sort a lineup by popularity (frequency) of teams
 popularitySort :: Lineup -> Lineup
-popularitySort l = map (DB.second $ sortBy $ popSort' l) l
+popularitySort l = map (DB.second . sortBy . popSort' $ l) l
   where
     popSort' l' t1 t2 = compare (popSort'' t2 l') (popSort'' t1 l')
     popSort'' t = length . filter (== t) . concatMap snd
