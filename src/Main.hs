@@ -5,14 +5,20 @@ module Main where
 import CalculatedData
 import Functions.Display
 import Functions.Domain
+import Type
 
 -- | The important bit
 main :: IO ()
 main =
   putStrLn
     . ppOptions
-    . reverse
-    . topOptions
-    . map playerTeamToOption
-    . lineupToPlayerTeams
-    $ filteredSquad
+    $ main'
+
+main' :: [Option]
+main' = topOptions main''
+
+main'' :: [Option]
+main'' = 
+  map playerTeamToOption
+  . lineupToPlayerTeams
+  $ filteredSquad
