@@ -139,13 +139,16 @@ numOfEachTeam =
 processSquad :: Lineup -> Lineup
 processSquad = popularitySort . convert32TeamPlayers
 
+
+-- | Effectively a folder to take the top Options in a list
 topOptions :: [Option] -> [Option]
 topOptions = topOptions' []
 
+-- | Helper for the above - accumulates the top options in a list
 topOptions' :: [Option] -> [Option] -> [Option]
 topOptions' t [] = t
 topOptions' [] (o:os) = topOptions' [o] os
 topOptions' top@(t:__) (o:os) =
-  case orderOptions t o of LT -> topOptions' [o] os
-                           EQ -> topOptions' (o:top) os
-                           GT -> topOptions' top os
+  case orderOptions t o of LT -> topOptions' [o] os       -- o < t?
+                           EQ -> topOptions' (o:top) os   -- o == t
+                           GT -> topOptions' top os       -- o > t
