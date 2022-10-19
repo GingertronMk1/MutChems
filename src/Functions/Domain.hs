@@ -101,7 +101,9 @@ convert32TeamPlayers l =
 
 -- | Take a single player, and if they can have all 32 team chemistries, give him
 -- the chemistries of all teams provided
-convert32TeamPlayer :: [Team] -> PlayerTeams -> PlayerTeams
+convert32TeamPlayer :: [Team]       -- ^ List of all available teams
+                    -> PlayerTeams  -- ^ List of all (Player, [Team]) entries
+                    -> PlayerTeams  -- ^ Result
 convert32TeamPlayer ts (p, pts) =
   -- Filtering those cards with multiple team chems e.g. 3x Raiders
   let filteredTeams = rmDups . map (fst . breakStringWithNumber) $ ts 
@@ -145,10 +147,12 @@ topOptions :: [Option] -> [Option]
 topOptions = topOptions' []
 
 -- | Helper for the above - accumulates the top options in a list
-topOptions' :: [Option] -> [Option] -> [Option]
+topOptions' :: [Option] -- ^ Initial option
+            -> [Option] -- ^ Rest of the list we're accumulating
+            -> [Option] -- ^ Result
 topOptions' t [] = t
 topOptions' [] (o:os) = topOptions' [o] os
 topOptions' top@(t:__) (o:os) =
-  case orderOptions t o of LT -> topOptions' [o] os       -- o < t?
+  case orderOptions t o of LT -> topOptions' [o] os       -- o > t
                            EQ -> topOptions' (o:top) os   -- o == t
-                           GT -> topOptions' top os       -- o > t
+                           GT -> topOptions' top os       -- o < t
