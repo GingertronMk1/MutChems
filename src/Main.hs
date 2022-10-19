@@ -14,9 +14,11 @@ main =
     . ppOptions
     $ main'
 
+-- | Filtering main''
 main' :: [Option]
 main' = topOptions main''
 
+-- | A debug function to let me see all options
 main'' :: [Option]
 main'' = 
   map playerTeamToOption
