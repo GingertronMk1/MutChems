@@ -14,8 +14,10 @@ import Type
 
 -- * More specific (Domain) functions
 
--- | Returns whether tps2 should be higher up the list than tps1
-orderOptions :: Option -> Option -> Ordering
+-- | Returns whether tps1 should be higher up the list than tps2
+orderOptions :: Option      -- ^ The Option being compared
+             -> Option      -- ^ The Option to which it is compared
+             -> Ordering    -- ^ The resultant ordering
 orderOptions o1 o2 =
   let lengths = map (length . convertMultiples . snd)
    in fst $ orderListOfInts (lengths o1) (lengths o2)
@@ -67,10 +69,12 @@ lineupToPlayerTeams' :: Player -> [Team] -> [(Player, Team)]
 lineupToPlayerTeams' p = map (lineupToPlayerTeams'' p)
 
 -- | Adding the number of a given team chemistry to the player's name
-lineupToPlayerTeams'' :: Player -> Team -> (Player, Team)
+lineupToPlayerTeams'' :: Player   -- ^ The player
+                      -> Team     -- ^ The team (with the chem multiplier)
+                      -> (Player, Team)
 lineupToPlayerTeams'' p t =
-  let (t', tn) = break (=='|') t 
-   in (p ++ tn, t')
+  let (t', tn) = breakStringWithNumber t
+   in (p ++ "|" ++ show tn, t')
 
 -- | The function to fold a list of options down into the best one
 -- | It generates a list such that it can be printed and give some idea

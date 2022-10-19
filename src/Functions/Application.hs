@@ -12,7 +12,10 @@ rmDups :: (Eq a, Ord a) => [a] -> [a]
 rmDups = map head . group . sort
 
 -- | Pad a string right with a given char until it is of a certain length
-padRight :: Int -> Char -> String -> String
+padRight :: Int     -- ^ The length you want the string to be
+         -> Char    -- ^ The character you want repeating
+         -> String  -- ^ The initial String
+         -> String  -- ^ The resultant String
 padRight l padding str = str ++ replicate (l - length str) padding
 
 -- | Take the mean of a list of Integral values
