@@ -17,7 +17,7 @@ import Type
 -- | Returns whether tps2 should be higher up the list than tps1
 orderOptions :: Option -> Option -> Ordering
 orderOptions o1 o2 =
-  let lengths = map (length . convertMultiples . snd) . take 3
+  let lengths = map (length . convertMultiples . snd)
    in fst $ orderListOfInts (lengths o1) (lengths o2)
 
 -- | Convert a list of players and teams to an Option
@@ -138,3 +138,14 @@ numOfEachTeam =
 -- popFilter function
 processSquad :: Lineup -> Lineup
 processSquad = popularitySort . convert32TeamPlayers
+
+topOptions :: [Option] -> [Option]
+topOptions = topOptions' []
+
+topOptions' :: [Option] -> [Option] -> [Option]
+topOptions' t [] = t
+topOptions' [] (o:os) = topOptions' [o] os
+topOptions' top@(t:__) (o:os) =
+  case orderOptions t o of LT -> topOptions' [o] os
+                           EQ -> topOptions' (o:top) os
+                           GT -> topOptions' top os
