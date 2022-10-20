@@ -96,15 +96,15 @@ defense =
       ]
     ),
     ( "fs",
-      [ ("Trevon Moehrig", ["Raiders"]),
-        ("Marcus Williams", ["Saints", "Ravens"])
+      [ ("Malik Hooker", ["Colts", "Cowboys"]),
+        ("Trevon Moehrig", ["Raiders"])
+        
       ]
     ),
     ( "cb",
       [ ("Stephon Gilmore", ["Colts", "Bills", "Panthers", "Patriots"]),
         ("Sauce Gardner", ["Jets"]),
-        ("Casey Hayward Jr", ["Raiders", "Packers", "Chargers", "Falcons"]),
-        ("Sidney Jones IV", ["Seahawks", "Eagles", "Jaguars"]),
+        ("Denzel Ward", ["Browns"]),
         ("Rasul Douglas", ["Packers", "Eagles", "Panthers"])
       ]
     )
