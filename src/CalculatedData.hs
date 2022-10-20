@@ -10,6 +10,7 @@ import Type
 squad :: Lineup
 squad = filter (not . null . snd)
       . (strategy:)
+      . (prospectiveAdditions++)
       . concatMap (concatMap snd) $ [ offense, defense, specialTeams ]
 
 -- | The squad but not filtered
