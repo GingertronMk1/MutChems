@@ -19,7 +19,7 @@ orderOptions :: Option      -- ^ The Option being compared
              -> Option      -- ^ The Option to which it is compared
              -> Ordering    -- ^ The resultant ordering
 orderOptions o1 o2 =
-  let lengths = map (length . convertMultiples . snd)
+  let lengths = map (length . convertMultiples . snd) . take 3
    in fst $ orderListOfInts (lengths o1) (lengths o2)
 
 -- | Convert a list of players and teams to an Option
@@ -57,7 +57,8 @@ popFilter :: Lineup -> Lineup
 popFilter l =
   let allTeams = allTeamsWithNumbers l
       numOfOneTeam t = length . filter (t ==) $ allTeams
-      filterTeamList = filter (\t -> (numOfOneTeam . fst . breakStringWithNumber $ t) > 4 || t == all32Teams)
+      numAll32Teamers = length . filter (all32Teams==) $ allTeams
+      filterTeamList = filter (\t -> (numOfOneTeam . fst . breakStringWithNumber $ t) > (5-numAll32Teamers) || t == all32Teams)
    in filter (not . null . snd) . map (DB.second filterTeamList) $ l
 
 -- | Convert a Lineup to a list of lists of Players and Teams
