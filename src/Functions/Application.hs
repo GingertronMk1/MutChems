@@ -19,8 +19,8 @@ padRight :: Int     -- ^ The length you want the string to be
 padRight l padding str = str ++ replicate (l - length str) padding
 
 -- | Take the mean of a list of Integral values
-mean :: (Integral a) => [a] -> Float
-mean ls = fromIntegral (length ls) / fromIntegral (sum ls)
+mean :: (Real a) => [a] -> Float
+mean ls = fromIntegral (length ls) / realToFrac (sum ls)
 
 -- | Take the minimum distance from a multiple of 5 that a number is
 distanceFrom5 :: Int -> Int
