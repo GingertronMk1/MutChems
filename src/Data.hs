@@ -98,7 +98,6 @@ defense =
     ( "fs",
       [ ("Malik Hooker", ["Colts", "Cowboys"]),
         ("Trevon Moehrig", ["Raiders"])
-        
       ]
     ),
     ( "cb",
@@ -126,3 +125,11 @@ specialTeams =
 -- | Team affinity strategy card
 strategy :: PlayerTeams
 strategy = ("None", [])
+
+-- | Players I'm looking into
+prospectiveAdditions :: Lineup
+prospectiveAdditions =
+  [ ("Jaire Alexander", ["Packers"]),
+    ("Quenton Nelson", ["Colts"]),
+    ("Roquan Smith", ["Bears"])
+  ]
