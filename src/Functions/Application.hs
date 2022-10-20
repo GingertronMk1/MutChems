@@ -61,4 +61,3 @@ convertSingleToMultiple t =
 -- the result
 convertMultiples :: [String] -> [String]
 convertMultiples = concatMap convertSingleToMultiple
-

@@ -8,7 +8,9 @@ import Type
 
 -- | The constituent parts of a squad combined and sorted by popularity of team
 squad :: Lineup
-squad = (strategy:) . concatMap (concatMap snd) $ [ offense, defense, specialTeams ]
+squad = filter (not . null . snd)
+      . (strategy:)
+      . concatMap (concatMap snd) $ [ offense, defense, specialTeams ]
 
 -- | The squad but not filtered
 processedSquad :: Lineup
@@ -20,3 +22,7 @@ filteredSquad =
   processSquad
     . popFilter
     $ squad
+
+-- | The number of representatives of each team
+numOfEachTeam :: [(Team, Int)]
+numOfEachTeam = numOfEachTeamFn squad

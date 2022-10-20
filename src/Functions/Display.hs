@@ -59,3 +59,12 @@ ppBrokenString (p, n) = p  ++ " (x" ++ show n ++ ")"
 -- | Take a pipe-separated string and print it nicely
 breakAndPPString :: String -> String
 breakAndPPString = ppBrokenString . breakStringWithNumber
+
+-- | Pretty print the number of each team
+ppNumOfEachTeamFn :: [(Team, Int)] -> IO()
+ppNumOfEachTeamFn tis =
+  let longestTeamNameLength = maximum . map (length . fst) $ tis
+  in putStrLn
+   . intercalate "\n"
+   . map (\(t, n) -> padRight (longestTeamNameLength+2)  ' ' (t ++ ": ") ++ show n)
+   $ tis

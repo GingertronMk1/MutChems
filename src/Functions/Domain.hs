@@ -132,8 +132,8 @@ makeNumberHumanReadable =
        in firstNum : makeNumberHumanReadable' restNums
 
 -- | Give me the number of each team chemistry in the lineup
-numOfEachTeam :: Lineup -> [(Team, Int)]
-numOfEachTeam =
+numOfEachTeamFn :: Lineup -> [(Team, Int)]
+numOfEachTeamFn =
   sortOn (Down . snd)
     . map (\g -> (head g, length g))
     . group
