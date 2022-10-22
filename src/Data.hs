@@ -2,124 +2,83 @@
 -- Module: Data
 module Data where
 
+import qualified Data.Teams as Teams
 import Type
 
--- | A useful shorthand for any player who can have all 32 teams
-all32Teams :: Team
-all32Teams = "all32"
 
 -- | The offensive players
-offense :: LiterateLineup
+offense :: Lineup
 offense =
-  [ ( "qb",
-      [ ("Justin Fields", ["Bears"]),
-        ("Tim Tebow", ["Broncos", "Jets", "Legends"])
-      ]
-    ),
-    ( "hb",
-      [ ("Eric Dickerson", ["Legends", "Rams", "Colts", "Falcons", "Raiders"]),
-        ("Cordarrelle Patterson", ["Bears", "Falcons", "Raiders", "Patriots", "Vikings"]),
-        ("Ezekiel Elliott", ["Cowboys"])
-      ]
-    ),
-    ( "fb",
-      [ ("Jim Taylor", ["Packers", "Saints", "Legends"])
-      ]
-    ),
-    ( "te",
-      [ ("Dave Casper", [all32Teams]),
-        ("Evan Engram", ["Giants", "Jaguars"])
-      ]
-    ),
-    ( "wr",
-      [ ("Michael Crabtree", ["49ers", "Ravens", "Cardinals", "Raiders", "Legends"]),
-        ("Deebo Samuel ", ["49ers"]),
-        ("DJ Moore", ["Panthers"])
-      ]
-    ),
-    ( "lt",
-      [ ("Garrett Bolles", ["Broncos"]),
-        ("Orlando Brown", ["Chiefs", "Ravens"])
-      ]
-    ),
-    ( "lg",
-      [ ("Andrew Norwell", ["Commanders", "Jaguars", "Panthers"])
-      ]
-    ),
-    ( "c",
-      [ ("Frank Ragnow", ["Lions"])
-      ]
-    ),
-    ( "rg",
-      [ ("Mark Glowinski", ["Giants", "Colts", "Seahawks"])
-      ]
-    ),
-    ( "rt",
-      [ ("La'el Collins", ["Cowboys", "Bengals"])
-      ]
-    )
+  [ -- qb
+    ("Justin Fields", [Teams.bears]),
+    ("Tim Tebow", [Teams.broncos, Teams.jets, Teams.legends]),
+    -- hb
+    ("Eric Dickerson", [Teams.legends, Teams.rams, Teams.colts, Teams.falcons, Teams.raiders]),
+    ("Cordarrelle Patterson", [Teams.bears, Teams.falcons, Teams.raiders, Teams.patriots, Teams.vikings]),
+    ("Ezekiel Elliott", [Teams.cowboys]),
+    -- fb
+    ("Jim Taylor", [Teams.packers, Teams.saints, Teams.legends]),
+    -- te
+    ("Dave Casper", [Teams.all32Teams]),
+    ("Evan Engram", [Teams.giants, Teams.jaguars]),
+    -- wr
+    ("Tyreek Hill", [Teams.chiefs, Teams.dolphins]),
+    ("Deebo Samuel", [Teams.niners]),
+    ("Chase Claypool", [Teams.steelers]),
+    ("DJ Moore", [Teams.panthers]),
+    -- lt
+    ("Garrett Bolles", [Teams.broncos]),
+    ("Orlando Brown", [Teams.chiefs, Teams.ravens]),
+    -- lg
+    ("Quenton Nelson", [Teams.colts]),
+    ("Andrew Norwell", [Teams.commanders, Teams.jaguars, Teams.panthers]),
+    -- c
+    ("Frank Ragnow", [Teams.lions]),
+    -- rg
+    ("Mark Glowinski", [Teams.giants, Teams.colts, Teams.seahawks]),
+    -- rt
+    ("La'el Collins", [Teams.cowboys, Teams.bengals])
   ]
 
 -- | The defensive players
-defense :: LiterateLineup
+defense :: Lineup
 defense =
-  [ ( "mlb",
-      [ ("Kiko Alonso", ["Legends", "Bills", "Dolphins", "Eagles", "Saints"]),
-        ("Tremaine Edmunds", ["Bills"]),
-        ("Devin White", ["Buccaneers"])
-      ]
-    ),
-    ( "rolb",
-      [ ("Jonathan Casillas", ["Legends", "Buccaneers", "Giants", "Patriots", "Saints"])
-      ]
-    ),
-    ( "lolb",
-      [ ("Ted Hendricks", ["Colts", "Packers", "Raiders", "Legends"])
-      ]
-    ),
-    ( "dt",
-      [ ("Sam Adams", [all32Teams]),
-        ("Deforest Buckner", ["49ers", "Colts"])
-      ]
-    ),
-    ( "le",
-      [ ("Chase Young", ["Commanders"])
-      ]
-    ),
-    ( "re",
-      [ ("Aidan Hutchinson", ["Lions"])
-      ]
-    ),
-    ( "ss",
-      [ ("Harrison Smith", ["Vikings"]),
-        ("Grant Delpit", ["Browns"])
-      ]
-    ),
-    ( "fs",
-      [ ("Malik Hooker", ["Colts", "Cowboys"]),
-        ("Trevon Moehrig", ["Raiders"])
-      ]
-    ),
-    ( "cb",
-      [ ("Stephon Gilmore", ["Colts", "Bills", "Panthers", "Patriots"]),
-        ("Sauce Gardner", ["Jets"]),
-        ("Denzel Ward", ["Browns"]),
-        ("Rasul Douglas", ["Packers", "Eagles", "Panthers"])
-      ]
-    )
+  [ -- mlb
+    ("Kiko Alonso", [Teams.legends, Teams.bills, Teams.dolphins, Teams.eagles, Teams.saints]),
+    ("Tremaine Edmunds", [Teams.bills]),
+    ("Devin White", [Teams.buccaneers]),
+    ("Roquan Smith", [Teams.bears]),
+    -- rolb
+    ("Jonathan Casillas", [Teams.legends, Teams.buccaneers, Teams.giants, Teams.patriots, Teams.saints]),
+    -- lolb
+    ("Ted Hendricks", [Teams.colts, Teams.packers, Teams.raiders, Teams.legends]),
+    -- dt
+    ("Sam Adams", [Teams.all32Teams]),
+    ("Deforest Buckner", [Teams.niners, Teams.colts]),
+    -- le
+    ("Chase Young", [Teams.commanders]),
+    -- re
+    ("Aidan Hutchinson", [Teams.lions]),
+    -- ss
+    ("Harrison Smith", [Teams.vikings]),
+    ("Grant Delpit", [Teams.browns]),
+    -- fs
+    ("Malik Hooker", [Teams.colts, Teams.cowboys]),
+    ("Trevon Moehrig", [Teams.raiders]),
+    -- cb
+    ("Stephon Gilmore", [Teams.colts, Teams.bills, Teams.panthers, Teams.patriots]),
+    ("Sauce Gardner", [Teams.jets]),
+    ("Denzel Ward", [Teams.browns]),
+    ("Rasul Douglas", [Teams.packers, Teams.eagles, Teams.panthers])
   ]
 
 -- | The kicker and punter
-specialTeams :: LiterateLineup
+specialTeams :: Lineup
 specialTeams =
-  [ ( "k",
-      [ ("Zane Gonzalez", ["Browns", "Cardinals", "Panthers"])
-      ]
-    ),
-    ( "p",
-      [ ("Johnny Hekker", ["Rams", "Panthers"])
-      ]
-    )
+  [ -- k
+    ("Zane Gonzalez", [Teams.browns, Teams.cardinals, Teams.panthers]),
+    -- p
+    ("Johnny Hekker", [Teams.rams, Teams.panthers])
   ]
 
 -- | Team affinity strategy card
@@ -129,7 +88,5 @@ strategy = ("None", [])
 -- | Players I'm looking into
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
-  [ ("Jaire Alexander", ["Packers"]),
-    ("Quenton Nelson", ["Colts"]),
-    ("Roquan Smith", ["Bears"])
+  [ ("Jaire Alexander", [Teams.packers])
   ]

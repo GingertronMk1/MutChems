@@ -5,7 +5,7 @@
 -- data structures it contains
 module Functions.Domain where
 
-import Data
+import qualified Data.Teams as Teams
 import Data.Bifunctor as DB
 import Data.List
 import Data.Ord
@@ -57,8 +57,8 @@ popFilter :: Lineup -> Lineup
 popFilter l =
   let allTeams = allTeamsWithNumbers l
       numOfOneTeam t = length . filter (t ==) $ allTeams
-      numAll32Teamers = length . filter (all32Teams==) $ allTeams
-      filterTeamList = filter (\t -> (numOfOneTeam . fst . breakStringWithNumber $ t) > (5-numAll32Teamers) || t == all32Teams)
+      numAll32Teamers = length . filter (Teams.all32Teams==) $ allTeams
+      filterTeamList = filter (\t -> (numOfOneTeam . fst . breakStringWithNumber $ t) > (5-numAll32Teamers) || t == Teams.all32Teams)
    in filter (not . null . snd) . map (DB.second filterTeamList) $ l
 
 -- | Convert a Lineup to a list of lists of Players and Teams
@@ -96,7 +96,7 @@ convert32TeamPlayers :: Lineup -> Lineup
 convert32TeamPlayers l =
   map
     ( convert32TeamPlayer
-        ( filter (/= all32Teams)
+        ( filter (/= Teams.all32Teams)
             . rmDups
             . concatMap snd
             $ l
@@ -112,7 +112,7 @@ convert32TeamPlayer :: [Team]       -- ^ List of all available teams
 convert32TeamPlayer ts (p, pts) =
   -- Filtering those cards with multiple team chems e.g. 3x Raiders
   let filteredTeams = rmDups . map (fst . breakStringWithNumber) $ ts 
-  in if all32Teams `elem` pts
+  in if Teams.all32Teams `elem` pts
       then (p, filteredTeams)
       else (p, pts)
 

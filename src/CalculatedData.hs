@@ -9,9 +9,8 @@ import Type
 -- | The constituent parts of a squad combined and sorted by popularity of team
 squad :: Lineup
 squad = filter (not . null . snd)
-      . (strategy:)
-      . (prospectiveAdditions++)
-      . concatMap (concatMap snd) $ [ offense, defense, specialTeams ]
+      . concat
+      $ [ [strategy], prospectiveAdditions, offense, defense, specialTeams ]
 
 -- | The squad but not filtered
 processedSquad :: Lineup
