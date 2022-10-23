@@ -50,12 +50,12 @@ jobs:
         name: Build docs
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
-          echo "{docdir}={$(dirname $(cat docdir.txt | tail -1))}" >> $GITHUB_OUTPUT
-      - run: echo ${{ toJSON(steps.buildstep.outputs.*) }}
+          echo "{docdir}=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_OUTPUT
+      - run: echo ${{ toJSON(steps.buildstep.outputs[0]) }}
       - uses: actions/upload-artifact@v2
         with:
           name: built-docs
-          path: ${{ steps.buildstep.outputs.docdir }}
+          path: ${{ steps.buildstep.outputs[0] }}
       - name: Run it
         run: cabal run
   deploy:
