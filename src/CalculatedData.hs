@@ -10,7 +10,7 @@ import Type
 squad :: Lineup
 squad = filter (not . null . snd)
       . concat
-      $ [ [strategy], prospectiveAdditions, offense, defense, specialTeams ]
+      $ [ [strategy], prospectiveAdditions, baseSquad ]
 
 -- | The squad but not filtered
 processedSquad :: Lineup

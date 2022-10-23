@@ -7,8 +7,8 @@ import Type
 
 
 -- | The offensive players
-offense :: Lineup
-offense =
+baseSquad :: Lineup
+baseSquad =
   [ -- qb
     ("Justin Fields", [Teams.bears]),
     ("Tim Tebow", [Teams.broncos, Teams.jets, Teams.legends]),
@@ -37,13 +37,8 @@ offense =
     -- rg
     ("Mark Glowinski", [Teams.giants, Teams.colts, Teams.seahawks]),
     -- rt
-    ("La'el Collins", [Teams.cowboys, Teams.bengals])
-  ]
-
--- | The defensive players
-defense :: Lineup
-defense =
-  [ -- mlb
+    ("La'el Collins", [Teams.cowboys, Teams.bengals]),
+    -- mlb
     ("Kiko Alonso", [Teams.legends, Teams.bills, Teams.dolphins, Teams.eagles, Teams.saints]),
     ("Tremaine Edmunds", [Teams.bills]),
     ("Devin White", [Teams.buccaneers]),
@@ -69,13 +64,8 @@ defense =
     ("Stephon Gilmore", [Teams.colts, Teams.bills, Teams.panthers, Teams.patriots]),
     ("Sauce Gardner", [Teams.jets]),
     ("Denzel Ward", [Teams.browns]),
-    ("Rasul Douglas", [Teams.packers, Teams.eagles, Teams.panthers])
-  ]
-
--- | The kicker and punter
-specialTeams :: Lineup
-specialTeams =
-  [ -- k
+    ("Rasul Douglas", [Teams.packers, Teams.eagles, Teams.panthers]),
+    -- k
     ("Zane Gonzalez", [Teams.browns, Teams.cardinals, Teams.panthers]),
     -- p
     ("Johnny Hekker", [Teams.rams, Teams.panthers])
