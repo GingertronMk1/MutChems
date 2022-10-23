@@ -3,6 +3,8 @@ name: Deploy static content to Pages
 
 on:
   # Runs on pushes targeting the default branch
+  pull_request:
+    branches: ["main"]
   push:
     branches: ["main"]
     paths:
@@ -46,8 +48,6 @@ jobs:
       - name: Read exported variable
         run: |
           echo "OUTPUT: ${{ steps.check.test-env.test }}"
-
-
   deploy:
     needs: [setup]
     strategy:
