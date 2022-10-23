@@ -67,6 +67,10 @@ jobs:
           name: built-docs
       - name: Setup Pages
         uses: actions/configure-pages@v2
+      - name: What's the document directory?
+        run: > 
+          echo ${{ env.DOCDIR }}
+          ls -la
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
