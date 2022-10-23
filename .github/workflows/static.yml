@@ -41,8 +41,7 @@ jobs:
             ghc: '8.8'
             cabal: '3.2'
     environment:
-
-      name: ${{ env.CAN_DEPLOY && github-pages || not-github-pages }}
+      name: ${{ ${{ env.CAN_DEPLOY }} && github-pages || not-github-pages }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
