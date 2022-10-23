@@ -8,4 +8,4 @@ ppVariation :: Variation -> String
 ppVariation = intercalate "\n" . map (\(p, ts) -> p ++ ": " ++ show ts)
 
 ppVariations :: [Variation] -> String
-ppVariations = intercalate "\n\n" . map ppVariation
+ppVariations = intercalate "\n---\n" . map ppVariation
