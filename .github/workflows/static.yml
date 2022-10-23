@@ -50,8 +50,8 @@ jobs:
         name: Build docs
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
-          echo "{docdir}=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_OUTPUT
-      - run: echo ${{ join(steps.buildstep.outputs.*, '\n') }}
+          echo "{docdir}={$(dirname $(cat docdir.txt | tail -1))}" >> $GITHUB_OUTPUT
+      - run: echo ${{ steps.buildstep.outputs.docdir }}
       - uses: actions/upload-artifact@v2
         with:
           name: built-docs
