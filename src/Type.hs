@@ -20,5 +20,7 @@ type TeamPlayer = (Team, [Player])
 -- | An option for the whole squad's chemistries
 type Option = [TeamPlayer]
 
--- | S meaning Single, and M meaning Multiple
-data TeamOrMultiple = S Team | M TeamOrMultiple TeamOrMultiple
+-- | Options for one or more Teams
+data TeamOrMultiple = Team Team                           -- ^ A single Team
+                    | MultipleTeam Team Int               -- ^ A single Team with a multiplier, e.g. Raiders x3
+                    | Teams TeamOrMultiple TeamOrMultiple -- ^ Multiple Teams, e.g. Broncos + Seahawks
