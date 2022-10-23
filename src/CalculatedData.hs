@@ -40,7 +40,7 @@ expandedSquad :: [[(Player, TeamOrMultiple)]]
 expandedSquad = expandList filteredAndConvertedSquad
 
 allVariations :: [Variation]
-allVariations = sequence expandedSquad
+allVariations = map (sortOn snd) . sequence $ expandedSquad
 
 sortedVariations :: [Variation]
 sortedVariations = sortBy orderVariations allVariations
