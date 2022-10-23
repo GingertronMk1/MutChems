@@ -16,17 +16,28 @@ squad = filter (not . null . snd)
       . concat
       $ [ [strategy], prospectiveAdditions, baseSquad ]
 
-expandedSquad :: [[(Player, TeamOrMultiple)]]
-expandedSquad = expandList squad
 
-allTeams :: [(Team, Int)]
-allTeams = map (\ts -> (head ts, length ts))
-         . sortOn (Down . length)
+allTeams :: [Team]
+allTeams = allTeamsFn squad
+
+allTeamsNumbered :: [(Team, Int)]
+allTeamsNumbered = sortOn (Down . snd)
+         . map (\ts -> (head ts, length ts))
          . group
          . sort
-         . concatMap expandTeamOrMultiple
-         . concatMap snd
-         $ squad
+         $ allTeams
 
 numberOfOptions :: Int
-numberOfOptions = product . map (length . snd) $ squad
+numberOfOptions = numberOfOptionsFn squad
+
+filteredSquad :: Lineup
+filteredSquad = filteredSquadFn squad
+
+filteredAndConvertedSquad :: Lineup
+filteredAndConvertedSquad = convertAll32Teams filteredSquad
+
+expandedSquad :: [[(Player, TeamOrMultiple)]]
+expandedSquad = expandList filteredAndConvertedSquad
+
+allVariations :: [Variation]
+allVariations = sequence expandedSquad
