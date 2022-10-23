@@ -80,13 +80,16 @@ jobs:
           echo "DOCDIR=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
       - name: Build the app
         run: cabal build
-      - name: Setup Pages
+      - if: ${{ env.CAN_DEPLOY }}
+        name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Upload artifact
+      - if: ${{ env.CAN_DEPLOY }}
+        name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
           path: ${{ env.DOCDIR }}
-      - name: Deploy to GitHub Pages
+      - if: ${{ env.CAN_DEPLOY }}
+        name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
