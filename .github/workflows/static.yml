@@ -37,6 +37,8 @@ jobs:
             ghc: '8.8'
             cabal: '3.2'
     runs-on: ubuntu-latest
+    outputs:
+      docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -44,14 +46,15 @@ jobs:
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
-      - name: Build docs
+      - id: buildstep
+        name: Build docs
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
-          echo "DOCDIR=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
+          echo "{docdir}=$(dirname $(cat docdir.txt | tail -1)" >> $GITHUB_OUTPUT
       - uses: actions/upload-artifact@v2
         with:
           name: built-docs
-          path: ${{ env.DOCDIR }}
+          path: ${{ steps.buildstep.outputs.docdir }}
       - name: Run it
         run: cabal run
   deploy:
@@ -69,7 +72,7 @@ jobs:
         uses: actions/configure-pages@v2
       - name: What's the document directory?
         run: > 
-          echo ${{ env.DOCDIR }}
+          echo ${{ needs.build.outputs.docdir }}
           ls -la
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
