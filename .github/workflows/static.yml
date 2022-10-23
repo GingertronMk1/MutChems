@@ -72,14 +72,9 @@ jobs:
           path: ./built-docs
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: What's the document directory?
-        run: > 
-          echo ${{ needs.build.outputs.docdir }}
-          ls -la
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: ./built-docs
       - name: Deploy to GitHub Pages
         id: deployment
