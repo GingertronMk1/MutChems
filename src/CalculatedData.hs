@@ -3,9 +3,9 @@
 module CalculatedData where
 
 import Data
+import Functions.Application
 import Functions.Domain
 import Type
-import Functions.Application
 
 import Data.List
 import Data.Ord
@@ -41,3 +41,9 @@ expandedSquad = expandList filteredAndConvertedSquad
 
 allVariations :: [Variation]
 allVariations = sequence expandedSquad
+
+sortedVariations :: [Variation]
+sortedVariations = sortBy orderVariations allVariations
+
+foldedVariations :: [Variation]
+foldedVariations = foldFn orderVariations sortedVariations

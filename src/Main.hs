@@ -7,4 +7,6 @@ import CalculatedData
 import Functions.Display
 
 main :: IO ()
-main = print "hello"
+main = putStrLn
+     . ppVariations
+     $ foldedVariations

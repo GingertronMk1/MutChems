@@ -11,6 +11,7 @@ import Functions.Application
 import Type
 
 import Data.Bifunctor
+import Data.List
 
 -- Haskell imports
 
@@ -62,3 +63,15 @@ convertSingle ts (MultipleTeam t i) =
   then map (`MultipleTeam` i) ts
   else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
+
+orderVariations :: Variation -> Variation -> Ordering
+orderVariations v1 v2 = fst $ orderVariations' v1 v2
+
+orderVariations' :: Variation           -- ^ v1, the first Variation
+                 -> Variation           -- ^ v2, the second Variation
+                 -> (Ordering, String)  -- ^ the comparison of v1 against v2
+orderVariations' v1 v2 =
+  let convertFn = map length . group . sort . concatMap (expandTeamOrMultiple . snd)
+      expandedV1 = convertFn v1
+      expandedV2 = convertFn v2
+   in orderListOfInts expandedV1 expandedV2

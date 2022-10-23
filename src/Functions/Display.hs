@@ -2,11 +2,6 @@
 module Functions.Display where
 
 import Type
-import Functions.Application
-import Functions.Domain
-import Data
-import Data.Teams ()
-import CalculatedData
 import Data.List
 
 ppVariation :: Variation -> String

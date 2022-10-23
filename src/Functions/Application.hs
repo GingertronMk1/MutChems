@@ -52,3 +52,14 @@ breakStringWithNumber t =
 
 expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map (\(a, bs) -> [(a, b) | b <- bs])
+
+foldFn :: (a -> a -> Ordering) -> [a] -> [a]
+foldFn = foldFn' []
+
+foldFn' :: [a] -> (a -> a -> Ordering) -> [a] -> [a]
+foldFn' [] f (x:xs) = foldFn' [x] f xs
+foldFn' l _ [] = l
+foldFn' (l:ls) f (x:xs) = case f x l of
+  GT -> foldFn' [x] f xs
+  EQ -> foldFn' (x:l:ls) f xs
+  LT -> foldFn' (l:ls) f xs
