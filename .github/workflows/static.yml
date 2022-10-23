@@ -15,6 +15,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  CAN_DEPLOY: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -37,12 +40,13 @@ jobs:
       - name: Set test variable
         id: set-variable
         run: |
-          if [ ${{ github.ref }} == 'refs/heads/main' -a ${{ github.event_name }} == 'push' ]; then
+          echo ${{ env.CAN_DEPLOY }}
+          if [ ${{ env.CAN_DEPLOY }}]; then
             echo "IS PUSH TO MAIN"
-            echo "::set-output name=test::github-pages"
+            echo "{test}={github-pages}" >> $GITHUB_STATE
           else
             echo "ISN'T PUSH TO MAIN"
-            echo "::set-output name=test::something-else"
+            echo "{test}={something-else}" >> $GITHUB_STATE
           fi
         shell: bash
       - name: Read exported variable
@@ -74,6 +78,8 @@ jobs:
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
           echo "DOCDIR=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
+      - name: Build the app
+        run: cabal build
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
