@@ -5,9 +5,6 @@ module Type where
 -- | Team is shorthand for a String - it is just the name of a team
 type Team = String
 
--- | Position is shorthand for a String - it is just the name of a football position
-type Position = String
-
 -- | Player is shorthand for a String - it is just the name of a football player
 type Player = String
 
