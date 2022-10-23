@@ -50,14 +50,5 @@ breakStringWithNumber t =
       tn'' = if tn' == "" then 1 else read (drop 1 tn') :: Int
    in (t', tn'')
 
--- | Taking a list of strings and replicating them by the number given in `breakStringWithNumber`
--- to make length calculations relatively straightforward
-convertSingleToMultiple :: String -> [String]
-convertSingleToMultiple t =
-  let (t', tn') = breakStringWithNumber t
-   in replicate tn' t'
-
--- | Mapping convertSingleToMultiple over an array of strings and concatenating
--- the result
-convertMultiples :: [String] -> [String]
-convertMultiples = concatMap convertSingleToMultiple
+expandList :: [(a, [b])] -> [[(a, b)]]
+expandList = map (\(a, bs) -> [(a, b) | b <- bs])

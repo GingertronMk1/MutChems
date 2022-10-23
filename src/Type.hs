@@ -9,7 +9,7 @@ type Team = String
 type Player = String
 
 -- | A player and all of their teams
-type PlayerTeams = (Player, [Team])
+type PlayerTeams = (Player, [TeamOrMultiple])
 
 -- | A full lineup
 type Lineup = [PlayerTeams]
@@ -24,3 +24,4 @@ type Option = [TeamPlayer]
 data TeamOrMultiple = Team Team                           -- ^ A single Team
                     | MultipleTeam Team Int               -- ^ A single Team with a multiplier, e.g. Raiders x3
                     | Teams TeamOrMultiple TeamOrMultiple -- ^ Multiple Teams, e.g. Broncos + Seahawks
+                    deriving (Eq, Show)

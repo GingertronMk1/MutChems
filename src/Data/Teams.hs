@@ -5,125 +5,125 @@ module Data.Teams where
 import Type
 
 -- | A useful shorthand for any player who can have all 32 teams
-all32Teams :: Team
-all32Teams = "all32"
+all32Teams :: TeamOrMultiple
+all32Teams = Team "all32"
 
 -- | The San Francisco 49ers
-niners :: Team
-niners = "49ers"
+niners :: TeamOrMultiple
+niners = Team "49ers"
 
 -- | The Chicago Bears
-bears :: Team
-bears = "Bears"
+bears :: TeamOrMultiple
+bears = Team "Bears"
 
 -- | The Cincinnati Bengals
-bengals :: Team
-bengals = "Bengals"
+bengals :: TeamOrMultiple
+bengals = Team "Bengals"
 
 -- | The Buffalo Bills
-bills :: Team
-bills = "Bills"
+bills :: TeamOrMultiple
+bills = Team "Bills"
 
 -- | The Denver Broncos
-broncos :: Team
-broncos = "Broncos"
+broncos :: TeamOrMultiple
+broncos = Team "Broncos"
 
 -- | The Cleveland Browns
-browns :: Team
-browns = "Browns"
+browns :: TeamOrMultiple
+browns = Team "Browns"
 
 -- | The Tampa Bay Buccaneers
-buccaneers :: Team
-buccaneers = "Buccaneers"
+buccaneers :: TeamOrMultiple
+buccaneers = Team "Buccaneers"
 
 -- | The Arizona Cardinals
-cardinals :: Team
-cardinals = "Cardinals"
+cardinals :: TeamOrMultiple
+cardinals = Team "Cardinals"
 
 -- | The Kansas City Chiefs
-chiefs :: Team
-chiefs = "Chiefs"
+chiefs :: TeamOrMultiple
+chiefs = Team "Chiefs"
 
 -- | The Indianapolis Colts
-colts :: Team
-colts = "Colts"
+colts :: TeamOrMultiple
+colts = Team "Colts"
 
 -- | The Washington Commanders
-commanders :: Team
-commanders = "Commanders"
+commanders :: TeamOrMultiple
+commanders = Team "Commanders"
 
 -- | The Dallas Cowboys
-cowboys :: Team
-cowboys = "Cowboys"
+cowboys :: TeamOrMultiple
+cowboys = Team "Cowboys"
 
 -- | The Miami Dolphins
-dolphins :: Team
-dolphins = "Dolphins"
+dolphins :: TeamOrMultiple
+dolphins = Team "Dolphins"
 
 -- | The Philadelphia Eagles
-eagles :: Team
-eagles = "Eagles"
+eagles :: TeamOrMultiple
+eagles = Team "Eagles"
 
 -- | The Atlanta Falcons
-falcons :: Team
-falcons = "Falcons"
+falcons :: TeamOrMultiple
+falcons = Team "Falcons"
 
 -- | The New Yawk Giants
-giants :: Team
-giants = "Giants"
+giants :: TeamOrMultiple
+giants = Team "Giants"
 
 -- | The Jacksonville Jaguars
-jaguars :: Team
-jaguars = "Jaguars"
+jaguars :: TeamOrMultiple
+jaguars = Team "Jaguars"
 
 -- | The New Yawk Jets
-jets :: Team
-jets = "Jets"
+jets :: TeamOrMultiple
+jets = Team "Jets"
 
 -- | Retirees
-legends :: Team
-legends = "Legends"
+legends :: TeamOrMultiple
+legends = Team "Legends"
 
 -- | The Detroit Lions
-lions :: Team
-lions = "Lions"
+lions :: TeamOrMultiple
+lions = Team "Lions"
 
 -- | The Green Bay Packers
-packers :: Team
-packers = "Packers"
+packers :: TeamOrMultiple
+packers = Team "Packers"
 
 -- | The Carolina Panthers
-panthers :: Team
-panthers = "Panthers"
+panthers :: TeamOrMultiple
+panthers = Team "Panthers"
 
 -- | The New England Patriots
-patriots :: Team
-patriots = "Patriots"
+patriots :: TeamOrMultiple
+patriots = Team "Patriots"
 
 -- | The Oakland/LA/Las Vegas Raiders
-raiders :: Team
-raiders = "Raiders"
+raiders :: TeamOrMultiple
+raiders = Team "Raiders"
 
 -- | The LA Rams
-rams :: Team
-rams = "Rams"
+rams :: TeamOrMultiple
+rams = Team "Rams"
 
 -- | The Baltimore Ravens
-ravens :: Team
-ravens = "Ravens"
+ravens :: TeamOrMultiple
+ravens = Team "Ravens"
 
 -- | The New Orleans Saints
-saints :: Team
-saints = "Saints"
+saints :: TeamOrMultiple
+saints = Team "Saints"
 
 -- | The Mighty Seattle Seahawks
-seahawks :: Team
-seahawks = "Seahawks"
+seahawks :: TeamOrMultiple
+seahawks = Team "Seahawks"
 
 -- | The Pittsburgh Steelers
-steelers :: Team
-steelers = "Steelers"
+steelers :: TeamOrMultiple
+steelers = Team "Steelers"
 
 -- | The Minnesota Vikings
-vikings :: Team
-vikings = "Vikings"
+vikings :: TeamOrMultiple
+vikings = Team "Vikings"
