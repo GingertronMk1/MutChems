@@ -32,3 +32,5 @@ jobs:
           cabal-version: ${{ matrix.cabal }}
       - name: Build docs
         run: ./bin/build-docs.sh
+      - name: Build app
+        run: cabal build
