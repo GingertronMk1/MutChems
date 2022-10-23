@@ -3,10 +3,8 @@ name: Deploy static content to Pages
 
 on:
   # Runs on pushes targeting the default branch
-  pull_request:
-    branches: ['main']
   push:
-    branches: ['main']
+    branches: ["main"]
     paths:
       - '**.hs'
       - 'mut.cabal'
@@ -28,7 +26,7 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  build:
+  deploy:
     strategy:
       fail-fast: true
       matrix:
@@ -51,17 +49,13 @@ jobs:
         run: >
           ./bin/build-docs.sh | tee docdir.txt;
           echo "DOCDIR=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
-  deploy:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-    steps:
-    - name: Setup Pages
-      uses: actions/configure-pages@v2
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
-      with:
-        # Upload entire repository
-        path: ${{ env.DOCDIR }}
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v1
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: ${{ env.DOCDIR }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
