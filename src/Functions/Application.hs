@@ -50,14 +50,16 @@ breakStringWithNumber t =
       tn'' = if tn' == "" then 1 else read (drop 1 tn') :: Int
    in (t', tn'')
 
--- | Taking a list of strings and replicating them by the number given in `breakStringWithNumber`
--- to make length calculations relatively straightforward
-convertSingleToMultiple :: String -> [String]
-convertSingleToMultiple t =
-  let (t', tn') = breakStringWithNumber t
-   in replicate tn' t'
+expandList :: [(a, [b])] -> [[(a, b)]]
+expandList = map (\(a, bs) -> [(a, b) | b <- bs])
 
--- | Mapping convertSingleToMultiple over an array of strings and concatenating
--- the result
-convertMultiples :: [String] -> [String]
-convertMultiples = concatMap convertSingleToMultiple
+foldFn :: (a -> a -> Ordering) -> [a] -> [a]
+foldFn = foldFn' []
+
+foldFn' :: [a] -> (a -> a -> Ordering) -> [a] -> [a]
+foldFn' [] f (x:xs) = foldFn' [x] f xs
+foldFn' l _ [] = l
+foldFn' (l:ls) f (x:xs) = case f x l of
+  GT -> foldFn' [x] f xs
+  EQ -> foldFn' (x:l:ls) f xs
+  LT -> foldFn' (l:ls) f xs

@@ -9,10 +9,12 @@ type Team = String
 type Player = String
 
 -- | A player and all of their teams
-type PlayerTeams = (Player, [Team])
+type PlayerTeams = (Player, [TeamOrMultiple])
 
 -- | A full lineup
 type Lineup = [PlayerTeams]
+
+type Variation = [(Player, TeamOrMultiple)]
 
 -- | A team and a list of all players with that team's chemistry
 type TeamPlayer = (Team, [Player])
@@ -21,6 +23,18 @@ type TeamPlayer = (Team, [Player])
 type Option = [TeamPlayer]
 
 -- | Options for one or more Teams
-data TeamOrMultiple = Team Team                           -- ^ A single Team
-                    | MultipleTeam Team Int               -- ^ A single Team with a multiplier, e.g. Raiders x3
-                    | Teams TeamOrMultiple TeamOrMultiple -- ^ Multiple Teams, e.g. Broncos + Seahawks
+data TeamOrMultiple = Team Team               -- ^ A single Team
+                    | MultipleTeam Team Int   -- ^ A single Team with a multiplier, e.g. Raiders x3
+                    | Teams [TeamOrMultiple]  -- ^ Multiple Teams, e.g. Broncos + Seahawks
+                    deriving (Eq, Show)
+
+instance Ord TeamOrMultiple where
+  compare (Team t1) (Team t2) = compare t1 t2
+  compare (Team t1) (MultipleTeam t2 _) = compare t1 t2
+  compare t1@(Team _) (Teams t2s) = compare t1 (maximum t2s)
+  compare (MultipleTeam t1 _) (Team t2) = compare t1 t2
+  compare (MultipleTeam t1 _) (MultipleTeam t2 _) = compare t1 t2
+  compare t1@(MultipleTeam _ _) (Teams t2s) = compare t1 (maximum t2s)
+  compare (Teams t1s) t2@(Team _) = compare (maximum t1s) t2
+  compare (Teams t1s) t2@(MultipleTeam _ _) = compare (maximum t1s) t2
+  compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
