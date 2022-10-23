@@ -41,7 +41,7 @@ jobs:
           - os: ubuntu-latest
             ghc: '8.8'
             cabal: '3.2'
-    environment:
+    env:
       name: ${{ env.ENV_NAME }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
