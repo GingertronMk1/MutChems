@@ -69,6 +69,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: built-docs
+          path: ./built-docs
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: What's the document directory?
@@ -79,7 +80,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: ${{ env.DOCDIR }}
+          path: ./built-docs
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
