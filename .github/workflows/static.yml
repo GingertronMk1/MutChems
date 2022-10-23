@@ -62,6 +62,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: What's our env?
+        run: echo ${{ needs.setup.outputs.var1}}
       - name: Checkout
         uses: actions/checkout@v3
       - uses: haskell/actions/setup@v2
