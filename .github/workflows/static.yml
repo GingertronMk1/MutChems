@@ -63,7 +63,7 @@ jobs:
     needs: [build]
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     environment:
-      name: ${{ needs.setup.outputs.var1 }}
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/download-artifact@v2
