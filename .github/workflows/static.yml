@@ -41,7 +41,7 @@ jobs:
         id: set-variable
         run: |
           echo ${{ env.CAN_DEPLOY }}
-          if [ ${{ env.CAN_DEPLOY }}]; then
+          if [ ${{ env.CAN_DEPLOY }} ]; then
             echo "IS PUSH TO MAIN"
             echo "{test}={github-pages}" >> $GITHUB_STATE
           else
@@ -52,7 +52,7 @@ jobs:
       - name: Read exported variable
         run: |
           echo "OUTPUT: ${{ steps.check.test-env.test }}"
-  deploy:
+  build:
     needs: [setup]
     strategy:
       fail-fast: true
@@ -61,9 +61,6 @@ jobs:
           - os: ubuntu-latest
             ghc: '8.8'
             cabal: '3.2'
-    environment:
-      name: ${{ needs.setup.outputs.var1 }}
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: What's our env?
@@ -80,16 +77,27 @@ jobs:
           echo "DOCDIR=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_ENV;
       - name: Build the app
         run: cabal build
-      - if: ${{ env.CAN_DEPLOY }}
-        name: Setup Pages
+      - uses: actions/upload-artifact@v2
+        with:
+          name: built-docs
+          path: ${{ env.DOCDIR }}
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ env.CAN_DEPLOY }}
+    environment:
+      name: ${{ needs.setup.outputs.var1 }}
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: built-docs
+      - name: Setup Pages
         uses: actions/configure-pages@v2
-      - if: ${{ env.CAN_DEPLOY }}
-        name: Upload artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
           path: ${{ env.DOCDIR }}
-      - if: ${{ env.CAN_DEPLOY }}
-        name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
