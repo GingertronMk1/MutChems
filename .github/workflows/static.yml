@@ -17,6 +17,7 @@ on:
 
 env:
   CAN_DEPLOY: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+  ENV_NAME: ${{ env.CAN_DEPLOY && github-pages || not-github-pages }}
 
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -41,7 +42,7 @@ jobs:
             ghc: '8.8'
             cabal: '3.2'
     environment:
-      name: ${{ env.CAN_DEPLOY && github-pages || not-github-pages }}
+      name: ${{ env.ENV_NAME }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
