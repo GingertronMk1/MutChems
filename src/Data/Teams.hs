@@ -1,6 +1,5 @@
 -- |
 -- Module: Data.Teams
-
 module Data.Teams where
 
 import Type
@@ -8,7 +7,6 @@ import Type
 -- | A useful shorthand for any player who can have all 32 teams
 all32Teams :: Team
 all32Teams = "all32"
-
 
 -- | The San Francisco 49ers
 niners :: Team
