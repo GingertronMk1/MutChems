@@ -19,3 +19,6 @@ type TeamPlayer = (Team, [Player])
 
 -- | An option for the whole squad's chemistries
 type Option = [TeamPlayer]
+
+-- | S meaning Single, and M meaning Multiple
+data TeamOrMultiple = S Team | M TeamOrMultiple TeamOrMultiple
