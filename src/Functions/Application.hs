@@ -50,13 +50,19 @@ breakStringWithNumber t =
       tn'' = if tn' == "" then 1 else read (drop 1 tn') :: Int
    in (t', tn'')
 
+-- | Expand a tuple whos second element is a list into a list of tuples
 expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map (\(a, bs) -> [(a, b) | b <- bs])
 
+-- | The base of the folding function
 foldFn :: (a -> a -> Ordering) -> [a] -> [a]
 foldFn = foldFn' []
 
-foldFn' :: [a] -> (a -> a -> Ordering) -> [a] -> [a]
+-- | The main folding function
+foldFn' :: [a]                  -- ^ The accumulating list
+        -> (a -> a -> Ordering) -- ^ A function to tell me what's bigger or smaller
+        -> [a]                  -- ^ The remaining list being considered
+        -> [a]                  -- ^ The result containing the largest items in the initial list
 foldFn' [] f (x:xs) = foldFn' [x] f xs
 foldFn' l _ [] = l
 foldFn' (l:ls) f (x:xs) = case f x l of

@@ -6,7 +6,7 @@ import qualified Data.Teams as Teams
 import Type
 
 
--- | The offensive players
+-- | Base squad
 baseSquad :: Lineup
 baseSquad =
   [ -- qb

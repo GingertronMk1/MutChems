@@ -10,30 +10,35 @@ import qualified Data.Teams as Teams
 import Functions.Application
 import Type
 
+-- Haskell imports
 import Data.Bifunctor
 import Data.List
 
--- Haskell imports
 
+-- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
 expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
 expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 
+-- | does a given TeamOrMultiple contain a given Team
 includesTeam :: Team            -- ^ The Team being searched for
              -> TeamOrMultiple  -- ^ The TeamOrMultiple being searched
              -> Bool            -- ^ Does it contain?
-includesTeam t tom = t `elem` expandTeamOrMultiple tom
+includesTeam t = elem t . expandTeamOrMultiple
 
 
+-- | How many options do we get from a given Lineup?
 numberOfOptionsFn :: Lineup -> Int
 numberOfOptionsFn = product . map (length . snd)
 
+-- | Give me a list of all Teams in a given Lineup
 allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple
            . concatMap snd
 
 
+-- | Filtering a Lineup to contain only those Teams with 3 or more entries
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn s =
   let allTeams = allTeamsFn s
@@ -44,6 +49,9 @@ filteredSquadFn s =
       filterFn (Teams ts) = any filterFn ts
    in filter (not . null . snd) . map (Data.Bifunctor.second (filter filterFn)) $ s
 
+-- | Change all players with all 32 teams to contain all useful teams
+-- useful here being "all other actual teams" - there's no point giving him
+-- the option for Jacksonvill if nobody else has ever played for them
 convertAll32Teams :: Lineup -> Lineup
 convertAll32Teams l =
   let allTeams = rmDups
@@ -53,6 +61,8 @@ convertAll32Teams l =
     in map (second $ concatMap $ convertSingle allTeams) l
 
 
+-- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
+-- be all 32 teams
 convertSingle :: [Team] -> TeamOrMultiple -> [TeamOrMultiple]
 convertSingle ts team@(Team t) =
   if t == Teams.all32Teams
@@ -64,9 +74,12 @@ convertSingle ts (MultipleTeam t i) =
   else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
 
+-- | Ostensibly `compare` but just because I can't have an Ord instance for
+-- Variation
 orderVariations :: Variation -> Variation -> Ordering
 orderVariations v1 v2 = fst $ orderVariations' v1 v2
 
+-- | Helper function for the above, technically unnecessary but useful for debugging
 orderVariations' :: Variation           -- ^ v1, the first Variation
                  -> Variation           -- ^ v2, the second Variation
                  -> (Ordering, String)  -- ^ the comparison of v1 against v2

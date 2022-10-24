@@ -14,6 +14,7 @@ type PlayerTeams = (Player, [TeamOrMultiple])
 -- | A full lineup
 type Lineup = [PlayerTeams]
 
+-- | One variation I can have with a Lineup
 type Variation = [(Player, TeamOrMultiple)]
 
 -- | A team and a list of all players with that team's chemistry
