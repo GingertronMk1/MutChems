@@ -7,7 +7,6 @@ version:              0.1.0.0
 author:               Jack Ellis
 maintainer:           jackellis1504@gmail.com
 build-type:           Simple
-extra-source-files:   CHANGELOG.mmain
 
 executable mut
   main-is:            Main.hs
