@@ -53,8 +53,9 @@ jobs:
       - id: buildstep
         name: Build docs
         run: >
-          ./bin/build-docs.sh | tee docdir.txt; test ${PIPESTATUS[0]} -eq 0
-          echo "docdir=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_OUTPUT
+          ./bin/build-docs.sh | tee docdir.txt;
+          test ${PIPESTATUS[0]} -eq 0;
+          echo "docdir=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_OUTPUT;
       - uses: actions/upload-artifact@v2
         with:
           name: built-docs
