@@ -26,17 +26,16 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  os: ubuntu-latest
+  ghc: 8.8
+  cabal: 3.2
+
+
 jobs:
   # Single deploy job since we're just deploying
   build:
-    strategy:
-      fail-fast: true
-      matrix:
-        include:
-          - os: ubuntu-latest
-            ghc: '8.8'
-            cabal: '3.2'
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.os }}
     outputs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
@@ -44,8 +43,8 @@ jobs:
         uses: actions/checkout@v3
       - uses: haskell/actions/setup@v2
         with:
-          ghc-version: ${{ matrix.ghc }}
-          cabal-version: ${{ matrix.cabal }}
+          ghc-version: ${{ env.ghc }}
+          cabal-version: ${{ env.cabal }}
       # Run the build docs command
       # Tee it - showing the output both to stdout and to the file "docdir.txt"
       # Set the output of this step equal to the directory returned
@@ -63,7 +62,7 @@ jobs:
       - name: Run it
         run: cabal run
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.os }}
     needs: [build]
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     environment:
