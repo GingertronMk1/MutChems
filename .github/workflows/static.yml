@@ -26,16 +26,19 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  os: ubuntu-latest
+
 jobs:
   # Single deploy job since we're just deploying
   build:
     strategy:
       fail-fast: true
       matrix:
-          os: [ubuntu-latest]
-          ghc: ['8.8']
-          cabal: ['3.2']
-    runs-on: ubuntu-latest
+        includes:
+          - ghc: '8.8'
+            cabal: '3.2'
+    runs-on: ${{ env.os }}
     outputs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
@@ -62,7 +65,7 @@ jobs:
       - name: Run it
         run: cabal run
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.os }}
     needs: [build]
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     environment:
