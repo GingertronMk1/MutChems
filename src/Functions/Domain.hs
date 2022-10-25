@@ -17,6 +17,7 @@ import Data.List
 
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
+expandTeamOrMultiple NoTeam = []
 expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
 expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
@@ -44,6 +45,7 @@ filteredSquadFn s =
   let allTeams = allTeamsFn s
       numberOfOneTeam t = length . filter (==t) $ allTeams
       filterFn' t = numberOfOneTeam t > 3 || t == Teams.all32Teams
+      filterFn NoTeam = False
       filterFn (Team t) = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
       filterFn (Teams ts) = any filterFn ts
@@ -64,6 +66,7 @@ convertAll32Teams l =
 -- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
 -- be all 32 teams
 convertSingle :: [Team] -> TeamOrMultiple -> [TeamOrMultiple]
+convertSingle _ NoTeam = []
 convertSingle ts team@(Team t) =
   if t == Teams.all32Teams
   then map Team ts
@@ -88,3 +91,25 @@ orderVariations' v1 v2 =
       expandedV1 = convertFn v1
       expandedV2 = convertFn v2
    in orderListOfInts expandedV1 expandedV2
+
+doubleFoldVariations :: [Variation] -> [PlayerTeams]
+doubleFoldVariations = doubleFoldVariations' []
+
+doubleFoldVariations' :: [PlayerTeams] -> [Variation] -> [PlayerTeams]
+doubleFoldVariations' pts [] = pts
+doubleFoldVariations' [] (v:vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
+doubleFoldVariations' pts (v:vs) =
+  -- First get all the names in
+  -- Then make sure they've all got the right number of spaces
+  let allCurrentNames = map fst pts
+      allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v)
+      lengthSoFar = length . snd . head $ pts
+      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar (NoTeam))) allNewNames
+      newPT = map (doubleFold'' v) newPTInit
+   in doubleFoldVariations' newPT vs
+
+doubleFold'' :: Variation -> PlayerTeams -> PlayerTeams
+doubleFold'' v (p, ts) =
+  case (find (\(p', _) -> p' == p) v) of
+    Nothing      -> (p, (NoTeam):ts)
+    Just (_, t)  -> (p, t:ts)

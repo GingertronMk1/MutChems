@@ -24,7 +24,8 @@ type TeamPlayer = (Team, [Player])
 type Option = [TeamPlayer]
 
 -- | Options for one or more Teams
-data TeamOrMultiple = Team Team               -- ^ A single Team
+data TeamOrMultiple = NoTeam                  -- ^ Null value
+                    | Team Team               -- ^ A single Team
                     | MultipleTeam Team Int   -- ^ A single Team with a multiplier, e.g. Raiders x3
                     | Teams [TeamOrMultiple]  -- ^ Multiple Teams, e.g. Broncos + Seahawks
                     deriving (Eq, Show)
@@ -39,3 +40,5 @@ instance Ord TeamOrMultiple where
   compare (Teams t1s) t2@(Team _) = compare (maximum t1s) t2
   compare (Teams t1s) t2@(MultipleTeam _ _) = compare (maximum t1s) t2
   compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
+  compare NoTeam _ = LT
+  compare _ NoTeam = GT
