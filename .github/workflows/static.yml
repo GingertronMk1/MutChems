@@ -47,10 +47,10 @@ jobs:
           cabal-version: ${{ matrix.cabal }}
       - id: buildstep
         name: Build docs
-        run: >
-          ./bin/build-docs.sh | tee docdir.txt;
-          test ${PIPESTATUS[0]} -eq 0;
-          echo "docdir=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_OUTPUT;
+        run: |
+          ./bin/build-docs.sh | tee docdir.txt
+          test ${PIPESTATUS[0]} -eq 0
+          echo "docdir=$(dirname $(cat docdir.txt | tail -1))" >> $GITHUB_OUTPUT
       - name: Upload docs for next step
         uses: actions/upload-artifact@v2
         with:
@@ -97,10 +97,10 @@ jobs:
           name: ${{ github.sha }}-output
           path: .
       - name: Push to output branch
-        run: >
+        run: |
           mv output.md README.md
-          git config user.name github-actions;
-          git config user.email github-actions@github.com;
-          git add ./README.md -f;
-          git commit -m "Deployment";
-          git push origin `git subtree split --prefix ./README.md main`:output --force;
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ./README.md -f
+          git commit -m "Deployment"
+          git push origin `git subtree split --prefix ./README.md main`:output --force
