@@ -94,6 +94,11 @@ jobs:
         with:
           name: ${{ github.sha }}-output
           path: ./output.md
-      - name: Push
+      - name: Push to output branch
         run: >
-          cat output.md;
+          git config user.name github-actions;
+          git config user.email github-actions@github.com;
+          git add ./output.md -f;
+          git commit -m "Deployment";
+          git push origin `git subtree split --prefix ./output.md main`:output --force;
+	
