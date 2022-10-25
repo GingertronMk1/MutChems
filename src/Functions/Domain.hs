@@ -95,24 +95,26 @@ orderVariations' v1 v2 =
 -- | Double fold variations - roll up all options for a given player into one PlayerTeams instance
 -- and do it for every player involved
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
-doubleFoldVariations = doubleFoldVariations' []
+doubleFoldVariations = sortOn (fst) . doubleFoldVariations' []
 
 -- | Helper for the above
-doubleFoldVariations' :: [PlayerTeams] -> [Variation] -> [PlayerTeams]
+doubleFoldVariations' :: [PlayerTeams]    -- ^ The accumulated list of PlayerTeams
+                      -> [Variation]      -- ^ The list of Variations we're working through
+                      -> [PlayerTeams]    -- ^ The resultant list of PlayerTeams
 doubleFoldVariations' pts [] = pts
 doubleFoldVariations' [] (v:vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
 doubleFoldVariations' pts (v:vs) =
-  -- First get all the names in
-  -- Then make sure they've all got the right number of spaces
-  let allCurrentNames = map fst pts
-      allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v)
-      lengthSoFar = length . snd . head $ pts
-      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar (NoTeam))) allNewNames
-      newPT = map (doubleFold'' v) newPTInit
-   in doubleFoldVariations' newPT vs
+  let allCurrentNames = map fst pts                                                     -- Get all names
+      allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v)                 -- Get all names that we don't already have
+      lengthSoFar = length . snd . head $ pts                                           -- How many Variations have we gone through?
+      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar (NoTeam))) allNewNames    -- Add new names and appropriately lengthed lists of NoTeams
+      newPT = map (doubleFold'' v) newPTInit                                            -- Add everything from the newest Variation
+   in doubleFoldVariations' newPT vs                                                    -- And do the next
 
 -- | Helper for the above
-doubleFold'' :: Variation -> PlayerTeams -> PlayerTeams
+doubleFold'' :: Variation       -- ^ The Variation we're looking at
+             -> PlayerTeams     -- ^ The list of PlayerTeams we're investigating
+             -> PlayerTeams     -- ^ the resultant PlayerTeams
 doubleFold'' v (p, ts) =
   case (find (\(p', _) -> p' == p) v) of
     Nothing      -> (p, (NoTeam):ts)
