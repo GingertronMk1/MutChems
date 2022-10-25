@@ -49,8 +49,8 @@ jobs:
       # Tee it - showing the output both to stdout and to the file "docdir.txt"
       # Set the output of this step equal to the directory returned
       # Also make sure the build-docs command returns 0
-      - name: Cabal Install
-        run: cabal install
+      - name: Cabal Update
+        run: cabal update
       - id: buildstep
         name: Build docs
         run: >
