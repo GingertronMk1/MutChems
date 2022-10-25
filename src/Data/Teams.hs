@@ -40,6 +40,10 @@ buccaneers = "Buccaneers"
 cardinals :: Team
 cardinals = "Cardinals"
 
+-- | The LA Chargers
+chargers :: Team
+chargers = "Chargers"
+
 -- | The Kansas City Chiefs
 chiefs :: Team
 chiefs = "Chiefs"

@@ -14,7 +14,7 @@ baseSquad =
     ("Tim Tebow", [Team Teams.broncos, Team Teams.jets, Team Teams.legends]),
     -- hb
     ("Eric Dickerson", [Team Teams.legends, Team Teams.rams, Team Teams.colts, Team Teams.falcons, Team Teams.raiders]),
-    ("Cordarrelle Patterson", [Team Teams.bears, Team Teams.falcons, Team Teams.raiders, Team Teams.patriots, Team Teams.vikings]),
+    ("LaDainian Tomlinson", [Team Teams.chargers, Team Teams.jets, Team Teams.legends]),
     ("Ezekiel Elliott", [Team Teams.cowboys]),
     -- fb
     ("Jim Taylor", [Team Teams.packers, Team Teams.saints, Team Teams.legends]),
