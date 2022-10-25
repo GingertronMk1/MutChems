@@ -3,7 +3,7 @@ cabal-version:       >=1.10
 -- further documentation, see http://haskell.org/cabal/users-guide/
 
 name:                 mut
-version:              0.1.0.0
+version:              2.1.0.0
 author:               Jack Ellis
 maintainer:           jackellis1504@gmail.com
 build-type:           Simple
