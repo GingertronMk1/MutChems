@@ -94,6 +94,6 @@ jobs:
         with:
           name: ${{ github.sha }}-output
           path: ./output.md
-      - id: pushstep
-        name: Push
-        run: cat output.md
+      - name: Push
+        run: >
+          cat output.md;
