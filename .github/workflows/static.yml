@@ -76,12 +76,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-      - name: Run it
-        run: cabal run
-      - name: Add and commit new files
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add output.md -f
-          git commit -m "Deployment"
-          git push origin `git subtree split --prefix . main`:built --force
