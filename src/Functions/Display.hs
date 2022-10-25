@@ -34,6 +34,6 @@ ppDoubleFoldedVariations' :: PlayerTeams -> String
 ppDoubleFoldedVariations' (p, ts) =
   "| **"
   ++ p
-  ++ "** |"
+  ++ "** | "
   ++ (intercalate " | " . map ppTeamOrMultiple) ts
   ++ " |"
