@@ -96,10 +96,4 @@ jobs:
           path: ./output.md
       - id: pushstep
         name: Push
-        run: >
-          git config user.name github-actions;
-          git config user.email github-actions@github.com;
-          git add ./output.md -f;
-          git commit -m "Deployment";
-          git push origin `git subtree split --prefix ./output.md main`:output --force;
-	
+        run: cat output.md
