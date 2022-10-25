@@ -19,6 +19,7 @@ ppVariation = intercalate "\n" . map (\(p, t) -> p ++ ": " ++ ppTeamOrMultiple t
 ppVariations :: [Variation] -> String
 ppVariations = intercalate "\n---\n" . map ppVariation
 
+-- | Prettily print some double-folded variations to a nice Markdown string
 ppDoubleFoldedVariations :: [PlayerTeams] -> String
 ppDoubleFoldedVariations dfvs = 
   let totalCols = length . snd . head $ dfvs
@@ -28,6 +29,7 @@ ppDoubleFoldedVariations dfvs =
       intercalate "\n" . map (ppDoubleFoldedVariations') $ dfvs
    ]
 
+-- | Helper for the above - make a Markdown table row for a single PlayerTeam
 ppDoubleFoldedVariations' :: PlayerTeams -> String
 ppDoubleFoldedVariations' (p, ts) =
   "| **"

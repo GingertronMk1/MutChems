@@ -92,9 +92,12 @@ orderVariations' v1 v2 =
       expandedV2 = convertFn v2
    in orderListOfInts expandedV1 expandedV2
 
+-- | Double fold variations - roll up all options for a given player into one PlayerTeams instance
+-- and do it for every player involved
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
 doubleFoldVariations = doubleFoldVariations' []
 
+-- | Helper for the above
 doubleFoldVariations' :: [PlayerTeams] -> [Variation] -> [PlayerTeams]
 doubleFoldVariations' pts [] = pts
 doubleFoldVariations' [] (v:vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
@@ -108,6 +111,7 @@ doubleFoldVariations' pts (v:vs) =
       newPT = map (doubleFold'' v) newPTInit
    in doubleFoldVariations' newPT vs
 
+-- | Helper for the above
 doubleFold'' :: Variation -> PlayerTeams -> PlayerTeams
 doubleFold'' v (p, ts) =
   case (find (\(p', _) -> p' == p) v) of
