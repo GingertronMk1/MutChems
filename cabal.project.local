@@ -1,6 +1,0 @@
-profiling: True
-optimization: True
-documentation: True
-
-package *
-  documentation: True
