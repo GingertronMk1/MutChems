@@ -33,9 +33,10 @@ jobs:
       fail-fast: true
       matrix:
         includes:
-          - ghc: '8.8'
+          - os: ubuntu-latest
+            ghc: '8.8'
             cabal: '3.2'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     outputs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
