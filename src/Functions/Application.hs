@@ -55,17 +55,16 @@ expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map (\(a, bs) -> [(a, b) | b <- bs])
 
 -- | The base of the folding function
-foldFn :: (a -> a -> Ordering) -> [a] -> [a]
+foldFn :: Ord a => [a] -> [a]
 foldFn = foldFn' []
 
 -- | The main folding function
-foldFn' :: [a]                  -- ^ The accumulating list
-        -> (a -> a -> Ordering) -- ^ A function to tell me what's bigger or smaller
+foldFn' :: Ord a => [a]         -- ^ The accumulating list of Orderable elements
         -> [a]                  -- ^ The remaining list being considered
         -> [a]                  -- ^ The result containing the largest items in the initial list
-foldFn' [] f (x:xs) = foldFn' [x] f xs
-foldFn' l _ [] = l
-foldFn' (l:ls) f (x:xs) = case f x l of
-  GT -> foldFn' [x] f xs
-  EQ -> foldFn' (x:l:ls) f xs
-  LT -> foldFn' (l:ls) f xs
+foldFn' [] (x:xs) = foldFn' [x] xs
+foldFn' l [] = l
+foldFn' (l:ls) (x:xs) = case compare x l of
+  GT -> foldFn' [x] xs
+  EQ -> foldFn' (x:l:ls) xs
+  LT -> foldFn' (l:ls) xs

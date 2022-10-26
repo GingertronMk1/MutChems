@@ -2,6 +2,9 @@
 -- Module: Type
 module Type where
 
+import Functions.Application
+import Data.List
+
 -- | Team is shorthand for a String - it is just the name of a team
 type Team = String
 
@@ -15,7 +18,22 @@ type PlayerTeams = (Player, [TeamOrMultiple])
 type Lineup = [PlayerTeams]
 
 -- | One variation I can have with a Lineup
-type Variation = [(Player, TeamOrMultiple)]
+data Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
+
+instance Ord Variation where
+  compare (Variation v1) (Variation v2)
+    | sumComp /= EQ = sumComp
+    | numComp /= EQ = numComp
+    | otherwise = distComp
+    where
+      convertFn = map length . group . sort . concatMap (expandTeamOrMultiple . snd)
+      expandedV1 = convertFn v1
+      expandedV2 = convertFn v2
+      sumComp = compare (sum expandedV1) (sum expandedV2)
+      num5s = length . filter (== 0) . map (`mod` 5)
+      numComp = compare (num5s expandedV1) (num5s expandedV2)
+      distComp = compare (avgDistanceFromMultiplesOf5 expandedV2) (avgDistanceFromMultiplesOf5 expandedV1)
+
 
 -- | A team and a list of all players with that team's chemistry
 type TeamPlayer = (Team, [Player])
@@ -42,3 +60,11 @@ instance Ord TeamOrMultiple where
   compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
   compare NoTeam _ = LT
   compare _ NoTeam = GT
+
+-- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
+expandTeamOrMultiple :: TeamOrMultiple -> [Team]
+expandTeamOrMultiple NoTeam = []
+expandTeamOrMultiple (Team t) = [t]
+expandTeamOrMultiple (MultipleTeam t i) = replicate i t
+expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
+

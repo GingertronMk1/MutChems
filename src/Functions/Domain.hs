@@ -15,12 +15,6 @@ import Data.Bifunctor
 import Data.List
 
 
--- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
-expandTeamOrMultiple :: TeamOrMultiple -> [Team]
-expandTeamOrMultiple NoTeam = []
-expandTeamOrMultiple (Team t) = [t]
-expandTeamOrMultiple (MultipleTeam t i) = replicate i t
-expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 
 -- | does a given TeamOrMultiple contain a given Team
 includesTeam :: Team            -- ^ The Team being searched for
@@ -77,21 +71,6 @@ convertSingle ts (MultipleTeam t i) =
   else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
 
--- | Ostensibly `compare` but just because I can't have an Ord instance for
--- Variation
-orderVariations :: Variation -> Variation -> Ordering
-orderVariations v1 v2 = fst $ orderVariations' v1 v2
-
--- | Helper function for the above, technically unnecessary but useful for debugging
-orderVariations' :: Variation           -- ^ v1, the first Variation
-                 -> Variation           -- ^ v2, the second Variation
-                 -> (Ordering, String)  -- ^ the comparison of v1 against v2
-orderVariations' v1 v2 =
-  let convertFn = map length . group . sort . concatMap (expandTeamOrMultiple . snd)
-      expandedV1 = convertFn v1
-      expandedV2 = convertFn v2
-   in orderListOfInts expandedV1 expandedV2
-
 -- | Double fold variations - roll up all options for a given player into one PlayerTeams instance
 -- and do it for every player involved
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
@@ -102,20 +81,20 @@ doubleFoldVariations' :: [PlayerTeams]    -- ^ The accumulated list of PlayerTea
                       -> [Variation]      -- ^ The list of Variations we're working through
                       -> [PlayerTeams]    -- ^ The resultant list of PlayerTeams
 doubleFoldVariations' pts [] = pts
-doubleFoldVariations' [] (v:vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
-doubleFoldVariations' pts (v:vs) =
+doubleFoldVariations' [] (Variation v:vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
+doubleFoldVariations' pts (Variation v:vs) =
   let allCurrentNames = map fst pts                                                     -- Get all names
       allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v)                 -- Get all names that we don't already have
       lengthSoFar = length . snd . head $ pts                                           -- How many Variations have we gone through?
       newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar (NoTeam))) allNewNames    -- Add new names and appropriately lengthed lists of NoTeams
-      newPT = map (doubleFold'' v) newPTInit                                            -- Add everything from the newest Variation
+      newPT =  map (doubleFold'' (Variation v)) newPTInit                                            -- Add everything from the newest Variation
    in doubleFoldVariations' newPT vs                                                    -- And do the next
 
 -- | Helper for the above
 doubleFold'' :: Variation       -- ^ The Variation we're looking at
              -> PlayerTeams     -- ^ The list of PlayerTeams we're investigating
              -> PlayerTeams     -- ^ the resultant PlayerTeams
-doubleFold'' v (p, ts) =
+doubleFold'' (Variation v) (p, ts) =
   case (find (\(p', _) -> p' == p) v) of
     Nothing      -> (p, (NoTeam):ts)
     Just (_, t)  -> (p, t:ts)

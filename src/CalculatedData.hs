@@ -46,15 +46,15 @@ expandedSquad = expandList filteredAndConvertedSquad
 
 -- | All variations of chems
 allVariations :: [Variation]
-allVariations = map (sortOn snd) . sequence $ expandedSquad
+allVariations = map (Variation . sortOn snd) . sequence $ expandedSquad
 
 -- | Ordered list of Variations
 sortedVariations :: [Variation]
-sortedVariations = sortBy orderVariations allVariations
+sortedVariations = sort allVariations
 
 -- | Folded variations
 foldedVariations :: [Variation]
-foldedVariations = foldFn orderVariations sortedVariations
+foldedVariations = foldFn sortedVariations
 
 -- | All variations, doubly folded
 doubleFoldedVariations :: [PlayerTeams]

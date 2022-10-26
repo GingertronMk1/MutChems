@@ -13,7 +13,7 @@ ppTeamOrMultiple (Teams ts) = intercalate "/" $ map show ts
 
 -- | Prettily print a Variation
 ppVariation :: Variation -> String
-ppVariation = intercalate "\n" . map (\(p, t) -> p ++ ": " ++ ppTeamOrMultiple t)
+ppVariation (Variation vs) = intercalate "\n" . map (\(p, t) -> p ++ ": " ++ ppTeamOrMultiple t) $ vs
 
 -- | Prettily print many variations, separated cleanly
 ppVariations :: [Variation] -> String
