@@ -48,11 +48,14 @@ data TeamOrMultiple = NoTeam                  -- ^ Null value
                     | Teams [TeamOrMultiple]  -- ^ Multiple Teams, e.g. Broncos + Seahawks
                     deriving (Eq, Show)
 
+-- | The Ord instance - compare the "lowest" team name in each
 instance Ord TeamOrMultiple where
   compare (Team t1) (Team t2) = compare t1 t2
-  compare (Team t1) (MultipleTeam t2 _) = compare t1 t2
+  compare (Team t1) (MultipleTeam t2 _) = case (compare t1 t2) of EQ -> LT
+                                                                  c  -> c
   compare t1@(Team _) (Teams t2s) = compare t1 (maximum t2s)
-  compare (MultipleTeam t1 _) (Team t2) = compare t1 t2
+  compare (MultipleTeam t1 _) (Team t2) = case (compare t1 t2) of EQ -> GT
+                                                                  c  -> c
   compare (MultipleTeam t1 _) (MultipleTeam t2 _) = compare t1 t2
   compare t1@(MultipleTeam _ _) (Teams t2s) = compare t1 (maximum t2s)
   compare (Teams t1s) t2@(Team _) = compare (maximum t1s) t2
@@ -60,6 +63,10 @@ instance Ord TeamOrMultiple where
   compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
   compare NoTeam _ = LT
   compare _ NoTeam = GT
+
+-- * Helper functions
+-- By and large these are just functions that can't live in Functions.Domain,
+-- because then using them here would create circular dependencies
 
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
