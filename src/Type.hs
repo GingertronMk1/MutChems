@@ -2,8 +2,8 @@
 -- Module: Type
 module Type where
 
-import Functions.Application
 import Data.List
+import Functions.Application
 
 -- | Team is shorthand for a String - it is just the name of a team
 type Team = String
@@ -34,7 +34,6 @@ instance Ord Variation where
       numComp = compare (num5s expandedV1) (num5s expandedV2)
       distComp = compare (avgDistanceFromMultiplesOf5 expandedV2) (avgDistanceFromMultiplesOf5 expandedV1)
 
-
 -- | A team and a list of all players with that team's chemistry
 type TeamPlayer = (Team, [Player])
 
@@ -42,29 +41,45 @@ type TeamPlayer = (Team, [Player])
 type Option = [TeamPlayer]
 
 -- | Options for one or more Teams
-data TeamOrMultiple = NoTeam                  -- ^ Null value
-                    | Team Team               -- ^ A single Team
-                    | MultipleTeam Team Int   -- ^ A single Team with a multiplier, e.g. Raiders x3
-                    | Teams [TeamOrMultiple]  -- ^ Multiple Teams, e.g. Broncos + Seahawks
-                    deriving (Eq, Show)
+data TeamOrMultiple
+  = -- | Null value
+    NoTeam
+  | -- | A single Team
+    Team Team
+  | -- | A single Team with a multiplier, e.g. Raiders x3
+    MultipleTeam Team Int
+  | -- | Multiple Teams, e.g. Broncos + Seahawks
+    Teams [TeamOrMultiple]
+  deriving (Eq, Show)
 
 -- | The Ord instance - compare the "lowest" team name in each
 instance Ord TeamOrMultiple where
+  -- All the instances where a single Team is first
   compare (Team t1) (Team t2) = compare t1 t2
-  compare (Team t1) (MultipleTeam t2 _) = case (compare t1 t2) of EQ -> LT
-                                                                  c  -> c
+  compare (Team t1) (MultipleTeam t2 _) =
+    case (compare t1 t2) of
+      EQ -> LT
+      c -> c
   compare t1@(Team _) (Teams t2s) = compare t1 (maximum t2s)
-  compare (MultipleTeam t1 _) (Team t2) = case (compare t1 t2) of EQ -> GT
-                                                                  c  -> c
-  compare (MultipleTeam t1 _) (MultipleTeam t2 _) = compare t1 t2
+  -- Instances where a MultipleTeam is first
+  compare (MultipleTeam t1 i1) (MultipleTeam t2 i2) =
+    case compare t1 t2 of
+      EQ -> compare i1 i2
+      c -> c
   compare t1@(MultipleTeam _ _) (Teams t2s) = compare t1 (maximum t2s)
-  compare (Teams t1s) t2@(Team _) = compare (maximum t1s) t2
-  compare (Teams t1s) t2@(MultipleTeam _ _) = compare (maximum t1s) t2
+  -- simple flip of the Team-first instance
+  compare t1@(MultipleTeam _ _) t2@(Team _) = compare t2 t1
+  -- Instances where a Teams is first
   compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
+  -- simple flip of the Team-first instance
+  compare t1@(Teams _) t2@(Team _) = compare t2 t1
+  -- simple flip of the MultipleTeam-first instance
+  compare t1@(Teams _) t2@(MultipleTeam _ _) = compare t2 t1
   compare NoTeam _ = LT
   compare _ NoTeam = GT
 
 -- * Helper functions
+
 -- By and large these are just functions that can't live in Functions.Domain,
 -- because then using them here would create circular dependencies
 
@@ -74,4 +89,3 @@ expandTeamOrMultiple NoTeam = []
 expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
 expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
-
