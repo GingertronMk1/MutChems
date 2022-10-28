@@ -36,6 +36,10 @@ numberOfOptions = numberOfOptionsFn squad
 filteredSquad :: Lineup
 filteredSquad = filteredSquadFn squad
 
+-- | The number of options available based on the filtered squad
+numberOfOptionsFiltered :: Int
+numberOfOptionsFiltered = numberOfOptionsFn filteredSquad
+
 -- | Converting all `Teams.all32` teams in the above squad
 filteredAndConvertedSquad :: Lineup
 filteredAndConvertedSquad = convertAll32Teams filteredSquad
