@@ -2,7 +2,7 @@
 -- Module: Data
 module Data where
 
-import qualified Data.Teams as Teams
+import qualified Data.Teams as T
 import Type
 
 
@@ -10,65 +10,65 @@ import Type
 baseSquad :: Lineup
 baseSquad =
   [ -- qb
-    ("Justin Fields", [Team Teams.bears]),
-    ("Tim Tebow", [Team Teams.broncos, Team Teams.jets, Team Teams.legends]),
+    ("Justin Fields", [Team T.bears]),
+    ("Tim Tebow", [Team T.broncos, Team T.jets, Team T.legends]),
     -- hb
-    ("Eric Dickerson", [Team Teams.legends, Team Teams.rams, Team Teams.colts, Team Teams.falcons, Team Teams.raiders]),
-    ("LaDainian Tomlinson", [Team Teams.chargers, Team Teams.jets, Team Teams.legends]),
-    ("Ezekiel Elliott", [Team Teams.cowboys]),
+    ("Edgerrin James (Edge)", [Team T.legends, Team T.seahawks, Team T.colts, Team T.cardinals]),
+    ("Ezekiel Elliott", [Team T.cowboys]),
+    ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
-    ("Jim Taylor", [Team Teams.packers, Team Teams.saints, Team Teams.legends]),
+    ("Jim Taylor", [Team T.packers, Team T.saints, Team T.legends]),
     -- te
-    ("Dave Casper", [Team Teams.all32Teams]),
-    ("Evan Engram", [Team Teams.giants, Team Teams.jaguars]),
+    ("Dave Casper", [Team T.all32Teams]),
+    ("Evan Engram", [Team T.giants, Team T.jaguars]),
     -- wr
-    ("Tyreek Hill", [Team Teams.chiefs, Team Teams.dolphins]),
-    ("Deebo Samuel", [Team Teams.niners]),
-    ("Chase Claypool", [Team Teams.steelers]),
-    ("DJ Moore", [Team Teams.panthers]),
+    ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
+    ("Deebo Samuel", [Team T.niners]),
+    ("Chase Claypool", [Team T.steelers]),
+    ("DJ Moore", [Team T.panthers]),
     -- lt
-    ("Garrett Bolles", [Team Teams.broncos]),
-    ("Orlando Brown", [Team Teams.chiefs, Team Teams.ravens]),
+    ("Garrett Bolles", [Team T.broncos]),
+    ("Orlando Brown", [Team T.chiefs, Team T.ravens]),
     -- lg
-    ("Quenton Nelson", [Team Teams.colts]),
-    ("Andrew Norwell", [Team Teams.commanders, Team Teams.jaguars, Team Teams.panthers]),
+    ("Quenton Nelson", [Team T.colts]),
+    ("Andrew Norwell", [Team T.commanders, Team T.jaguars, Team T.panthers]),
     -- c
-    ("Frank Ragnow", [Team Teams.lions]),
+    ("Frank Ragnow", [Team T.lions]),
     -- rg
-    ("Mark Glowinski", [Team Teams.giants, Team Teams.colts, Team Teams.seahawks]),
+    ("Mark Glowinski", [Team T.giants, Team T.colts, Team T.seahawks]),
     -- rt
-    ("La'el Collins", [Team Teams.cowboys, Team Teams.bengals]),
+    ("La'el Collins", [Team T.cowboys, Team T.bengals]),
     -- mlb
-    ("Kiko Alonso", [Team Teams.legends, Team Teams.bills, Team Teams.dolphins, Team Teams.eagles, Team Teams.saints]),
-    ("Tremaine Edmunds", [Team Teams.bills]),
-    ("Devin White", [Team Teams.buccaneers]),
-    ("Roquan Smith", [Team Teams.bears]),
+    ("Bobby Wagner", [Team T.seahawks, Team T.rams]),
+    ("Tremaine Edmunds", [Team T.bills]),
+    ("Devin White", [Team T.buccaneers]),
+    ("Roquan Smith", [Team T.bears]),
     -- rolb
-    ("Jonathan Casillas", [Team Teams.legends, Team Teams.buccaneers, Team Teams.giants, Team Teams.patriots, Team Teams.saints]),
+    ("Jonathan Casillas", [Team T.legends, Team T.buccaneers, Team T.giants, Team T.patriots, Team T.saints]),
     -- lolb
-    ("Ted Hendricks", [Team Teams.colts, Team Teams.packers, Team Teams.raiders, Team Teams.legends]),
+    ("Ted Hendricks", [Team T.colts, Team T.packers, Team T.raiders, Team T.legends]),
     -- dt
-    ("Sam Adams", [Team Teams.all32Teams]),
-    ("Deforest Buckner", [Team Teams.niners, Team Teams.colts]),
+    ("Sam Adams", [Team T.all32Teams]),
+    ("Deforest Buckner", [Team T.niners, Team T.colts]),
     -- le
-    ("Chase Young", [Team Teams.commanders]),
+    ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
     -- re
-    ("Aidan Hutchinson", [Team Teams.lions]),
+    ("Aidan Hutchinson", [Team T.lions]),
     -- ss
-    ("Harrison Smith", [Team Teams.vikings]),
-    ("Grant Delpit", [Team Teams.browns]),
+    ("Harrison Smith", [Team T.vikings]),
+    ("Grant Delpit", [Team T.browns]),
     -- fs
-    ("Malik Hooker", [Team Teams.colts, Team Teams.cowboys]),
-    ("Trevon Moehrig", [Team Teams.raiders]),
+    ("Malik Hooker", [Team T.colts, Team T.cowboys]),
+    ("Trevon Moehrig", [Team T.raiders]),
     -- cb
-    ("Stephon Gilmore", [Team Teams.colts, Team Teams.bills, Team Teams.panthers, Team Teams.patriots]),
-    ("Sauce Gardner", [Team Teams.jets]),
-    ("Denzel Ward", [Team Teams.browns]),
-    ("Rasul Douglas", [Team Teams.packers, Team Teams.eagles, Team Teams.panthers]),
+    ("Stephon Gilmore", [Team T.colts, Team T.bills, Team T.panthers, Team T.patriots]),
+    ("Sauce Gardner", [Team T.jets]),
+    ("Shaquill Griffin", [Team T.seahawks, Team T.jaguars]),
+    ("Rasul Douglas", [Team T.packers, Team T.eagles, Team T.panthers]),
     -- k
-    ("Zane Gonzalez", [Team Teams.browns, Team Teams.cardinals, Team Teams.panthers]),
+    ("Zane Gonzalez", [Team T.browns, Team T.cardinals, Team T.panthers]),
     -- p
-    ("Johnny Hekker", [Team Teams.rams, Team Teams.panthers])
+    ("Johnny Hekker", [Team T.rams, Team T.panthers])
   ]
 
 -- | Team affinity strategy card
@@ -78,5 +78,5 @@ strategy = ("None", [])
 -- | Players I'm looking into
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
-  [ ("Jaire Alexander", [Team Teams.packers])
+  [
   ]
