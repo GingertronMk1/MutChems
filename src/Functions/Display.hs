@@ -13,7 +13,17 @@ ppTeamOrMultiple (Teams ts) = intercalate "/" $ map show ts
 
 -- | Prettily print a Variation
 ppVariation :: Variation -> String
-ppVariation (Variation vs) = intercalate "\n" . map (\(p, t) -> p ++ ": " ++ ppTeamOrMultiple t) $ vs
+ppVariation (Variation vs) =
+  intercalate "\n"
+  . map ppVariation'2
+  . sortBy ppVariation'1
+  $ vs
+  where ppVariation'1 (p1, t1) (p2, t2) =
+          case (compare t1 t2) of
+            EQ -> compare p1 p2
+            c -> c
+        ppVariation'2 (p, t) = p ++ ": " ++ ppTeamOrMultiple t
+
 
 -- | Prettily print many variations, separated cleanly
 ppVariations :: [Variation] -> String
