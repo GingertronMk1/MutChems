@@ -97,6 +97,6 @@ doubleFold'' :: Variation       -- ^ The Variation we're looking at
              -> PlayerTeams     -- ^ The list of PlayerTeams we're investigating
              -> PlayerTeams     -- ^ the resultant PlayerTeams
 doubleFold'' (Variation v) (p, ts) =
-  case find (\(p', _) -> p' == p) v of
+  case find ((==p) . fst) v of
     Nothing      -> (p, NoTeam:ts)
     Just (_, t)  -> (p, t:ts)
