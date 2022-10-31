@@ -1,8 +1,8 @@
 -- |
--- Module: CalculatedData
-module CalculatedData where
+-- Module: Data.Calculated
+module Data.Calculated where
 
-import Data
+import Data.Squad
 import Functions.Application
 import Functions.Domain
 import Type

@@ -2,7 +2,7 @@
 -- Module: Main
 module Main where
 
-import CalculatedData
+import Data.Calculated
 import Functions.Domain
 
 import Functions.Display
