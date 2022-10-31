@@ -55,8 +55,8 @@ baseSquad =
     -- re
     ("Aidan Hutchinson", [Team T.lions]),
     -- ss
+    ("Isaiah Pola-Mao", [Team T.raiders]),
     ("Harrison Smith", [Team T.vikings]),
-    ("Grant Delpit", [Team T.browns]),
     -- fs
     ("Malik Hooker", [Team T.colts, Team T.cowboys]),
     ("Trevon Moehrig", [Team T.raiders]),
@@ -79,5 +79,4 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-    ("Isaiah Pola-Mao", [Team T.raiders])
   ]
