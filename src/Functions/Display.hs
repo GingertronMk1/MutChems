@@ -19,7 +19,7 @@ ppVariation (Variation vs) =
   . sortBy ppVariation'1
   $ vs
   where ppVariation'1 (p1, t1) (p2, t2) =
-          case (compare t1 t2) of
+          case compare t1 t2 of
             EQ -> compare p1 p2
             c -> c
         ppVariation'2 (p, t) = p ++ ": " ++ ppTeamOrMultiple t
@@ -34,9 +34,9 @@ ppDoubleFoldedVariations :: [PlayerTeams] -> String
 ppDoubleFoldedVariations dfvs = 
   let totalCols = length . snd . head $ dfvs
    in intercalate "\n" [
-      "| Team | " ++ (intercalate " | " . map (\n -> show n) $ [1..totalCols]) ++ " |",  -- Top row
+      "| Team | " ++ (intercalate " | " . map show $ [1..totalCols]) ++ " |",  -- Top row
       "|---|" ++ concat (replicate totalCols ":---:|"),  -- Separator
-      intercalate "\n" . map (ppDoubleFoldedVariations') $ dfvs
+      intercalate "\n" . map ppDoubleFoldedVariations' $ dfvs
    ]
 
 -- | Helper for the above - make a Markdown table row for a single PlayerTeam

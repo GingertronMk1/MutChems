@@ -59,7 +59,9 @@ convertAll32Teams l =
 
 -- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
 -- be all 32 teams
-convertSingle :: [Team] -> TeamOrMultiple -> [TeamOrMultiple]
+convertSingle :: [Team]             -- ^ The list of Teams that should be considered for conversion
+              -> TeamOrMultiple     -- ^ The TeamOrMultiple being converted
+              -> [TeamOrMultiple]   -- ^ The resultant list
 convertSingle _ NoTeam = []
 convertSingle ts team@(Team t) =
   if t == Teams.all32Teams
@@ -74,7 +76,7 @@ convertSingle ts (Teams t) = concatMap (convertSingle ts) t
 -- | Double fold variations - roll up all options for a given player into one PlayerTeams instance
 -- and do it for every player involved
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
-doubleFoldVariations = sortOn (fst) . doubleFoldVariations' []
+doubleFoldVariations = sortOn fst . doubleFoldVariations' []
 
 -- | Helper for the above
 doubleFoldVariations' :: [PlayerTeams]    -- ^ The accumulated list of PlayerTeams
@@ -86,7 +88,7 @@ doubleFoldVariations' pts (Variation v:vs) =
   let allCurrentNames = map fst pts                                                     -- Get all names
       allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v)                 -- Get all names that we don't already have
       lengthSoFar = length . snd . head $ pts                                           -- How many Variations have we gone through?
-      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar (NoTeam))) allNewNames    -- Add new names and appropriately lengthed lists of NoTeams
+      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar NoTeam)) allNewNames    -- Add new names and appropriately lengthed lists of NoTeams
       newPT =  map (doubleFold'' (Variation v)) newPTInit                                            -- Add everything from the newest Variation
    in doubleFoldVariations' newPT vs                                                    -- And do the next
 
@@ -95,6 +97,6 @@ doubleFold'' :: Variation       -- ^ The Variation we're looking at
              -> PlayerTeams     -- ^ The list of PlayerTeams we're investigating
              -> PlayerTeams     -- ^ the resultant PlayerTeams
 doubleFold'' (Variation v) (p, ts) =
-  case (find (\(p', _) -> p' == p) v) of
-    Nothing      -> (p, (NoTeam):ts)
+  case find (\(p', _) -> p' == p) v of
+    Nothing      -> (p, NoTeam:ts)
     Just (_, t)  -> (p, t:ts)
