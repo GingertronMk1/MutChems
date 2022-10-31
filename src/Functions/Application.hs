@@ -31,7 +31,9 @@ avgDistanceFromMultiplesOf5 :: [Int] -> Float
 avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
 
 -- | Ultimately a helper function for orderOptions
-orderListOfInts :: [Int] -> [Int] -> (Ordering, String)
+orderListOfInts :: [Int]              -- ^ First list of Ints
+                -> [Int]              -- ^ Second list of Ints
+                -> (Ordering, String) -- ^ Tuple containing the Ordering of the lists and a String denoting what has led to this Ordering
 orderListOfInts xs ys
   | sumComp /= EQ = (sumComp, "Sum")
   | numComp /= EQ = (numComp, "5s")
@@ -55,7 +57,9 @@ expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map (\(a, bs) -> [(a, b) | b <- bs])
 
 -- | A function to plug in to `foldr` to accumulate a list of Variations
-foldFn :: Ord a => a -> [a] -> [a]
+foldFn :: Ord a => a  -- ^ The single Variation being compared
+       -> [a]         -- ^ The list of Variations we are accumulating
+       -> [a]         -- ^ The returned accumulated list of Variations
 foldFn new [] = [new]
 foldFn new olds@(o:_) = case compare new o of
   GT -> [new]
