@@ -56,9 +56,6 @@ jobs:
         with:
           name: ${{ github.sha }}-docs
           path: ${{ steps.buildstep.outputs.docdir }}
-      - name: Hlint
-        run: hlint src
-        continue-on-error: true
       - name: Run the thing
         run: cabal run
       - name: Upload output file for next step
