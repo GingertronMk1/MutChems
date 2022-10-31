@@ -18,21 +18,15 @@ type PlayerTeams = (Player, [TeamOrMultiple])
 type Lineup = [PlayerTeams]
 
 -- | One variation I can have with a Lineup
-data Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
+newtype Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
 
 instance Ord Variation where
-  compare (Variation v1) (Variation v2)
-    | sumComp /= EQ = sumComp
-    | numComp /= EQ = numComp
-    | otherwise = distComp
+  compare (Variation v1) (Variation v2) = comparison
     where
       convertFn = map length . group . sort . concatMap (expandTeamOrMultiple . snd)
       expandedV1 = convertFn v1
       expandedV2 = convertFn v2
-      sumComp = compare (sum expandedV1) (sum expandedV2)
-      num5s = length . filter (== 0) . map (`mod` 5)
-      numComp = compare (num5s expandedV1) (num5s expandedV2)
-      distComp = compare (avgDistanceFromMultiplesOf5 expandedV2) (avgDistanceFromMultiplesOf5 expandedV1)
+      (comparison, _) = orderListOfInts expandedV1 expandedV2
 
 -- | A team and a list of all players with that team's chemistry
 type TeamPlayer = (Team, [Player])
@@ -57,7 +51,7 @@ instance Ord TeamOrMultiple where
   -- All the instances where a single Team is first
   compare (Team t1) (Team t2) = compare t1 t2
   compare (Team t1) (MultipleTeam t2 _) =
-    case (compare t1 t2) of
+    case compare t1 t2 of
       EQ -> LT
       c -> c
   compare t1@(Team _) (Teams t2s) = compare t1 (maximum t2s)
