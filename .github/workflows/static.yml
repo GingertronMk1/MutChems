@@ -41,12 +41,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install packages
-        run: ./bin/install.sh
       - uses: haskell/actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
+      - name: Install packages
+        run: ./bin/install.sh
       - id: buildstep
         name: Build docs
         run: |
