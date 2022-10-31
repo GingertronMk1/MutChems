@@ -41,6 +41,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install packages
+        run: ./bin/install.sh
       - uses: haskell/actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
@@ -56,6 +58,9 @@ jobs:
         with:
           name: ${{ github.sha }}-docs
           path: ${{ steps.buildstep.outputs.docdir }}
+      - name: Lint the thing
+        run: hlint src
+        continue-on-error: true
       - name: Run the thing
         run: cabal run
       - name: Upload output file for next step
