@@ -54,6 +54,7 @@ breakStringWithNumber t =
 expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map (\(a, bs) -> [(a, b) | b <- bs])
 
+-- | A function to plug in to `foldr` to accumulate a list of Variations
 foldFn :: Ord a => a -> [a] -> [a]
 foldFn new [] = [new]
 foldFn new olds@(o:_) = case compare new o of
