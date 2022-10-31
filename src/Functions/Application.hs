@@ -54,17 +54,9 @@ breakStringWithNumber t =
 expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map (\(a, bs) -> [(a, b) | b <- bs])
 
--- | The base of the folding function
-foldFn :: Ord a => [a] -> [a]
-foldFn = foldFn' []
-
--- | The main folding function
-foldFn' :: Ord a => [a]         -- ^ The accumulating list of Orderable elements
-        -> [a]                  -- ^ The remaining list being considered
-        -> [a]                  -- ^ The result containing the largest items in the initial list
-foldFn' [] (x:xs) = foldFn' [x] xs
-foldFn' l [] = l
-foldFn' (l:ls) (x:xs) = case compare x l of
-  GT -> foldFn' [x] xs
-  EQ -> foldFn' (x:l:ls) xs
-  LT -> foldFn' (l:ls) xs
+foldFn :: Ord a => a -> [a] -> [a]
+foldFn new [] = [new]
+foldFn new olds@(o:_) = case compare new o of
+  GT -> [new]
+  EQ -> new:olds
+  LT -> olds

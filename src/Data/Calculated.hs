@@ -58,7 +58,7 @@ sortedVariations = sort allVariations
 
 -- | Folded variations
 foldedVariations :: [Variation]
-foldedVariations = foldFn sortedVariations
+foldedVariations = foldr foldFn [] sortedVariations
 
 -- | All variations, doubly folded
 doubleFoldedVariations :: [PlayerTeams]
