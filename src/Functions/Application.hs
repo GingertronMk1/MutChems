@@ -61,10 +61,10 @@ foldFn :: Ord a => a  -- ^ The single Variation being compared
        -> [a]         -- ^ The list of Variations we are accumulating
        -> [a]         -- ^ The returned accumulated list of Variations
 foldFn new [] = [new]
-foldFn new olds@(o:_) = case compare new o of
-  GT -> [new]
-  EQ -> new:olds
-  LT -> olds
+foldFn new olds@(o:_)
+  | new > o = [new]       -- If the new item being compared is greater than the old ones, start the "old" list again with the new item
+  | new == o = new:olds   -- If the two are equal, add the new one to the list
+  | otherwise = olds      -- Otherwise disregard it and move on
 
 -- | A function to print a formatted string with a series of placeholdser
 printf :: String    -- ^ The placeholdered String to be formatted
