@@ -31,15 +31,30 @@ ppVariations :: [Variation] -> String
 ppVariations = intercalate "\n---\n" . map ppVariation
 
 -- | Prettily print some double-folded variations to a nice Markdown string
-ppDoubleFoldedVariations :: [PlayerTeams] -> String
-ppDoubleFoldedVariations dfvs = 
+genMarkdown :: [PlayerTeams] -- ^ A list of (Player, [TeamOrMultiple]) tuples
+                         -> String        -- ^ A markdown table
+genMarkdown dfvs =
   let totalCols = length . snd . head $ dfvs
+      longestPlayerNameLength = maximum . map (length . fst) $ dfvs
+      longestTeamNameLength = maximum . concatMap (map (length . ppTeamOrMultiple) . snd) $ dfvs
+      longestPlayerNameLengthPlus4 = longestPlayerNameLength + 4
+      longestTeamNameLengthPlus4 = longestTeamNameLength + 4
+      topRow = printf
+        "| %s | %s |"
+        [ padRight longestPlayerNameLengthPlus4 ' ' "Player",
+          intercalate " | " . map (padRight longestTeamNameLengthPlus4 ' ' . show) $ [1..totalCols]
+        ]
+      secondRow = printf
+        "|%s|%s"
+        [ replicate (longestPlayerNameLengthPlus4 + 2) '-',
+          concat (replicate totalCols (printf ":%s:|" [replicate longestTeamNameLengthPlus4 '-']))
+        ]
    in intercalate "\n" [
-      "| Team | " ++ (intercalate " | " . map show $ [1..totalCols]) ++ " |",  -- Top row
-      "|---|" ++ concat (replicate totalCols ":---:|"),  -- Separator
-      intercalate "\n" . map ppDoubleFoldedVariations' $ dfvs
+      topRow,
+      secondRow,
+      intercalate "\n" . map (genMarkdown' longestPlayerNameLengthPlus4 longestTeamNameLengthPlus4) $ dfvs
    ]
 
 -- | Helper for the above - make a Markdown table row for a single PlayerTeam
-ppDoubleFoldedVariations' :: PlayerTeams -> String
-ppDoubleFoldedVariations' (p, ts) = printf "| ++ %s ** | %s |" [p, (intercalate " | " . map ppTeamOrMultiple) ts]
+genMarkdown' :: Int -> Int ->  PlayerTeams -> String
+genMarkdown' lp lt (p, ts) = printf "| %s | %s |" [padRight lp ' ' (printf "**%s**" [p]), (intercalate " | " . map (padRight lt ' ' . ppTeamOrMultiple)) ts]

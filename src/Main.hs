@@ -12,6 +12,6 @@ main :: IO ()
 main = do
       let fv = foldedVariations
           output = ppVariations fv
-          doubleFolded = ppDoubleFoldedVariations . doubleFoldVariations $ fv
+          doubleFolded = genMarkdown . doubleFoldVariations $ fv
       writeFile "output.md" doubleFolded
       putStrLn output
