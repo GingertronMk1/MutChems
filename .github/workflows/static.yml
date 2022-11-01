@@ -35,20 +35,22 @@ jobs:
         include:
           - ghc: '8.8'
             cabal: '3.2'
+            hlint: '3.3.6'
     runs-on: ubuntu-latest
     outputs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: haskell/actions/setup@v2
+      - name: Set up Haskell
+        uses: haskell/actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
       - name: Install HLint
         uses: haskell/actions/hlint-setup@v2
         with:
-          version: 3.3.6
+          version: ${{ matrix.hlint }}
       - name: Run Hlint
         uses: haskell/actions/hlint-run@v2
         with:
