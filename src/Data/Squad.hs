@@ -13,11 +13,11 @@ baseSquad =
     ("Justin Fields", [Team T.bears]),
     ("Tim Tebow", [Team T.broncos, Team T.jets, Team T.legends]),
     -- hb
-    ("Edgerrin James (Edge)", [Team T.legends, Team T.seahawks, Team T.colts, Team T.cardinals]),
+    ("E. James Edge", [Team T.legends, Team T.seahawks, Team T.colts, Team T.cardinals]),
     ("Ezekiel Elliott", [Team T.cowboys]),
     ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
-    ("Jim Taylor", [Team T.packers, Team T.saints, Team T.legends]),
+    ("C.Okoye Nightmare", [Team T.chiefs, Team T.legends]),
     -- te
     ("Dave Casper", [Team T.all32Teams]),
     ("Evan Engram", [Team T.giants, Team T.jaguars]),
@@ -39,10 +39,10 @@ baseSquad =
     -- rt
     ("La'el Collins", [Team T.cowboys, Team T.bengals]),
     -- mlb
-    ("Bobby Wagner", [Team T.seahawks, Team T.rams]),
-    ("Tremaine Edmunds", [Team T.bills]),
     ("Devin White", [Team T.buccaneers]),
+    ("Bobby Wagner", [Team T.seahawks, Team T.rams]),
     ("Roquan Smith", [Team T.bears]),
+    ("Tremaine Edmunds", [Team T.bills]),
     -- rolb
     ("Jonathan Casillas", [Team T.legends, Team T.buccaneers, Team T.giants, Team T.patriots, Team T.saints]),
     -- lolb
@@ -61,10 +61,10 @@ baseSquad =
     ("Malik Hooker", [Team T.colts, Team T.cowboys]),
     ("Trevon Moehrig", [Team T.raiders]),
     -- cb
-    ("Stephon Gilmore", [Team T.colts, Team T.bills, Team T.panthers, Team T.patriots]),
-    ("Sauce Gardner", [Team T.jets]),
     ("Shaquill Griffin", [Team T.seahawks, Team T.jaguars]),
     ("Rasul Douglas", [Team T.packers, Team T.eagles, Team T.panthers]),
+    ("Stephon Gilmore", [Team T.colts, Team T.bills, Team T.panthers, Team T.patriots]),
+    ("Sauce Gardner", [Team T.jets]),
     -- k
     ("Zane Gonzalez", [Team T.browns, Team T.cardinals, Team T.panthers]),
     -- p
