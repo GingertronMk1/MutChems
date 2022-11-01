@@ -45,9 +45,15 @@ jobs:
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
-      - name: Install packages
-        run: |
-          cabal install hlint-3.3.6
+      - name: Install HLint
+        uses: haskell/actions/hlint-setup@v2
+        with:
+          version: 3.3.6
+      - name: Run Hlint
+        uses: haskell/actions/hlint-run
+        with:
+          fail-on: error
+          path: src/
       - id: buildstep
         name: Build docs
         run: |
@@ -59,9 +65,6 @@ jobs:
         with:
           name: ${{ github.sha }}-docs
           path: ${{ steps.buildstep.outputs.docdir }}
-      - name: Lint the thing
-        run: hlint src
-        continue-on-error: true
       - name: Run the thing
         run: cabal run
       - name: Upload output file for next step
