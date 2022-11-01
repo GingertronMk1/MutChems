@@ -46,7 +46,8 @@ jobs:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
       - name: Install packages
-        run: ./bin/install.sh
+        run: |
+          cabal install hlint-3.3.6
       - id: buildstep
         name: Build docs
         run: |
