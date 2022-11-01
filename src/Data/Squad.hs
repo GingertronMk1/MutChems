@@ -5,7 +5,6 @@ module Data.Squad where
 import qualified Data.Teams as T
 import Type
 
-
 -- | Base squad
 baseSquad :: Lineup
 baseSquad =
@@ -78,5 +77,4 @@ strategy = ("None", [])
 -- | Players I'm looking into
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
-  [
-  ]
+  []

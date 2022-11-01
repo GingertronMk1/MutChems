@@ -2,19 +2,19 @@
 -- Module: Data.Calculated
 module Data.Calculated where
 
+import Data.List
+import Data.Ord
 import Data.Squad
 import Functions.Application
 import Functions.Domain
 import Type
 
-import Data.List
-import Data.Ord
-
 -- | The constituent parts of a squad combined and sorted by popularity of team
 squad :: Lineup
-squad = filter (not . null . snd)
-      . concat
-      $ [ [strategy], prospectiveAdditions, baseSquad ]
+squad =
+  filter (not . null . snd)
+    . concat
+    $ [[strategy], prospectiveAdditions, baseSquad]
 
 -- | All teams in the above
 allTeams :: [Team]
@@ -22,11 +22,12 @@ allTeams = allTeamsFn squad
 
 -- | All teams but condensed with just the number of each Team
 allTeamsNumbered :: [(Team, Int)]
-allTeamsNumbered = sortOn (Down . snd)
-         . map (\ts -> (head ts, length ts))
-         . group
-         . sort
-         $ allTeams
+allTeamsNumbered =
+  sortOn (Down . snd)
+    . map (\ts -> (head ts, length ts))
+    . group
+    . sort
+    $ allTeams
 
 -- | The number of options available based on the above squad
 numberOfOptions :: Int

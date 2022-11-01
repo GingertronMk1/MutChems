@@ -6,22 +6,23 @@
 module Functions.Domain where
 
 -- My imports
-import qualified Data.Teams as Teams
-import Functions.Application
-import Type
 
 -- Haskell imports
 import Data.Bifunctor
 import Data.List
-
-
+import qualified Data.Teams as Teams
+import Functions.Application
+import Type
 
 -- | does a given TeamOrMultiple contain a given Team
-includesTeam :: Team            -- ^ The Team being searched for
-             -> TeamOrMultiple  -- ^ The TeamOrMultiple being searched
-             -> Bool            -- ^ Does it contain?
+includesTeam ::
+  -- | The Team being searched for
+  Team ->
+  -- | The TeamOrMultiple being searched
+  TeamOrMultiple ->
+  -- | Does it contain?
+  Bool
 includesTeam t = elem t . expandTeamOrMultiple
-
 
 -- | How many options do we get from a given Lineup?
 numberOfOptionsFn :: Lineup -> Int
@@ -29,15 +30,15 @@ numberOfOptionsFn = product . map (length . snd)
 
 -- | Give me a list of all Teams in a given Lineup
 allTeamsFn :: Lineup -> [Team]
-allTeamsFn = concatMap expandTeamOrMultiple
-           . concatMap snd
-
+allTeamsFn =
+  concatMap expandTeamOrMultiple
+    . concatMap snd
 
 -- | Filtering a Lineup to contain only those Teams with 3 or more entries
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn s =
   let allTeams = allTeamsFn s
-      numberOfOneTeam t = length . filter (==t) $ allTeams
+      numberOfOneTeam t = length . filter (== t) $ allTeams
       filterFn' t = numberOfOneTeam t > 3 || t == Teams.all32Teams
       filterFn NoTeam = False
       filterFn (Team t) = filterFn' t
@@ -50,27 +51,31 @@ filteredSquadFn s =
 -- the option for Jacksonvill if nobody else has ever played for them
 convertAll32Teams :: Lineup -> Lineup
 convertAll32Teams l =
-  let allTeams = rmDups
-               . filter (/= Teams.all32Teams)
-               . allTeamsFn
-               $ l
-    in map (second $ concatMap $ convertSingle allTeams) l
-
+  let allTeams =
+        rmDups
+          . filter (/= Teams.all32Teams)
+          . allTeamsFn
+          $ l
+   in map (second $ concatMap $ convertSingle allTeams) l
 
 -- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
 -- be all 32 teams
-convertSingle :: [Team]             -- ^ The list of Teams that should be considered for conversion
-              -> TeamOrMultiple     -- ^ The TeamOrMultiple being converted
-              -> [TeamOrMultiple]   -- ^ The resultant list
+convertSingle ::
+  -- | The list of Teams that should be considered for conversion
+  [Team] ->
+  -- | The TeamOrMultiple being converted
+  TeamOrMultiple ->
+  -- | The resultant list
+  [TeamOrMultiple]
 convertSingle _ NoTeam = []
 convertSingle ts team@(Team t) =
   if t == Teams.all32Teams
-  then map Team ts
-  else [team]
+    then map Team ts
+    else [team]
 convertSingle ts (MultipleTeam t i) =
   if t == Teams.all32Teams
-  then map (`MultipleTeam` i) ts
-  else [MultipleTeam t i]
+    then map (`MultipleTeam` i) ts
+    else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
 
 -- | Double fold variations - roll up all options for a given player into one PlayerTeams instance
@@ -79,24 +84,32 @@ doubleFoldVariations :: [Variation] -> [PlayerTeams]
 doubleFoldVariations = sortOn fst . doubleFoldVariations' []
 
 -- | Helper for the above
-doubleFoldVariations' :: [PlayerTeams]    -- ^ The accumulated list of PlayerTeams
-                      -> [Variation]      -- ^ The list of Variations we're working through
-                      -> [PlayerTeams]    -- ^ The resultant list of PlayerTeams
+doubleFoldVariations' ::
+  -- | The accumulated list of PlayerTeams
+  [PlayerTeams] ->
+  -- | The list of Variations we're working through
+  [Variation] ->
+  -- | The resultant list of PlayerTeams
+  [PlayerTeams]
 doubleFoldVariations' pts [] = pts
-doubleFoldVariations' [] (Variation v:vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
-doubleFoldVariations' pts (Variation v:vs) =
-  let allCurrentNames = map fst pts                                                     -- Get all names
-      allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v)                 -- Get all names that we don't already have
-      lengthSoFar = length . snd . head $ pts                                           -- How many Variations have we gone through?
-      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar NoTeam)) allNewNames    -- Add new names and appropriately lengthed lists of NoTeams
-      newPT =  map (doubleFold'' (Variation v)) newPTInit                                            -- Add everything from the newest Variation
-   in doubleFoldVariations' newPT vs                                                    -- And do the next
+doubleFoldVariations' [] (Variation v : vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
+doubleFoldVariations' pts (Variation v : vs) =
+  let allCurrentNames = map fst pts -- Get all names
+      allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v) -- Get all names that we don't already have
+      lengthSoFar = length . snd . head $ pts -- How many Variations have we gone through?
+      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar NoTeam)) allNewNames -- Add new names and appropriately lengthed lists of NoTeams
+      newPT = map (doubleFold'' (Variation v)) newPTInit -- Add everything from the newest Variation
+   in doubleFoldVariations' newPT vs -- And do the next
 
 -- | Helper for the above
-doubleFold'' :: Variation       -- ^ The Variation we're looking at
-             -> PlayerTeams     -- ^ The list of PlayerTeams we're investigating
-             -> PlayerTeams     -- ^ the resultant PlayerTeams
+doubleFold'' ::
+  -- | The Variation we're looking at
+  Variation ->
+  -- | The list of PlayerTeams we're investigating
+  PlayerTeams ->
+  -- | the resultant PlayerTeams
+  PlayerTeams
 doubleFold'' (Variation v) (p, ts) =
-  case find ((==p) . fst) v of
-    Nothing      -> (p, NoTeam:ts)
-    Just (_, t)  -> (p, t:ts)
+  case find ((== p) . fst) v of
+    Nothing -> (p, NoTeam : ts)
+    Just (_, t) -> (p, t : ts)
