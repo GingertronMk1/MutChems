@@ -65,3 +65,17 @@ foldFn new olds@(o:_) = case compare new o of
   GT -> [new]
   EQ -> new:olds
   LT -> olds
+
+-- | A function to print a formatted string with a series of placeholdser
+printf :: String    -- ^ The placeholdered String to be formatted
+       -> [String]  -- ^ The list of items to put in those placeholders
+       -> String    -- ^ The resultant String
+printf = printf' []
+
+printf' :: [String] -- ^ The accumulating list of Strings
+        -> String   -- ^ The placeholdered String to be formatted
+        -> [String] -- ^ The list of items to put in those placeholders
+        -> String   -- ^ The resultant String - a reversed, concatenated version of the accumulator
+printf' new "" _ = concat . reverse $ new
+printf' new ('%':'s':olds) (item:items) = printf' (item:new) olds items
+printf' new (old:olds) items = printf' ([old]:new) olds items

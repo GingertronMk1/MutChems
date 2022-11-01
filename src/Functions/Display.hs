@@ -1,6 +1,7 @@
 -- | Module: Functions.Display
 module Functions.Display where
 
+import Functions.Application
 import Type
 import Data.List
 
@@ -41,9 +42,4 @@ ppDoubleFoldedVariations dfvs =
 
 -- | Helper for the above - make a Markdown table row for a single PlayerTeam
 ppDoubleFoldedVariations' :: PlayerTeams -> String
-ppDoubleFoldedVariations' (p, ts) =
-  "| **"
-  ++ p
-  ++ "** | "
-  ++ (intercalate " | " . map ppTeamOrMultiple) ts
-  ++ " |"
+ppDoubleFoldedVariations' (p, ts) = printf "| ++ %s ** | %s |" [p, (intercalate " | " . map ppTeamOrMultiple) ts]
