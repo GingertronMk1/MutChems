@@ -50,7 +50,7 @@ jobs:
         with:
           version: 3.3.6
       - name: Run Hlint
-        uses: haskell/actions/hlint-run
+        uses: haskell/actions/hlint-run@v2
         with:
           fail-on: error
           path: src/
