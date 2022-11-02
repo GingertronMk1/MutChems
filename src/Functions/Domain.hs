@@ -10,6 +10,7 @@ module Functions.Domain where
 -- Haskell imports
 import           Data.Bifunctor
 import           Data.List
+import           Data.Maybe
 import qualified Data.Teams            as Teams
 import           Functions.Application
 import           Type
@@ -129,6 +130,4 @@ compareBasedOnSquad l p1 p2 =
 
 -- | Getting the index for a single player
 compareBasedOnSquad' :: Lineup -> Player -> Int
-compareBasedOnSquad' l p = case findIndex ((==p) . fst) l of
-  Just n  -> n
-  Nothing -> length l + 1
+compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
