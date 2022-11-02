@@ -14,7 +14,7 @@ squad :: Lineup
 squad =
   filter (not . null . snd)
     . concat
-    $ [[strategy], prospectiveAdditions, baseSquad]
+    $ [baseSquad, [strategy], prospectiveAdditions]
 
 -- | All teams in the above
 allTeams :: [Team]
