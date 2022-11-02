@@ -113,3 +113,12 @@ doubleFold'' (Variation v) (p, ts) =
   case find ((== p) . fst) v of
     Nothing -> (p, NoTeam : ts)
     Just (_, t) -> (p, t : ts)
+
+compareBasedOnSquad :: Lineup -> String -> String -> Ordering
+compareBasedOnSquad l p1 p2 =
+  compare (compareBasedOnSquad' l p1) (compareBasedOnSquad' l p2)
+
+compareBasedOnSquad' :: Lineup -> String -> Int
+compareBasedOnSquad' l p = case findIndex (\(p', _) -> p' == p) l of
+  Just n -> n
+  Nothing -> length l + 1

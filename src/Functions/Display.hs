@@ -1,9 +1,11 @@
 -- | Module: Functions.Display
 module Functions.Display where
 
+import Data.Calculated
 import Data.List
 import Functions.Application
 import Type
+import Functions.Domain (compareBasedOnSquad)
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer
 ppTeamOrMultiple :: TeamOrMultiple -> String
@@ -16,15 +18,11 @@ ppTeamOrMultiple (Teams ts) = intercalate "/" $ map show ts
 ppVariation :: Variation -> String
 ppVariation (Variation vs) =
   intercalate "\n"
-    . map ppVariation'2
-    . sortBy ppVariation'1
+    . map ppVariation'
+    . sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2)
     $ vs
   where
-    ppVariation'1 (p1, t1) (p2, t2) =
-      case compare t1 t2 of
-        EQ -> compare p1 p2
-        c -> c
-    ppVariation'2 (p, t) = p ++ ": " ++ ppTeamOrMultiple t
+    ppVariation' (p, t) = p ++ ": " ++ ppTeamOrMultiple t
 
 -- | Prettily print many variations, separated cleanly
 ppVariations :: [Variation] -> String
@@ -57,6 +55,7 @@ genMarkdown dfvs =
       theRest =
         intercalate "\n"
           . map (genMarkdown' longestPlayerNameLengthPlus4 longestTeamNameLengthPlus4)
+          . sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2)
           $ dfvs
    in intercalate
         "\n"
