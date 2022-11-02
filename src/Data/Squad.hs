@@ -77,4 +77,6 @@ strategy = ("None", [])
 -- | Players I'm looking into
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
-  []
+  [
+    ("Tony Siragusa", [Team T.ravens, Team T.colts])
+  ]
