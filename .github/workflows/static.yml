@@ -42,11 +42,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Haskell
-        uses: haskell/actions/setup@v2
-        with:
-          ghc-version: ${{ matrix.ghc }}
-          cabal-version: ${{ matrix.cabal }}
       - name: Install HLint
         uses: haskell/actions/hlint-setup@v2
         with:
@@ -56,6 +51,11 @@ jobs:
         with:
           fail-on: error
           path: src/
+      - name: Set up Haskell
+        uses: haskell/actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: ${{ matrix.cabal }}
       - id: buildstep
         name: Build docs
         run: |
