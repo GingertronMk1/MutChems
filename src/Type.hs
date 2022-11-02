@@ -2,8 +2,8 @@
 -- Module: Type
 module Type where
 
-import Data.List
-import Functions.Application
+import           Data.List
+import           Functions.Application
 
 -- | Team is shorthand for a String - it is just the name of a team
 type Team = String
@@ -53,13 +53,13 @@ instance Ord TeamOrMultiple where
   compare (Team t1) (MultipleTeam t2 _) =
     case compare t1 t2 of
       EQ -> LT
-      c -> c
+      c  -> c
   compare t1@(Team _) (Teams t2s) = compare t1 (maximum t2s)
   -- Instances where a MultipleTeam is first
   compare (MultipleTeam t1 i1) (MultipleTeam t2 i2) =
     case compare t1 t2 of
       EQ -> compare i1 i2
-      c -> c
+      c  -> c
   compare t1@(MultipleTeam _ _) (Teams t2s) = compare t1 (maximum t2s)
   -- simple flip of the Team-first instance
   compare t1@(MultipleTeam _ _) t2@(Team _) = compare t2 t1
@@ -79,7 +79,7 @@ instance Ord TeamOrMultiple where
 
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
-expandTeamOrMultiple NoTeam = []
-expandTeamOrMultiple (Team t) = [t]
+expandTeamOrMultiple NoTeam             = []
+expandTeamOrMultiple (Team t)           = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
-expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
+expandTeamOrMultiple (Teams ts)         = concatMap expandTeamOrMultiple ts

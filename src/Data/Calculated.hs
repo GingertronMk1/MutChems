@@ -2,12 +2,12 @@
 -- Module: Data.Calculated
 module Data.Calculated where
 
-import Data.List
-import Data.Ord
-import Data.Squad
-import Functions.Application
-import Functions.Domain
-import Type
+import           Data.List
+import           Data.Ord
+import           Data.Squad
+import           Functions.Application
+import           Functions.Domain
+import           Type
 
 -- | The constituent parts of a squad combined and sorted by popularity of team
 squad :: Lineup

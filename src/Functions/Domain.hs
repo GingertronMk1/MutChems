@@ -8,11 +8,11 @@ module Functions.Domain where
 -- My imports
 
 -- Haskell imports
-import Data.Bifunctor
-import Data.List
-import qualified Data.Teams as Teams
-import Functions.Application
-import Type
+import           Data.Bifunctor
+import           Data.List
+import qualified Data.Teams            as Teams
+import           Functions.Application
+import           Type
 
 -- | does a given TeamOrMultiple contain a given Team
 includesTeam ::
@@ -40,10 +40,10 @@ filteredSquadFn s =
   let allTeams = allTeamsFn s
       numberOfOneTeam t = length . filter (== t) $ allTeams
       filterFn' t = numberOfOneTeam t > 3 || t == Teams.all32Teams
-      filterFn NoTeam = False
-      filterFn (Team t) = filterFn' t
+      filterFn NoTeam             = False
+      filterFn (Team t)           = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
-      filterFn (Teams ts) = any filterFn ts
+      filterFn (Teams ts)         = any filterFn ts
    in filter (not . null . snd) . map (Data.Bifunctor.second (filter filterFn)) $ s
 
 -- | Change all players with all 32 teams to contain all useful teams
@@ -111,7 +111,7 @@ doubleFold'' ::
   PlayerTeams
 doubleFold'' (Variation v) (p, ts) =
   case find ((== p) . fst) v of
-    Nothing -> (p, NoTeam : ts)
+    Nothing     -> (p, NoTeam : ts)
     Just (_, t) -> (p, t : ts)
 
 -- | Sorting 2 Players based on their position in the initial squad
@@ -130,5 +130,5 @@ compareBasedOnSquad l p1 p2 =
 -- | Getting the index for a single player
 compareBasedOnSquad' :: Lineup -> Player -> Int
 compareBasedOnSquad' l p = case findIndex ((==p) . fst) l of
-  Just n -> n
+  Just n  -> n
   Nothing -> length l + 1

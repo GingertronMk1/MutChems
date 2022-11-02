@@ -5,7 +5,7 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
-import Data.List
+import           Data.List
 
 -- | Remove duplicate items from a list
 rmDups :: (Eq a, Ord a) => [a] -> [a]
@@ -100,6 +100,6 @@ printf' ::
   [String] ->
   -- | The resultant String - a reversed, concatenated version of the accumulator
   String
-printf' new "" _ = concat . reverse $ new
+printf' new "" _                              = concat . reverse $ new
 printf' new ('%' : 's' : olds) (item : items) = printf' (item : new) olds items
-printf' new (old : olds) items = printf' ([old] : new) olds items
+printf' new (old : olds) items                = printf' ([old] : new) olds items

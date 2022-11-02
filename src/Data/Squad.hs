@@ -3,7 +3,7 @@
 module Data.Squad where
 
 import qualified Data.Teams as T
-import Type
+import           Type
 
 -- | Base squad
 baseSquad :: Lineup

@@ -1,18 +1,18 @@
 -- | Module: Functions.Display
 module Functions.Display where
 
-import Data.Calculated
-import Data.List
-import Functions.Application
-import Type
-import Functions.Domain (compareBasedOnSquad)
+import           Data.Calculated
+import           Data.List
+import           Functions.Application
+import           Functions.Domain      (compareBasedOnSquad)
+import           Type
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer
 ppTeamOrMultiple :: TeamOrMultiple -> String
-ppTeamOrMultiple NoTeam = "-"
-ppTeamOrMultiple (Team t) = t
+ppTeamOrMultiple NoTeam             = "-"
+ppTeamOrMultiple (Team t)           = t
 ppTeamOrMultiple (MultipleTeam t i) = t ++ "x" ++ show i
-ppTeamOrMultiple (Teams ts) = intercalate "/" $ map show ts
+ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 
 -- | Prettily print a Variation
 ppVariation :: Variation -> String
