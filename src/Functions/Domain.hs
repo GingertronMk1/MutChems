@@ -129,6 +129,6 @@ compareBasedOnSquad l p1 p2 =
 
 -- | Getting the index for a single player
 compareBasedOnSquad' :: Lineup -> Player -> Int
-compareBasedOnSquad' l p = case findIndex (\(p', _) -> p' == p) l of
+compareBasedOnSquad' l p = case findIndex ((==p) . fst) l of
   Just n -> n
   Nothing -> length l + 1
