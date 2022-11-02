@@ -114,11 +114,21 @@ doubleFold'' (Variation v) (p, ts) =
     Nothing -> (p, NoTeam : ts)
     Just (_, t) -> (p, t : ts)
 
-compareBasedOnSquad :: Lineup -> String -> String -> Ordering
+-- | Sorting 2 Players based on their position in the initial squad
+compareBasedOnSquad ::
+  -- | The initial squad
+  Lineup ->
+  -- | The first Player
+  Player ->
+  -- | The second Player
+  Player ->
+  -- | The resultant Ordering
+  Ordering
 compareBasedOnSquad l p1 p2 =
   compare (compareBasedOnSquad' l p1) (compareBasedOnSquad' l p2)
 
-compareBasedOnSquad' :: Lineup -> String -> Int
+-- | Getting the index for a single player
+compareBasedOnSquad' :: Lineup -> Player -> Int
 compareBasedOnSquad' l p = case findIndex (\(p', _) -> p' == p) l of
   Just n -> n
   Nothing -> length l + 1
