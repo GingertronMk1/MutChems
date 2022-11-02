@@ -90,6 +90,7 @@ printf ::
   String
 printf = printf' []
 
+-- | The printf function that does all the work
 printf' ::
   -- | The accumulating list of Strings
   [String] ->
