@@ -15,4 +15,3 @@ executable mut
   default-language:   Haskell2010
   ghc-options:        -Wall
   hs-source-dirs:     src
-  default-extensions: TupleSections

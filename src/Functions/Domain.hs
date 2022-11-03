@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 -- |
 -- Module: Functions.Domain
 --
