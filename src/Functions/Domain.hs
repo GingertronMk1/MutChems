@@ -11,7 +11,7 @@ module Functions.Domain where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
-import qualified Data.Teams            as Teams
+import qualified Data.Teams            as T
 import           Functions.Application
 import           Type
 
@@ -40,7 +40,7 @@ filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn s =
   let allTeams = allTeamsFn s
       numberOfOneTeam t = length . filter (== t) $ allTeams
-      filterFn' t = numberOfOneTeam t > 3 || t == Teams.all32Teams
+      filterFn' t = numberOfOneTeam t > 3 || t == T.all32Teams
       filterFn NoTeam             = False
       filterFn (Team t)           = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
@@ -49,12 +49,12 @@ filteredSquadFn s =
 
 -- | Change all players with all 32 teams to contain all useful teams
 -- useful here being "all other actual teams" - there's no point giving him
--- the option for Jacksonvill if nobody else has ever played for them
+-- the option for Jacksonville if nobody else has ever played for them
 convertAll32Teams :: Lineup -> Lineup
 convertAll32Teams l =
   let allTeams =
         rmDups
-          . filter (/= Teams.all32Teams)
+          . filter (/= T.all32Teams)
           . allTeamsFn
           $ l
    in map (second $ concatMap $ convertSingle allTeams) l
@@ -70,11 +70,11 @@ convertSingle ::
   [TeamOrMultiple]
 convertSingle _ NoTeam = []
 convertSingle ts team@(Team t) =
-  if t == Teams.all32Teams
+  if t == T.all32Teams
     then map Team ts
     else [team]
 convertSingle ts (MultipleTeam t i) =
-  if t == Teams.all32Teams
+  if t == T.all32Teams
     then map (`MultipleTeam` i) ts
     else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
@@ -98,7 +98,7 @@ doubleFoldVariations' pts (Variation v : vs) =
   let allCurrentNames = map fst pts -- Get all names
       allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v) -- Get all names that we don't already have
       lengthSoFar = length . snd . head $ pts -- How many Variations have we gone through?
-      newPTInit = pts ++ map (\n -> (n, replicate lengthSoFar NoTeam)) allNewNames -- Add new names and appropriately lengthed lists of NoTeams
+      newPTInit = pts ++ map (, replicate lengthSoFar NoTeam) allNewNames -- Add new names and appropriately lengthed lists of NoTeams
       newPT = map (doubleFold'' (Variation v)) newPTInit -- Add everything from the newest Variation
    in doubleFoldVariations' newPT vs -- And do the next
 
