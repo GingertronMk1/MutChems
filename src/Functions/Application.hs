@@ -76,9 +76,9 @@ foldFn ::
   [a]
 foldFn new [] = [new]
 foldFn new olds@(o : _) = case compare new o of
-  GT -> [new] -- If the new item being compared is greater than the old ones, start the "old" list again with the new item
-  EQ -> new : olds -- If the two are equal, add the new one to the list
   LT -> olds -- Otherwise disregard it and move on
+  EQ -> new : olds -- If the two are equal, add the new one to the list
+  GT -> [new] -- If the new item being compared is greater than the old ones, start the "old" list again with the new item
 
 -- | A function to print a formatted string with a series of placeholdser
 printf ::
