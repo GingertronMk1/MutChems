@@ -33,7 +33,7 @@ distanceFrom5 n = (\v -> min v (5 - v)) $ mod n 5
 
 -- | Take the average distance from a multiple of 5 that a list of numbers are
 avgDistanceFromMultiplesOf5 :: [Int] -> Float
-avgDistanceFromMultiplesOf5 = (mean . map distanceFrom5)
+avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
 
 -- | Ultimately a helper function for orderOptions
 orderListOfInts ::
