@@ -78,7 +78,15 @@ genMarkdown' lp lt (p, ts) =
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?
 totalsPerSquad :: [PlayerTeams] -> String
-totalsPerSquad pts =
-  let rotated = rotate . map snd $ pts
-      amounts = map (sortOn (Down . snd) . map (\ts -> (head ts, length ts)) . group . sort) rotated
-  in intercalate "|" . map (intercalate "<br>" . map (\(t,i) -> printf "%s: %s" [ppTeamOrMultiple t, show i])) $ amounts
+totalsPerSquad =
+  intercalate "|"
+   . map (
+     intercalate "<br>"
+     . map (\(t,i) -> printf "%s: %s" [ppTeamOrMultiple t, show i])
+     . sortOn (Down . snd)
+     . map (\ts -> (head ts, length ts))
+     . group
+     . sort
+   )
+   . rotate
+   . map snd
