@@ -11,9 +11,9 @@ import Data.List
 
 -- | Give me the best Variations given a Lineup (if there are no duplicate Players)
 main :: IO ()
-main = do
+main =
   let s = squad
-  case duplicatesExist (map fst s) of
+  in case duplicatesExist (map fst s) of
     Just t  -> putStrLn $ printf "There is a duplicate: multiple instances of `%s`. Add a position indicator and re-run." [t]
     Nothing -> main' s
 
@@ -28,7 +28,5 @@ main' s = do
          . convertAll32Teams
          . filteredSquadFn
          $ s
-      output = ppVariations fv
-      doubleFolded = genMarkdown . doubleFoldVariations $ fv
-  writeFile "output.md" doubleFolded
-  putStrLn output
+  writeFile "output.md" . genMarkdown . doubleFoldVariations $ fv
+  putStrLn $ ppVariations fv
