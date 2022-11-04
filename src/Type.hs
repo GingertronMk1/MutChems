@@ -62,8 +62,8 @@ instance Ord TeamOrMultiple where
   compare (Teams t1s)           t2@(Team _)           = compare (maximum t1s) t2
   compare (Teams t1s)           t2@(MultipleTeam _ _) = compare (maximum t1s) t2
   compare (Teams t1s)           (Teams t2s)           = compare (maximum t1s) (maximum t2s)
-  compare NoTeam _                                    = LT
-  compare _ NoTeam                                    = GT
+  compare NoTeam                _                     = LT
+  compare _                     NoTeam                = GT
 
 -- * Helper functions
 
