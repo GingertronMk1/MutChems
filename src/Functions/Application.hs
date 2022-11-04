@@ -76,9 +76,9 @@ foldFn ::
   [a]
 foldFn new [] = [new]
 foldFn new olds@(o : _) = case compare new o of
-  LT -> olds -- Otherwise disregard it and move on
-  EQ -> new : olds -- If the two are equal, add the new one to the list
   GT -> [new] -- If the new item being compared is greater than the old ones, start the "old" list again with the new item
+  EQ -> new : olds -- If the two are equal, add the new one to the list
+  LT -> olds -- Otherwise disregard it and move on
 
 -- | A function to print a formatted string with a series of placeholdser
 printf ::
@@ -115,3 +115,15 @@ duplicatesExist' _ []       = Nothing
 duplicatesExist' acc (x:xs)
   | x `elem` acc = Just x
   | otherwise    = duplicatesExist' (x:acc) xs
+
+-- | Rotate a square list
+rotate :: [[a]] -> [[a]]
+rotate = rotate' []
+
+-- | Helper function for the above, dropping and taking
+rotate' :: [[a]] -> [[a]] -> [[a]]
+rotate' xs ys
+  | null thisCol = reverse xs
+  | otherwise = rotate' (thisCol:xs) theRest
+  where thisCol = concatMap (take 1) ys
+        theRest = map (drop 1) ys

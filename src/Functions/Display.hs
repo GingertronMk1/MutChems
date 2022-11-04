@@ -3,8 +3,9 @@ module Functions.Display where
 
 import           Data.Calculated
 import           Data.List
+import           Data.Ord
 import           Functions.Application
-import           Functions.Domain      (compareBasedOnSquad)
+import           Functions.Domain
 import           Type
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer
@@ -35,9 +36,10 @@ genMarkdown ::
   -- | A markdown table
   String
 genMarkdown dfvs =
-  let totalCols = length . snd . head $ dfvs
-      longestPlayerNameLength = maximum . map (length . fst) $ dfvs
-      longestTeamNameLength = maximum . concatMap (map (length . ppTeamOrMultiple) . snd) $ dfvs
+  let sortedDfvs = sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2) dfvs
+      totalCols = length . snd . head $ sortedDfvs
+      longestPlayerNameLength = maximum . map (length . fst) $ sortedDfvs
+      longestTeamNameLength = maximum . concatMap (map (length . ppTeamOrMultiple) . snd) $ sortedDfvs
       longestPlayerNameLengthPlus4 = longestPlayerNameLength + 4
       longestTeamNameLengthPlus4 = longestTeamNameLength + 4
       topRow =
@@ -55,13 +57,14 @@ genMarkdown dfvs =
       theRest =
         intercalate "\n"
           . map (genMarkdown' longestPlayerNameLengthPlus4 longestTeamNameLengthPlus4)
-          . sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2)
-          $ dfvs
+          $ sortedDfvs
+      bottomRow = printf "| **TOTALS** | %s |" [totalsPerSquad sortedDfvs]
    in intercalate
         "\n"
         [ topRow,
           secondRow,
-          theRest
+          theRest,
+          bottomRow
         ]
 
 -- | Helper for the above - make a Markdown table row for a single PlayerTeam
@@ -72,3 +75,9 @@ genMarkdown' lp lt (p, ts) =
     [ padRight lp ' ' (printf "**%s**" [p]),
       (intercalate " | " . map (padRight lt ' ' . ppTeamOrMultiple)) ts
     ]
+
+totalsPerSquad :: [PlayerTeams] -> String
+totalsPerSquad pts =
+  let rotated = rotate . map snd $ pts
+      amounts = map (sortOn (Down . snd) . map (\ts -> (head ts, length ts)) . group . sort) rotated
+  in intercalate "|" . map (intercalate "<br>" . map (\(t,i) -> printf "%s: %s" [ppTeamOrMultiple t, show i])) $ amounts
