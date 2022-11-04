@@ -21,12 +21,13 @@ type Lineup = [PlayerTeams]
 newtype Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
 
 instance Ord Variation where
-  compare (Variation v1) (Variation v2) = comparison
+  compare (Variation v1) (Variation v2) =
+    fst $ orderListOfInts (convertFn v1) (convertFn v2)
     where
-      convertFn = map length . group . sort . concatMap (expandTeamOrMultiple . snd)
-      expandedV1 = convertFn v1
-      expandedV2 = convertFn v2
-      (comparison, _) = orderListOfInts expandedV1 expandedV2
+      convertFn = map length
+                . group
+                . sort
+                . concatMap (expandTeamOrMultiple . snd)
 
 -- | A team and a list of all players with that team's chemistry
 type TeamPlayer = (Team, [Player])
@@ -48,29 +49,21 @@ data TeamOrMultiple
 
 -- | The Ord instance - compare the "lowest" team name in each
 instance Ord TeamOrMultiple where
-  -- All the instances where a single Team is first
-  compare (Team t1) (Team t2) = compare t1 t2
-  compare (Team t1) (MultipleTeam t2 _) =
-    case compare t1 t2 of
-      EQ -> LT
-      c  -> c
-  compare t1@(Team _) (Teams t2s) = compare t1 (maximum t2s)
-  -- Instances where a MultipleTeam is first
-  compare (MultipleTeam t1 i1) (MultipleTeam t2 i2) =
-    case compare t1 t2 of
-      EQ -> compare i1 i2
-      c  -> c
-  compare t1@(MultipleTeam _ _) (Teams t2s) = compare t1 (maximum t2s)
-  -- simple flip of the Team-first instance
-  compare t1@(MultipleTeam _ _) t2@(Team _) = compare t2 t1
-  -- Instances where a Teams is first
-  compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
-  -- simple flip of the Team-first instance
-  compare t1@(Teams _) t2@(Team _) = compare t2 t1
-  -- simple flip of the MultipleTeam-first instance
-  compare t1@(Teams _) t2@(MultipleTeam _ _) = compare t2 t1
-  compare NoTeam _ = LT
-  compare _ NoTeam = GT
+  -- We're going to base this on MultipleTeams
+  -- Comparing 2 MultipleTeams
+  compare (MultipleTeam t1 i1) (MultipleTeam t2 i2)
+    | t1 == t2 = compare i1 i2    -- If it's the same Team then compare how many it is
+    | otherwise = compare t1 t2   -- Otherwise compare the Team
+  compare t1@(MultipleTeam _ _) (Team t2)             = compare t1 (MultipleTeam t2 1)
+  compare t1@(MultipleTeam _ _) (Teams t2s)           = compare t1 (maximum t2s)
+  compare (Team t1)             (Team t2)             = compare (MultipleTeam t1 1) (MultipleTeam t2 1)
+  compare (Team t1)             t2@(MultipleTeam _ _) = compare (MultipleTeam t1 1) t2
+  compare (Team t1)             (Teams t2s)           = compare (MultipleTeam t1 1) (maximum t2s)
+  compare (Teams t1s)           t2@(Team _)           = compare (maximum t1s) t2
+  compare (Teams t1s)           t2@(MultipleTeam _ _) = compare (maximum t1s) t2
+  compare (Teams t1s)           (Teams t2s)           = compare (maximum t1s) (maximum t2s)
+  compare NoTeam _                                    = LT
+  compare _ NoTeam                                    = GT
 
 -- * Helper functions
 
