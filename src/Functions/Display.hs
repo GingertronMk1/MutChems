@@ -76,6 +76,7 @@ genMarkdown' lp lt (p, ts) =
       (intercalate " | " . map (padRight lt ' ' . ppTeamOrMultiple)) ts
     ]
 
+-- | Using the totals of each team in each Variation, kind of unfolding them?
 totalsPerSquad :: [PlayerTeams] -> String
 totalsPerSquad pts =
   let rotated = rotate . map snd $ pts
