@@ -103,3 +103,15 @@ printf' ::
 printf' new "" _                              = concat . reverse $ new
 printf' new ('%' : 's' : olds) (item : items) = printf' (item : new) olds items
 printf' new (old : olds) items                = printf' ([old] : new) olds items
+
+-- | Taking a list, say of Players, and returning the first instance of duplication
+-- if there is any, otherwise Nothing
+duplicatesExist :: Eq a => [a] -> Maybe a
+duplicatesExist = duplicatesExist' []
+
+-- | Doing the heavy lifting for the above with my old favourite, an accumulator
+duplicatesExist' :: Eq a => [a] -> [a] -> Maybe a
+duplicatesExist' _ []       = Nothing
+duplicatesExist' acc (x:xs)
+  | x `elem` acc = Just x
+  | otherwise    = duplicatesExist' (x:acc) xs

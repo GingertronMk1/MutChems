@@ -48,6 +48,7 @@ baseSquad =
     ("Ted Hendricks", [Team T.colts, Team T.packers, Team T.raiders, Team T.legends]),
     -- dt
     ("Sam Adams", [Team T.all32Teams]),
+    ("Tony Siragusa", [Team T.ravens, Team T.colts]),
     ("Deforest Buckner", [Team T.niners, Team T.colts]),
     -- le
     ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
@@ -78,5 +79,5 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-    ("Tony Siragusa", [Team T.ravens, Team T.colts])
+    ("Josh Allen", [Team T.bills])
   ]
