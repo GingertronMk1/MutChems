@@ -1,4 +1,4 @@
--- | Module: Functions.Display
+-- | Module: Functions.Display.
 module Functions.Display where
 
 import           Data.Calculated
@@ -8,14 +8,14 @@ import           Functions.Application
 import           Functions.Domain
 import           Type
 
--- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer
+-- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam             = "-"
 ppTeamOrMultiple (Team t)           = t
 ppTeamOrMultiple (MultipleTeam t i) = t ++ "x" ++ show i
 ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 
--- | Prettily print a Variation
+-- | Prettily print a Variation.
 ppVariation :: Variation -> String
 ppVariation (Variation vs) =
   intercalate "\n"
@@ -25,15 +25,15 @@ ppVariation (Variation vs) =
   where
     ppVariation' (p, t) = p ++ ": " ++ ppTeamOrMultiple t
 
--- | Prettily print many variations, separated cleanly
+-- | Prettily print many variations, separated cleanly.
 ppVariations :: [Variation] -> String
 ppVariations = intercalate "\n---\n" . map ppVariation
 
--- | Prettily print some double-folded variations to a nice Markdown string
+-- | Prettily print some double-folded variations to a nice Markdown string.
 genMarkdown ::
-  -- | A list of (Player, [TeamOrMultiple]) tuples
+  -- | A list of (Player, [TeamOrMultiple]) tuples.
   [PlayerTeams] ->
-  -- | A markdown table
+  -- | A markdown table.
   String
 genMarkdown dfvs =
   let sortedDfvs = sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2) dfvs
@@ -67,7 +67,7 @@ genMarkdown dfvs =
           bottomRow
         ]
 
--- | Helper for the above - make a Markdown table row for a single PlayerTeam
+-- | Helper for the above - make a Markdown table row for a single PlayerTeam.
 genMarkdown' :: Int -> Int -> PlayerTeams -> String
 genMarkdown' lp lt (p, ts) =
   printf
@@ -76,7 +76,7 @@ genMarkdown' lp lt (p, ts) =
       (intercalate " | " . map (padRight lt ' ' . ppTeamOrMultiple)) ts
     ]
 
--- | Using the totals of each team in each Variation, kind of unfolding them?
+-- | Using the totals of each team in each Variation, kind of unfolding them?.
 totalsPerSquad :: [PlayerTeams] -> String
 totalsPerSquad =
   intercalate "|"

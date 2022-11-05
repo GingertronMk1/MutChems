@@ -5,19 +5,19 @@ module Type where
 import           Data.List
 import           Functions.Application
 
--- | Team is shorthand for a String - it is just the name of a team
+-- | Team is shorthand for a String - it is just the name of a team.
 type Team = String
 
--- | Player is shorthand for a String - it is just the name of a football player
+-- | Player is shorthand for a String - it is just the name of a football player.
 type Player = String
 
--- | A player and all of their teams
+-- | A player and all of their teams.
 type PlayerTeams = (Player, [TeamOrMultiple])
 
--- | A full lineup
+-- | A full lineup.
 type Lineup = [PlayerTeams]
 
--- | One variation I can have with a Lineup
+-- | One variation I can have with a Lineup.
 newtype Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
 
 instance Ord Variation where
@@ -29,25 +29,25 @@ instance Ord Variation where
                 . sort
                 . concatMap (expandTeamOrMultiple . snd)
 
--- | A team and a list of all players with that team's chemistry
+-- | A team and a list of all players with that team's chemistry.
 type TeamPlayer = (Team, [Player])
 
--- | An option for the whole squad's chemistries
+-- | An option for the whole squad's chemistries.
 type Option = [TeamPlayer]
 
--- | Options for one or more Teams
+-- | Options for one or more Teams.
 data TeamOrMultiple
-  = -- | Null value
+  = -- | Null value.
     NoTeam
-  | -- | A single Team
+  | -- | A single Team.
     Team Team
-  | -- | A single Team with a multiplier, e.g. Raiders x3
+  | -- | A single Team with a multiplier, e.g. Raiders x3.
     MultipleTeam Team Int
-  | -- | Multiple Teams, e.g. Broncos + Seahawks
+  | -- | Multiple Teams, e.g. Broncos + Seahawks.
     Teams [TeamOrMultiple]
   deriving (Eq, Show)
 
--- | The Ord instance - compare the "lowest" team name in each
+-- | The Ord instance - compare the "lowest" team name in each.
 instance Ord TeamOrMultiple where
   -- We're going to base this on MultipleTeams
   -- Comparing 2 MultipleTeams
@@ -70,7 +70,7 @@ instance Ord TeamOrMultiple where
 -- By and large these are just functions that can't live in Functions.Domain,
 -- because then using them here would create circular dependencies
 
--- | Expanding a TeamOrMultiple into a list of Teams - used for analysis
+-- | Expanding a TeamOrMultiple into a list of Teams - used for analysis.
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
 expandTeamOrMultiple NoTeam             = []
 expandTeamOrMultiple (Team t)           = [t]

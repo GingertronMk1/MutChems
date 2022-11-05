@@ -16,27 +16,27 @@ import qualified Data.Teams            as T
 import           Functions.Application
 import           Type
 
--- | does a given TeamOrMultiple contain a given Team
+-- | Does a given TeamOrMultiple contain a given Team.
 includesTeam ::
-  -- | The Team being searched for
+  -- | The Team being searched for.
   Team ->
-  -- | The TeamOrMultiple being searched
+  -- | The TeamOrMultiple being searched.
   TeamOrMultiple ->
-  -- | Does it contain?
+  -- | Does it contain?.
   Bool
 includesTeam t = elem t . expandTeamOrMultiple
 
--- | How many options do we get from a given Lineup?
+-- | How many options do we get from a given Lineup?.
 numberOfOptionsFn :: Lineup -> Int
 numberOfOptionsFn = product . map (length . snd)
 
--- | Give me a list of all Teams in a given Lineup
+-- | Give me a list of all Teams in a given Lineup.
 allTeamsFn :: Lineup -> [Team]
 allTeamsFn =
   concatMap expandTeamOrMultiple
     . concatMap snd
 
--- | Filtering a Lineup to contain only those Teams with 3 or more entries
+-- | Filtering a Lineup to contain only those Teams with 3 or more entries.
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn s =
   let allTeams = allTeamsFn s
@@ -63,11 +63,11 @@ convertAll32Teams l =
 -- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
 -- be all 32 teams
 convertSingle ::
-  -- | The list of Teams that should be considered for conversion
+  -- | The list of Teams that should be considered for conversion.
   [Team] ->
-  -- | The TeamOrMultiple being converted
+  -- | The TeamOrMultiple being converted.
   TeamOrMultiple ->
-  -- | The resultant list
+  -- | The resultant list.
   [TeamOrMultiple]
 convertSingle _ NoTeam = []
 convertSingle ts team@(Team t) =
@@ -80,18 +80,18 @@ convertSingle ts (MultipleTeam t i) =
     else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
 
--- | Double fold variations - roll up all options for a given player into one PlayerTeams instance
+-- | Double fold variations - roll up all options for a given player into one PlayerTeams instance.
 -- and do it for every player involved
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
 doubleFoldVariations = sortOn fst . doubleFoldVariations' []
 
--- | Helper for the above
+-- | Helper for the above.
 doubleFoldVariations' ::
-  -- | The accumulated list of PlayerTeams
+  -- | The accumulated list of PlayerTeams.
   [PlayerTeams] ->
-  -- | The list of Variations we're working through
+  -- | The list of Variations we're working through.
   [Variation] ->
-  -- | The resultant list of PlayerTeams
+  -- | The resultant list of PlayerTeams.
   [PlayerTeams]
 doubleFoldVariations' pts [] = pts
 doubleFoldVariations' [] (Variation v : vs) = doubleFoldVariations' (map (\(p, t) -> (p, [t])) v) vs
@@ -103,32 +103,32 @@ doubleFoldVariations' pts (Variation v : vs) =
       newPT = map (doubleFold'' (Variation v)) newPTInit -- Add everything from the newest Variation
    in doubleFoldVariations' newPT vs -- And do the next
 
--- | Helper for the above
+-- | Helper for the above.
 doubleFold'' ::
-  -- | The Variation we're looking at
+  -- | The Variation we're looking at.
   Variation ->
-  -- | The list of PlayerTeams we're investigating
+  -- | The list of PlayerTeams we're investigating.
   PlayerTeams ->
-  -- | the resultant PlayerTeams
+  -- | the resultant PlayerTeams.
   PlayerTeams
 doubleFold'' (Variation v) (p, ts) =
   case find ((== p) . fst) v of
     Nothing     -> (p, NoTeam : ts)
     Just (_, t) -> (p, t : ts)
 
--- | Sorting 2 Players based on their position in the initial squad
+-- | Sorting 2 Players based on their position in the initial squad.
 compareBasedOnSquad ::
-  -- | The initial squad
+  -- | The initial squad.
   Lineup ->
-  -- | The first Player
+  -- | The first Player.
   Player ->
-  -- | The second Player
+  -- | The second Player.
   Player ->
-  -- | The resultant Ordering
+  -- | The resultant Ordering.
   Ordering
 compareBasedOnSquad l p1 p2 =
   compare (compareBasedOnSquad' l p1) (compareBasedOnSquad' l p2)
 
--- | Getting the index for a single player
+-- | Getting the index for a single player.
 compareBasedOnSquad' :: Lineup -> Player -> Int
 compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)

@@ -9,7 +9,7 @@ import           Functions.Domain
 import          Type
 import Data.List
 
--- | Give me the best Variations given a Lineup (if there are no duplicate Players)
+-- | Give me the best Variations given a Lineup (if there are no duplicate Players).
 main :: IO ()
 main =
   let s = squad
@@ -17,7 +17,7 @@ main =
     Just t  -> putStrLn $ printf "There is a duplicate: multiple instances of `%s`. Add a position indicator and re-run." [t]
     Nothing -> main' s
 
--- | Give me the best Variations given a Lineup
+-- | Give me the best Variations given a Lineup.
 main' :: Lineup -> IO()
 main' s = do
   let fv = foldr foldFn []
