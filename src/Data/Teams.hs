@@ -8,130 +8,130 @@ import           Type
 all32Teams :: Team
 all32Teams = "all32"
 
--- | bears
+-- | The Chicago Bears
 bears :: Team
 bears = "Bears"
 
--- | bengals
+-- | The Cincinnati Bengals
 bengals :: Team
 bengals = "Bengals"
 
--- | bills
+-- | The Buffalo Bills
 bills :: Team
 bills = "Bills"
 
--- | broncos
+-- | The Denver Broncos
 broncos :: Team
 broncos = "Broncos"
 
--- | browns
+-- | The Cleveland Browns
 browns :: Team
 browns = "Browns"
 
--- | buccaneers
+-- | The Tampa Bay Buccaneers
 buccaneers :: Team
 buccaneers = "Buccaneers"
 
--- | cardinals
+-- | The Arizona Cardinals
 cardinals :: Team
 cardinals = "Cardinals"
 
--- | chargers
+-- | The LA Chargers
 chargers :: Team
 chargers = "Chargers"
 
--- | chiefs
+-- | The Kansas City Chiefs
 chiefs :: Team
 chiefs = "Chiefs"
 
--- | colts
+-- | The Indianapolis Colts
 colts :: Team
 colts = "Colts"
 
--- | commanders
+-- | The Washington Commanders
 commanders :: Team
 commanders = "Commanders"
 
--- | cowboys
+-- | The Dallas Cowboys
 cowboys :: Team
 cowboys = "Cowboys"
 
--- | dolphins
+-- | The Miami Dolphins
 dolphins :: Team
 dolphins = "Dolphins"
 
--- | eagles
+-- | The Philadelphia Eagles
 eagles :: Team
 eagles = "Eagles"
 
--- | falcons
+-- | The Atlanta Falcons
 falcons :: Team
 falcons = "Falcons"
 
--- | giants
+-- | The New York Giants
 giants :: Team
 giants = "Giants"
 
--- | jaguars
+-- | The Jacksonville Jaguars
 jaguars :: Team
 jaguars = "Jaguars"
 
--- | jets
+-- | The New York Jets
 jets :: Team
 jets = "Jets"
 
--- | legends
+-- | Legends
 legends :: Team
 legends = "Legends"
 
--- | lions
+-- | The Detroit Lions
 lions :: Team
 lions = "Lions"
 
--- | niners
+-- | The San Francisco 49ers
 niners :: Team
 niners = "49ers"
 
--- | packers
+-- | The Green Bay Packers
 packers :: Team
 packers = "Packers"
 
--- | panthers
+-- | The Carolina Panthers
 panthers :: Team
 panthers = "Panthers"
 
--- | patriots
+-- | The New England Patriots
 patriots :: Team
 patriots = "Patriots"
 
--- | raiders
+-- | The Las Vegas Raiders
 raiders :: Team
 raiders = "Raiders"
 
--- | rams
+-- | The LA Rams
 rams :: Team
 rams = "Rams"
 
--- | ravens
+-- | The Baltimore Ravens
 ravens :: Team
 ravens = "Ravens"
 
--- | saints
+-- | The New Orleans Saints
 saints :: Team
 saints = "Saints"
 
--- | seahawks
+-- | The Seattle Seahawks
 seahawks :: Team
 seahawks = "Seahawks"
 
--- | steelers
+-- | The Pittsburgh Steelers
 steelers :: Team
 steelers = "Steelers"
 
--- | texans
+-- | The Houston Texans
 texans :: Team
 texans = "Texans"
 
--- | vikings
+-- | The Minnesota Vikings
 vikings :: Team
 vikings = "Vikings"
