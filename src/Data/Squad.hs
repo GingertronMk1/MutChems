@@ -5,7 +5,7 @@ module Data.Squad where
 import qualified Data.Teams as T
 import           Type
 
--- | Base squad
+-- | Base squad.
 baseSquad :: Lineup
 baseSquad =
   [ -- qb
@@ -16,7 +16,7 @@ baseSquad =
     ("Ezekiel Elliott", [Team T.cowboys]),
     ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
-    ("C.Okoye Nightmare", [Team T.chiefs, Team T.legends]),
+    ("Christian Okoye", [Team T.chiefs]),
     -- te
     ("Dave Casper", [Team T.all32Teams]),
     ("Evan Engram", [Team T.giants, Team T.jaguars]),
@@ -71,13 +71,14 @@ baseSquad =
     ("Johnny Hekker", [Team T.rams, Team T.panthers])
   ]
 
--- | Team affinity strategy card
+-- | Team affinity strategy card.
 strategy :: PlayerTeams
 strategy = ("None", [])
 
--- | Players I'm looking into
+-- | Players I'm looking into.
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-    ("Josh Allen", [Team T.bills])
+    -- ("Josh Allen", [Team T.bills]),
+    -- ("Reggie Gilliam", [Team T.bills])
   ]
