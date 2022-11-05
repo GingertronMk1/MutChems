@@ -14,7 +14,7 @@ main :: IO ()
 main =
   let s = squad
   in case duplicatesExist (map fst s) of
-    Just t  -> putStrLn $ printf "There is a duplicate: multiple instances of `%s`. Add a position indicator and re-run." [t]
+    Just (p, n)  -> putStrLn $ printf "There are %s instances of %s. Please add position indicators." [show n, p]
     Nothing -> main' s
 
 -- | Give me the best Variations given a Lineup.

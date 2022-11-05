@@ -77,8 +77,8 @@ strategy = ("None", [])
 
 -- | Players I'm looking into.
 prospectiveAdditions :: Lineup
-prospectiveAdditions =
+prospectiveAdditions = 
   [
-    -- ("Josh Allen", [Team T.bills]),
-    -- ("Reggie Gilliam", [Team T.bills])
+    ("Josh Allen", [Team T.bills]),
+    ("Reggie Gilliam", [Team T.bills])
   ]

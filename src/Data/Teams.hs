@@ -128,6 +128,10 @@ seahawks = "Seahawks"
 steelers :: Team
 steelers = "Steelers"
 
+-- | The Houston Texans
+texans :: Team
+texans = "Texans"
+
 -- | The Minnesota Vikings.
 vikings :: Team
 vikings = "Vikings"
