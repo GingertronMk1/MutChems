@@ -109,7 +109,7 @@ printf' new (old : olds) items                = printf' ([old] : new) olds items
 duplicatesExist :: Eq a => [a] -> Maybe (a, Int)
 duplicatesExist [] = Nothing
 duplicatesExist (x:xs) = case filter (==x) xs of
-  [] -> duplicatesExist xs
+  []  -> duplicatesExist xs
   xs' -> Just (x, length xs' + 1)
 
 -- | Rotate a rectangular list.
