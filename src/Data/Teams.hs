@@ -8,130 +8,130 @@ import           Type
 all32Teams :: Team
 all32Teams = "all32"
 
--- | The San Francisco 49ers.
-niners :: Team
-niners = "49ers"
-
--- | The Chicago Bears.
+-- | bears
 bears :: Team
 bears = "Bears"
 
--- | The Cincinnati Bengals.
+-- | bengals
 bengals :: Team
 bengals = "Bengals"
 
--- | The Buffalo Bills.
+-- | bills
 bills :: Team
 bills = "Bills"
 
--- | The Denver Broncos.
+-- | broncos
 broncos :: Team
 broncos = "Broncos"
 
--- | The Cleveland Browns.
+-- | browns
 browns :: Team
 browns = "Browns"
 
--- | The Tampa Bay Buccaneers.
+-- | buccaneers
 buccaneers :: Team
 buccaneers = "Buccaneers"
 
--- | The Arizona Cardinals.
+-- | cardinals
 cardinals :: Team
 cardinals = "Cardinals"
 
--- | The LA Chargers.
+-- | chargers
 chargers :: Team
 chargers = "Chargers"
 
--- | The Kansas City Chiefs.
+-- | chiefs
 chiefs :: Team
 chiefs = "Chiefs"
 
--- | The Indianapolis Colts.
+-- | colts
 colts :: Team
 colts = "Colts"
 
--- | The Washington Commanders.
+-- | commanders
 commanders :: Team
 commanders = "Commanders"
 
--- | The Dallas Cowboys.
+-- | cowboys
 cowboys :: Team
 cowboys = "Cowboys"
 
--- | The Miami Dolphins.
+-- | dolphins
 dolphins :: Team
 dolphins = "Dolphins"
 
--- | The Philadelphia Eagles.
+-- | eagles
 eagles :: Team
 eagles = "Eagles"
 
--- | The Atlanta Falcons.
+-- | falcons
 falcons :: Team
 falcons = "Falcons"
 
--- | The New Yawk Giants.
+-- | giants
 giants :: Team
 giants = "Giants"
 
--- | The Jacksonville Jaguars.
+-- | jaguars
 jaguars :: Team
 jaguars = "Jaguars"
 
--- | The New Yawk Jets.
+-- | jets
 jets :: Team
 jets = "Jets"
 
--- | Retirees.
+-- | legends
 legends :: Team
 legends = "Legends"
 
--- | The Detroit Lions.
+-- | lions
 lions :: Team
 lions = "Lions"
 
--- | The Green Bay Packers.
+-- | niners
+niners :: Team
+niners = "49ers"
+
+-- | packers
 packers :: Team
 packers = "Packers"
 
--- | The Carolina Panthers.
+-- | panthers
 panthers :: Team
 panthers = "Panthers"
 
--- | The New England Patriots.
+-- | patriots
 patriots :: Team
 patriots = "Patriots"
 
--- | The Oakland/LA/Las Vegas Raiders.
+-- | raiders
 raiders :: Team
 raiders = "Raiders"
 
--- | The LA Rams.
+-- | rams
 rams :: Team
 rams = "Rams"
 
--- | The Baltimore Ravens.
+-- | ravens
 ravens :: Team
 ravens = "Ravens"
 
--- | The New Orleans Saints.
+-- | saints
 saints :: Team
 saints = "Saints"
 
--- | The Mighty Seattle Seahawks.
+-- | seahawks
 seahawks :: Team
 seahawks = "Seahawks"
 
--- | The Pittsburgh Steelers.
+-- | steelers
 steelers :: Team
 steelers = "Steelers"
 
--- | The Houston Texans
+-- | texans
 texans :: Team
 texans = "Texans"
 
--- | The Minnesota Vikings.
+-- | vikings
 vikings :: Team
 vikings = "Vikings"
