@@ -57,8 +57,8 @@ orderListOfInts xs ys
 -- the described format
 breakStringWithNumber :: String -> (String, Int)
 breakStringWithNumber t =
-  let (t', tn') = break (== '|') t
-      tn'' = if tn' == "" then 1 else read (drop 1 tn') :: Int
+  let (t', _:tn') = break (== '|') t
+      tn'' = if null tn' then 1 else read tn' :: Int
    in (t', tn'')
 
 -- | Expand a tuple whos second element is a list into a list of tuples.
