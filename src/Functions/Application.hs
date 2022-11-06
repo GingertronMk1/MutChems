@@ -56,10 +56,10 @@ orderListOfInts xs ys
 -- | A function to convert a string of format "<Data>|<Number>" into a tuple of
 -- the described format
 breakStringWithNumber :: String -> (String, Int)
-breakStringWithNumber t =
-  let (t', _:tn') = break (== '|') t
-      tn'' = if null tn' then 1 else read tn' :: Int
-   in (t', tn'')
+breakStringWithNumber t = case break (=='|') t of
+  (t', "|")    -> (t', 1)
+  (t', '|':sn) -> (t', read sn :: Int)
+  _            -> (t, 1)
 
 -- | Expand a tuple whos second element is a list into a list of tuples.
 expandList :: [(a, [b])] -> [[(a, b)]]
