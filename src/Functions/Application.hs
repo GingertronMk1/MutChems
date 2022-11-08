@@ -31,6 +31,7 @@ mean ls = fromIntegral (length ls) / realToFrac (sum ls)
 distanceFrom5 :: Int -> Int
 distanceFrom5 n = distanceFrom5' $ mod n 5
 
+-- | Take the distance from 5 a given Int value is
 distanceFrom5' :: Int -> Int
 distanceFrom5' n = min n (5 - n)
 
@@ -65,12 +66,14 @@ breakStringWithNumber t = case break (=='|') t of
   (t', '|':sn) -> (t', read sn :: Int)
   _            -> (t, 1)
 
--- | Expand a tuple whos second element is a list into a list of tuples.
-expandList :: [(a, [b])] -> [[(a, b)]]
-expandList = map expandTuple
 
+-- | Expand a tuple whos second element is a list into a list of tuples.
 expandTuple :: (a, [b]) -> [(a, b)]
 expandTuple (a, bs) = [(a, b) | b <- bs]
+
+-- | Expand a list of tuples into a list of lists of tuples
+expandList :: [(a, [b])] -> [[(a, b)]]
+expandList = map expandTuple
 
 -- | A function to plug in to `foldr` to accumulate a list of Variations.
 foldFn ::
@@ -133,5 +136,8 @@ rotate' xs ys
   where thisCol = concatMap (take 1) ys
         theRest = map (drop 1) ys
 
+-- | Kind of a compression algorithm?
+-- Take a list of items that should be the same, and compress it into a tuple
+-- containing the first item in the list and the length of the list
 firstAndLength :: [a] -> (a, Int)
 firstAndLength ts = (head ts, length ts)
