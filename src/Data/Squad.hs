@@ -9,8 +9,8 @@ import           Type
 baseSquad :: Lineup
 baseSquad =
   [ -- qb
+    ("Josh Allen", [Team T.bills]),
     ("Justin Fields", [Team T.bears]),
-    ("Tim Tebow", [Team T.broncos, Team T.jets, Team T.legends]),
     -- hb
     ("E. James Edge", [Team T.legends, Team T.seahawks, Team T.colts, Team T.cardinals]),
     ("Ezekiel Elliott", [Team T.cowboys]),
@@ -61,6 +61,7 @@ baseSquad =
     ("Malik Hooker", [Team T.colts, Team T.cowboys]),
     ("Trevon Moehrig", [Team T.raiders]),
     -- cb
+    ("Champ Bailey", [Team T.commanders, Team T.broncos, Team T.legends]),
     ("Shaquill Griffin", [Team T.seahawks, Team T.jaguars]),
     ("Rasul Douglas", [Team T.packers, Team T.eagles, Team T.panthers]),
     ("Stephon Gilmore", [Team T.colts, Team T.bills, Team T.panthers, Team T.patriots]),
@@ -79,6 +80,4 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-    ("Josh Allen", [Team T.bills]),
-    ("Champ Bailey", [Team T.commanders, Team T.broncos, Team T.legends])
   ]
