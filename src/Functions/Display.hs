@@ -84,7 +84,7 @@ totalsPerSquad =
      intercalate "<br>"
      . map (\(t,i) -> printf "%s: %s" [ppTeamOrMultiple t, show i])
      . sortOn (Down . snd)
-     . map (\ts -> (head ts, length ts))
+     . map firstAndLength
      . group
      . sort
    )

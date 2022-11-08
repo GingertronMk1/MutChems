@@ -29,7 +29,11 @@ mean ls = fromIntegral (length ls) / realToFrac (sum ls)
 
 -- | Take the minimum distance from a multiple of 5 that a number is.
 distanceFrom5 :: Int -> Int
-distanceFrom5 n = (\v -> min v (5 - v)) $ mod n 5
+distanceFrom5 n = distanceFrom5' $ mod n 5
+
+distanceFrom5' :: Int -> Int
+distanceFrom5' n = min n (5 - n)
+
 
 -- | Take the average distance from a multiple of 5 that a list of numbers are.
 avgDistanceFromMultiplesOf5 :: [Int] -> Float
@@ -63,7 +67,10 @@ breakStringWithNumber t = case break (=='|') t of
 
 -- | Expand a tuple whos second element is a list into a list of tuples.
 expandList :: [(a, [b])] -> [[(a, b)]]
-expandList = map (\(a, bs) -> [(a, b) | b <- bs])
+expandList = map expandTuple
+
+expandTuple :: (a, [b]) -> [(a, b)]
+expandTuple (a, bs) = [(a, b) | b <- bs]
 
 -- | A function to plug in to `foldr` to accumulate a list of Variations.
 foldFn ::
@@ -125,3 +132,6 @@ rotate' xs ys
   | otherwise = rotate' (thisCol:xs) theRest
   where thisCol = concatMap (take 1) ys
         theRest = map (drop 1) ys
+
+firstAndLength :: [a] -> (a, Int)
+firstAndLength ts = (head ts, length ts)

@@ -24,7 +24,7 @@ allTeams = allTeamsFn squad
 allTeamsNumbered :: [(Team, Int)]
 allTeamsNumbered =
   sortOn (Down . snd)
-    . map (\ts -> (head ts, length ts))
+    . map firstAndLength
     . group
     . sort
     $ allTeams
