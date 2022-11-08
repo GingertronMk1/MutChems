@@ -16,7 +16,7 @@ baseSquad =
     ("Ezekiel Elliott", [Team T.cowboys]),
     ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
-    ("Christian Okoye", [Team T.chiefs]),
+    ("Reggie Gilliam", [Team T.bills]),
     -- te
     ("Dave Casper", [Team T.all32Teams]),
     ("Evan Engram", [Team T.giants, Team T.jaguars]),
@@ -80,5 +80,5 @@ prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
     ("Josh Allen", [Team T.bills]),
-    ("Reggie Gilliam", [Team T.bills])
+    ("Champ Bailey", [Team T.commanders, Team T.broncos, Team T.legends])
   ]
