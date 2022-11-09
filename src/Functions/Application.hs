@@ -5,11 +5,11 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
-import           Data.List
-
--- | Remove duplicate items from a list.
-rmDups :: (Eq a, Ord a) => [a] -> [a]
-rmDups = map head . group . sort
+-- | Remove duplicate entries in a list - probably not the best optimised but
+-- concise and I think quite elegant, plus doesn't need an `import` statement
+rmDups :: Eq a => [a] -> [a]
+rmDups [] = []
+rmDups (x:xs) = x:rmDups (filter (/=x) xs)
 
 -- | Pad a string right with a given char until it is of a certain length.
 padRight ::
