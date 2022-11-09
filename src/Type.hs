@@ -51,9 +51,9 @@ data TeamOrMultiple
 instance Ord TeamOrMultiple where
   -- We're going to base this on MultipleTeams
   -- Comparing 2 MultipleTeams
-  compare (MultipleTeam t1 i1) (MultipleTeam t2 i2)
-    | t1 == t2 = compare i1 i2    -- If it's the same Team then compare how many it is
-    | otherwise = compare t1 t2   -- Otherwise compare the Team
+  compare (MultipleTeam t1 i1)  (MultipleTeam t2 i2) = case compare t1 t2 of
+    EQ -> compare i1 i2   -- If it's the same Team then compare how many it is
+    c  -> c               -- Otherwise compare the Team
   compare t1@(MultipleTeam _ _) (Team t2)             = compare t1 (MultipleTeam t2 1)
   compare t1@(MultipleTeam _ _) (Teams t2s)           = compare t1 (maximum t2s)
   compare (Team t1)             (Team t2)             = compare (MultipleTeam t1 1) (MultipleTeam t2 1)
