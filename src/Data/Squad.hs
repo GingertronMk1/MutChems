@@ -23,7 +23,7 @@ baseSquad =
     -- wr
     ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
     ("Deebo Samuel", [Team T.niners]),
-    ("Chase Claypool", [Team T.steelers]),
+    ("Chase Claypool", [Team T.steelers, Team T.bears]),
     ("DJ Moore", [Team T.panthers]),
     -- lt
     ("Garrett Bolles", [Team T.broncos]),
@@ -40,7 +40,7 @@ baseSquad =
     -- mlb
     ("Devin White", [Team T.buccaneers]),
     ("Bobby Wagner", [Team T.seahawks, Team T.rams]),
-    ("Roquan Smith", [Team T.bears]),
+    ("Roquan Smith", [Team T.bears, Team T.ravens]),
     ("Tremaine Edmunds", [Team T.bills]),
     -- rolb
     ("Jonathan Casillas", [Team T.legends, Team T.buccaneers, Team T.giants, Team T.patriots, Team T.saints]),
