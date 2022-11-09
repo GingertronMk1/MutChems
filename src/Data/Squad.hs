@@ -12,7 +12,7 @@ baseSquad =
     ("Josh Allen", [Team T.bills]),
     ("Justin Fields", [Team T.bears]),
     -- hb
-    ("E. James Edge", [Team T.legends, Team T.seahawks, Team T.colts, Team T.cardinals]),
+    ("Barry Sanders", [Team T.legends, Team T.lions]),
     ("Ezekiel Elliott", [Team T.cowboys]),
     ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
@@ -80,5 +80,5 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-  ("Devin Hester", [Team T.falcons, Team T.bears, Team T.seahawks, Team T.ravens, Team T.legends])
+  -- ("Devin Hester", [Team T.falcons, Team T.bears, Team T.seahawks, Team T.ravens, Team T.legends])
   ]
