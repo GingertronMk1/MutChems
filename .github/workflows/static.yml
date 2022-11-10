@@ -21,6 +21,7 @@ permissions: write-all
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   URL: /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments
+  IS_MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
 # Allow one concurrent deployment
 concurrency:
@@ -90,7 +91,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ env.IS_MAIN_PUSH }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -108,3 +109,21 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+    
+  put_file_in_branch:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: ${{ env.IS_MAIN_PUSH }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.sha }}-output
+          path: .
+      - name: Push to built branch
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add output.md -f
+          git commit -m "Deploy built file"
+          git push origin `git subtree split --prefix . main`:output/built --force
