@@ -44,7 +44,9 @@ jobs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
       - name: test
-        run: echo ${{ github.event.pull_request }}
+        run: |
+          URL="/repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ github.event.pull_request.id }}"
+          echo $URL
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install HLint
@@ -83,7 +85,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           echo ${{ github.event }}
-          URL="/repos/${{ github.event.repo.owner }}/${{ github.event.repo.repo }}/pulls/$PR_NUMBER"
+          URL="/repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ github.event.pull_request.id }}"
           echo $URL
           gh api \
             --method PATCH \
