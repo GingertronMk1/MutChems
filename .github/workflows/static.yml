@@ -74,6 +74,14 @@ jobs:
         with:
           name: ${{ github.sha }}-output
           path: ./output.md
+      - name: Add commit comment if PR
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          jq -nc "{\"body\": $(cat output.md)}" | \
+          curl -sL -X POST -d @- \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
