@@ -123,6 +123,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add output.md -f
+          git add output/* -f
           git commit -m "Deploy built file"
           git push origin `git subtree split --prefix output main`:output/built --force
