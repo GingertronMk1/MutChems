@@ -34,6 +34,7 @@ baseSquad =
     -- c
     ("Frank Ragnow", [Team T.lions]),
     -- rg
+    ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens]),
     ("Mark Glowinski", [Team T.giants, Team T.colts, Team T.seahawks]),
     -- rt
     ("La'el Collins", [Team T.cowboys, Team T.bengals]),
@@ -80,5 +81,5 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-    ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens])
+    ("Patrick Ricard", [Team T.ravens])
   ]
