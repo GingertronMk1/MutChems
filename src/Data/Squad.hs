@@ -16,6 +16,7 @@ baseSquad =
     ("Ezekiel Elliott", [Team T.cowboys]),
     ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
+    ("Patrick Ricard", [Team T.ravens]),
     ("Reggie Gilliam", [Team T.bills]),
     -- te
     ("Dave Casper", [Team T.all32Teams]),
@@ -81,5 +82,4 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-    ("Patrick Ricard", [Team T.ravens])
   ]
