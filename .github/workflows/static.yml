@@ -80,6 +80,7 @@ jobs:
       - name: Add commit comment if PR
         if: ${{ github.event_name == 'pull_request' }}
         run: |
+          echo ${{ github.event }}
           URL="/repos/${{ github.event.repo.owner }}/${{ github.event.repo.repo }}/pulls/$PR_NUMBER"
           echo $URL
           gh api \
