@@ -80,5 +80,5 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
-  -- ("Devin Hester", [Team T.falcons, Team T.bears, Team T.seahawks, Team T.ravens, Team T.legends])
+    ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens])
   ]
