@@ -119,10 +119,13 @@ jobs:
           path: ./output
       - name: Rename output file
         run: mv ./output/output.md ./output/README.md
-      - name: Push to built branch
+      - name: Configure git
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add output/* -f
+      - name: Add the file
+        run: git add output/* -f
+      - name: Commit and push
+        run: |
           git commit -m "\"Deploy\" built file"
           git push origin `git subtree split --prefix output main`:output/built --force
