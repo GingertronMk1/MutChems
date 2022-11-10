@@ -8,7 +8,7 @@ module Functions.Application where
 -- | Remove duplicate entries in a list - probably not the best optimised but
 -- concise and I think quite elegant, plus doesn't need an `import` statement
 rmDups :: Eq a => [a] -> [a]
-rmDups [] = []
+rmDups []     = []
 rmDups (x:xs) = x:rmDups (filter (/=x) xs)
 
 -- | Pad a string right with a given char until it is of a certain length.
