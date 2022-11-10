@@ -23,6 +23,7 @@ permissions:
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  URL: /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ github.event.pull_request.number }}
 
 # Allow one concurrent deployment
 concurrency:
@@ -45,8 +46,7 @@ jobs:
     steps:
       - name: test
         run: |
-          URL="/repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ github.event.pull_request.id }}"
-          echo $URL
+          echo ${{ env.URL }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install HLint
@@ -84,13 +84,10 @@ jobs:
       - name: Add commit comment if PR
         if: ${{ github.event_name == 'pull_request' }}
         run: |
-          echo ${{ github.event }}
-          URL="/repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ github.event.pull_request.id }}"
-          echo $URL
           gh api \
             --method PATCH \
             -H "Accept: application/vnd.github+json" \
-            $URL \
+            ${{ env.URL }} \
             -f body="$(cat output.md)"
 
   deploy:
