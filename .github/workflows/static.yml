@@ -20,7 +20,6 @@ permissions: write-all
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  URL: /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments
 
 # Allow one concurrent deployment
 concurrency:
@@ -41,9 +40,6 @@ jobs:
     outputs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
-      - name: test
-        run: |
-          echo ${{ env.URL }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install HLint
@@ -84,7 +80,7 @@ jobs:
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
-            ${{ env.URL }} \
+            /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments \
             -f body="$(cat output.md)"
 
   deploy:
