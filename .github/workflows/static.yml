@@ -20,7 +20,7 @@ permissions: write-all
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  URL: /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ github.event.pull_request.number }}
+  URL: /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments
 
 # Allow one concurrent deployment
 concurrency:
@@ -82,7 +82,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           gh api \
-            --method PATCH \
+            --method POST \
             -H "Accept: application/vnd.github+json" \
             ${{ env.URL }} \
             -f body="$(cat output.md)"
