@@ -77,13 +77,14 @@ jobs:
       - name: Add commit comment if PR
         if: ${{ github.event_name == 'pull_request' }}
         run: |
-          URL="https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
+          URL="/repos/${{ context.repo.owner }}/${{ context.repo.repo }}/pulls/$PR_NUMBER"
           echo $URL
-          jq -nc "{\"body\": \"$(cat output.md)\"}" | \
-          curl -sL -X POST -d @- \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            $URL
+          gh api \
+            --method PATCH \
+            -H "Accept: application/vnd.github+json" \
+            $URL \
+            -f body="$(cat output.md)"
+
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
