@@ -43,6 +43,8 @@ jobs:
     outputs:
       docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
+      - name: test
+        run: echo "${{ github.event }}"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install HLint
