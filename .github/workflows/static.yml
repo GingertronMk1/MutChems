@@ -77,7 +77,7 @@ jobs:
       - name: Add commit comment if PR
         if: ${{ github.event_name == 'pull_request' }}
         run: |
-          jq -nc "{\"body\": $(cat output.md)}" | \
+          jq -nc "{\"body\": \"$(cat output.md)\"}" | \
           curl -sL -X POST -d @- \
             -H "Content-Type: application/json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
