@@ -59,7 +59,7 @@ sortedVariations = sort allVariations
 
 -- | Folded variations.
 foldedVariations :: [Variation]
-foldedVariations = foldr foldFn [] sortedVariations
+foldedVariations = maximumValues sortedVariations
 
 -- | All variations, doubly folded.
 doubleFoldedVariations :: [PlayerTeams]

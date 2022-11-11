@@ -24,12 +24,13 @@ main' s = do
          . filteredSquadFn
          $ s
 
-  let fv = foldr foldFn []
+  putStrLn $ printf "Iterating over %s possible options...\n\n" [show $ numberOfOptionsFn fSquad]
+
+  let fv = maximumValues
          . sort
          . map (Variation . sortOn snd)
          . sequence
          . expandList
          $ fSquad
-  putStrLn $ printf "Iterating over %s possible options...\n\n" [show $ numberOfOptionsFn fSquad]
   writeFile "output.md" . genMarkdown . doubleFoldVariations $ fv
   putStrLn $ ppVariations fv
