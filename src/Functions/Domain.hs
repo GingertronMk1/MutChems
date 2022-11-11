@@ -136,3 +136,18 @@ compareBasedOnSquad l p1 p2 =
 -- | Getting the index for a single player.
 compareBasedOnSquad' :: Lineup -> Player -> Int
 compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
+
+-- | A function to combine a Lineup with a list of ProspectiveAdditions,
+-- respecting the replacement/addition options
+addProspectives ::
+  -- | The list of ProspectiveAdditions
+  [ProspectiveAddition] ->
+  -- | The Lineup to which they are being added
+  Lineup ->
+  -- | The resultant Lineup
+  Lineup
+addProspectives [] l = l
+addProspectives (Addition pt:pts) l = addProspectives pts (l ++ [pt])
+addProspectives ((Replacement p pt):pts) l =
+  let newL = filter ((/= p) . fst) l
+   in addProspectives pts (newL ++ [pt])

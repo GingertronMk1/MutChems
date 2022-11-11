@@ -13,8 +13,8 @@ import           Type
 squad :: Lineup
 squad =
   filter (not . null . snd)
-    . concat
-    $ [baseSquad, [strategy], prospectiveAdditions]
+    . addProspectives prospectiveAdditions
+    $ baseSquad ++ [strategy]
 
 -- | All teams in the above.
 allTeams :: [Team]
