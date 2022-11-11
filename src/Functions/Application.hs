@@ -84,7 +84,7 @@ maximumValues ::
   [a]
 maximumValues xs =
   let firstMax = maximum xs
-   in filter (==firstMax) xs
+   in filter (firstMax ==) xs
 
 -- | A function to print a formatted string with a series of placeholdser.
 printf ::
