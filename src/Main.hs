@@ -20,13 +20,16 @@ main =
 -- | Give me the best Variations given a Lineup.
 main' :: Lineup -> IO()
 main' s = do
+  let fSquad = convertAll32Teams
+         . filteredSquadFn
+         $ s
+
   let fv = foldr foldFn []
          . sort
          . map (Variation . sortOn snd)
          . sequence
          . expandList
-         . convertAll32Teams
-         . filteredSquadFn
-         $ s
+         $ fSquad
+  putStrLn $ printf "Iterating over %s possible options...\n\n" [show $ numberOfOptionsFn fSquad]
   writeFile "output.md" . genMarkdown . doubleFoldVariations $ fv
   putStrLn $ ppVariations fv
