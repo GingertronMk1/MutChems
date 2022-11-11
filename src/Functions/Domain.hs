@@ -36,12 +36,16 @@ allTeamsFn =
   concatMap expandTeamOrMultiple
     . concatMap snd
 
+-- | The threshold for filtering by number of entries
+filteredSquadThreshold :: Int
+filteredSquadThreshold = 4
+
 -- | Filtering a Lineup to contain only those Teams with 3 or more entries.
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn s =
   let allTeams = allTeamsFn s
       numberOfOneTeam t = length . filter (== t) $ allTeams
-      filterFn' t = numberOfOneTeam t > 4 || t == T.all32Teams
+      filterFn' t = numberOfOneTeam t > filteredSquadThreshold || t == T.all32Teams
       filterFn NoTeam             = False
       filterFn (Team t)           = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
