@@ -82,4 +82,7 @@ strategy = ("None", [])
 prospectiveAdditions :: Lineup
 prospectiveAdditions =
   [
+    ("Tristan Wirfs", [Team T.buccaneers]),
+    ("Amari Cooper", [Team T.browns, Team T.raiders, Team T.cowboys]),
+    ("Jessie Bates III", [Team T.bengals])
   ]
