@@ -65,6 +65,15 @@ instance Ord TeamOrMultiple where
   compare NoTeam                _                     = LT
   compare _                     NoTeam                = GT
 
+
+-- | A type to represent potential additions/replacements for my squad
+data ProspectiveAddition
+  = -- | A Player who will replace another Player in the Lineup
+    Replacement Player PlayerTeams
+  | -- | A Player who will fit in without displacing another Player
+    Addition PlayerTeams
+  deriving (Eq, Ord, Show)
+
 -- * Helper functions
 
 -- By and large these are just functions that can't live in Functions.Domain,
