@@ -79,10 +79,10 @@ strategy :: PlayerTeams
 strategy = ("None", [])
 
 -- | Players I'm looking into.
-prospectiveAdditions :: Lineup
+prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    ("Tristan Wirfs", [Team T.buccaneers]),
-    ("Amari Cooper", [Team T.browns, Team T.raiders, Team T.cowboys]),
-    ("Jessie Bates III", [Team T.bengals])
+    Addition ("Tristan Wirfs", [Team T.buccaneers]),
+    Addition ("Amari Cooper", [Team T.browns, Team T.raiders, Team T.cowboys]),
+    Replacement "Trevon Moehrig" ("Jessie Bates III", [Team T.bengals])
   ]
