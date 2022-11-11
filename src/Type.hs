@@ -18,10 +18,8 @@ type PlayerTeams = (Player, [TeamOrMultiple])
 type Lineup = [PlayerTeams]
 
 -- | One variation I can have with a Lineup.
-newtype Variation = Variation [(Player, TeamOrMultiple)] deriving (Show)
+newtype Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
 
-instance Eq Variation where
-  v1 == v2 = compare v1 v2 == EQ
 instance Ord Variation where
   compare (Variation v1) (Variation v2) =
     fst $ orderListOfInts (convertFn v1) (convertFn v2)
