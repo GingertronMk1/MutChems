@@ -41,7 +41,7 @@ filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn s =
   let allTeams = allTeamsFn s
       numberOfOneTeam t = length . filter (== t) $ allTeams
-      filterFn' t = numberOfOneTeam t > 3 || t == T.all32Teams
+      filterFn' t = numberOfOneTeam t > 4 || t == T.all32Teams
       filterFn NoTeam             = False
       filterFn (Team t)           = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
