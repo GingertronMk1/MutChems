@@ -75,20 +75,16 @@ expandTuple (a, bs) = [(a, b) | b <- bs]
 expandList :: [(a, [b])] -> [[(a, b)]]
 expandList = map expandTuple
 
--- | A function to plug in to `foldr` to accumulate a list of Variations.
-foldFn ::
+-- | Function to get the largest values from a list
+maximumValues ::
   Ord a =>
-  -- | The single Variation being compared.
-  a ->
-  -- | The list of Variations we are accumulating.
+  -- | Input list of `Ord a`s
   [a] ->
-  -- | The returned accumulated list of Variations.
+  -- | Largest values from that list
   [a]
-foldFn new [] = [new]
-foldFn new olds@(o : _) = case compare new o of
-  GT -> [new] -- If the new item being compared is greater than the old ones, start the "old" list again with the new item
-  EQ -> new : olds -- If the two are equal, add the new one to the list
-  LT -> olds -- Otherwise disregard it and move on
+maximumValues xs =
+  let firstMax = maximum xs
+   in filter (==firstMax) xs
 
 -- | A function to print a formatted string with a series of placeholdser.
 printf ::
