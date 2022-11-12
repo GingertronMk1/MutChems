@@ -12,7 +12,7 @@ baseSquad =
     ("Josh Allen", [Team T.bills]),
     ("Justin Fields", [Team T.bears]),
     -- hb
-    ("Barry Sanders", [Team T.legends, Team T.lions]),
+    ("Eric Dickerson", [Team T.legends, Team T.colts, Team T.rams, Team T.raiders, Team T.falcons]),
     ("Ezekiel Elliott", [Team T.cowboys]),
     ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
     -- fb
@@ -22,6 +22,7 @@ baseSquad =
     ("Dave Casper", [Team T.all32Teams]),
     ("Evan Engram", [Team T.giants, Team T.jaguars]),
     -- wr
+    ("Devin Hester", [Team T.legends, Team T.ravens, Team T.bears, Team T.falcons, Team T.seahawks]),
     ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
     ("Deebo Samuel", [Team T.niners]),
     ("Chase Claypool", [Team T.steelers, Team T.bears]),
