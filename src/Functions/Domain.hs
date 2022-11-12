@@ -50,7 +50,20 @@ filteredSquadFn s =
       filterFn (Team t)           = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
       filterFn (Teams ts)         = any filterFn ts
-   in filter (not . null . snd) . map (Data.Bifunctor.second (filter filterFn)) $ s
+   in map (second (filteredSquadFn' filterFn)) s
+
+-- | A helper to be used in the mapping for the above
+filteredSquadFn' ::
+  -- | Nominally the `filterFn` defined in the above's `let` block - should maybe pull that out
+  -- into its own function
+  (TeamOrMultiple -> Bool) ->
+  -- | Input list of TeamOrMultiples
+  [TeamOrMultiple] ->
+  -- | Resultant list of TeamOrMultiples
+  [TeamOrMultiple]
+filteredSquadFn' f ts =
+  let filtered = filter f ts
+   in if null filtered then [NoTeam] else filtered
 
 -- | Change all players with all 32 teams to contain all useful teams
 -- useful here being "all other actual teams" - there's no point giving him
@@ -73,7 +86,7 @@ convertSingle ::
   TeamOrMultiple ->
   -- | The resultant list.
   [TeamOrMultiple]
-convertSingle _ NoTeam = []
+convertSingle _ NoTeam = [NoTeam]
 convertSingle ts team@(Team t) =
   if t == T.all32Teams
     then map Team ts
