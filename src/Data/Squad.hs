@@ -84,7 +84,6 @@ prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
     Addition ("Tristan Wirfs", [Team T.buccaneers]),
-    Addition ("Amari Cooper", [Team T.browns, Team T.raiders, Team T.cowboys]),
     Replacement "Trevon Moehrig" ("Jessie Bates III", [Team T.bengals]),
     Replacement "Zane Gonzalez" ("Graham Gano", [Team T.giants, Team T.panthers, Team T.commanders])
   ]
