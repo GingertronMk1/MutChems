@@ -164,6 +164,7 @@ addProspectives [] l = l
 addProspectives (Addition pt : pts) l = addProspectives pts (l ++ [pt])
 addProspectives ((Replacement p pt) : pts) l =
   let newL = case findIndex ((== p) . fst) l of
-        Just n -> let (firstPart, _ : secondPart) = splitAt n l in firstPart ++ [pt] ++ secondPart
+        Just n -> let (firstPart, _ : secondPart) = splitAt n l
+                  in firstPart ++ [pt] ++ secondPart
         Nothing -> filter ((/= p) . fst) l ++ [pt]
    in addProspectives pts newL
