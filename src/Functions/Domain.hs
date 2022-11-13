@@ -1,4 +1,5 @@
 {-# LANGUAGE TupleSections #-}
+
 -- |
 -- Module: Functions.Domain
 --
@@ -116,7 +117,7 @@ doubleFoldVariations' pts (Variation v : vs) =
   let allCurrentNames = map fst pts -- Get all names
       allNewNames = filter (not . (`elem` allCurrentNames)) (map fst v) -- Get all names that we don't already have
       lengthSoFar = length . snd . head $ pts -- How many Variations have we gone through?
-      newPTInit = pts ++ map (, replicate lengthSoFar NoTeam) allNewNames -- Add new names and appropriately lengthed lists of NoTeams
+      newPTInit = pts ++ map (,replicate lengthSoFar NoTeam) allNewNames -- Add new names and appropriately lengthed lists of NoTeams
       newPT = map (doubleFold'' (Variation v)) newPTInit -- Add everything from the newest Variation
    in doubleFoldVariations' newPT vs -- And do the next
 
@@ -160,7 +161,9 @@ addProspectives ::
   -- | The resultant Lineup
   Lineup
 addProspectives [] l = l
-addProspectives (Addition pt:pts) l = addProspectives pts (l ++ [pt])
-addProspectives ((Replacement p pt):pts) l =
-  let newL = filter ((/= p) . fst) l
-   in addProspectives pts (newL ++ [pt])
+addProspectives (Addition pt : pts) l = addProspectives pts (l ++ [pt])
+addProspectives ((Replacement p pt) : pts) l =
+  let newL = case findIndex ((== p) . fst) l of
+        Just n -> let (firstPart, _ : secondPart) = splitAt n l in firstPart ++ [pt] ++ secondPart
+        Nothing -> filter ((/= p) . fst) l ++ [pt]
+   in addProspectives pts newL
