@@ -84,5 +84,6 @@ prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
     Addition ("Tristan Wirfs", [Team T.buccaneers]),
-    Replacement "Zane Gonzalez" ("Graham Gano", [Team T.giants, Team T.panthers, Team T.commanders])
+    Replacement "Zane Gonzalez" ("Graham Gano", [Team T.giants, Team T.panthers, Team T.commanders]),
+    Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders])
   ]
