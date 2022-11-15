@@ -4,13 +4,18 @@ import Functions.Application
 
 main :: IO ()
 main = do
-  counts <- runTestTT $ TestList [testRmDups]
-  print counts
+  testCounts <- runTestTT testList
+  print testCounts
+
+testList :: Test
+testList = TestList [
+    testRmDups
+  ]
 
 testRmDups :: Test
 testRmDups =
-  let forwardList = [1..10]
-      backwardList = reverse forwardList
+  let forwardList = [1..10] :: [Int]
+      backwardList = reverse forwardList :: [Int]
    in TestCase $
         assertEqual
           "rmDups"
