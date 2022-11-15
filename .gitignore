@@ -1,8 +1,2 @@
-*
-!/**/
-!*.*
-dist
-dist-newstyle
-docdir.txt
-scratch.txt
-output*.*
+.stack-work/
+*~
