@@ -26,21 +26,10 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   build:
-    strategy:
-      fail-fast: true
-      matrix:
-        include:
-          - ghc: '8.8'
-            cabal: '3.2'
-            hlint: '3.3.6'
     runs-on: ubuntu-latest
-    outputs:
-      docdir: ${{ steps.buildstep.outputs.docdir }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build it
-        run: stack build
       - name: Test it
         run: stack test
       - name: Run it
