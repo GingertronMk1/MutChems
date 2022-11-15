@@ -31,7 +31,6 @@ library
       Functions.Application
       Functions.Display
       Functions.Domain
-      Lib
       Main
       Type
   other-modules:
