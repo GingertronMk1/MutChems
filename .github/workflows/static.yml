@@ -1,0 +1,47 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages (or just build if not pushing to `main`)
+
+on:
+  # Runs on pushes targeting the default branch
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+    paths:
+      - '**.hs'
+      - 'mut.cabal'
+      - '.github/workflows/**/*.yml'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Single deploy job since we're just deploying
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - ghc: '8.8'
+            cabal: '3.2'
+            hlint: '3.3.6'
+    runs-on: ubuntu-latest
+    outputs:
+      docdir: ${{ steps.buildstep.outputs.docdir }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install stack
+        run: curl -sSL https://get.haskellstack.org/ | sh
+      - name: Build it
+        run: stack build
+      - name: Run it
+        run: stack run
