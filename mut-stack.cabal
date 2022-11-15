@@ -25,7 +25,15 @@ source-repository head
 
 library
   exposed-modules:
+      Data.Calculated
+      Data.Squad
+      Data.Teams
+      Functions.Application
+      Functions.Display
+      Functions.Domain
       Lib
+      Main
+      Type
   other-modules:
       Paths_mut_stack
   hs-source-dirs:
