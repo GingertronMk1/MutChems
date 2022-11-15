@@ -1,6 +1,6 @@
 -- |
 -- Module: Main
-module Main where
+module Main (main) where
 
 import           Data.Calculated
 import           Data.List
