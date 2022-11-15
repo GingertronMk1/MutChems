@@ -41,5 +41,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Build it
         run: stack build
+      - name: Test it
+        run: stack test
       - name: Run it
         run: stack run
