@@ -39,8 +39,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install stack
-        run: curl -sSL https://get.haskellstack.org/ | sh
       - name: Build it
         run: stack build
       - name: Run it
