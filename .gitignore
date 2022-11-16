@@ -1,2 +1,5 @@
 .stack-work/
 *~
+output.md
+docdir.txt
+docs/**/*

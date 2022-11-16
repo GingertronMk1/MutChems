@@ -1,6 +1,6 @@
-import Test.HUnit
+import           Test.HUnit
 
-import Functions.Application
+import           Functions.Application
 
 main :: IO ()
 main = do
@@ -14,10 +14,11 @@ testList = TestList [
 
 testRmDups :: Test
 testRmDups =
-  let forwardList = [1..10] :: [Int]
-      backwardList = reverse forwardList :: [Int]
-   in TestCase $
+   TestCase $
         assertEqual
           "rmDups"
-          forwardList
-          (rmDups $ forwardList ++ backwardList)
+          testDataList
+          (rmDups $ testDataList ++ reverse testDataList)
+
+testDataList :: [Int]
+testDataList = [1..10]

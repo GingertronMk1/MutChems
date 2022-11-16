@@ -34,3 +34,16 @@ jobs:
         run: stack test
       - name: Run it
         run: stack run
+      - name: Build docs
+        # run: stack haddock --haddock-arguments="-o ./docs" 2&>docdir.txt
+        run: stack haddock 2&>docdir.txt
+      - name: Where are the docs?
+        run: echo $(cat docdir.txt | tail -n 1)
+      - name: If PR, add comment
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments \
+            -f body="$(cat ./output.md)"
