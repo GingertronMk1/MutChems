@@ -52,6 +52,8 @@ jobs:
         run: |
           mkdir outputFiles
           cp output.md outputFiles/README.md
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add outputFiles/* -f
           git commit -m "\"Deploy\" built file"
           git push origin `git subtree split --prefix outputFiles main`:output/built --force
