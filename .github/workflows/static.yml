@@ -17,7 +17,8 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/head/main' }}
+  MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/head/main' && github.event_name != 'pull_request' }}
+  PULL_REQUEST: ${{ github.event_name == 'pull_request' }}
 
 permissions: write-all
 
@@ -44,7 +45,7 @@ jobs:
         # run: stack haddock --haddock-arguments="-o ./docs" 2&>docdir.txt
         run: ./bin/docs.sh
       - name: If PR, add comment
-        if: ${{ github.event_name == 'pull_request' }}
+        if: ${{ env.PULL_REQUEST }}
         run: |
           gh api \
             --method POST \
