@@ -27,6 +27,8 @@ jobs:
   # Single deploy job since we're just deploying
   build:
     runs-on: ubuntu-latest
+    env:
+      is_main_push: ${{ github.event_name == 'push' && github.ref == 'refs/head/main' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -45,3 +47,23 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments \
             -f body="$(cat ./output.md)"
+      - name: If push to main, put file in branch
+        if: ${{ env.is_main_push }}
+        run: |
+          mkdir outputFiles
+          cp output.md outputFiles/README.md
+          git add outputFiles/* -f
+          git commit -m "\"Deploy\" built file"
+          git push origin `git subtree split --prefix outputFiles main`:output/built --force
+      - name: Prep Pages
+        if: ${{ env.is_main_push }}
+        uses: actions/configure-pages@v2
+      - name: Upload to Pages
+        if: ${{ env.is_main_push }}
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./docs
+      - name: Deploy to Pages
+        if: ${{ env.is_main_push }}
+        uses: actions/deploy-pages@v1
+      
