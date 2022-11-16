@@ -17,7 +17,7 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/head/main' && github.event_name != 'pull_request' }}
+  MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/head/main '}}
   PULL_REQUEST: ${{ github.event_name == 'pull_request' }}
 
 permissions: write-all
@@ -32,9 +32,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        if: ${{ env.MAIN_PUSH == 'true' }}
-        run: echo "It's a ${{ github.event_name }} to ${{ github.ref }} ${{ env.MAIN_PUSH == 'true' }}"
+      - name: What is this?
+        run: |
+          echo "Main push: ${{ env.MAIN_PUSH }}"
+          echo "Pull request: ${{ env.PULL_REQUEST }}"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test it
