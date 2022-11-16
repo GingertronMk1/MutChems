@@ -1,4 +1,4 @@
-# Changelog for `mut-stack`
+# Changelog for `mut-chems`
 
 All notable changes to this project will be documented in this file.
 
