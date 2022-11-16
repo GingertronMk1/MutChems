@@ -17,10 +17,6 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-  PULL_REQUEST: ${{ github.event_name == 'pull_request' }}
-
-permissions: write-all
 
 # Allow one concurrent deployment
 concurrency:
@@ -32,46 +28,88 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: What is this?
-        run: |
-          echo "Action: ${{ github.event_name }}, ref: ${{ github.ref }}"
-          echo "Main push: ${{ env.MAIN_PUSH }}"
-          echo "Pull request: ${{ env.PULL_REQUEST }}"
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test it
-        run: stack test
-      - name: Run it
+      - id: buildstep
+        name: Build docs
+        run: |
+          ./bin/docs.sh
+      - name: Upload docs for next step
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}-docs
+          path: ./docs
+      - name: Run the thing
         run: stack run
-      - name: If PR, add comment
-        if: ${{ env.PULL_REQUEST == 'true' }}
+      - name: Upload output file for next step
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}-output
+          path: ./output.md
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.sha }}-docs
+          path: ./built-docs
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./built-docs
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+    
+  put_file_in_branch:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.sha }}-output
+          path: ./output
+      - name: Rename output file
+        run: mv ./output/output.md ./output/README.md
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Add the file
+        run: git add output/* -f
+      - name: Commit and push
+        run: |
+          git commit -m "\"Deploy\" built file"
+          git push origin `git subtree split --prefix output main`:output/built --force
+
+  add_pr_comment:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - name: Download the output file
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.sha }}-output
+          path: ./output
+      - name: Add commit comment if PR
         run: |
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
             /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments \
-            -f body="$(cat ./output.md)"
-      - name: If push to main, put file in branch
-        if: ${{ env.MAIN_PUSH == 'true' }}
-        continue-on-error: true
-        run: |
-          mv output.md README.md
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add README.md
-          git commit -m "Deploy"
-          git push output/built --force
-      - name: Build docs
-        run: ./bin/docs.sh
-      - name: Prep Pages
-        if: ${{ env.MAIN_PUSH == 'true' }}
-        uses: actions/configure-pages@v2
-      - name: Upload to Pages
-        if: ${{ env.MAIN_PUSH == 'true' }}
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./docs
-      - name: Deploy to Pages
-        if: ${{ env.MAIN_PUSH == 'true' }}
-        uses: actions/deploy-pages@v1
-      
+            -f body="$(cat ./output/output.md)"
