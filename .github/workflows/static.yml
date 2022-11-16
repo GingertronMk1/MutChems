@@ -36,7 +36,9 @@ jobs:
         run: stack run
       - name: Build docs
         # run: stack haddock --haddock-arguments="-o ./docs" 2&>docdir.txt
-        run: stack haddock 2&>docdir.txt
+        run: |
+          stack haddock
+          stack haddock 2&>docdir.txt
       - name: Where are the docs?
         run: echo $(cat docdir.txt | tail -n 1)
       - name: If PR, add comment
