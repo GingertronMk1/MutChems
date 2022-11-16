@@ -57,13 +57,14 @@ jobs:
       - name: If push to main, put file in branch
         if: ${{ env.MAIN_PUSH == 'true' }}
         run: |
-          mkdir outputFiles
-          cp output.md outputFiles/README.md
+          git fetch
+          git rm -rf ./**/* --cached
+          mv output.md README.md
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add outputFiles/* -f
-          git commit -m "\"Deploy\" built file"
-          git push origin `git subtree split --prefix outputFiles main`:output/built --force
+          git add README.md
+          git comm "Deploy"
+          git push origin output/built --force
       - name: Prep Pages
         if: ${{ env.MAIN_PUSH == 'true' }}
         uses: actions/configure-pages@v2
