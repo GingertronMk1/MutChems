@@ -43,9 +43,6 @@ jobs:
         run: stack test
       - name: Run it
         run: stack run
-      - name: Build docs
-        # run: stack haddock --haddock-arguments="-o ./docs" 2&>docdir.txt
-        run: ./bin/docs.sh
       - name: If PR, add comment
         if: ${{ env.PULL_REQUEST == 'true' }}
         run: |
@@ -56,13 +53,16 @@ jobs:
             -f body="$(cat ./output.md)"
       - name: If push to main, put file in branch
         if: ${{ env.MAIN_PUSH == 'true' }}
+        continue-on-error: true
         run: |
           mv output.md README.md
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add README.md
           git commit -m "Deploy"
-          git push origin output/built --force
+          git push output/built --force
+      - name: Build docs
+        run: ./bin/docs.sh
       - name: Prep Pages
         if: ${{ env.MAIN_PUSH == 'true' }}
         uses: actions/configure-pages@v2
