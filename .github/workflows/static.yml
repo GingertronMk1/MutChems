@@ -57,8 +57,6 @@ jobs:
       - name: If push to main, put file in branch
         if: ${{ env.MAIN_PUSH == 'true' }}
         run: |
-          git fetch
-          git rm -rf ./**/* --cached
           mv output.md README.md
           git config user.name github-actions
           git config user.email github-actions@github.com
