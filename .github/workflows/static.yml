@@ -9,7 +9,8 @@ on:
     branches: ["main"]
     paths:
       - '**.hs'
-      - 'mut.cabal'
+      - 'package.yaml'
+      - 'stack.yaml'
       - '.github/workflows/**/*.yml'
 
   # Allows you to run this workflow manually from the Actions tab
