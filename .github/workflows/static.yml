@@ -18,6 +18,8 @@ on:
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+permissions: write-all
+
 # Allow one concurrent deployment
 concurrency:
   group: "pages"
