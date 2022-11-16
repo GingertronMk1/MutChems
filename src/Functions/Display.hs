@@ -82,7 +82,7 @@ totalsPerSquad =
   intercalate "|"
    . map (
      intercalate "<br>"
-     . map (\(t,i) -> printf "%s: %s" [ppTeamOrMultiple t, show i])
+     . map (\(t,i) -> printf "%s:&nbsp;%s" [ppTeamOrMultiple t, show i])
      . sortOn (Down . snd)
      . filter ((/= NoTeam) . fst)
      . map firstAndLength
