@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Test
         if: ${{ env.MAIN_PUSH }}
-        run: echo "It's a push to main!"
+        run: echo "It's a ${{ github.event_name }} to ${{ github.ref }}"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test it
