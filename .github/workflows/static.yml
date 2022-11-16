@@ -30,6 +30,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Test the thing
+        run: stack test
+      - name: Run the thing
+        run: stack run
       - id: buildstep
         name: Build docs
         run: |
@@ -39,8 +43,6 @@ jobs:
         with:
           name: ${{ github.sha }}-docs
           path: ./docs
-      - name: Run the thing
-        run: stack run
       - name: Upload output file for next step
         uses: actions/upload-artifact@v2
         with:
