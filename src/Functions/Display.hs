@@ -72,7 +72,7 @@ genMarkdown' :: Int -> Int -> PlayerTeams -> String
 genMarkdown' lp lt (p, ts) =
   printf
     "| %s | %s |"
-    [ padRight lp ' ' (printf "**%s**" [p]),
+    [ padRight lp ' ' (printf "**%s**" [intercalate "&nbsp;" . words $ p]),
       (intercalate " | " . map (padRight lt ' ' . ppTeamOrMultiple)) ts
     ]
 
