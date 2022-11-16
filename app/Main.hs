@@ -1,6 +1,6 @@
 -- |
 -- Module: Main
-module Main where
+module Main (main) where
 
 import           Data.Calculated
 import           Data.List
@@ -26,7 +26,8 @@ main' s = do
 
   putStrLn $ printf "Iterating over %s possible options...\n\n" [show $ numberOfOptionsFn fSquad]
 
-  let fv = maximumValues
+  let fv = take 10
+         . maximumValues
          . sort
          . map (Variation . sortOn snd)
          . sequence

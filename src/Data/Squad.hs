@@ -65,13 +65,13 @@ baseSquad =
     ("Malik Hooker", [Team T.colts, Team T.cowboys]),
     ("Trevon Moehrig", [Team T.raiders]),
     -- cb
+    ("Deion Sanders", [Team T.all32Teams]),
     ("Champ Bailey", [Team T.commanders, Team T.broncos, Team T.legends]),
     ("Shaquill Griffin", [Team T.seahawks, Team T.jaguars]),
     ("Rasul Douglas", [Team T.packers, Team T.eagles, Team T.panthers]),
-    ("Stephon Gilmore", [Team T.colts, Team T.bills, Team T.panthers, Team T.patriots]),
     ("Sauce Gardner", [Team T.jets]),
     -- k
-    ("Zane Gonzalez", [Team T.browns, Team T.cardinals, Team T.panthers]),
+    ("Graham Gano", [Team T.giants, Team T.panthers, Team T.commanders]),
     -- p
     ("Johnny Hekker", [Team T.rams, Team T.panthers])
   ]
@@ -84,7 +84,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Replacement "Zane Gonzalez" ("Graham Gano", [Team T.giants, Team T.panthers, Team T.commanders]),
-    Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
-    Addition ("Aaron Donald", [Team T.rams])
+    -- Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
+    -- Addition ("Aaron Donald", [Team T.rams])
   ]
