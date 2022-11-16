@@ -34,6 +34,7 @@ jobs:
     steps:
       - name: What is this?
         run: |
+          echo "Action: ${{ github.event_name }}, ref: ${{ github.ref }}"
           echo "Main push: ${{ env.MAIN_PUSH }}"
           echo "Pull request: ${{ env.PULL_REQUEST }}"
       - name: Checkout
