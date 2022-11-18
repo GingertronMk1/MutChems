@@ -21,6 +21,7 @@ baseSquad =
     -- te
     ("Dave Casper", [Team T.all32Teams]),
     ("Evan Engram", [Team T.giants, Team T.jaguars]),
+    ("Hayden Hurst", [Team T.ravens, Team T.falcons, Team T.bengals]),
     -- wr
     ("Devin Hester", [Team T.legends, Team T.ravens, Team T.bears, Team T.falcons, Team T.seahawks]),
     ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
