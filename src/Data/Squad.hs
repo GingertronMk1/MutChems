@@ -57,6 +57,7 @@ baseSquad =
     -- le
     ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
     -- re
+    ("Aaron Donald", [Team T.rams]),
     ("Aidan Hutchinson", [Team T.lions]),
     -- ss
     ("Isaiah Pola-Mao", [Team T.raiders]),
@@ -84,6 +85,5 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Addition ("Aaron Donald", [Team T.rams]),
     Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders])
   ]
