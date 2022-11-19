@@ -85,8 +85,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Addition ("Khalil Mack", [Team T.raiders, Team T.bears, Team T.chargers]),
-    Addition ("Creed Humphrey", [Team T.chiefs])
-    -- Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
-    -- Addition ("Aaron Donald", [Team T.rams])
+    Addition ("Aaron Donald", [Team T.rams]),
+    Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders])
   ]
