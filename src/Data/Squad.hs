@@ -40,7 +40,6 @@ baseSquad =
     ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens]),
     ("Mark Glowinski", [Team T.giants, Team T.colts, Team T.seahawks]),
     -- rt
-    ("Tristan Wirfs", [Team T.buccaneers]),
     ("La'el Collins", [Team T.cowboys, Team T.bengals]),
     -- mlb
     ("Devin White", [Team T.buccaneers]),
