@@ -81,7 +81,7 @@ jobs:
       - name: Check branches
         run: |
           git fetch origin
-          echo "Checking for existence of $1..."
+          echo "Checking for existence of $OUTPUT_BRANCH..."
           ORIGIN_BRANCH="origin/$OUTPUT_BRANCH"
           if [ -z "$(git branch -r | grep "$ORIGIN_BRANCH")" ]
           then
