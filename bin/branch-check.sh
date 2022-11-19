@@ -2,13 +2,9 @@
 
 echo "Checking for existence of $1..."
 
-git branch -r
-
 ORIGIN_BRANCH="origin/$1"
-SEARCHED_BRANCHES="$(git branch -r | grep "$ORIGIN_BRANCH")" 
-echo "$SEARCHED_BRANCHES"
 
-if [ -z $SEARCHED_BRANCHES ]
+if [ -z "$(git branch -r | grep "$ORIGIN_BRANCH")" ]
 then
   CURRENT_BRANCH="$(git branch --show-current)"
   echo "No branch called $1, creating..."
