@@ -1,17 +1,17 @@
 #!/bin/sh
 
-git fetch origin
+echo "Checking for existence of $1..."
 
-git branch
+ORIGIN_BRANCH="origin/$1"
 
-if [ -z $(git branch | grep $@) ]
+if [ -z "$(git branch -r | grep "$ORIGIN_BRANCH")" ]
 then
   CURRENT_BRANCH="$(git branch --show-current)"
-  echo "No branch called $@, creating..."
-  git checkout -b $@
-  git push -u origin $@
+  echo "No branch called $1, creating..."
+  git checkout -b $1
+  git push -u origin $1
   echo "Checking back out to $CURRENT_BRANCH"
   git checkout $CURRENT_BRANCH
 else
-  echo "Branch $@ exists, doing nothing..."
+  echo "Branch $1 exists, doing nothing..."
 fi
