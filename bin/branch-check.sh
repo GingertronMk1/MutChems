@@ -2,6 +2,8 @@
 
 echo "Checking for existence of $1..."
 
+git branch -r
+
 ORIGIN_BRANCH="origin/$1"
 SEARCHED_BRANCHES="$(git branch -r | grep "$ORIGIN_BRANCH")" 
 echo "$SEARCHED_BRANCHES"
