@@ -51,7 +51,8 @@ orderListOfInts ::
 orderListOfInts xs ys
   | sumComp /= EQ = (sumComp, "Sum")
   | numComp /= EQ = (numComp, "5s")
-  | otherwise = (distComp, "Dist")
+  | distComp /= EQ = (distComp, "Dist")
+  | otherwise = (compare (maximum xs) (maximum ys), "Max")
   where
     sumComp = compare (sum xs) (sum ys)
     num5s = length . filter (== 0) . map (`mod` 5)
