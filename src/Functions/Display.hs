@@ -45,8 +45,8 @@ genMarkdown dfvs =
       topRow =
         printf
           "| %s | %s |"
-          [ padRight longestPlayerNameLengthPlus4 ' ' "Player",
-            intercalate " | " . map (padRight longestTeamNameLengthPlus4 ' ' . show) $ [1 .. totalCols]
+          [ "Player",
+            intercalate " | " . map show $ [1 .. totalCols]
           ]
       secondRow =
         printf
@@ -54,10 +54,7 @@ genMarkdown dfvs =
           [ replicate (longestPlayerNameLengthPlus4 + 2) '-',
             concat (replicate totalCols (printf ":%s:|" [replicate longestTeamNameLengthPlus4 '-']))
           ]
-      theRest =
-        intercalate "\n"
-          . map (genMarkdown' longestPlayerNameLengthPlus4 longestTeamNameLengthPlus4)
-          $ sortedDfvs
+      theRest = intercalate "\n" . map genMarkdown' $ sortedDfvs
       bottomRow = printf "| **TOTALS** | %s |" [totalsPerSquad sortedDfvs]
    in intercalate
         "\n"
@@ -68,12 +65,12 @@ genMarkdown dfvs =
         ]
 
 -- | Helper for the above - make a Markdown table row for a single PlayerTeam.
-genMarkdown' :: Int -> Int -> PlayerTeams -> String
-genMarkdown' lp lt (p, ts) =
+genMarkdown' :: PlayerTeams -> String
+genMarkdown' (p, ts) =
   printf
     "| %s | %s |"
-    [ padRight lp ' ' (printf "**%s**" [intercalate "&nbsp;" . words $ p]),
-      (intercalate " | " . map (padRight lt ' ' . ppTeamOrMultiple)) ts
+    [ printf "**%s**" [intercalate "&nbsp;" . words $ p],
+      (intercalate " | " . map ppTeamOrMultiple) ts
     ]
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?.
@@ -110,6 +107,8 @@ addProspectiveAndPrint pas l =
 addProspectiveAndPrint' :: [ProspectiveAddition] -> Lineup -> [String]
 addProspectiveAndPrint' [] _ = []
 addProspectiveAndPrint' (pa:pas) l = case pa of
-  Addition (p, _) ->  ("# Adding " ++ p ++ "\n\n" ++ newL) : addProspectiveAndPrint' pas l
-  Replacement p1 (p2, _) ->  ("# Replacing " ++ p1 ++ " with " ++ p2 ++ "\n\n" ++ newL) : addProspectiveAndPrint' pas l
-  where newL = squadToPrintedVariation (addProspective pa l)
+  Addition (p, _) ->  printf "# Adding %s:\n\n%s" [p, printedNewL] : nextIteration
+  Replacement p1 (p2, _) ->  printf "# Replacing %s with %s:\n\n%s" [p1, p2, printedNewL] : nextIteration
+  where newL = addProspective pa l
+        printedNewL = squadToPrintedVariation newL
+        nextIteration = addProspectiveAndPrint' pas newL
