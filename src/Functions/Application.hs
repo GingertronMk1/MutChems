@@ -52,12 +52,14 @@ orderListOfInts xs ys
   | sumComp /= EQ = (sumComp, "Sum")
   | numComp /= EQ = (numComp, "5s")
   | distComp /= EQ = (distComp, "Dist")
-  | otherwise = (compare (maximum xs) (maximum ys), "Max")
+  | maxComp /= EQ = (maxComp, "Max")
+  | otherwise = (EQ, "Tried all of em")
   where
     sumComp = compare (sum xs) (sum ys)
     num5s = length . filter (== 0) . map (`mod` 5)
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
+    maxComp = compare (maximum xs) (maximum ys)
 
 -- | A function to convert a string of format "<Data>|<Number>" into a tuple of
 -- the described format
