@@ -91,3 +91,6 @@ totalsPerSquad =
    )
    . rotate
    . map snd
+
+intercalation :: (a -> String) -> [a] -> String
+intercalation f = intercalate "\n---\n" . map f

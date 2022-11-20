@@ -177,4 +177,14 @@ addProspectivesInTurn' :: [ProspectiveAddition] -> Lineup -> [Lineup]
 addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
-   in newL : addProspectivesInTurn' ps l
+   in newL : addProspectivesInTurn' ps newL
+
+convertSquad :: Lineup -> Lineup
+convertSquad = convertAll32Teams . filteredSquadFn
+
+lineupToVariations :: Lineup -> [Variation]
+lineupToVariations = take 10
+                   . maximumValues
+                   . map (Variation . sortOn snd)
+                   . sequence
+                   . expandList
