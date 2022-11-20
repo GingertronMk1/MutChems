@@ -161,11 +161,20 @@ addProspectives ::
   Lineup ->
   -- | The resultant Lineup
   Lineup
-addProspectives [] l = l
-addProspectives (Addition pt : pts) l = addProspectives pts (l ++ [pt])
-addProspectives ((Replacement p pt) : pts) l =
-  let newL = case findIndex ((== p) . fst) l of
-        Just n -> let (firstPart, _ : secondPart) = splitAt n l
-                  in firstPart ++ [pt] ++ secondPart
-        Nothing -> filter ((/= p) . fst) l ++ [pt]
-   in addProspectives pts newL
+addProspectives pts l = foldl (flip addProspective) l pts
+
+addProspective :: ProspectiveAddition -> Lineup -> Lineup
+addProspective (Addition pt) l = l ++ [pt]
+addProspective (Replacement p pt) l = case findIndex ((==p) . fst) l of
+  Just n -> let (firstPart, _:secondPart) = splitAt n l
+             in firstPart ++ [pt] ++ secondPart
+  Nothing -> addProspective (Addition pt) l
+
+addProspectivesInTurn :: [ProspectiveAddition] -> Lineup -> [Lineup]
+addProspectivesInTurn ps l = l : addProspectivesInTurn' ps l
+
+addProspectivesInTurn' :: [ProspectiveAddition] -> Lineup -> [Lineup]
+addProspectivesInTurn' [] _ = []
+addProspectivesInTurn' (p:ps) l =
+  let newL = addProspective p l
+   in newL : addProspectivesInTurn' ps l
