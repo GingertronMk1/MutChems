@@ -31,12 +31,13 @@ ppVariations = intercalate "\n---\n" . map ppVariation
 
 -- | Prettily print some double-folded variations to a nice Markdown string.
 genMarkdown ::
+  Lineup ->
   -- | A list of (Player, [TeamOrMultiple]) tuples.
   [PlayerTeams] ->
   -- | A markdown table.
   String
-genMarkdown dfvs =
-  let sortedDfvs = sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2) dfvs
+genMarkdown s dfvs =
+  let sortedDfvs = sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad s p1 p2) dfvs
       totalCols = length . snd . head $ sortedDfvs
       longestPlayerNameLength = maximum . map (length . fst) $ sortedDfvs
       longestTeamNameLength = maximum . concatMap (map (length . ppTeamOrMultiple) . snd) $ sortedDfvs
@@ -94,10 +95,11 @@ intercalation :: (a -> String) -> [a] -> String
 intercalation f = intercalate "\n\n---\n\n" . map f
 
 squadToPrintedVariation :: Lineup -> String
-squadToPrintedVariation = genMarkdown
-                        . doubleFoldVariations
-                        . lineupToVariations
-                        . convertSquad
+squadToPrintedVariation l = genMarkdown l
+                          . doubleFoldVariations
+                          . lineupToVariations
+                          . convertSquad
+                          $ l
 
 addProspectiveAndPrint :: [ProspectiveAddition] -> Lineup -> [String]
 addProspectiveAndPrint pas l =
