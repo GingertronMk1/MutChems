@@ -1,7 +1,6 @@
 -- | Module: Functions.Display.
 module Functions.Display where
 
-import           Data.Calculated
 import           Data.List
 import           Data.Ord
 import           Functions.Application
@@ -14,20 +13,6 @@ ppTeamOrMultiple NoTeam             = "-"
 ppTeamOrMultiple (Team t)           = t
 ppTeamOrMultiple (MultipleTeam t i) = t ++ "x" ++ show i
 ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
-
--- | Prettily print a Variation.
-ppVariation :: Variation -> String
-ppVariation (Variation vs) =
-  intercalate "\n"
-    . map ppVariation'
-    . sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad squad p1 p2)
-    $ vs
-  where
-    ppVariation' (p, t) = p ++ ": " ++ ppTeamOrMultiple t
-
--- | Prettily print many variations, separated cleanly.
-ppVariations :: [Variation] -> String
-ppVariations = intercalate "\n---\n" . map ppVariation
 
 -- | Prettily print some double-folded variations to a nice Markdown string.
 genMarkdown ::

@@ -12,7 +12,7 @@ import           Functions.Display
 main :: IO()
 main = do
   putStrLn
-    . printf "Generating best lineups for %s possible lineups"
+    . printf "Generating best options for %s possible lineups..."
     . (:[])
     . show
     . (+1)
@@ -22,3 +22,4 @@ main = do
     . intercalate "\n\n---\n\n"
     . addProspectiveAndPrint prospectiveAdditions
     $ squadNoProspectives
+  putStrLn "Done!"
