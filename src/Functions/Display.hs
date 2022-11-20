@@ -31,6 +31,7 @@ ppVariations = intercalate "\n---\n" . map ppVariation
 
 -- | Prettily print some double-folded variations to a nice Markdown string.
 genMarkdown ::
+  -- | The lineup from which this markdown is initially generated
   Lineup ->
   -- | A list of (Player, [TeamOrMultiple]) tuples.
   [PlayerTeams] ->
@@ -94,6 +95,7 @@ totalsPerSquad =
 intercalation :: (a -> String) -> [a] -> String
 intercalation f = intercalate "\n\n---\n\n" . map f
 
+-- | Take a Lineup and convert it to a markdowned set of Variations
 squadToPrintedVariation :: Lineup -> String
 squadToPrintedVariation l = genMarkdown l
                           . doubleFoldVariations
@@ -101,11 +103,13 @@ squadToPrintedVariation l = genMarkdown l
                           . convertSquad
                           $ l
 
+-- | Iterate over the prospective additions and create markdown strings for each resultant lineup
 addProspectiveAndPrint :: [ProspectiveAddition] -> Lineup -> [String]
 addProspectiveAndPrint pas l =
   let firstString = "# No Additions\n\n" ++ squadToPrintedVariation l
   in firstString : addProspectiveAndPrint' pas l
 
+-- | Do the rest for the above
 addProspectiveAndPrint' :: [ProspectiveAddition] -> Lineup -> [String]
 addProspectiveAndPrint' [] _ = []
 addProspectiveAndPrint' (pa:pas) l = case pa of
