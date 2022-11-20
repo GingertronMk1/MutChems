@@ -27,14 +27,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install
+        run: stack install
       - name: Test the thing
         run: stack test
       - name: Run the thing
         run: stack run
       - id: buildstep
         name: Build docs
-        run: |
-          ./bin/docs.sh
+        run: ./bin/docs.sh
       - name: Upload docs for next step
         uses: actions/upload-artifact@v2
         with:
