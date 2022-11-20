@@ -166,10 +166,10 @@ addProspectives pts l = foldl (flip addProspective) l pts
 -- | Add a single prospective addition to the squad
 addProspective :: ProspectiveAddition -> Lineup -> Lineup
 addProspective (Addition pt) l = l ++ [pt]
-addProspective (Replacement p pt) l = case findIndex ((==p) . fst) l of
-  Just n -> let (firstPart, _:secondPart) = splitAt n l
-             in firstPart ++ [pt] ++ secondPart
-  Nothing -> addProspective (Addition pt) l
+addProspective (Replacement p pt) l =
+  let (firstPart, theRest) = splitAtPredicate ((==p) . fst) l
+   in firstPart ++ [pt] ++ theRest
+
 
 -- | Add each ProspectiveAddition in turn to the squad, keeping the initial squad
 addProspectivesInTurn :: [ProspectiveAddition] -> Lineup -> [Lineup]
