@@ -137,3 +137,15 @@ rotate' xs ys
 -- containing the first item in the list and the length of the list
 firstAndLength :: [a] -> (a, Int)
 firstAndLength ts = (head ts, length ts)
+
+-- | Split a list at the first element that satisfies a predicate, removing that element in the process
+splitAtPredicate :: (a -> Bool) -> [a] -> ([a], [a])
+splitAtPredicate p l = splitAtPredicate' p ([], l)
+
+-- | Helper/accumulator for the above
+splitAtPredicate' :: (a -> Bool) -> ([a], [a]) -> ([a], [a])
+splitAtPredicate' p (l, []) = (reverse l, [])
+splitAtPredicate' p (l, x:xs) =
+  if p x
+  then (reverse l, xs)
+  else splitAtPredicate' p (x:l, xs)

@@ -16,6 +16,13 @@ squad =
     . addProspectives prospectiveAdditions
     $ baseSquad ++ [strategy]
 
+-- | All squads generatable from additions
+squads :: [Lineup]
+squads =
+  map (filter (not . null . snd))
+    . addProspectivesInTurn prospectiveAdditions
+    $ baseSquad ++ [strategy]
+
 -- | All teams in the above.
 allTeams :: [Team]
 allTeams = allTeamsFn squad
