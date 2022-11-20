@@ -92,5 +92,6 @@ totalsPerSquad =
    . rotate
    . map snd
 
+-- | Intercalate strings with markdown separators
 intercalation :: (a -> String) -> [a] -> String
-intercalation f = intercalate "\n---\n" . map f
+intercalation f = intercalate "\n\n---\n\n" . map f
