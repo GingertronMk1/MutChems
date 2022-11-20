@@ -95,3 +95,21 @@ totalsPerSquad =
 -- | Intercalate strings with markdown separators
 intercalation :: (a -> String) -> [a] -> String
 intercalation f = intercalate "\n\n---\n\n" . map f
+
+squadToPrintedVariation :: Lineup -> String
+squadToPrintedVariation = genMarkdown
+                        . doubleFoldVariations
+                        . lineupToVariations
+                        . convertSquad
+
+addProspectiveAndPrint :: [ProspectiveAddition] -> Lineup -> [String]
+addProspectiveAndPrint pas l =
+  let firstString = "# No Additions\n\n" ++ squadToPrintedVariation l
+  in firstString : addProspectiveAndPrint' pas l
+
+addProspectiveAndPrint' :: [ProspectiveAddition] -> Lineup -> [String]
+addProspectiveAndPrint' [] _ = []
+addProspectiveAndPrint' (pa:pas) l = case pa of
+  Addition (p, _) ->  ("# Adding " ++ p ++ "\n\n" ++ newL) : addProspectiveAndPrint' pas l
+  Replacement p1 (p2, _) ->  ("# Replacing " ++ p1 ++ " with " ++ p2 ++ "\n\n" ++ newL) : addProspectiveAndPrint' pas l
+  where newL = squadToPrintedVariation (addProspective pa l)

@@ -3,12 +3,12 @@
 module Main (main) where
 
 import           Data.Calculated
+import           Data.List
+import           Data.Squad
 import           Functions.Display
-import           Functions.Domain
 
 -- | Give me the best Variations given a Lineup.
 main :: IO()
 main = do
-  let fv = map (lineupToVariations . convertSquad) squads
-  writeFile "output.md" . intercalation (genMarkdown . doubleFoldVariations) $ fv
-  putStrLn . intercalation ppVariations $ fv
+  putStrLn $ "Generating best lineups for " ++ show (length prospectiveAdditions + 1) ++ " possible squads"
+  writeFile "output.md" . intercalate "\n\n---\n\n" . addProspectiveAndPrint prospectiveAdditions $ squad

@@ -144,7 +144,7 @@ splitAtPredicate p l = splitAtPredicate' p ([], l)
 
 -- | Helper/accumulator for the above
 splitAtPredicate' :: (a -> Bool) -> ([a], [a]) -> ([a], [a])
-splitAtPredicate' p (l, []) = (reverse l, [])
+splitAtPredicate' _ (l, []) = (reverse l, [])
 splitAtPredicate' p (l, x:xs) =
   if p x
   then (reverse l, xs)
