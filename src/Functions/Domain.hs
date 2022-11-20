@@ -163,6 +163,7 @@ addProspectives ::
   Lineup
 addProspectives pts l = foldl (flip addProspective) l pts
 
+-- | Add a single prospective addition to the squad
 addProspective :: ProspectiveAddition -> Lineup -> Lineup
 addProspective (Addition pt) l = l ++ [pt]
 addProspective (Replacement p pt) l = case findIndex ((==p) . fst) l of
@@ -170,18 +171,23 @@ addProspective (Replacement p pt) l = case findIndex ((==p) . fst) l of
              in firstPart ++ [pt] ++ secondPart
   Nothing -> addProspective (Addition pt) l
 
+-- | Add each ProspectiveAddition in turn to the squad, keeping the initial squad
 addProspectivesInTurn :: [ProspectiveAddition] -> Lineup -> [Lineup]
 addProspectivesInTurn ps l = l : addProspectivesInTurn' ps l
 
+-- | Add the remaining prospectives in turn
 addProspectivesInTurn' :: [ProspectiveAddition] -> Lineup -> [Lineup]
 addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
    in newL : addProspectivesInTurn' ps newL
 
+-- | Turn a Lineup into one where all of the `allTeams` players have been given
+-- their teams and filtered by team popularity
 convertSquad :: Lineup -> Lineup
 convertSquad = convertAll32Teams . filteredSquadFn
 
+-- | Convert a Lineup to all of its top 10 variations
 lineupToVariations :: Lineup -> [Variation]
 lineupToVariations = take 10
                    . maximumValues

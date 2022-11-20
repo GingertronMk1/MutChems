@@ -17,7 +17,7 @@ squad =
     $ baseSquad ++ [strategy]
 
 squads :: [Lineup]
-squads = 
+squads =
   map (filter (not . null . snd))
     . addProspectivesInTurn prospectiveAdditions
     $ baseSquad ++ [strategy]
