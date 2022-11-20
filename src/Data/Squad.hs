@@ -86,5 +86,18 @@ prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
     Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
-    Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders])
+    Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
+    Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
+    Replacement "Justin Fields" ("Ryan Fitzpatrick", [
+      Team T.legends,
+      Team T.bengals,
+      Team T.bills,
+      Team T.buccaneers,
+      Team T.commanders,
+      Team T.dolphins,
+      Team T.jets,
+      Team T.rams,
+      Team T.texans,
+      Team T.titans
+    ])
   ]

@@ -132,6 +132,10 @@ steelers = "Steelers"
 texans :: Team
 texans = "Texans"
 
+-- | The Tennessee Titans
+titans :: Team
+titans = "Titans"
+
 -- | The Minnesota Vikings
 vikings :: Team
 vikings = "Vikings"
