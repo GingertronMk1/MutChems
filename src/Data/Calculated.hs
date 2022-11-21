@@ -20,7 +20,7 @@ squadNoProspectives :: Lineup
 squadNoProspectives = filter (not . null . snd) $ baseSquad ++ [strategy]
 
 iteratedProspectiveSquads :: [Lineup]
-iteratedProspectiveSquads = map (filter (not . null . snd))
+iteratedProspectiveSquads = map (convertSquad . filter (not . null . snd))
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
