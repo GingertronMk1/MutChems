@@ -38,7 +38,7 @@ allTeamsFn =
     . concatMap snd
 
 squadFilterThreshold :: Int
-squadFilterThreshold = fromIntegral $ 10 ^ 7
+squadFilterThreshold = fromIntegral $ 10 ^ 6
 
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn = filteredSquadFn' 0
