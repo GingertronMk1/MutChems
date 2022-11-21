@@ -37,25 +37,29 @@ allTeamsFn =
   concatMap expandTeamOrMultiple
     . concatMap snd
 
--- | The threshold for filtering by number of entries.
--- Set this dynamically based on the size of the squad
-filteredSquadThreshold :: [a] -> Int
-filteredSquadThreshold l = (length l `div` 10) + 2
+squadFilterThreshold :: Int
+squadFilterThreshold = fromIntegral $ 10 ^ 6
+
+filteredSquadFn :: Lineup -> Lineup
+filteredSquadFn = filteredSquadFn' 0
 
 -- | Filtering a Lineup to contain only those Teams with 3 or more entries.
-filteredSquadFn :: Lineup -> Lineup
-filteredSquadFn s =
+filteredSquadFn' :: Int -> Lineup -> Lineup
+filteredSquadFn' threshold s =
   let allTeams = allTeamsFn s
       numberOfOneTeam t = length . filter (== t) $ allTeams
-      filterFn' t = numberOfOneTeam t > filteredSquadThreshold s || t == T.all32Teams
+      filterFn' t = numberOfOneTeam t > threshold || t == T.all32Teams
       filterFn NoTeam             = False
       filterFn (Team t)           = filterFn' t
       filterFn (MultipleTeam t _) = filterFn' t
       filterFn (Teams ts)         = any filterFn ts
-   in map (second (filteredSquadFn' filterFn)) s
+      newS                        = map (second (filteredSquadFn'' filterFn)) s
+   in if numberOfOptionsFn newS <= squadFilterThreshold
+      then newS
+      else filteredSquadFn' (threshold + 1) newS
 
 -- | A helper to be used in the mapping for the above
-filteredSquadFn' ::
+filteredSquadFn'' ::
   -- | Nominally the `filterFn` defined in the above's `let` block - should maybe pull that out
   -- into its own function
   (TeamOrMultiple -> Bool) ->
@@ -63,7 +67,7 @@ filteredSquadFn' ::
   [TeamOrMultiple] ->
   -- | Resultant list of TeamOrMultiples
   [TeamOrMultiple]
-filteredSquadFn' f ts =
+filteredSquadFn'' f ts =
   let filtered = filter f ts
    in if null filtered then [NoTeam] else filtered
 
@@ -185,7 +189,7 @@ addProspectivesInTurn' (p:ps) l =
 -- | Turn a Lineup into one where all of the `allTeams` players have been given
 -- their teams and filtered by team popularity
 convertSquad :: Lineup -> Lineup
-convertSquad = convertAll32Teams . filteredSquadFn
+convertSquad = filteredSquadFn . convertAll32Teams
 
 -- | Convert a Lineup to all of its top 10 variations
 lineupToVariations :: Lineup -> [Variation]
