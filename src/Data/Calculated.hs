@@ -24,6 +24,9 @@ iteratedProspectiveSquads = map (convertSquad . filter (not . null . snd))
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
+checkSquadNumbers :: [Int]
+checkSquadNumbers = map numberOfOptionsFn iteratedProspectiveSquads
+
 -- | All teams in the above.
 allTeams :: [Team]
 allTeams = allTeamsFn squad
