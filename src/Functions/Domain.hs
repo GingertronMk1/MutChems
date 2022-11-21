@@ -40,7 +40,7 @@ allTeamsFn =
 -- | The threshold for filtering by number of entries.
 -- Set this dynamically based on the size of the squad
 filteredSquadThreshold :: [a] -> Int
-filteredSquadThreshold l = (length l `div` 10) + 1
+filteredSquadThreshold l = (length l `div` 10) + 2
 
 -- | Filtering a Lineup to contain only those Teams with 3 or more entries.
 filteredSquadFn :: Lineup -> Lineup
