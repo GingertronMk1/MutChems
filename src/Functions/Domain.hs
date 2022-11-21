@@ -67,9 +67,11 @@ filteredSquadFn'' ::
   [TeamOrMultiple] ->
   -- | Resultant list of TeamOrMultiples
   [TeamOrMultiple]
-filteredSquadFn'' f ts =
-  let filtered = filter f ts
-   in if null filtered then [NoTeam] else filtered
+filteredSquadFn'' f ts
+  | length ts < 2 = ts
+  | null filtered = [NoTeam]
+  | otherwise = filtered
+  where filtered = filter f ts
 
 -- | Change all players with all 32 teams to contain all useful teams
 -- useful here being "all other actual teams" - there's no point giving him
