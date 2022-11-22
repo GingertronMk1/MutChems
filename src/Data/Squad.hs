@@ -56,6 +56,7 @@ baseSquad =
     ("Deforest Buckner", [Team T.niners, Team T.colts]),
     -- le
     ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
+    ("George Karlaftis", [Team T.chiefs, Team T.vikings, Team T.saints, Team T.giants, Team T.packers, Team T.broncos, Team T.jaguars, Team T.niners, Team T.cardinals, Team T.seahawks, Team T.buccaneers]),
     -- re
     ("Aaron Donald", [Team T.rams]),
     ("Aidan Hutchinson", [Team T.lions]),
