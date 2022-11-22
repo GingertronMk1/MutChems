@@ -33,17 +33,19 @@ numberOfOptionsFn = product . map (length . snd)
 
 -- | Give me a list of all Teams in a given Lineup.
 allTeamsFn :: Lineup -> [Team]
-allTeamsFn =
-  concatMap expandTeamOrMultiple
-    . concatMap snd
+allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 
-squadFilterThreshold :: Int
-squadFilterThreshold = fromIntegral $ 10 ^ 6
+-- | The maximum number of options as a power of 10
+-- i.e. setting this to 6 makes the maximum allowed number of options 1,000,000
+-- (10^6)
+squadFilterPower :: Int
+squadFilterPower = 6
 
+-- | Filter a given squad such that it contains only 10 ^ `squadFilterPower` options
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn = filteredSquadFn' 0
 
--- | Filtering a Lineup to contain only those Teams with 3 or more entries.
+-- | Helper for the above - does the actual filtering
 filteredSquadFn' :: Int -> Lineup -> Lineup
 filteredSquadFn' threshold s =
   let allTeams = allTeamsFn s
@@ -54,7 +56,7 @@ filteredSquadFn' threshold s =
       filterFn (MultipleTeam t _) = filterFn' t
       filterFn (Teams ts)         = any filterFn ts
       newS                        = map (second (filteredSquadFn'' filterFn)) s
-   in if numberOfOptionsFn newS <= squadFilterThreshold
+   in if numberOfOptionsFn newS <= 10 ^ squadFilterPower
       then newS
       else filteredSquadFn' (threshold + 1) newS
 
@@ -188,7 +190,7 @@ addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
    in newL : addProspectivesInTurn' ps newL
 
--- | Turn a Lineup into one where all of the `allTeams` players have been given
+-- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
 convertSquad :: Lineup -> Lineup
 convertSquad = filteredSquadFn . convertAll32Teams
