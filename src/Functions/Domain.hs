@@ -70,11 +70,9 @@ filteredSquadFn'' ::
   [TeamOrMultiple] ->
   -- | Resultant list of TeamOrMultiples
   [TeamOrMultiple]
-filteredSquadFn'' f ts
-  | null ts || null filtered = [NoTeam]
-  | length ts == 1 = ts
-  | otherwise = filtered
-  where filtered = filter f ts
+filteredSquadFn'' f ts = case (filter f ts) of
+  [] -> [NoTeam]
+  xs -> xs
 
 -- | Change all players with all 32 teams to contain all useful teams
 -- useful here being "all other actual teams" - there's no point giving him
