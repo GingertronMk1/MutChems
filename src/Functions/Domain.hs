@@ -68,8 +68,8 @@ filteredSquadFn'' ::
   -- | Resultant list of TeamOrMultiples
   [TeamOrMultiple]
 filteredSquadFn'' f ts
-  | length ts < 2 = ts
-  | null filtered = [NoTeam]
+  | null ts || null filtered = [NoTeam]
+  | length ts == 1 = ts
   | otherwise = filtered
   where filtered = filter f ts
 
