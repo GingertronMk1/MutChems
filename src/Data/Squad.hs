@@ -90,16 +90,5 @@ prospectiveAdditions =
     Addition ("Tom Compton", [Team T.niners, Team T.bears, Team T.broncos, Team T.commanders, Team T.falcons, Team T.jets, Team T.vikings]),
     Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
-    Replacement "Justin Fields" ("Ryan Fitzpatrick", [
-      Team T.legends,
-      Team T.bengals,
-      Team T.bills,
-      Team T.buccaneers,
-      Team T.commanders,
-      Team T.dolphins,
-      Team T.jets,
-      Team T.rams,
-      Team T.texans,
-      Team T.titans
-    ])
+    Replacement "Justin Fields" ("Ryan Fitzpatrick", [Team T.legends, Team T.bengals, Team T.bills, Team T.buccaneers, Team T.commanders, Team T.dolphins, Team T.jets, Team T.rams, Team T.texans, Team T.titans])
   ]
