@@ -56,7 +56,8 @@ filteredSquadFn' threshold s =
       filterFn (MultipleTeam t _) = filterFn' t
       filterFn (Teams ts)         = any filterFn ts
       newS                        = map (second (filteredSquadFn'' filterFn)) s
-   in if numberOfOptionsFn newS <= 10 ^ squadFilterPower
+      numberOfNewSOptions         = numberOfOptionsFn newS
+   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= 10 ^ squadFilterPower
       then newS
       else filteredSquadFn' (threshold + 1) newS
 
