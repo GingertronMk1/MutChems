@@ -25,9 +25,9 @@ baseSquad =
     -- wr
     ("Devin Hester", [Team T.legends, Team T.ravens, Team T.bears, Team T.falcons, Team T.seahawks]),
     ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
+    ("Plaxico Burress", [Team T.legends, Team T.giants, Team T.jets, Team T.steelers]),
     ("Deebo Samuel", [Team T.niners]),
     ("Chase Claypool", [Team T.steelers, Team T.bears]),
-    ("DJ Moore", [Team T.panthers]),
     -- lt
     ("Garrett Bolles", [Team T.broncos]),
     ("Orlando Brown", [Team T.chiefs, Team T.ravens]),
@@ -40,6 +40,7 @@ baseSquad =
     ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens]),
     ("Mark Glowinski", [Team T.giants, Team T.colts, Team T.seahawks]),
     -- rt
+    ("Tom Compton", [Team T.niners, Team T.bears, Team T.broncos, Team T.commanders, Team T.falcons, Team T.jets, Team T.vikings]),
     ("La'el Collins", [Team T.cowboys, Team T.bengals]),
     -- mlb
     ("Devin White", [Team T.buccaneers]),
@@ -87,8 +88,6 @@ prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
     Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
-    Replacement "DJ Moore" ("Plaxico Burress", [Team T.legends, Team T.giants, Team T.jets, Team T.steelers]),
-    Addition ("Tom Compton", [Team T.niners, Team T.bears, Team T.broncos, Team T.commanders, Team T.falcons, Team T.jets, Team T.vikings]),
     Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
     Replacement "Justin Fields" ("Ryan Fitzpatrick", [Team T.legends, Team T.bengals, Team T.bills, Team T.buccaneers, Team T.commanders, Team T.dolphins, Team T.jets, Team T.rams, Team T.texans, Team T.titans])
