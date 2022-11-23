@@ -52,6 +52,7 @@ baseSquad =
     -- lolb
     ("Ted Hendricks", [Team T.colts, Team T.packers, Team T.raiders, Team T.legends]),
     -- dt
+    ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
     ("Sam Adams", [Team T.all32Teams]),
     ("Tony Siragusa", [Team T.ravens, Team T.colts]),
     ("Deforest Buckner", [Team T.niners, Team T.colts]),
@@ -87,7 +88,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Addition ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
     Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
     Replacement "Justin Fields" ("Ryan Fitzpatrick", [Team T.legends, Team T.bengals, Team T.bills, Team T.buccaneers, Team T.commanders, Team T.dolphins, Team T.jets, Team T.rams, Team T.texans, Team T.titans])
