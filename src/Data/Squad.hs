@@ -40,8 +40,8 @@ baseSquad =
     ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens]),
     ("Mark Glowinski", [Team T.giants, Team T.colts, Team T.seahawks]),
     -- rt
+    ("Tristan Wirfs", [Team T.buccaneers]),
     ("Tom Compton", [Team T.niners, Team T.bears, Team T.broncos, Team T.commanders, Team T.falcons, Team T.jets, Team T.vikings]),
-    ("La'el Collins", [Team T.cowboys, Team T.bengals]),
     -- mlb
     ("Devin White", [Team T.buccaneers]),
     ("Bobby Wagner", [Team T.seahawks, Team T.rams]),
@@ -88,7 +88,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Addition ("Tristan Wirfs", [Team T.buccaneers]),
     Addition ("Creed Humphrey", [Team T.chiefs]),
     Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
