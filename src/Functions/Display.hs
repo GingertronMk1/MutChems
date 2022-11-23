@@ -88,18 +88,12 @@ squadToPrintedVariation l = genMarkdown l
                           . convertSquad
                           $ l
 
--- | Iterate over the prospective additions and create markdown strings for each resultant lineup
-addProspectiveAndPrint :: [ProspectiveAddition] -> Lineup -> [String]
-addProspectiveAndPrint pas l =
-  let firstString = "# No Additions\n\n" ++ squadToPrintedVariation l
-  in firstString : addProspectiveAndPrint' pas l
+printLineups :: [(ProspectiveAddition, Lineup)] -> [String]
+printLineups = map printLineupWithChange
 
--- | Do the rest for the above
-addProspectiveAndPrint' :: [ProspectiveAddition] -> Lineup -> [String]
-addProspectiveAndPrint' [] _ = []
-addProspectiveAndPrint' (pa:pas) l = case pa of
-  Addition (p, _) ->  printf "# Adding %s:\n\n%s" [p, printedNewL] : nextIteration
-  Replacement p1 (p2, _) ->  printf "# Replacing %s with %s:\n\n%s" [p1, p2, printedNewL] : nextIteration
-  where newL = addProspective pa l
-        printedNewL = squadToPrintedVariation newL
-        nextIteration = addProspectiveAndPrint' pas newL
+printLineupWithChange :: (ProspectiveAddition, Lineup) -> String
+printLineupWithChange (pa, l) = case pa of
+  NoChange -> printf "# No Change\n\n%s" [printedNewL]
+  Addition (p, _) ->  printf "# Adding %s:\n\n%s" [p, printedNewL]
+  Replacement p1 (p2, _) ->  printf "# Replacing %s with %s:\n\n%s" [p1, p2, printedNewL]
+  where printedNewL = squadToPrintedVariation . addProspective pa $ l

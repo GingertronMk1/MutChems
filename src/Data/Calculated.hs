@@ -19,13 +19,13 @@ squad =
 squadNoProspectives :: Lineup
 squadNoProspectives = filter (not . null . snd) $ baseSquad ++ [strategy]
 
-iteratedProspectiveSquads :: [Lineup]
-iteratedProspectiveSquads = map convertSquad
+iteratedProspectiveSquads :: [(ProspectiveAddition, Lineup)]
+iteratedProspectiveSquads = map (\(a, s) -> (a, convertSquad s))
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
 checkSquadNumbers :: [Int]
-checkSquadNumbers = map numberOfOptionsFn iteratedProspectiveSquads
+checkSquadNumbers = map (numberOfOptionsFn . snd) iteratedProspectiveSquads
 
 -- | All teams in the above.
 allTeams :: [Team]

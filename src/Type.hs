@@ -72,6 +72,8 @@ data ProspectiveAddition
     Replacement Player PlayerTeams
   | -- | A Player who will fit in without displacing another Player
     Addition PlayerTeams
+  | -- | No addition or replacement
+    NoChange
   deriving (Eq, Ord, Show)
 
 -- * Helper functions

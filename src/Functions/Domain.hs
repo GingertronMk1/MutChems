@@ -206,6 +206,7 @@ addProspectives pts l = foldl (flip addProspective) l pts
 
 -- | Add a single prospective addition to the squad
 addProspective :: ProspectiveAddition -> Lineup -> Lineup
+addProspective NoChange l = l
 addProspective (Addition pt) l = l ++ [pt]
 addProspective (Replacement p pt) l =
   let (firstPart, theRest) = splitAtPredicate ((==p) . fst) l
@@ -213,15 +214,15 @@ addProspective (Replacement p pt) l =
 
 
 -- | Add each ProspectiveAddition in turn to the squad, keeping the initial squad
-addProspectivesInTurn :: [ProspectiveAddition] -> Lineup -> [Lineup]
-addProspectivesInTurn ps l = l : addProspectivesInTurn' ps l
+addProspectivesInTurn :: [ProspectiveAddition] -> Lineup -> [(ProspectiveAddition, Lineup)]
+addProspectivesInTurn ps l = (NoChange, l) : addProspectivesInTurn' ps l
 
 -- | Add the remaining prospectives in turn
-addProspectivesInTurn' :: [ProspectiveAddition] -> Lineup -> [Lineup]
+addProspectivesInTurn' :: [ProspectiveAddition] -> Lineup -> [(ProspectiveAddition, Lineup)]
 addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
-   in newL : addProspectivesInTurn' ps newL
+   in (p, newL) : addProspectivesInTurn' ps newL
 
 -- * Converting a `Type.Lineup` into something we can actually handle
 
