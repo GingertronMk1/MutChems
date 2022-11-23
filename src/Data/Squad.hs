@@ -88,6 +88,8 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
+    Addition ("Tristan Wirfs", [Team T.buccaneers]),
+    Addition ("Creed Humphrey", [Team T.chiefs]),
     Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
     Replacement "Justin Fields" ("Ryan Fitzpatrick", [Team T.legends, Team T.bengals, Team T.bills, Team T.buccaneers, Team T.commanders, Team T.dolphins, Team T.jets, Team T.rams, Team T.texans, Team T.titans])
