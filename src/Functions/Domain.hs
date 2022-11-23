@@ -41,25 +41,48 @@ allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 squadFilterPower :: Int
 squadFilterPower = 6
 
+
+-- * FILTERING THE SQUAD TO LIMIT THE NUMBER OF POSSIBLE OPTIONS
+
 -- | Filter a given squad such that it contains only 10 ^ `squadFilterPower` options
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
-filteredSquadFn' :: Int -> Lineup -> Lineup
+filteredSquadFn' ::
+  -- | The threshold number - if there are fewer than this many instances of a
+  -- Team in a Lineup we can disregard it
+  Int ->
+  -- | The initial lineup to be filtered
+  Lineup ->
+  -- | The resultant lineup
+  Lineup
 filteredSquadFn' threshold s =
   let allTeams = allTeamsFn s
-      numberOfOneTeam t = length . filter (== t) $ allTeams
-      filterFn' t = numberOfOneTeam t > threshold || t == T.all32Teams
-      filterFn NoTeam             = False
-      filterFn (Team t)           = filterFn' t
-      filterFn (MultipleTeam t _) = filterFn' t
-      filterFn (Teams ts)         = any filterFn ts
-      newS                        = map (second (filteredSquadFn'' filterFn)) s
-      numberOfNewSOptions         = numberOfOptionsFn newS
+      newS                = map (second $ filteredSquadFn'' $ filterFn threshold allTeams) s
+      numberOfNewSOptions = numberOfOptionsFn newS
    in if 0 < numberOfNewSOptions && numberOfNewSOptions <= 10 ^ squadFilterPower
       then newS
       else filteredSquadFn' (threshold + 1) newS
+
+-- | The function we use to filter the list of `TeamOrMultiple`s in the squad
+filterFn ::
+  -- | The threshold number - if there are fewer than this many instances of a
+  -- Team in a Lineup we can disregard it
+  Int ->
+  -- | The list of `Team`s we should be comparing against
+  [Team] ->
+  -- | The `TeamOrMultiple` we're considering
+  TeamOrMultiple ->
+  -- | The resultant boolean value
+  Bool
+filterFn threshold ts tom = case tom of
+    NoTeam             -> False
+    (Team t)           -> filterFn' t
+    (MultipleTeam t _) -> filterFn' t
+    (Teams teams)         -> any (filterFn threshold ts) teams
+    where filterFn' t = numberOfOneTeam t > threshold || t == T.all32Teams
+          numberOfOneTeam t = length . filter (== t) $ ts
 
 -- | A helper to be used in the mapping for the above
 filteredSquadFn'' ::
@@ -142,6 +165,8 @@ doubleFold'' (Variation v) (p, ts) =
     Nothing     -> (p, NoTeam : ts)
     Just (_, t) -> (p, t : ts)
 
+-- * Sorting players in resultant `Type.Variation`s
+
 -- | Sorting 2 Players based on their position in the initial squad.
 compareBasedOnSquad ::
   -- | The initial squad.
@@ -158,6 +183,8 @@ compareBasedOnSquad l p1 p2 =
 -- | Getting the index for a single player.
 compareBasedOnSquad' :: Lineup -> Player -> Int
 compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
+
+-- * Adding prospective players to a Lineup
 
 -- | A function to combine a Lineup with a list of ProspectiveAdditions,
 -- respecting the replacement/addition options
@@ -188,6 +215,8 @@ addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
    in newL : addProspectivesInTurn' ps newL
+
+-- * Converting a `Type.Lineup` into something we can actually handle
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
