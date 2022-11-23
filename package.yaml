@@ -1,10 +1,10 @@
 name:                mut-chems
 version:             2.1.0.0
-github:              "githubuser/mut-chems"
+github:              "gingertronmk1/mut"
 license:             BSD3
 author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2022 Author name here"
+maintainer:          "jackellis1504@gmail.com"
+copyright:           "Jack Ellis"
 
 extra-source-files:
 - README.md
@@ -26,6 +26,8 @@ ghc-options:
 - -Wall
 - -Wpartial-fields
 - -Wredundant-constraints
+
+allow-newer: true
 
 library:
   source-dirs: src
