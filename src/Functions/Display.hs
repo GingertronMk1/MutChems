@@ -92,8 +92,16 @@ printLineups :: [(ProspectiveAddition, Lineup)] -> [String]
 printLineups = map printLineupWithChange
 
 printLineupWithChange :: (ProspectiveAddition, Lineup) -> String
-printLineupWithChange (pa, l) = case pa of
-  NoChange -> printf "# No Change\n\n%s" [printedNewL]
-  Addition (p, _) ->  printf "# Adding %s:\n\n%s" [p, printedNewL]
-  Replacement p1 (p2, _) ->  printf "# Replacing %s with %s:\n\n%s" [p1, p2, printedNewL]
-  where printedNewL = squadToPrintedVariation . addProspective pa $ l
+printLineupWithChange (pa, l) =
+  let topRow = case pa of
+          NoChange -> "# No change"
+          Addition (p, _) -> printf "# Adding %s" [p]
+          Replacement p1 (p2, _) -> printf "# Replacing %s with %s" [p1, p2]
+      newL = addProspective pa l
+  in intercalate
+    "\n\n"
+    [
+      topRow,
+      "### Checked " ++ (show $ numberOfOptionsFn newL) ++ " Variations",
+      squadToPrintedVariation newL
+    ]
