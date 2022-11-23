@@ -42,7 +42,7 @@ squadFilterPower :: Int
 squadFilterPower = 6
 
 
--- * FILTERING THE SQUAD TO LIMIT THE NUMBER OF POSSIBLE OPTIONS
+-- * Filtering the squad to limit the number of possible options
 
 -- | Filter a given squad such that it contains only 10 ^ `squadFilterPower` options
 filteredSquadFn :: Lineup -> Lineup
@@ -97,6 +97,9 @@ filteredSquadFn'' f ts = case (filter f ts) of
   [] -> [NoTeam]
   xs -> xs
 
+-- * Converting those players who have the ability to have any team chemistry
+-- applied to them
+
 -- | Change all players with all 32 teams to contain all useful teams
 -- useful here being "all other actual teams" - there's no point giving him
 -- the option for Jacksonville if nobody else has ever played for them
@@ -128,6 +131,10 @@ convertSingle ts (MultipleTeam t i) =
     then map (`MultipleTeam` i) ts
     else [MultipleTeam t i]
 convertSingle ts (Teams t) = concatMap (convertSingle ts) t
+
+-- * "Double folding" `Type.Variation`s - sort of rotating the 2D list of teams
+-- and players such that we can represent it line-by-line, like in a MarkDown
+-- file for instance?
 
 -- | Double fold variations - roll up all options for a given player into one PlayerTeams instance.
 -- and do it for every player involved
