@@ -18,7 +18,9 @@ type PlayerTeams = (Player, [TeamOrMultiple])
 type Lineup = [PlayerTeams]
 
 -- | One variation I can have with a Lineup.
-newtype Variation = Variation [(Player, TeamOrMultiple)] deriving (Eq, Show)
+newtype Variation
+  = Variation [(Player, TeamOrMultiple)]
+  deriving (Eq, Show)
 
 instance Ord Variation where
   compare (Variation v1) (Variation v2) =
@@ -37,14 +39,14 @@ type Option = [TeamPlayer]
 
 -- | Options for one or more Teams.
 data TeamOrMultiple
-  = -- | Null value.
-    NoTeam
-  | -- | A single Team.
-    Team Team
-  | -- | A single Team with a multiplier, e.g. Raiders x3.
-    MultipleTeam Team Int
-  | -- | Multiple Teams, e.g. Broncos + Seahawks.
-    Teams [TeamOrMultiple]
+  -- | Null value.
+  = NoTeam
+  -- | A single Team.
+  | Team Team
+  -- | A single Team with a multiplier, e.g. Raiders x3.
+  | MultipleTeam Team Int
+  -- | Multiple Teams, e.g. Broncos + Seahawks.
+  | Teams [TeamOrMultiple]
   deriving (Eq, Show)
 
 -- | The Ord instance - compare the "lowest" team name in each.
@@ -68,12 +70,12 @@ instance Ord TeamOrMultiple where
 
 -- | A type to represent potential additions/replacements for my squad
 data ProspectiveAddition
-  = -- | A Player who will replace another Player in the Lineup
-    Replacement Player PlayerTeams
-  | -- | A Player who will fit in without displacing another Player
-    Addition PlayerTeams
-  | -- | No addition or replacement
-    NoChange
+  -- | A Player who will replace another Player in the Lineup
+  = Replacement Player PlayerTeams
+  -- | A Player who will fit in without displacing another Player
+  | Addition PlayerTeams
+  -- | No addition or replacement
+  | NoChange
   deriving (Eq, Ord, Show)
 
 -- * Helper functions
