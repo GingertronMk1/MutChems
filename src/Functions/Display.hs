@@ -97,11 +97,10 @@ printLineupWithChange (pa, l) =
           NoChange -> "# No change"
           Addition (p, _) -> printf "# Adding %s" [p]
           Replacement p1 (p2, _) -> printf "# Replacing %s with %s" [p1, p2]
-      newL = addProspective pa l
   in intercalate
     "\n\n"
     [
       topRow,
-      "### Checked " ++ show (numberOfOptionsFn newL) ++ " Variations",
-      squadToPrintedVariation newL
+      "### Checked " ++ show (numberOfOptionsFn l) ++ " Variations",
+      squadToPrintedVariation l
     ]
