@@ -4,7 +4,6 @@ module Main (main) where
 
 import           Data.Calculated
 import           Data.List
-import           Data.Squad
 import           Functions.Application
 import           Functions.Display
 import           Functions.Domain
@@ -14,9 +13,9 @@ main :: IO()
 main = do
   let iterated = iteratedProspectiveSquads
   putStrLn $
-    "Calculating best Variations out of "
-    ++ intercalate ", " . map (show . numberOfOptionsFn . snd) $ iterated 
-    ++ " options"
+    printf
+      "Calculating best Variations out of %s options"
+      [intercalate ", " . map (show . numberOfOptionsFn . snd) $ iterated]
   writeFile "output.md"
     . intercalate "\n\n---\n\n"
     . printLineups
