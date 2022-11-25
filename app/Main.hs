@@ -14,8 +14,11 @@ main = do
   let iterated = iteratedProspectiveSquads
   putStrLn $
     printf
-      "Calculating best Variations out of %s options"
-      [intercalate ", " . map (show . numberOfOptionsFn . snd) $ iterated]
+      "Calculating best Variations out of %s options (each limited to a maximum of %s)"
+      [
+        intercalate ", " . map (ppNumber . numberOfOptionsFn . snd) $ iterated,
+        ppNumber squadFilterThreshold
+      ]
   writeFile "output.md"
     . intercalate "\n\n---\n\n"
     . printLineups
