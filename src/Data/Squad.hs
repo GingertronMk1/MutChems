@@ -26,7 +26,7 @@ baseSquad =
     ("Devin Hester", [Team T.legends, Team T.ravens, Team T.bears, Team T.falcons, Team T.seahawks]),
     ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
     ("Plaxico Burress", [Team T.legends, Team T.giants, Team T.jets, Team T.steelers]),
-    ("Deebo Samuel", [Team T.niners]),
+    ("Breshad Perriman", [Team T.bears, Team T.browns, Team T.buccaneers, Team T.jets, Team T.ravens]),
     ("Chase Claypool", [Team T.steelers, Team T.bears]),
     -- lt
     ("Garrett Bolles", [Team T.broncos]),
