@@ -1,6 +1,8 @@
 import           Test.HUnit
 
 import           Functions.Application
+import           Functions.Display
+import           Functions.Domain
 
 main :: IO ()
 main = do
@@ -9,7 +11,8 @@ main = do
 
 testList :: Test
 testList = TestList [
-    testRmDups
+    testRmDups,
+    testPPNumber
   ]
 
 testRmDups :: Test
@@ -22,3 +25,19 @@ testRmDups =
 
 testDataList :: [Int]
 testDataList = [1..10]
+
+testPPNumber :: Test
+testPPNumber = TestList
+             $ map (
+              TestList
+              . map TestCase
+              . testPPNumber'
+              . reverse
+              . ppNumber
+              . (10^)
+              ) ([1..100] :: [Integer])
+
+testPPNumber' :: String -> [Assertion]
+testPPNumber' s = case take 4 s of
+  [_,_,_,c] -> assertEqual "C is a comma" c ',' : testPPNumber' (drop 4 s)
+  s' -> [assertBool "Does not contain a comma" (',' `notElem` s')]
