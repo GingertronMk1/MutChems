@@ -49,6 +49,7 @@ baseSquad =
     ("Roquan Smith", [Team T.bears, Team T.ravens]),
     ("Tremaine Edmunds", [Team T.bills]),
     -- rolb
+    ("Khalil Mack", [Team T.raiders, Team T.bears, Team T.chargers]),
     ("Jonathan Casillas", [Team T.legends, Team T.buccaneers, Team T.giants, Team T.patriots, Team T.saints]),
     -- lolb
     ("Ted Hendricks", [Team T.colts, Team T.packers, Team T.raiders, Team T.legends]),
@@ -89,7 +90,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Addition ("Khalil Mack", [Team T.raiders, Team T.bears, Team T.chargers]),
     Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
     Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
     Replacement "Deforest Buckner" ("DJ Reader", [Team T.texans, Team T.bengals]),
