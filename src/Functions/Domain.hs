@@ -43,7 +43,7 @@ squadFilterPower :: Int
 squadFilterPower = 6
 
 squadFilterThreshold :: Int
-squadFilterThreshold = div 50000000 (length prospectiveAdditions)
+squadFilterThreshold = div 50000000 (length prospectiveAdditions + 1)
 
 
 -- * Filtering the squad to limit the number of possible options
