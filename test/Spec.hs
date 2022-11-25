@@ -17,14 +17,12 @@ testList = TestList [
 
 testRmDups :: Test
 testRmDups =
-   TestCase $
+  let testDataList = [1..10] :: [Int]
+   in TestCase $
         assertEqual
           "rmDups"
           testDataList
           (rmDups $ testDataList ++ reverse testDataList)
-
-testDataList :: [Int]
-testDataList = [1..10]
 
 testPPNumber :: Test
 testPPNumber = TestList
