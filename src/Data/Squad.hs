@@ -91,7 +91,9 @@ prospectiveAdditions =
     Addition ("Creed Humphrey", [Team T.chiefs]),
     Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
     Addition ("Khalil Mack", [Team T.raiders, Team T.bears, Team T.chargers]),
-    Replacement "Sauce Gardner" ("Benjamin St Juste", [Team T.commanders]),
+    Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
+    Replacement "Deforest Buckner" ("DJ Reader", [Team T.texans, Team T.bengals]),
+    Replacement "Rasul Douglas" ("Benjamin St Juste", [Team T.commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
     Replacement "Justin Fields" ("Ryan Fitzpatrick", [Team T.legends, Team T.bengals, Team T.bills, Team T.buccaneers, Team T.commanders, Team T.dolphins, Team T.jets, Team T.rams, Team T.texans, Team T.titans])
   ]
