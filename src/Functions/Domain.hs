@@ -39,11 +39,11 @@ allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 -- | The maximum number of options as a power of 10
 -- i.e. setting this to 6 makes the maximum allowed number of options 1,000,000
 -- (10^6)
-squadFilterPower :: Int
-squadFilterPower = 6
+maxTotalVariations :: Int
+maxTotalVariations = 25000000
 
 squadFilterThreshold :: Int
-squadFilterThreshold = div 50000000 (length prospectiveAdditions + 1)
+squadFilterThreshold = div maxTotalVariations (length prospectiveAdditions + 1)
 
 
 -- * Filtering the squad to limit the number of possible options
