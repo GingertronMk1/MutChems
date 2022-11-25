@@ -104,3 +104,11 @@ printLineupWithChange (pa, l) =
       "### Checked " ++ show (numberOfOptionsFn l) ++ " Variations",
       squadToPrintedVariation l
     ]
+
+ppNumber :: Int -> String
+ppNumber = reverse . ppNumber' . reverse . show
+
+ppNumber' :: String -> String
+ppNumber' (x:y:z:[]) = x:y:z:""
+ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
+ppNumber' ns = ns
