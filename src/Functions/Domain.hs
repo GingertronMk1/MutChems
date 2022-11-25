@@ -13,6 +13,7 @@ module Functions.Domain where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
+import           Data.Squad
 import qualified Data.Teams            as T
 import           Functions.Application
 import           Type
@@ -41,6 +42,9 @@ allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 squadFilterPower :: Int
 squadFilterPower = 6
 
+squadFilterThreshold :: Int
+squadFilterThreshold = div 50000000 (length prospectiveAdditions)
+
 
 -- * Filtering the squad to limit the number of possible options
 
@@ -61,7 +65,7 @@ filteredSquadFn' threshold s =
   let allTeams = allTeamsFn s
       newS                = map (second $ filteredSquadFn'' $ filterFn threshold allTeams) s
       numberOfNewSOptions = numberOfOptionsFn newS
-   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= 10 ^ squadFilterPower
+   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= squadFilterThreshold
       then newS
       else filteredSquadFn' (threshold + 1) newS
 
