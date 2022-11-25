@@ -105,10 +105,10 @@ printLineupWithChange (pa, l) =
       squadToPrintedVariation l
     ]
 
-ppNumber :: Int -> String
-ppNumber = reverse . ppNumber' . reverse . show
+ppNumber :: Integral a => a -> String
+ppNumber = reverse . ppNumber' . reverse . show . toInteger
 
 ppNumber' :: String -> String
-ppNumber' (x:y:z:[]) = x:y:z:""
+ppNumber' n@[_,_,_] = n
 ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
 ppNumber' ns = ns
