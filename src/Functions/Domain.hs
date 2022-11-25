@@ -93,7 +93,7 @@ filteredSquadFn'' ::
   [TeamOrMultiple] ->
   -- | Resultant list of TeamOrMultiples
   [TeamOrMultiple]
-filteredSquadFn'' f ts = case (filter f ts) of
+filteredSquadFn'' f ts = case filter f ts of
   [] -> [NoTeam]
   xs -> xs
 

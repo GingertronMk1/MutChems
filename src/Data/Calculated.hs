@@ -2,6 +2,7 @@
 -- Module: Data.Calculated
 module Data.Calculated where
 
+import           Data.Bifunctor
 import           Data.List
 import           Data.Ord
 import           Data.Squad
@@ -20,7 +21,7 @@ squadNoProspectives :: Lineup
 squadNoProspectives = filter (not . null . snd) $ baseSquad ++ [strategy]
 
 iteratedProspectiveSquads :: [(ProspectiveAddition, Lineup)]
-iteratedProspectiveSquads = map (\(a, s) -> (a, convertSquad s))
+iteratedProspectiveSquads = map (second convertSquad)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
