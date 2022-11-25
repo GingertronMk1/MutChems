@@ -38,6 +38,8 @@ testPPNumber = TestList
               ) ([1..100] :: [Integer])
 
 testPPNumber' :: String -> [Assertion]
-testPPNumber' s = case take 4 s of
-  [_,_,_,c] -> assertEqual "C is a comma" c ',' : testPPNumber' (drop 4 s)
-  s' -> [assertBool "Does not contain a comma" (',' `notElem` s')]
+testPPNumber' s =
+  let (thisString, theRest) = splitAt 4 s
+  in case thisString of
+    [_,_,_,c] -> assertEqual "C is a comma" c ',' : testPPNumber' theRest
+    s' -> [assertBool "Does not contain a comma" (',' `notElem` s')]
