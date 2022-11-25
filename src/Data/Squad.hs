@@ -35,6 +35,7 @@ baseSquad =
     ("Quenton Nelson", [Team T.colts]),
     ("Andrew Norwell", [Team T.commanders, Team T.jaguars, Team T.panthers]),
     -- c
+    ("Creed Humphrey", [Team T.chiefs]),
     ("Frank Ragnow", [Team T.lions]),
     -- rg
     ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens]),
@@ -88,9 +89,8 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Addition ("Creed Humphrey", [Team T.chiefs]),
-    Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
     Addition ("Khalil Mack", [Team T.raiders, Team T.bears, Team T.chargers]),
+    Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
     Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
     Replacement "Deforest Buckner" ("DJ Reader", [Team T.texans, Team T.bengals]),
     Replacement "Rasul Douglas" ("Benjamin St Juste", [Team T.commanders]),
