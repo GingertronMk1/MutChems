@@ -60,7 +60,19 @@ baseSquad =
     ("Tony Siragusa", [Team T.ravens, Team T.colts]),
     -- le
     ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
-    ("George Karlaftis", [Team T.chiefs, Team T.vikings, Team T.saints, Team T.giants, Team T.packers, Team T.broncos, Team T.jaguars, Team T.niners, Team T.cardinals, Team T.seahawks, Team T.buccaneers]),
+    ("George Karlaftis", [
+      Team T.chiefs,
+      Team T.vikings,
+      Team T.saints,
+      Team T.giants,
+      Team T.packers,
+      Team T.broncos,
+      Team T.jaguars,
+      Team T.niners,
+      Team T.cardinals,
+      Team T.seahawks,
+      Team T.buccaneers
+    ]),
     -- re
     ("Aaron Donald", [Team T.rams]),
     ("Aidan Hutchinson", [Team T.lions]),
@@ -92,5 +104,6 @@ prospectiveAdditions =
   [
     Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
     Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
-    Replacement "Josh Allen" ("Aaron Rodgers", [Team T.packers])
+    Replacement "Josh Allen" ("Aaron Rodgers", [Team T.packers]),
+    Replacement "Eric Dickerson" ("CJ2K", [Team T.jets, Team T.cardinals, Team T.titans])
   ]
