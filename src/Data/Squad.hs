@@ -91,5 +91,6 @@ prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
     Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
-    Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers])
+    Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
+    Replacement "Josh Allen" ("Aaron Rodgers", [Team T.packers])
   ]
