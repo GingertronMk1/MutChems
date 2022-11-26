@@ -20,7 +20,7 @@ import           Type
 
 -- | Does a given TeamOrMultiple contain a given Team.
 includesTeam ::
-  -- | The Team being searched for.
+  -- | The `Type.Team` being searched for.
   Team ->
   -- | The TeamOrMultiple being searched.
   TeamOrMultiple ->
@@ -36,26 +36,25 @@ numberOfOptionsFn = product . map (length . snd)
 allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 
--- | The maximum number of options as a power of 10
--- i.e. setting this to 6 makes the maximum allowed number of options 1,000,000
--- (10^6)
+-- | The maximum total number of variations allowed across the whole calculation
 maxTotalVariations :: Int
 maxTotalVariations = 25000000
 
+-- | The maximum number of variations allowed per squad
 squadFilterThreshold :: Int
 squadFilterThreshold = div maxTotalVariations (length prospectiveAdditions + 1)
 
 
 -- * Filtering the squad to limit the number of possible options
 
--- | Filter a given squad such that it contains only 10 ^ `squadFilterPower` options
+-- | Filter a given squad such that it contains only `squadFilterThreshold` options
 filteredSquadFn :: Lineup -> Lineup
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
 filteredSquadFn' ::
   -- | The threshold number - if there are fewer than this many instances of a
-  -- Team in a Lineup we can disregard it
+  -- `Type.Team` in a Lineup we can disregard it
   Int ->
   -- | The initial lineup to be filtered
   Lineup ->
@@ -72,9 +71,9 @@ filteredSquadFn' threshold s =
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
 filterFn ::
   -- | The threshold number - if there are fewer than this many instances of a
-  -- Team in a Lineup we can disregard it
+  -- `Type.Team` in a Lineup we can disregard it
   Int ->
-  -- | The list of `Team`s we should be comparing against
+  -- | The list of `Type.Team`s we should be comparing against
   [Team] ->
   -- | The `TeamOrMultiple` we're considering
   TeamOrMultiple ->

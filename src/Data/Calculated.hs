@@ -17,14 +17,17 @@ squad =
     . addProspectives prospectiveAdditions
     $ baseSquad ++ [strategy]
 
+-- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
 squadNoProspectives = filter (not . null . snd) $ baseSquad ++ [strategy]
 
+-- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveAddition, Lineup)]
 iteratedProspectiveSquads = map (second convertSquad)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
+-- | The number of possible variations in each squad in `iteratedProspectiveSquads`
 checkSquadNumbers :: [Int]
 checkSquadNumbers = map (numberOfOptionsFn . snd) iteratedProspectiveSquads
 

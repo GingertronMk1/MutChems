@@ -88,9 +88,11 @@ squadToPrintedVariation l = genMarkdown l
                           . convertSquad
                           $ l
 
+-- | Print all of the generated `Type.Lineup`s
 printLineups :: [(ProspectiveAddition, Lineup)] -> [String]
 printLineups = map printLineupWithChange
 
+-- | Print an individual `Type.Lineup` including the change made to create it
 printLineupWithChange :: (ProspectiveAddition, Lineup) -> String
 printLineupWithChange (pa, l) =
   let topRow = case pa of
@@ -105,9 +107,11 @@ printLineupWithChange (pa, l) =
       squadToPrintedVariation l
     ]
 
+-- | Print an integer number with commas as thousands separators
 ppNumber :: Integral a => a -> String
 ppNumber = reverse . ppNumber' . reverse . show . toInteger
 
+-- | Helper function for the above
 ppNumber' :: String -> String
 ppNumber' n@[_,_,_] = n
 ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
