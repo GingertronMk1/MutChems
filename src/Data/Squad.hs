@@ -55,9 +55,9 @@ baseSquad =
     ("Ted Hendricks", [Team T.colts, Team T.packers, Team T.raiders, Team T.legends]),
     -- dt
     ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
+    ("Jordan Davis", [Team T.eagles]),
     ("Sam Adams", [Team T.all32Teams]),
     ("Tony Siragusa", [Team T.ravens, Team T.colts]),
-    ("Deforest Buckner", [Team T.niners, Team T.colts]),
     -- le
     ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
     ("George Karlaftis", [Team T.chiefs, Team T.vikings, Team T.saints, Team T.giants, Team T.packers, Team T.broncos, Team T.jaguars, Team T.niners, Team T.cardinals, Team T.seahawks, Team T.buccaneers]),
@@ -91,9 +91,5 @@ prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
     Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
-    Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
-    Replacement "Deforest Buckner" ("DJ Reader", [Team T.texans, Team T.bengals]),
-    Replacement "Rasul Douglas" ("Benjamin St Juste", [Team T.commanders]),
-    Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team T.bills]),
-    Replacement "Justin Fields" ("Ryan Fitzpatrick", [Team T.legends, Team T.bengals, Team T.bills, Team T.buccaneers, Team T.commanders, Team T.dolphins, Team T.jets, Team T.rams, Team T.texans, Team T.titans])
+    Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers])
   ]
