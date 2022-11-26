@@ -3,3 +3,4 @@
 output.md
 docdir.txt
 docs/**/*
+*.prof
