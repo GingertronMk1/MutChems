@@ -104,6 +104,6 @@ prospectiveAdditions =
   [
     Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
     Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
-    Replacement "Josh Allen" ("Aaron Rodgers", [Team T.packers]),
-    Replacement "Eric Dickerson" ("CJ2K", [Team T.jets, Team T.cardinals, Team T.titans])
+    Replacement "Tyreek Hill" ("Randy Moss", [Team T.legends, Team T.titans, Team T.raiders, Team T.patriots, Team T.niners, Team T.vikings]),
+    Replacement "Eric Dickerson" ("CJ2K", [Team T.legends, Team T.jets, Team T.cardinals, Team T.titans])
   ]
