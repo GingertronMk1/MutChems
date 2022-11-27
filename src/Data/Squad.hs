@@ -2,96 +2,96 @@
 -- Module: Data.Squad
 module Data.Squad where
 
-import qualified Data.Teams as T
+import           Data.Teams
 import           Type
 
 -- | Base squad.
 baseSquad :: Lineup
 baseSquad =
   [ -- qb
-    ("Josh Allen", [Team T.bills]),
-    ("Justin Fields", [Team T.bears]),
+    ("Josh Allen", [Team bills]),
+    ("Justin Fields", [Team bears]),
     -- hb
-    ("Eric Dickerson", [Team T.legends, Team T.colts, Team T.rams, Team T.raiders, Team T.falcons]),
-    ("Ezekiel Elliott", [Team T.cowboys]),
-    ("Cordarrelle Patterson", [Team T.bears, Team T.raiders, Team T.patriots, Team T.vikings, Team T.falcons]),
+    ("Eric Dickerson", [Team legends, Team colts, Team rams, Team raiders, Team falcons]),
+    ("Ezekiel Elliott", [Team cowboys]),
+    ("Cordarrelle Patterson", [Team bears, Team raiders, Team patriots, Team vikings, Team falcons]),
     -- fb
-    ("Patrick Ricard", [Team T.ravens]),
-    ("Reggie Gilliam", [Team T.bills]),
+    ("Patrick Ricard", [Team ravens]),
+    ("Reggie Gilliam", [Team bills]),
     -- te
-    ("Dave Casper", [Team T.all32Teams]),
-    ("Evan Engram", [Team T.giants, Team T.jaguars]),
-    ("Hayden Hurst", [Team T.ravens, Team T.falcons, Team T.bengals]),
+    ("Dave Casper", [Team all32Teams]),
+    ("Evan Engram", [Team giants, Team jaguars]),
+    ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
-    ("Devin Hester", [Team T.legends, Team T.ravens, Team T.bears, Team T.falcons, Team T.seahawks]),
-    ("Tyreek Hill", [Team T.chiefs, Team T.dolphins]),
-    ("Plaxico Burress", [Team T.legends, Team T.giants, Team T.jets, Team T.steelers]),
-    ("Breshad Perriman", [Team T.bears, Team T.browns, Team T.buccaneers, Team T.jets, Team T.ravens]),
-    ("Chase Claypool", [Team T.steelers, Team T.bears]),
+    ("Devin Hester", [Team legends, Team ravens, Team bears, Team falcons, Team seahawks]),
+    ("Tyreek Hill", [Team chiefs, Team dolphins]),
+    ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
+    ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
+    ("Chase Claypool", [Team steelers, Team bears]),
     -- lt
-    ("Garrett Bolles", [Team T.broncos]),
-    ("Orlando Brown", [Team T.chiefs, Team T.ravens]),
+    ("Garrett Bolles", [Team broncos]),
+    ("Orlando Brown", [Team chiefs, Team ravens]),
     -- lg
-    ("Quenton Nelson", [Team T.colts]),
-    ("Andrew Norwell", [Team T.commanders, Team T.jaguars, Team T.panthers]),
+    ("Quenton Nelson", [Team colts]),
+    ("Andrew Norwell", [Team commanders, Team jaguars, Team panthers]),
     -- c
-    ("Creed Humphrey", [Team T.chiefs]),
-    ("Frank Ragnow", [Team T.lions]),
+    ("Creed Humphrey", [Team chiefs]),
+    ("Frank Ragnow", [Team lions]),
     -- rg
-    ("Kevin Zeitler", [Team T.bengals, Team T.browns, Team T.giants, Team T.ravens]),
-    ("Mark Glowinski", [Team T.giants, Team T.colts, Team T.seahawks]),
+    ("Kevin Zeitler", [Team bengals, Team browns, Team giants, Team ravens]),
+    ("Mark Glowinski", [Team giants, Team colts, Team seahawks]),
     -- rt
-    ("Tristan Wirfs", [Team T.buccaneers]),
-    ("Tom Compton", [Team T.niners, Team T.bears, Team T.broncos, Team T.commanders, Team T.falcons, Team T.jets, Team T.vikings]),
+    ("Tristan Wirfs", [Team buccaneers]),
+    ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings]),
     -- mlb
-    ("Devin White", [Team T.buccaneers]),
-    ("Bobby Wagner", [Team T.seahawks, Team T.rams]),
-    ("Roquan Smith", [Team T.bears, Team T.ravens]),
-    ("Tremaine Edmunds", [Team T.bills]),
+    ("Devin White", [Team buccaneers]),
+    ("Bobby Wagner", [Team seahawks, Team rams]),
+    ("Roquan Smith", [Team bears, Team ravens]),
+    ("Tremaine Edmunds", [Team bills]),
     -- rolb
-    ("Khalil Mack", [Team T.raiders, Team T.bears, Team T.chargers]),
-    ("Jonathan Casillas", [Team T.legends, Team T.buccaneers, Team T.giants, Team T.patriots, Team T.saints]),
+    ("Khalil Mack", [Team raiders, Team bears, Team chargers]),
+    ("Jonathan Casillas", [Team legends, Team buccaneers, Team giants, Team patriots, Team saints]),
     -- lolb
-    ("Ted Hendricks", [Team T.colts, Team T.packers, Team T.raiders, Team T.legends]),
+    ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
     -- dt
-    ("Richard Seymour", [Team T.legends, Team T.patriots, Team T.raiders]),
-    ("Jordan Davis", [Team T.eagles]),
-    ("Sam Adams", [Team T.all32Teams]),
-    ("Tony Siragusa", [Team T.ravens, Team T.colts]),
+    ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
+    ("Jordan Davis", [Team eagles]),
+    ("Sam Adams", [Team all32Teams]),
+    ("Tony Siragusa", [Team ravens, Team colts]),
     -- le
-    ("Julius Peppers", [Team T.legends, Team T.panthers, Team T.packers, Team T.bears]),
+    ("Julius Peppers", [Team legends, Team panthers, Team packers, Team bears]),
     ("George Karlaftis", [
-      Team T.chiefs,
-      Team T.vikings,
-      Team T.saints,
-      Team T.giants,
-      Team T.packers,
-      Team T.broncos,
-      Team T.jaguars,
-      Team T.niners,
-      Team T.cardinals,
-      Team T.seahawks,
-      Team T.buccaneers
+      Team chiefs,
+      Team vikings,
+      Team saints,
+      Team giants,
+      Team packers,
+      Team broncos,
+      Team jaguars,
+      Team niners,
+      Team cardinals,
+      Team seahawks,
+      Team buccaneers
     ]),
     -- re
-    ("Aaron Donald", [Team T.rams]),
-    ("Aidan Hutchinson", [Team T.lions]),
+    ("Aaron Donald", [Team rams]),
+    ("Aidan Hutchinson", [Team lions]),
     -- ss
-    ("Isaiah Pola-Mao", [Team T.raiders]),
-    ("Harrison Smith", [Team T.vikings]),
+    ("Isaiah Pola-Mao", [Team raiders]),
+    ("Harrison Smith", [Team vikings]),
     -- fs
-    ("Malik Hooker", [Team T.colts, Team T.cowboys]),
-    ("Trevon Moehrig", [Team T.raiders]),
+    ("Malik Hooker", [Team colts, Team cowboys]),
+    ("Trevon Moehrig", [Team raiders]),
     -- cb
-    ("Deion Sanders", [Team T.all32Teams]),
-    ("Champ Bailey", [Team T.commanders, Team T.broncos, Team T.legends]),
-    ("Shaquill Griffin", [Team T.seahawks, Team T.jaguars]),
-    ("Rasul Douglas", [Team T.packers, Team T.eagles, Team T.panthers]),
-    ("Sauce Gardner", [Team T.jets]),
+    ("Deion Sanders", [Team all32Teams]),
+    ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
+    ("Shaquill Griffin", [Team seahawks, Team jaguars]),
+    ("Rasul Douglas", [Team packers, Team eagles, Team panthers]),
+    ("Sauce Gardner", [Team jets]),
     -- k
-    ("Graham Gano", [Team T.giants, Team T.panthers, Team T.commanders]),
+    ("Graham Gano", [Team giants, Team panthers, Team commanders]),
     -- p
-    ("Johnny Hekker", [Team T.rams, Team T.panthers])
+    ("Johnny Hekker", [Team rams, Team panthers])
   ]
 
 -- | Team affinity strategy card.
@@ -102,8 +102,8 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Replacement "Trevon Moehrig" ("Eddie Jackson", [Team T.bears]),
-    Replacement "Sauce Gardner" ("Jaycee Horn", [Team T.panthers]),
-    Replacement "Tyreek Hill" ("Randy Moss", [Team T.legends, Team T.titans, Team T.raiders, Team T.patriots, Team T.niners, Team T.vikings]),
-    Replacement "Eric Dickerson" ("CJ2K", [Team T.legends, Team T.jets, Team T.cardinals, Team T.titans])
+    Replacement "Trevon Moehrig" ("Eddie Jackson", [Team bears]),
+    Replacement "Sauce Gardner" ("Jaycee Horn", [Team panthers]),
+    Replacement "Tyreek Hill" ("Randy Moss", [Team legends, Team titans, Team raiders, Team patriots, Team niners, Team vikings]),
+    Replacement "Eric Dickerson" ("CJ2K", [Team legends, Team jets, Team cardinals, Team titans])
   ]
