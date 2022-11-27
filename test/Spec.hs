@@ -2,7 +2,6 @@ import           Test.HUnit
 
 import           Functions.Application
 import           Functions.Display
-import           Functions.Domain
 
 main :: IO ()
 main = do
