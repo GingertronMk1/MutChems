@@ -38,7 +38,7 @@ allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 
 -- | The maximum total number of `Variation`s allowed across the whole calculation
 maxTotalVariations :: Int
-maxTotalVariations = 25000000
+maxTotalVariations = 25 * 1000000
 
 -- | The maximum number of `Variation`s allowed per squad
 squadFilterThreshold :: Int
