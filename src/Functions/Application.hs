@@ -156,4 +156,4 @@ splitAtPredicate' p (l, x:xs) =
   else splitAtPredicate' p (x:l, xs)
 
 parallelMap :: (a -> b) -> [a] -> [b]
-parallelMap = parMap rpar
+parallelMap = parMap rseq
