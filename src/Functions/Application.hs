@@ -5,6 +5,8 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
+import           Control.Parallel.Strategies
+
 -- | Remove duplicate entries in a list - probably not the best optimised but
 -- concise and I think quite elegant, plus doesn't need an `import` statement
 rmDups :: Eq a => [a] -> [a]
@@ -152,3 +154,6 @@ splitAtPredicate' p (l, x:xs) =
   if p x
   then (reverse l, xs)
   else splitAtPredicate' p (x:l, xs)
+
+parallelMap :: (a -> b) -> [a] -> [b]
+parallelMap = parMap rpar
