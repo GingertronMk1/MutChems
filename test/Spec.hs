@@ -40,4 +40,4 @@ testPPNumber' s =
   let (thisString, theRest) = splitAt 4 s
   in case thisString of
     [_,_,_,c] -> assertEqual "C is a comma" c ',' : testPPNumber' theRest
-    s' -> [assertBool "Does not contain a comma" (',' `notElem` s')]
+    s'        -> [assertBool "Does not contain a comma" (',' `notElem` s')]

@@ -12,7 +12,7 @@ import           Functions.Domain
 main :: IO()
 main = do
   let iterated = iteratedProspectiveSquads
-  let prettyPrintedNumberOfOptions = map (ppNumber . numberOfOptionsFn . snd) $ iterated
+  let prettyPrintedNumberOfOptions = map (ppNumber . numberOfOptionsFn . snd) iterated
   putStrLn $
     printf
       "Calculating best Variations out of %s options (each limited to a maximum of %s)"
