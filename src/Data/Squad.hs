@@ -9,10 +9,10 @@ import           Type
 baseSquad :: Lineup
 baseSquad =
   [ -- qb
-    ("Josh Allen", [Team bills]),
+    ("Aaron Rodgers", [Team packers]),
     ("Justin Fields", [Team bears]),
     -- hb
-    ("Eric Dickerson", [Team legends, Team colts, Team rams, Team raiders, Team falcons]),
+    ("Travis Etienne Jr", [Team jaguars]),
     ("Ezekiel Elliott", [Team cowboys]),
     ("Cordarrelle Patterson", [Team bears, Team raiders, Team patriots, Team vikings, Team falcons]),
     -- fb
@@ -81,7 +81,7 @@ baseSquad =
     ("Harrison Smith", [Team vikings]),
     -- fs
     ("Malik Hooker", [Team colts, Team cowboys]),
-    ("Trevon Moehrig", [Team raiders]),
+    ("Eddie Jackson", [Team bears]),
     -- cb
     ("Deion Sanders", [Team all32Teams]),
     ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
@@ -102,8 +102,5 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Replacement "Trevon Moehrig" ("Eddie Jackson", [Team bears]),
-    Replacement "Sauce Gardner" ("Jaycee Horn", [Team panthers]),
-    Replacement "Tyreek Hill" ("Randy Moss", [Team legends, Team titans, Team raiders, Team patriots, Team niners, Team vikings]),
-    Replacement "Eric Dickerson" ("CJ2K", [Team legends, Team jets, Team cardinals, Team titans])
+    Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team cardinals, Team jets])
   ]
