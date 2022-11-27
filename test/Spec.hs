@@ -26,7 +26,7 @@ testRmDups =
 
 testPPNumber :: Test
 testPPNumber =
-  let testDataList = map (10^) [1..100] :: [Integer]
+  let testDataList = map (10^) ([1..100] :: [Integer]) :: [Integer]
    in TestList
       $ map (
         TestList
