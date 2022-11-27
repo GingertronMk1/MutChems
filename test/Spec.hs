@@ -25,15 +25,16 @@ testRmDups =
           (rmDups $ testDataList ++ reverse testDataList)
 
 testPPNumber :: Test
-testPPNumber = TestList
-             $ map (
-              TestList
-              . map TestCase
-              . testPPNumber'
-              . reverse
-              . ppNumber
-              . (10^)
-              ) ([1..100] :: [Integer])
+testPPNumber =
+  let testDataList = map (10^) [1..100] :: [Integer]
+   in TestList
+      $ map (
+        TestList
+        . map TestCase
+        . testPPNumber'
+        . reverse
+        . ppNumber
+        ) testDataList
 
 testPPNumber' :: String -> [Assertion]
 testPPNumber' s =
