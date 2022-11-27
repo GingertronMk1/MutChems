@@ -1,5 +1,8 @@
 -- |
 -- Module: Data.Calculated
+--
+-- There should be no type signatures of the format @a -> a@, these should all be
+-- just variables more or less
 module Data.Calculated where
 
 import           Data.Bifunctor
@@ -12,10 +15,9 @@ import           Type
 
 -- | The constituent parts of a squad combined and sorted by popularity of team.
 squad :: Lineup
-squad =
-  filter (not . null . snd)
-    . addProspectives prospectiveAdditions
-    $ baseSquad ++ [strategy]
+squad = filter (not . null . snd)
+      . addProspectives prospectiveAdditions
+      $ baseSquad ++ [strategy]
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
