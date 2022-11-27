@@ -27,8 +27,6 @@ ghc-options:
 - -Wpartial-fields
 - -Wredundant-constraints
 
-allow-newer: true
-
 library:
   source-dirs: src
 
