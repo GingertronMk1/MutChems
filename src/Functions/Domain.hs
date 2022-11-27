@@ -83,7 +83,7 @@ filterFn threshold ts tom = case tom of
     NoTeam             -> False
     (Team t)           -> filterFn' t
     (MultipleTeam t _) -> filterFn' t
-    (Teams teams)         -> any (filterFn threshold ts) teams
+    (Teams teams)      -> any (filterFn threshold ts) teams
     where filterFn' t = numberOfOneTeam t > threshold || t == T.all32Teams
           numberOfOneTeam t = length . filter (== t) $ ts
 

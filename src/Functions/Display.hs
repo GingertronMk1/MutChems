@@ -96,8 +96,8 @@ printLineups = map printLineupWithChange
 printLineupWithChange :: (ProspectiveAddition, Lineup) -> String
 printLineupWithChange (pa, l) =
   let topRow = case pa of
-          NoChange -> "# No change"
-          Addition (p, _) -> printf "# Adding %s" [p]
+          NoChange               -> "# No change"
+          Addition (p, _)        -> printf "# Adding %s" [p]
           Replacement p1 (p2, _) -> printf "# Replacing %s with %s" [p1, p2]
   in intercalate
     "\n\n"
@@ -113,6 +113,6 @@ ppNumber = reverse . ppNumber' . reverse . show . toInteger
 
 -- | Helper function for the above
 ppNumber' :: String -> String
-ppNumber' n@[_,_,_] = n
+ppNumber' n@[_,_,_]  = n
 ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
-ppNumber' ns = ns
+ppNumber' ns         = ns
