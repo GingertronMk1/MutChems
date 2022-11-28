@@ -102,5 +102,5 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
-    Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team cardinals, Team jets])
+    Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals])
   ]
