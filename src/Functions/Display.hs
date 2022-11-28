@@ -11,7 +11,7 @@ import           Type
 ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam             = "-"
 ppTeamOrMultiple (Team t)           = t
-ppTeamOrMultiple (MultipleTeam t i) = t ++ "x" ++ show i
+ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
 ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 
 -- | Prettily print some double-folded variations to a nice Markdown string.
@@ -66,12 +66,12 @@ totalsPerSquad =
   intercalate "|"
    . map (
      intercalate "<br>"
-     . map (\(t,i) -> printf "%s:&nbsp;%s" [ppTeamOrMultiple t, show i])
+     . map (\(t,i) -> printf "%s:&nbsp;%s" [t, show i])
      . sortOn (Down . snd)
-     . filter ((/= NoTeam) . fst)
      . map firstAndLength
      . group
      . sort
+     . concatMap expandTeamOrMultiple
    )
    . rotate
    . map snd
