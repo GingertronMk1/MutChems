@@ -102,5 +102,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveAddition]
 prospectiveAdditions =
   [
+    Replacement "Devin Hester" ("Donald Driver", [Team legends, MultipleTeam packers 2]),
     Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals])
   ]
