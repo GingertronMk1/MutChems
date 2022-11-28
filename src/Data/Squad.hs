@@ -102,7 +102,6 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Removal "Breshad Perriman",
-    Removal "Jordan Davis",
+    Removals ["Breshad Perriman", "Jordan Davis"],
     Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals])
   ]

@@ -215,6 +215,7 @@ addProspective (Replacement p pt) l =
   let (firstPart, theRest) = splitAtPredicate ((==p) . fst) l
    in firstPart ++ [pt] ++ theRest
 addProspective (Removal p) l = filter ((/=p) . fst) l
+addProspective (Removals ps) l = filter (\(p,_) -> p `notElem` ps) l
 
 
 -- | Add each ProspectiveChange in turn to the squad, keeping the initial squad

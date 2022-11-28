@@ -17,7 +17,7 @@ main = do
     printf
       "Calculating best Variations out of %s options (each limited to a maximum of %s)"
       [
-        intercalate ", " $ init prettyPrintedNumberOfOptions ++ ["and " ++ last prettyPrintedNumberOfOptions],
+        printListWithAnd prettyPrintedNumberOfOptions,
         ppNumber squadFilterThreshold
       ]
   writeFile "output.md"

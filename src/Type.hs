@@ -78,6 +78,8 @@ data ProspectiveChange
   | NoChange
   -- | Removing a player
   | Removal Player
+  -- | Removing multiple players in one go
+  | Removals [Player]
   deriving (Eq, Ord, Show)
 
 -- * Helper functions
