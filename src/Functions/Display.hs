@@ -103,7 +103,7 @@ printLineupWithChange (pa, l) =
     "\n\n"
     [
       topRow,
-      "### Checked " ++ ppNumber (numberOfOptionsFn l) ++ " Variations",
+      printf "### Checked %s Variations" [ppNumber (numberOfOptionsFn l)],
       squadToPrintedVariation l
     ]
 
