@@ -100,6 +100,7 @@ printLineupWithChange (pa, l) =
           Addition (p, _)        -> printf "# Adding %s" [p]
           Replacement p1 (p2, _) -> printf "# Replacing %s with %s" [p1, p2]
           Removal p              -> printf "# Getting rid of %s" [p]
+          Removals ps            -> printf "# Getting rid of %s" [printListWithAnd ps]
   in intercalate
     "\n\n"
     [
@@ -117,3 +118,8 @@ ppNumber' :: String -> String
 ppNumber' n@[_,_,_]  = n
 ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
 ppNumber' ns         = ns
+
+printListWithAnd :: [String] -> String
+printListWithAnd [s] = s
+printListWithAnd ss@[_,_] = printf "%s and %s" ss
+printListWithAnd ss = printf "%s, and %s" [intercalate ", " (init ss), last ss]
