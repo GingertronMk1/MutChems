@@ -99,8 +99,10 @@ strategy :: PlayerTeams
 strategy = ("None", [])
 
 -- | Players I'm looking into.
-prospectiveAdditions :: [ProspectiveAddition]
+prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
+    Removal "Breshad Perriman",
+    Removal "Jordan Davis",
     Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals])
   ]

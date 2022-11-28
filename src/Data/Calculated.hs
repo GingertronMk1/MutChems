@@ -24,7 +24,7 @@ squadNoProspectives :: Lineup
 squadNoProspectives = filter (not . null . snd) $ baseSquad ++ [strategy]
 
 -- | The generated list of squads in "chronological" order (or at least planned)
-iteratedProspectiveSquads :: [(ProspectiveAddition, Lineup)]
+iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
 iteratedProspectiveSquads = map (second convertSquad)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives

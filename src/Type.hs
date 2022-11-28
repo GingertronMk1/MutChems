@@ -69,13 +69,15 @@ instance Ord TeamOrMultiple where
 
 
 -- | A type to represent potential additions/replacements for my squad
-data ProspectiveAddition
+data ProspectiveChange
   -- | A Player who will replace another Player in the Lineup
   = Replacement Player PlayerTeams
   -- | A Player who will fit in without displacing another Player
   | Addition PlayerTeams
   -- | No addition or replacement
   | NoChange
+  -- | Removing a player
+  | Removal Player
   deriving (Eq, Ord, Show)
 
 -- * Helper functions

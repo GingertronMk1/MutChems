@@ -89,16 +89,17 @@ squadToPrintedVariation l = genMarkdown l
                           $ l
 
 -- | Print all of the generated `Type.Lineup`s
-printLineups :: [(ProspectiveAddition, Lineup)] -> [String]
+printLineups :: [(ProspectiveChange, Lineup)] -> [String]
 printLineups = map printLineupWithChange
 
 -- | Print an individual `Type.Lineup` including the change made to create it
-printLineupWithChange :: (ProspectiveAddition, Lineup) -> String
+printLineupWithChange :: (ProspectiveChange, Lineup) -> String
 printLineupWithChange (pa, l) =
   let topRow = case pa of
           NoChange               -> "# No change"
           Addition (p, _)        -> printf "# Adding %s" [p]
           Replacement p1 (p2, _) -> printf "# Replacing %s with %s" [p1, p2]
+          Removal p              -> printf "# Getting rid of %s" [p]
   in intercalate
     "\n\n"
     [
