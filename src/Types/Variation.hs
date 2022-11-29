@@ -29,6 +29,7 @@ runThroughPreferences (p:ps) v1 v2 = case compare (numTeam v2) (numTeam v1) of
   c  -> c
   where numTeam = length . filter (==p) . variationToTeams
 
+-- | Taking a Variation and reducing it to just the list of Teams it contains
 variationToTeams :: Variation -> [Team]
 variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . snd) $ v
 
