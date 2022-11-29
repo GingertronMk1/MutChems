@@ -2,11 +2,11 @@
 -- Module: Main
 module Main (main) where
 
+import           Application
 import           Data.Calculated
 import           Data.List
-import           Functions.Application
-import           Functions.Display
-import           Functions.Domain
+import           Display
+import           Domain
 
 -- | Give me the best Variations given a Lineup.
 main :: IO()

@@ -3,7 +3,7 @@
 -- Module: Functions.Application
 --
 -- Application functions, i.e. those which do not care about any types I've created
-module Functions.Application where
+module Application where
 
 -- | Remove duplicate entries in a list - probably not the best optimised but
 -- concise and I think quite elegant, plus doesn't need an `import` statement

@@ -2,9 +2,7 @@
 -- Module: Data.Squad
 module Data.Squad where
 
-import           Data.Teams
-import           Types.Declarations
-import           Types.Instances()
+import           Domain
 
 -- | Base squad.
 baseSquad :: Lineup
