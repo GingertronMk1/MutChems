@@ -1,7 +1,7 @@
 import           Test.HUnit
 
 import           Functions.Application
-import           Display
+import           Functions.Display
 
 main :: IO ()
 main = do

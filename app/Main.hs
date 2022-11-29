@@ -6,7 +6,7 @@ import           Functions.Application
 import           Types.TeamOrMultiple
 import           Data.Calculated
 import           Data.List
-import           Display
+import           Functions.Display
 import           Functions.Domain
 
 -- | Give me the best Variations given a Lineup.

@@ -1,5 +1,5 @@
 -- | Module: Functions.Display.
-module Display where
+module Functions.Display where
 
 import           Functions.Application
 import           Data.List
