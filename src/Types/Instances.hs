@@ -12,7 +12,7 @@ instance Ord Variation where
     where
       convertedV1 = convertFn v1
       convertedV2 = convertFn v2
-      convertFn = map (firstAndLength)
+      convertFn = map firstAndLength
                 . group
                 . sort
                 . concatMap (expandTeamOrMultiple . snd)
