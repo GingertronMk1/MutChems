@@ -2,8 +2,9 @@
 -- | Module: Types.Variation
 module Types.Variation where
 
+import qualified Data.Other as Other
+
 import           Data.List
-import           Data.Teams
 import           Functions.Application
 import           Types.Basic
 import           Types.TeamOrMultiple
@@ -15,7 +16,7 @@ newtype Variation
 
 instance Ord Variation where
   compare v1 v2 = case orderListOfInts (map snd $ convertFn v1) (map snd $ convertFn v2) of
-    (EQ, _) -> runThroughPreferences [legends, seahawks, eagles] v1 v2
+    (EQ, _) -> runThroughPreferences Other.preferences v1 v2
     (c, _) -> c
     where
       convertFn = firstAndLength
