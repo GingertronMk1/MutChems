@@ -24,8 +24,8 @@ baseSquad =
     ("Evan Engram", [Team giants, Team jaguars]),
     ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
-    ("Donald Driver", [Team legends, MultipleTeam packers 2]),
     ("Tyreek Hill", [Team chiefs, Team dolphins]),
+    ("Jerry Rice", [Team legends, Team niners, Team raiders, Team seahawks]),
     ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
     ("Chase Claypool", [Team steelers, Team bears]),
@@ -103,6 +103,5 @@ strategy = ("None", [])
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Removals ["Breshad Perriman", "Jordan Davis"],
     Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals])
   ]
