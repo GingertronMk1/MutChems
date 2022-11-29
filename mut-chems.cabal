@@ -25,11 +25,17 @@ source-repository head
 
 library
   exposed-modules:
-      Application
       Data.Calculated
+      Data.Other
       Data.Squad
+      Data.Teams
       Display
-      Domain
+      Functions.Application
+      Functions.Domain
+      Types.Basic
+      Types.ProspectiveChange
+      Types.TeamOrMultiple
+      Types.Variation
   other-modules:
       Paths_mut_chems
   hs-source-dirs:

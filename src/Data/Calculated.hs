@@ -9,8 +9,12 @@ import           Data.Bifunctor
 import           Data.List
 import           Data.Ord
 import           Data.Squad
-import           Application
-import           Domain
+import           Functions.Application
+import           Functions.Domain
+import Types.Basic
+import Types.ProspectiveChange
+import Types.TeamOrMultiple
+import Types.Variation
 
 -- | The constituent parts of a squad combined and sorted by popularity of team.
 squad :: Lineup

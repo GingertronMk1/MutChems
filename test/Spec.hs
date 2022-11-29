@@ -1,6 +1,6 @@
 import           Test.HUnit
 
-import           Application
+import           Functions.Application
 import           Display
 
 main :: IO ()
