@@ -3,7 +3,8 @@
 module Data.Squad where
 
 import           Data.Teams
-import           Type
+import           Types.Declarations
+import           Types.Instances()
 
 -- | Base squad.
 baseSquad :: Lineup

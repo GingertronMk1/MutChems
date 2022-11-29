@@ -31,7 +31,8 @@ library
       Functions.Application
       Functions.Display
       Functions.Domain
-      Type
+      Types.Declarations
+      Types.Instances
   other-modules:
       Paths_mut_chems
   hs-source-dirs:

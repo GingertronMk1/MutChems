@@ -2,7 +2,7 @@
 -- Module: Data.Teams
 module Data.Teams where
 
-import           Type
+import           Types.Declarations
 
 -- | A useful shorthand for any player who can have all 32 teams.
 all32Teams :: Team

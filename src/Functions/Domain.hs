@@ -16,7 +16,8 @@ import           Data.Maybe
 import           Data.Squad
 import qualified Data.Teams            as T
 import           Functions.Application
-import           Type
+import           Types.Declarations
+import           Types.Instances
 
 -- | Does a given `TeamOrMultiple` contain a given t`Type.Team`.
 includesTeam ::
@@ -62,7 +63,7 @@ filteredSquadFn' ::
   Lineup
 filteredSquadFn' threshold s =
   let allTeams = allTeamsFn s
-      newS                = map (second $ filteredSquadFn'' $ filterFn threshold allTeams) s
+      newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
       numberOfNewSOptions = numberOfOptionsFn newS
    in if 0 < numberOfNewSOptions && numberOfNewSOptions <= squadFilterThreshold
       then newS
@@ -107,13 +108,15 @@ filteredSquadFn'' f ts = case filter f ts of
 -- useful here being "all other actual teams" - there's no point giving him
 -- the option for Jacksonville if nobody else has ever played for them
 convertAll32Teams :: Lineup -> Lineup
-convertAll32Teams l =
-  let allTeams =
-        rmDups
-          . filter (/= T.all32Teams)
-          . allTeamsFn
-          $ l
-   in map (second $ concatMap $ convertSingle allTeams) l
+convertAll32Teams l = map (
+                      second
+                      . concatMap
+                      . convertSingle
+                      . rmDups
+                      . filter (/= T.all32Teams)
+                      . allTeamsFn
+                      $ l
+                      ) l
 
 -- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
 -- be all 32 teams

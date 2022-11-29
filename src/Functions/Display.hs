@@ -5,7 +5,8 @@ import           Data.List
 import           Data.Ord
 import           Functions.Application
 import           Functions.Domain
-import           Type
+import           Types.Declarations
+import           Types.Instances
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
