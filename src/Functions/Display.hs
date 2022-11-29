@@ -69,9 +69,7 @@ totalsPerSquad =
      intercalate "<br>"
      . map (\(t,i) -> printf "%s:&nbsp;%s" [t, show i])
      . sortOn (Down . snd)
-     . map firstAndLength
-     . group
-     . sort
+     . firstAndLength
      . concatMap expandTeamOrMultiple
    )
    . rotate

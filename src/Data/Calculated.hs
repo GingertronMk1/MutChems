@@ -43,9 +43,7 @@ allTeams = allTeamsFn squad
 allTeamsNumbered :: [(Team, Int)]
 allTeamsNumbered =
   sortOn (Down . snd)
-    . map firstAndLength
-    . group
-    . sort
+    . firstAndLength
     $ allTeams
 
 -- | The number of options available based on the above squad.

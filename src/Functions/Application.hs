@@ -5,6 +5,8 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
+import Data.List
+
 -- | Remove duplicate entries in a list - probably not the best optimised but
 -- concise and I think quite elegant, plus doesn't need an `import` statement
 rmDups :: Eq a => [a] -> [a]
@@ -136,10 +138,13 @@ rotate' xs ys
         theRest = map (drop 1) ys
 
 -- | Kind of a compression algorithm?
--- Take a list of items that should be the same, and compress it into a tuple
--- containing the first item in the list and the length of the list
-firstAndLength :: [a] -> (a, Int)
-firstAndLength ts = (head ts, length ts)
+-- Take a list of items and compress them into tuples
+-- containing the item and how many times it appears in the list
+firstAndLength :: Eq a => [a] -> [(a, Int)]
+firstAndLength [] = []
+firstAndLength xs@(x:_) =
+  let (ins, outs) = partition (==x) xs
+   in (x, length ins) : firstAndLength outs
 
 -- | Split a list at the first element that satisfies a predicate, removing that element in the process
 splitAtPredicate :: (a -> Bool) -> [a] -> ([a], [a])
