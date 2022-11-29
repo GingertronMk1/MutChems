@@ -1,3 +1,4 @@
+-- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
 import           Functions.Application

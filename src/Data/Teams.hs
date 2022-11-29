@@ -1,3 +1,6 @@
+-- | Module: Data.Teams
+-- 
+-- All the teams
 module Data.Teams where
 
 import           Types.Basic

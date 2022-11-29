@@ -120,6 +120,7 @@ ppNumber' n@[_,_,_]  = n
 ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
 ppNumber' ns         = ns
 
+-- | Print a list of Strings finishing with an "and" before the final item
 printListWithAnd :: [String] -> String
 printListWithAnd [s] = s
 printListWithAnd ss@[_,_] = printf "%s and %s" ss

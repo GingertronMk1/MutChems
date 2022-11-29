@@ -1,3 +1,6 @@
+-- | Module: Types.Basic
+-- 
+-- Alias types
 module Types.Basic where
 
 -- | Team is shorthand for a String - it is just the name of a team.

@@ -1,3 +1,4 @@
+-- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
 import           Data.Bifunctor

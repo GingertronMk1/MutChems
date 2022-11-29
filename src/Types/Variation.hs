@@ -1,4 +1,5 @@
 {-# LANGUAGE TupleSections #-}
+-- | Module: Types.Variation
 module Types.Variation where
 
 import           Data.List
@@ -24,7 +25,7 @@ instance Ord Variation where
                 . sort
                 . concatMap (expandTeamOrMultiple . snd)
 
-
+-- | Take a list of Teams in order and give a comparison of 2 Team/Int tuples
 runThroughPreferences :: [Team] -> [(Team, Int)] -> [(Team, Int)] -> Ordering
 runThroughPreferences [] _ _ = EQ
 runThroughPreferences (p:ps) v1 v2 = case compare (numTeam v2) (numTeam v1) of
