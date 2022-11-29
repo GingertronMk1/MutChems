@@ -1,8 +1,8 @@
 module Types.ProspectiveChange where
 
-import Functions.Application
-import Types.Basic
-import Types.TeamOrMultiple
+import           Functions.Application
+import           Types.Basic
+import           Types.TeamOrMultiple
 
 -- | A type to represent potential additions/replacements for my squad
 data ProspectiveChange

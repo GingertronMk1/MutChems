@@ -1,6 +1,6 @@
 module Data.Teams where
 
-import Types.Basic
+import           Types.Basic
 
 -- | A useful shorthand for any player who can have all 32 teams.
 all32Teams :: Team

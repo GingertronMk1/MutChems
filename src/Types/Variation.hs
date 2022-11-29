@@ -1,11 +1,11 @@
 {-# LANGUAGE TupleSections #-}
 module Types.Variation where
 
-import Functions.Application
-import Types.Basic
-import Types.TeamOrMultiple
-import Data.List
-import Data.Teams
+import           Data.List
+import           Data.Teams
+import           Functions.Application
+import           Types.Basic
+import           Types.TeamOrMultiple
 
 -- | One variation I can have with a Lineup.
 newtype Variation

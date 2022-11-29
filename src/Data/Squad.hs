@@ -2,9 +2,9 @@
 -- Module: Data.Squad
 module Data.Squad where
 
-import Types.ProspectiveChange
-import Types.TeamOrMultiple
-import Data.Teams
+import           Data.Teams
+import           Types.ProspectiveChange
+import           Types.TeamOrMultiple
 
 -- | Base squad.
 baseSquad :: Lineup

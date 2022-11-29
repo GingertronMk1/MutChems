@@ -1,12 +1,12 @@
 -- | Module: Functions.Display.
 module Functions.Display where
 
-import           Functions.Application
 import           Data.List
 import           Data.Ord
-import Types.ProspectiveChange
-import Types.TeamOrMultiple
-import Types.Variation
+import           Functions.Application
+import           Types.ProspectiveChange
+import           Types.TeamOrMultiple
+import           Types.Variation
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String

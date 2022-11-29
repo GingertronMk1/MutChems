@@ -1,12 +1,12 @@
 module Types.TeamOrMultiple where
 
-import Types.Basic
-import Data.Other
-import Data.Maybe
-import Data.Bifunctor
-import Functions.Application
-import Data.Teams
-import Data.List
+import           Data.Bifunctor
+import           Data.List
+import           Data.Maybe
+import           Data.Other
+import           Data.Teams
+import           Functions.Application
+import           Types.Basic
 
 -- * The Main Event.
 

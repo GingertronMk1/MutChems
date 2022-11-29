@@ -10,10 +10,10 @@ import           Data.List
 import           Data.Ord
 import           Data.Squad
 import           Functions.Application
-import Types.Basic
-import Types.ProspectiveChange
-import Types.TeamOrMultiple
-import Types.Variation
+import           Types.Basic
+import           Types.ProspectiveChange
+import           Types.TeamOrMultiple
+import           Types.Variation
 
 -- | The constituent parts of a squad combined and sorted by popularity of team.
 squad :: Lineup
