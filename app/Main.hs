@@ -4,9 +4,10 @@ module Main (main) where
 
 import           Data.Calculated
 import           Data.List
+import           Data.Other
 import           Functions.Application
 import           Functions.Display
-import           Functions.Domain
+import           Types.TeamOrMultiple
 
 -- | Give me the best Variations given a Lineup.
 main :: IO()
