@@ -31,7 +31,6 @@ library
       Data.Teams
       Functions.Application
       Functions.Display
-      Functions.Domain
       Types.Basic
       Types.ProspectiveChange
       Types.TeamOrMultiple

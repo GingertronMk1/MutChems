@@ -10,7 +10,6 @@ import           Data.List
 import           Data.Ord
 import           Data.Squad
 import           Functions.Application
-import           Functions.Domain
 import Types.Basic
 import Types.ProspectiveChange
 import Types.TeamOrMultiple

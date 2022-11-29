@@ -4,8 +4,6 @@ module Functions.Display where
 import           Functions.Application
 import           Data.List
 import           Data.Ord
-import           Functions.Domain
-import Types.Basic
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
 import Types.Variation
