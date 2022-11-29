@@ -6,15 +6,17 @@ import qualified Data.Teams as T
 import           Functions.Application
 
 instance Ord Variation where
-  compare (Variation v1) (Variation v2) = case orderListOfInts (convertFn v1) (convertFn v2) of
-    (EQ, _) -> compare (findNumLegends v2) (findNumLegends v1)
+  compare (Variation v1) (Variation v2) = case orderListOfInts (map snd $ convertFn v1) (map snd $ convertFn v2) of
+    (EQ, _) -> runThroughPreferences [T.legends, T.seahawks, T.eagles] convertedV1 convertedV2
     (c, _) -> c
     where
-      findNumLegends = length . filter ((==T.legends) . fst)
-      convertFn = map (snd . firstAndLength)
+      convertedV1 = convertFn v1
+      convertedV2 = convertFn v2
+      convertFn = map (firstAndLength)
                 . group
                 . sort
                 . concatMap (expandTeamOrMultiple . snd)
+
 
 -- | The Ord instance - compare the "lowest" team name in each.
 instance Ord TeamOrMultiple where
@@ -44,3 +46,12 @@ expandTeamOrMultiple NoTeam             = []
 expandTeamOrMultiple (Team t)           = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
 expandTeamOrMultiple (Teams ts)         = concatMap expandTeamOrMultiple ts
+
+runThroughPreferences :: [Team] -> [(Team, Int)] -> [(Team, Int)] -> Ordering
+runThroughPreferences [] _ _ = EQ
+runThroughPreferences (p:ps) v1 v2 = case compare (numTeam v2) (numTeam v1) of
+  EQ -> runThroughPreferences ps v1 v2
+  c  -> c
+  where numTeam tns = case find (\(t,_) -> t == p) tns of
+          Just (_,n) -> n
+          Nothing    -> 0
