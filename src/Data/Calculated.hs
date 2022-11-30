@@ -14,16 +14,21 @@ import           Types.Basic
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
+import           Functions.Display
+
+-- | The squad with the team strategy item sorted
+processedStrategy :: Lineup
+processedStrategy = [("STRATEGY: " ++ ppTeamOrMultiple strategy, [strategy])]
 
 -- | The constituent parts of a squad combined and sorted by popularity of team.
 squad :: Lineup
 squad = filter (not . null . snd)
       . addProspectives prospectiveAdditions
-      $ baseSquad ++ [strategy]
+      $ baseSquad ++ processedStrategy
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
-squadNoProspectives = filter (not . null . snd) $ baseSquad ++ [strategy]
+squadNoProspectives = filter (not . null . snd) $ baseSquad ++ processedStrategy
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]

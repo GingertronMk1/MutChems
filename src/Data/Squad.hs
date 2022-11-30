@@ -96,8 +96,8 @@ baseSquad =
   ]
 
 -- | Team affinity strategy card.
-strategy :: PlayerTeams
-strategy = ("None", [])
+strategy :: TeamOrMultiple
+strategy = MultipleTeam titans 2
 
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
