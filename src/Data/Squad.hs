@@ -13,9 +13,9 @@ baseSquad =
     ("Aaron Rodgers", [Team packers]),
     ("Justin Fields", [Team bears]),
     -- hb
+    ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
     ("Travis Etienne Jr", [Team jaguars]),
     ("Ezekiel Elliott", [Team cowboys]),
-    ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
     -- fb
     ("Patrick Ricard", [Team ravens]),
     -- te
