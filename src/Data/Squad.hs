@@ -103,5 +103,8 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals])
+    Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
+    Replacement "Aidan Hutchinson" ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
+    Replacement "Andrew Norwell" ("Bruce Matthews", [Team legends, Team titans]),
+    Replacement "Sauce Gardner" ("Samari Rolle", [Team legends, MultipleTeam titans 2, Team ravens])
   ]
