@@ -20,7 +20,7 @@ import           Functions.Display
 -- | The squad with the team strategy item sorted
 processedStrategy :: Lineup
 processedStrategy =
-  if null (snd strategy)
+  if strategy == NoTeam
   then []
   else [("STRATEGY: " ++ ppTeamOrMultiple strategy, [strategy])]
 
