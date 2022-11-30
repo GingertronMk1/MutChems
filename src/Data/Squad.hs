@@ -103,8 +103,5 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
     Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
-    Replacement "Ezekiel Elliott" ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens]),
-    Replacement "Aidan Hutchinson" ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
-    Replacement "Andrew Norwell" ("Bruce Matthews", [Team legends, Team titans]),
-    Replacement "Sauce Gardner" ("Samari Rolle", [Team legends, MultipleTeam titans 2, Team ravens])
+    Replacement "Ezekiel Elliott" ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
   ]
