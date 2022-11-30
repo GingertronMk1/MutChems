@@ -18,7 +18,6 @@ baseSquad =
     ("Cordarrelle Patterson", [Team bears, Team raiders, Team patriots, Team vikings, Team falcons]),
     -- fb
     ("Patrick Ricard", [Team ravens]),
-    ("Reggie Gilliam", [Team bills]),
     -- te
     ("Dave Casper", [Team all32Teams]),
     ("Evan Engram", [Team giants, Team jaguars]),
