@@ -79,12 +79,12 @@ totalsPerSquad =
 intercalation :: (a -> String) -> [a] -> String
 intercalation f = intercalate "\n\n---\n\n" . map f
 
--- | Take a Lineup and convert it to a markdowned set of Variations
+-- | Take a Lineup and convert it to a markdowned set of Variations.
+-- We assume this Lineup has already been converted
 squadToPrintedVariation :: Lineup -> String
 squadToPrintedVariation l = genMarkdown l
                           . doubleFoldVariations
                           . lineupToVariations
-                          . convertSquad
                           $ l
 
 -- | Print all of the generated `Type.Lineup`s

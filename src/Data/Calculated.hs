@@ -8,6 +8,7 @@ module Data.Calculated where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Ord
+import           Data.Other
 import           Data.Squad
 import           Functions.Application
 import           Types.Basic
@@ -26,13 +27,16 @@ squad = filter (not . null . snd)
       . addProspectives prospectiveAdditions
       $ baseSquad ++ processedStrategy
 
+filterEachAmount :: Int
+filterEachAmount = squadFilterThreshold `div` length prospectiveAdditions + 1
+
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
 squadNoProspectives = filter (not . null . snd) $ baseSquad ++ processedStrategy
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
-iteratedProspectiveSquads = map (second convertSquad)
+iteratedProspectiveSquads = map (second $ convertSquad filterEachAmount)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
@@ -57,7 +61,7 @@ numberOfOptions = numberOfOptionsFn squad
 
 -- | Filtering the above squad so as to be useful.
 filteredSquad :: Lineup
-filteredSquad = filteredSquadFn squad
+filteredSquad = filteredSquadFn filterEachAmount squad
 
 -- | The number of options available based on the filtered squad.
 numberOfOptionsFiltered :: Int

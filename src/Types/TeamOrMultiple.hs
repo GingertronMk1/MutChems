@@ -4,7 +4,6 @@ module Types.TeamOrMultiple where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
-import           Data.Other
 import           Data.Teams
 import           Functions.Application
 import           Types.Basic
@@ -67,7 +66,7 @@ allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
-filteredSquadFn :: Lineup -> Lineup
+filteredSquadFn :: Int -> Lineup -> Lineup
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
@@ -75,17 +74,19 @@ filteredSquadFn' ::
   -- | The threshold number - if there are fewer than this many instances of a
   -- t`Type.Team` in a Lineup we can disregard it
   Int ->
+  -- | The total threshold for the number of variations allowable
+  Int ->
   -- | The initial lineup to be filtered
   Lineup ->
   -- | The resultant lineup
   Lineup
-filteredSquadFn' threshold s =
+filteredSquadFn' threshold overallThreshold s =
   let allTeams = allTeamsFn s
       newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
       numberOfNewSOptions = numberOfOptionsFn newS
-   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= squadFilterThreshold
+   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= overallThreshold
       then newS
-      else filteredSquadFn' (threshold + 1) newS
+      else filteredSquadFn' (threshold + 1) overallThreshold newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
 filterFn ::
@@ -172,8 +173,8 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
-convertSquad :: Lineup -> Lineup
-convertSquad = filteredSquadFn . convertAll32Teams
+convertSquad :: Int -> Lineup -> Lineup
+convertSquad n = filteredSquadFn n . convertAll32Teams
 
 -- | Does a given `TeamOrMultiple` contain a given t`Type.Team`.
 includesTeam ::
