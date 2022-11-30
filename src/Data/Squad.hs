@@ -15,7 +15,7 @@ baseSquad =
     -- hb
     ("Travis Etienne Jr", [Team jaguars]),
     ("Ezekiel Elliott", [Team cowboys]),
-    ("Cordarrelle Patterson", [Team bears, Team raiders, Team patriots, Team vikings, Team falcons]),
+    ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
     -- fb
     ("Patrick Ricard", [Team ravens]),
     -- te
@@ -102,8 +102,7 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Cordarrelle Patterson" ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
-    Replacement "Johnny Hekkker" ("Ray Guy", [Team legends, Team raiders]),
+    Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
     Replacement "Ezekiel Elliott" ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens]),
     Replacement "Aidan Hutchinson" ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
     Replacement "Andrew Norwell" ("Bruce Matthews", [Team legends, Team titans]),
