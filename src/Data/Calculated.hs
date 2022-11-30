@@ -19,7 +19,10 @@ import           Functions.Display
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: Lineup
-processedStrategy = if null (snd strategy) then [] else [("STRATEGY: " ++ ppTeamOrMultiple strategy, [strategy])]
+processedStrategy =
+  if null (snd strategy)
+  then []
+  else [("STRATEGY: " ++ ppTeamOrMultiple strategy, [strategy])]
 
 -- | The constituent parts of a squad combined and sorted by popularity of team.
 squad :: Lineup
