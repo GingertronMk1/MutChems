@@ -101,6 +101,7 @@ prospectiveAdditions =
   [
     Addition ("AJ Brown", [Team eagles, Team titans]),
     Replacement "Jerry Rice" ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
+    Replacement "Tyreek Hill" ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
     Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
     Addition ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
   ]
