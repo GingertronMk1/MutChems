@@ -14,6 +14,7 @@ baseSquad =
     ("Justin Fields", [Team bears]),
     -- hb
     ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
+    ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens]),
     ("Travis Etienne Jr", [Team jaguars]),
     -- fb
     ("Patrick Ricard", [Team ravens]),
@@ -88,7 +89,7 @@ baseSquad =
     -- k
     ("Graham Gano", [Team giants, Team panthers, Team commanders]),
     -- p
-    ("Johnny Hekker", [Team rams, Team panthers])
+    ("Ray Guy", [Team legends, Team raiders])
   ]
 
 -- | Team affinity strategy card.
@@ -99,7 +100,5 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
-    Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
-    Addition ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
+    Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
   ]
