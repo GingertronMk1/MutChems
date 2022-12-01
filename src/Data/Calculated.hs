@@ -23,12 +23,6 @@ processedStrategy = case strategy of
   NoTeam -> []
   s      ->  [("STRATEGY: " ++ ppTeamOrMultiple s, [s])]
 
--- | The constituent parts of a squad combined and sorted by popularity of team.
-squad :: Lineup
-squad = filter (not . null . snd)
-      . addProspectives prospectiveAdditions
-      $ baseSquad ++ processedStrategy
-
 filterEachAmount :: Int
 filterEachAmount = squadFilterThreshold `div` length prospectiveAdditions + 1
 
@@ -41,6 +35,10 @@ iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
 iteratedProspectiveSquads = map (second $ convertSquad filterEachAmount)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
+
+-- | The final prospective squad
+squad :: Lineup
+squad = snd . last $ iteratedProspectiveSquads
 
 -- | The number of possible variations in each squad in `iteratedProspectiveSquads`
 checkSquadNumbers :: [Int]
