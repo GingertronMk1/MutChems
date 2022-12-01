@@ -24,7 +24,7 @@ processedStrategy = case strategy of
   s      ->  [("STRATEGY: " ++ ppTeamOrMultiple s, [s])]
 
 filterEachAmount :: Int
-filterEachAmount = squadFilterThreshold `div` length prospectiveAdditions + 1
+filterEachAmount = squadFilterThreshold `div` (length prospectiveAdditions + 1)
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
