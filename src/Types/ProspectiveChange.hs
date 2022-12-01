@@ -19,27 +19,7 @@ data ProspectiveChange
   | Removals [Player]
   deriving (Eq, Show)
 
--- | A function to combine a Lineup with a list of ProspectiveChanges,
--- respecting the replacement/addition options
-addProspectives ::
-  -- | The list of ProspectiveChanges
-  [ProspectiveChange] ->
-  -- | The Lineup to which they are being added
-  Lineup ->
-  -- | The resultant Lineup
-  Lineup
-addProspectives pts l = foldl (flip addProspective) l pts
-
--- | Add a single prospective addition to the squad
-addProspective :: ProspectiveChange -> Lineup -> Lineup
-addProspective NoChange l = l
-addProspective (Addition pt) l = l ++ [pt]
-addProspective (Replacement p pt) l =
-  let (firstPart, theRest) = splitAtPredicate ((==p) . fst) l
-   in firstPart ++ [pt] ++ theRest
-addProspective (Removal p) l = filter ((/=p) . fst) l
-addProspective (Removals ps) l = filter (\(p,_) -> p `notElem` ps) l
-
+-- * Functions to add prospective changes to a Lineup
 
 -- | Add each ProspectiveChange in turn to the squad, keeping the initial squad
 addProspectivesInTurn :: [ProspectiveChange] -> Lineup -> [(ProspectiveChange, Lineup)]
@@ -51,4 +31,14 @@ addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
    in (p, newL) : addProspectivesInTurn' ps newL
+
+-- | Add a single prospective addition to the squad
+addProspective :: ProspectiveChange -> Lineup -> Lineup
+addProspective NoChange l = l
+addProspective (Addition pt) l = l ++ [pt]
+addProspective (Replacement p pt) l =
+  let (firstPart, theRest) = splitAtPredicate ((==p) . fst) l
+   in firstPart ++ [pt] ++ theRest
+addProspective (Removal p) l = filter ((/=p) . fst) l
+addProspective (Removals ps) l = filter (\(p,_) -> p `notElem` ps) l
 

@@ -175,14 +175,3 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
 -- their teams and filtered by team popularity
 convertSquad :: Int -> Lineup -> Lineup
 convertSquad n = filteredSquadFn n . convertAll32Teams
-
--- | Does a given `TeamOrMultiple` contain a given t`Type.Team`.
-includesTeam ::
-  -- | The t`Type.Team` being searched for.
-  Team ->
-  -- | The TeamOrMultiple being searched.
-  TeamOrMultiple ->
-  -- | Does it contain?.
-  Bool
-includesTeam t = elem t . expandTeamOrMultiple
-
