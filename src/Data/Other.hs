@@ -11,4 +11,4 @@ squadFilterThreshold :: Int
 squadFilterThreshold = 10 * 1000000
 
 preferences :: [Team]
-preferences = [legends, seahawks, eagles, raiders]
+preferences = [titans, legends, seahawks, eagles, raiders]
