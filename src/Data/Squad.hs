@@ -99,6 +99,7 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
+    Replacement "Eddie Jackson" ("Tyrann Mathieu", [Team cardinals, Team texans, Team chiefs, Team saints]),
     Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
     Addition ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
   ]
