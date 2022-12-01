@@ -15,7 +15,6 @@ baseSquad =
     -- hb
     ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
     ("Travis Etienne Jr", [Team jaguars]),
-    ("Ezekiel Elliott", [Team cowboys]),
     -- fb
     ("Patrick Ricard", [Team ravens]),
     -- te
@@ -23,11 +22,10 @@ baseSquad =
     ("Evan Engram", [Team giants, Team jaguars]),
     ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
-    ("Tyreek Hill", [Team chiefs, Team dolphins]),
     ("Jerry Rice", [Team legends, Team niners, Team raiders, Team seahawks]),
+    ("Tyreek Hill", [Team chiefs, Team dolphins]),
     ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
-    ("Chase Claypool", [Team steelers, Team bears]),
     -- lt
     ("Garrett Bolles", [Team broncos]),
     ("Orlando Brown", [Team chiefs, Team ravens]),
@@ -44,9 +42,9 @@ baseSquad =
     ("Tristan Wirfs", [Team buccaneers]),
     ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings]),
     -- mlb
-    ("Devin White", [Team buccaneers]),
     ("Bobby Wagner", [Team seahawks, Team rams]),
     ("Roquan Smith", [Team bears, Team ravens]),
+    ("Kiko Alonso", [Team legends, Team bills, Team dolphins, Team eagles, Team saints]),
     ("Tremaine Edmunds", [Team bills]),
     -- rolb
     ("Khalil Mack", [Team raiders, Team bears, Team chargers]),
@@ -86,7 +84,6 @@ baseSquad =
     ("Deion Sanders", [Team all32Teams]),
     ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
     ("Shaquill Griffin", [Team seahawks, Team jaguars]),
-    ("Rasul Douglas", [Team packers, Team eagles, Team panthers]),
     ("Sauce Gardner", [Team jets]),
     -- k
     ("Graham Gano", [Team giants, Team panthers, Team commanders]),
@@ -103,5 +100,5 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
     Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
-    Replacement "Ezekiel Elliott" ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
+    Addition ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
   ]
