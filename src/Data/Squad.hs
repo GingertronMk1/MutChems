@@ -23,8 +23,7 @@ baseSquad =
     ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
     ("AJ Brown", [Team eagles, Team titans]),
-    ("Jerry Rice", [Team legends, Team niners, Team raiders, Team seahawks]),
-    ("Tyreek Hill", [Team chiefs, Team dolphins]),
+    ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
     ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
     -- lt
@@ -100,8 +99,7 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Jerry Rice" ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
-    Replacement "Tyreek Hill" ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
+    Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
     Replacement "Johnny Hekker" ("Ray Guy", [Team legends, Team raiders]),
     Addition ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens])
   ]
