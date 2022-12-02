@@ -100,5 +100,6 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
+    Addition ("Jim Taylor", [Team legends, Team packers, Team saints]),
     Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
   ]
