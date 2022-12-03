@@ -61,7 +61,7 @@ numberOfOptions = numberOfOptionsFn squad
 
 -- | Filtering the above squad so as to be useful.
 filteredSquad :: Lineup
-filteredSquad = filteredSquadFn filterEachAmount squad
+filteredSquad = fst $ filteredSquadFn filterEachAmount squad
 
 -- | The number of options available based on the filtered squad.
 numberOfOptionsFiltered :: Int

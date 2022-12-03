@@ -66,7 +66,7 @@ allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
-filteredSquadFn :: Int -> Lineup -> Lineup
+filteredSquadFn :: Int -> Lineup -> (Lineup, Int)
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
@@ -79,13 +79,13 @@ filteredSquadFn' ::
   -- | The initial lineup to be filtered
   Lineup ->
   -- | The resultant lineup
-  Lineup
+  (Lineup, Int)
 filteredSquadFn' threshold overallThreshold s =
   let allTeams = allTeamsFn s
       newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
       numberOfNewSOptions = numberOfOptionsFn newS
    in if 0 < numberOfNewSOptions && numberOfNewSOptions <= overallThreshold
-      then newS
+      then (newS, threshold)
       else filteredSquadFn' (threshold + 1) overallThreshold newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
@@ -174,4 +174,4 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
 convertSquad :: Int -> Lineup -> Lineup
-convertSquad n = filteredSquadFn n . convertAll32Teams
+convertSquad n = fst . filteredSquadFn n . convertAll32Teams
