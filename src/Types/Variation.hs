@@ -39,9 +39,6 @@ variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . snd) $
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
 doubleFoldVariations = sortOn fst . doubleFoldVariations' []
 
-unVariation :: Variation -> [(Player, TeamOrMultiple)]
-unVariation (Variation v) = v
-
 -- | Helper for the above.
 doubleFoldVariations' ::
   -- | The accumulated list of PlayerTeams.
@@ -80,13 +77,15 @@ lineupToVariations = Variation
                    . sequence
                    . expandList
 
+-- | Recursively iterate through the Lineup to create a Variation
+-- with everyone represented
 lineupToBestVariationRecursive :: Lineup -> Variation
 lineupToBestVariationRecursive l = Variation 
                                  . sortBy (\(a,_) (b,_) -> compareBasedOnSquad l a b)
                                  . lineupToBestVariationRecursive'
                                  $ l
 
-
+-- | Helper for the above
 lineupToBestVariationRecursive' :: Lineup -> [(Player, TeamOrMultiple)]
 lineupToBestVariationRecursive' [] = []
 lineupToBestVariationRecursive' l

@@ -10,5 +10,6 @@ import Types.Basic
 squadFilterThreshold :: Int
 squadFilterThreshold = 1 * 1000000
 
+-- | The theme teams I would rather make
 preferences :: [Team]
 preferences = [titans, legends, seahawks, eagles, raiders]

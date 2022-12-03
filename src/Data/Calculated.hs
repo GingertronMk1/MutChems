@@ -8,7 +8,6 @@ module Data.Calculated where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Ord
-import           Data.Other
 import           Data.Squad
 import           Functions.Application
 import           Types.Basic
@@ -22,9 +21,6 @@ processedStrategy :: Lineup
 processedStrategy = case strategy of
   NoTeam -> []
   s      ->  [("STRATEGY: " ++ ppTeamOrMultiple s, [s])]
-
-filterEachAmount :: Int
-filterEachAmount = squadFilterThreshold `div` (length prospectiveAdditions + 1)
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
@@ -91,6 +87,7 @@ foldedVariations = maximumValues sortedVariations
 doubleFoldedVariations :: [PlayerTeams]
 doubleFoldedVariations = doubleFoldVariations foldedVariations
 
+-- | ProspectiveChange, Lineup, and Variations for each ProspectiveChange
 bestOfAllSquads :: [(ProspectiveChange, Lineup, Variation)]
 bestOfAllSquads = map (\(c,l) -> (c, l, lineupToBestVariationRecursive $ convertAll32Teams l))
                 . addProspectivesInTurn prospectiveAdditions
