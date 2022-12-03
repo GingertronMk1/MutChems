@@ -102,6 +102,7 @@ prospectiveAdditions =
   [
     Addition ("Jim Taylor", [Team legends, Team packers, Team saints]),
     Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
+    Addition ("Benjamin St Juste", [Team commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills]),
     Replacement "Aaron Rodgers" ("Ryan Fitzpatrick", [
       Team legends,
