@@ -13,18 +13,6 @@ rmDups :: Eq a => [a] -> [a]
 rmDups []     = []
 rmDups (x:xs) = x:rmDups (filter (/=x) xs)
 
--- | Pad a string right with a given char until it is of a certain length.
-padRight ::
-  -- | The length you want the string to be.
-  Int ->
-  -- | The character you want repeating.
-  Char ->
-  -- | The initial String.
-  String ->
-  -- | The resultant String.
-  String
-padRight l padding str = str ++ replicate (l - length str) padding
-
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
 mean ls = fromIntegral (length ls) / realToFrac (sum ls)
@@ -62,15 +50,6 @@ orderListOfInts xs ys
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
     maxComp = compare (maximum xs) (maximum ys)
-
--- | A function to convert a string of format "<Data>|<Number>" into a tuple of
--- the described format
-breakStringWithNumber :: String -> (String, Int)
-breakStringWithNumber t = case break (=='|') t of
-  (t', "|")    -> (t', 1)
-  (t', '|':sn) -> (t', read sn :: Int)
-  _            -> (t, 1)
-
 
 -- | Expand a tuple whos second element is a list into a list of tuples.
 expandTuple :: (a, [b]) -> [(a, b)]
@@ -114,14 +93,6 @@ printf' ::
 printf' new "" _                              = concat . reverse $ new
 printf' new ('%' : 's' : olds) (item : items) = printf' (item : new) olds items
 printf' new (old : olds) items                = printf' ([old] : new) olds items
-
--- | Taking a list, say of Players, and returning the first instance of duplication
--- if there is any, otherwise Nothing.
-duplicatesExist :: Eq a => [a] -> Maybe (a, Int)
-duplicatesExist [] = Nothing
-duplicatesExist (x:xs) = case filter (==x) xs of
-  []  -> duplicatesExist xs
-  xs' -> Just (x, length xs' + 1)
 
 -- | Rotate a rectangular list.
 -- By "rectangular" I mean that each sublist must be of the same length for it
