@@ -4,6 +4,7 @@ module Types.TeamOrMultiple where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
+import           Data.Other
 import           Data.Teams
 import           Functions.Application
 import           Types.Basic
@@ -66,7 +67,7 @@ allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
-filteredSquadFn :: Int -> Lineup -> Lineup
+filteredSquadFn :: Lineup -> (Lineup, Int)
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
@@ -74,19 +75,18 @@ filteredSquadFn' ::
   -- | The threshold number - if there are fewer than this many instances of a
   -- t`Type.Team` in a Lineup we can disregard it
   Int ->
-  -- | The total threshold for the number of variations allowable
-  Int ->
   -- | The initial lineup to be filtered
   Lineup ->
   -- | The resultant lineup
-  Lineup
-filteredSquadFn' threshold overallThreshold s =
-  let allTeams = allTeamsFn s
-      newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
-      numberOfNewSOptions = numberOfOptionsFn newS
-   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= overallThreshold
-      then newS
-      else filteredSquadFn' (threshold + 1) overallThreshold newS
+  (Lineup, Int)
+filteredSquadFn' threshold s
+  | numberOfNewSOptions < 0 = filteredSquadFn' (threshold + 1) newS
+  | numberOfNewSOptions == 0 = ([], threshold)
+  | numberOfNewSOptions <= squadFilterThreshold = (newS, threshold)
+  | otherwise = filteredSquadFn' (threshold + 1) newS
+  where allTeams = allTeamsFn s
+        newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
+        numberOfNewSOptions = numberOfOptionsFn newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
 filterFn ::
@@ -173,5 +173,5 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
-convertSquad :: Int -> Lineup -> Lineup
-convertSquad n = filteredSquadFn n . convertAll32Teams
+convertSquad :: Lineup -> Lineup
+convertSquad = fst . filteredSquadFn . convertAll32Teams

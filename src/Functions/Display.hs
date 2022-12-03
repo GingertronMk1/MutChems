@@ -84,16 +84,17 @@ intercalation f = intercalate "\n\n---\n\n" . map f
 squadToPrintedVariation :: Lineup -> String
 squadToPrintedVariation l = genMarkdown l
                           . doubleFoldVariations
-                          . lineupToVariations
+                          . (:[])
+                          . lineupToBestVariationRecursive
                           $ l
 
 -- | Print all of the generated `Type.Lineup`s
-printLineups :: [(ProspectiveChange, Lineup)] -> [String]
+printLineups :: [(ProspectiveChange, Lineup, Variation)] -> [String]
 printLineups = map printLineupWithChange
 
 -- | Print an individual `Type.Lineup` including the change made to create it
-printLineupWithChange :: (ProspectiveChange, Lineup) -> String
-printLineupWithChange (pa, l) =
+printLineupWithChange :: (ProspectiveChange, Lineup, Variation) -> String
+printLineupWithChange (pa, l, v) =
   let topRow = case pa of
           NoChange               -> "# No change"
           Addition (p, _)        -> printf "# Adding %s" [p]
@@ -104,8 +105,7 @@ printLineupWithChange (pa, l) =
     "\n\n"
     [
       topRow,
-      printf "### Checked %s Variations" [ppNumber (numberOfOptionsFn l)],
-      squadToPrintedVariation l
+      genMarkdown l . doubleFoldVariations $ [v]
     ]
 
 -- | Print an integer number with commas as thousands separators

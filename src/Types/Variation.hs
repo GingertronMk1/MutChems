@@ -39,6 +39,9 @@ variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . snd) $
 doubleFoldVariations :: [Variation] -> [PlayerTeams]
 doubleFoldVariations = sortOn fst . doubleFoldVariations' []
 
+unVariation :: Variation -> [(Player, TeamOrMultiple)]
+unVariation (Variation v) = v
+
 -- | Helper for the above.
 doubleFoldVariations' ::
   -- | The accumulated list of PlayerTeams.
@@ -70,10 +73,27 @@ doubleFold'' (Variation v) (p, ts) =
     Nothing     -> (p, NoTeam : ts)
     Just (_, t) -> (p, t : ts)
 
--- | Convert a Lineup to all of its top 10 variations
-lineupToVariations :: Lineup -> [Variation]
-lineupToVariations = take 10
-                   . maximumValues
-                   . map (Variation . sortOn snd)
+-- | Convert a Lineup to its best variation
+lineupToVariations :: Lineup -> Variation
+lineupToVariations = Variation
+                   . maximum
                    . sequence
                    . expandList
+
+lineupToBestVariationRecursive :: Lineup -> Variation
+lineupToBestVariationRecursive l = Variation 
+                                 . sortBy (\(a,_) (b,_) -> compareBasedOnSquad l a b)
+                                 . lineupToBestVariationRecursive'
+                                 $ l
+
+
+lineupToBestVariationRecursive' :: Lineup -> [(Player, TeamOrMultiple)]
+lineupToBestVariationRecursive' [] = []
+lineupToBestVariationRecursive' l
+  | null noTeams = nonNoTeams
+  | otherwise    = nonNoTeams ++ lineupToBestVariationRecursive' next
+  where convertedL = convertSquad l
+        (Variation bestVariation) = lineupToVariations convertedL
+        (nonNoTeams, noTeams) = partition (\(_, t) -> t /= NoTeam) bestVariation
+        next = filter (\(p,_) -> p `elem` map fst noTeams) l
+                            
