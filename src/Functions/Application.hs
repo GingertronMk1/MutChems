@@ -53,8 +53,8 @@ orderListOfInts ::
 orderListOfInts xs ys
   | sumComp /= EQ = (sumComp, "Sum")
   | numComp /= EQ = (numComp, "5s")
-  | distComp /= EQ = (distComp, "Dist")
   | maxComp /= EQ = (maxComp, "Max")
+  | distComp /= EQ = (distComp, "Dist")
   | otherwise = (EQ, "Tried all of em")
   where
     sumComp = compare (sum xs) (sum ys)
