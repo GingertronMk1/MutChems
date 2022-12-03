@@ -32,7 +32,7 @@ squadNoProspectives = filter (not . null . snd) $ baseSquad ++ processedStrategy
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
-iteratedProspectiveSquads = map (second convertSquad )
+iteratedProspectiveSquads = map (second convertSquad)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
@@ -90,3 +90,8 @@ foldedVariations = maximumValues sortedVariations
 -- | All variations, doubly folded.
 doubleFoldedVariations :: [PlayerTeams]
 doubleFoldedVariations = doubleFoldVariations foldedVariations
+
+bestOfAllSquads :: [(ProspectiveChange, Lineup, Variation)]
+bestOfAllSquads = map (\(c,l) -> (c, l, lineupToBestVariationRecursive $ convertAll32Teams l))
+                . addProspectivesInTurn prospectiveAdditions
+                $ squadNoProspectives

@@ -83,14 +83,17 @@ lineupToVariations = Variation
 lineupToBestVariationRecursive :: Lineup -> Variation
 lineupToBestVariationRecursive l = Variation 
                                  . sortBy (\(a,_) (b,_) -> compareBasedOnSquad l a b)
-                                 $ lineupToBestVariationRecursive' l
+                                 . lineupToBestVariationRecursive'
+                                 $ l
 
 
 lineupToBestVariationRecursive' :: Lineup -> [(Player, TeamOrMultiple)]
-lineupToBestVariationRecursive' l = 
-  let convertedL = convertSquad l
-      (Variation bestVariation) = lineupToVariations convertedL
-   in case partition (\(_, t) -> t /= NoTeam) bestVariation
-        of (pts, []) -> pts
-           (pts, pts') -> pts ++ lineupToBestVariationRecursive'
-                            (filter (\(p,_) -> p `elem` map fst pts') l)
+lineupToBestVariationRecursive' [] = []
+lineupToBestVariationRecursive' l
+  | null noTeams = nonNoTeams
+  | otherwise    = nonNoTeams ++ lineupToBestVariationRecursive' next
+  where convertedL = convertSquad l
+        (Variation bestVariation) = lineupToVariations convertedL
+        (nonNoTeams, noTeams) = partition (\(_, t) -> t /= NoTeam) bestVariation
+        next = filter (\(p,_) -> p `elem` map fst noTeams) l
+                            

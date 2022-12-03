@@ -4,6 +4,7 @@ module Types.TeamOrMultiple where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
+import           Data.Other
 import           Data.Teams
 import           Functions.Application
 import           Types.Basic
@@ -78,13 +79,14 @@ filteredSquadFn' ::
   Lineup ->
   -- | The resultant lineup
   (Lineup, Int)
-filteredSquadFn' threshold s =
-  let allTeams = allTeamsFn s
-      newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
-      numberOfNewSOptions = numberOfOptionsFn newS
-   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= 1000000
-      then (newS, threshold)
-      else filteredSquadFn' (threshold + 1) newS
+filteredSquadFn' threshold s
+  | numberOfNewSOptions < 0 = filteredSquadFn' (threshold + 1) newS
+  | numberOfNewSOptions == 0 = ([], threshold)
+  | numberOfNewSOptions <= squadFilterThreshold = (newS, threshold)
+  | otherwise = filteredSquadFn' (threshold + 1) newS
+  where allTeams = allTeamsFn s
+        newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
+        numberOfNewSOptions = numberOfOptionsFn newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
 filterFn ::

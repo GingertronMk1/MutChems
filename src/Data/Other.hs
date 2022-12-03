@@ -8,7 +8,7 @@ import Types.Basic
 
 -- | The maximum number of Variations per Lineup
 squadFilterThreshold :: Int
-squadFilterThreshold = 10 * 1000000
+squadFilterThreshold = 1 * 1000000
 
 preferences :: [Team]
 preferences = [titans, legends, seahawks, eagles, raiders]
