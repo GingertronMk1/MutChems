@@ -89,6 +89,4 @@ doubleFoldedVariations = doubleFoldVariations foldedVariations
 
 -- | ProspectiveChange, Lineup, and Variations for each ProspectiveChange
 bestOfAllSquads :: [(ProspectiveChange, Lineup, Variation)]
-bestOfAllSquads = map (\(c,l) -> (c, l, lineupToBestVariationRecursive $ convertAll32Teams l))
-                . addProspectivesInTurn prospectiveAdditions
-                $ squadNoProspectives
+bestOfAllSquads = bestOfAllSquadsFn prospectiveAdditions squadNoProspectives

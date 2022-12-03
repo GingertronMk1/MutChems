@@ -12,5 +12,5 @@ main = do
   writeFile "output.md"
     . intercalate "\n\n---\n\n"
     . printLineups
-    $ bestOfAllSquads
+    $ bestOfAllSquadsFn prospectiveAdditions squadNoProspectives
   putStrLn "Done!"

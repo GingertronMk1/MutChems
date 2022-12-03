@@ -8,6 +8,7 @@ import           Data.List
 import           Functions.Application
 import           Types.Basic
 import           Types.TeamOrMultiple
+import           Types.ProspectiveChange
 
 -- | One variation I can have with a Lineup.
 newtype Variation
@@ -87,7 +88,6 @@ lineupToBestVariationRecursive l = Variation
 
 -- | Helper for the above
 lineupToBestVariationRecursive' :: Lineup -> [(Player, TeamOrMultiple)]
-lineupToBestVariationRecursive' [] = []
 lineupToBestVariationRecursive' l =
   let convertedL = convertSquad l
       (Variation bestVariation) = lineupToVariations convertedL
@@ -95,3 +95,6 @@ lineupToBestVariationRecursive' l =
     (nonNoTeams, []) -> nonNoTeams
     (nonNoTeams, noTeams) -> nonNoTeams ++ (lineupToBestVariationRecursive' . filter ((`elem` map fst noTeams) . fst) $ l)
                             
+bestOfAllSquadsFn :: [ProspectiveChange] -> Lineup -> [(ProspectiveChange, Lineup, Variation)]
+bestOfAllSquadsFn pcs = map (\(c,l) -> (c, l, lineupToBestVariationRecursive $ convertAll32Teams l))
+                      . addProspectivesInTurn pcs
