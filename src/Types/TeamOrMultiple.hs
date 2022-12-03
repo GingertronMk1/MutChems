@@ -84,7 +84,7 @@ filteredSquadFn' threshold overallThreshold s =
   let allTeams = allTeamsFn s
       newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
       numberOfNewSOptions = numberOfOptionsFn newS
-   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= overallThreshold
+   in if 0 < numberOfNewSOptions && numberOfNewSOptions <= 1000000
       then (newS, threshold)
       else filteredSquadFn' (threshold + 1) overallThreshold newS
 
