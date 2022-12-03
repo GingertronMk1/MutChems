@@ -32,7 +32,7 @@ squadNoProspectives = filter (not . null . snd) $ baseSquad ++ processedStrategy
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
-iteratedProspectiveSquads = map (second $ convertSquad filterEachAmount)
+iteratedProspectiveSquads = map (second convertSquad )
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
@@ -61,7 +61,7 @@ numberOfOptions = numberOfOptionsFn squad
 
 -- | Filtering the above squad so as to be useful.
 filteredSquad :: Lineup
-filteredSquad = fst $ filteredSquadFn filterEachAmount squad
+filteredSquad = fst $ filteredSquadFn squad
 
 -- | The number of options available based on the filtered squad.
 numberOfOptionsFiltered :: Int

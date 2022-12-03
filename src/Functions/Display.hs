@@ -84,7 +84,8 @@ intercalation f = intercalate "\n\n---\n\n" . map f
 squadToPrintedVariation :: Lineup -> String
 squadToPrintedVariation l = genMarkdown l
                           . doubleFoldVariations
-                          . lineupToVariations
+                          . (:[])
+                          . lineupToBestVariationRecursive
                           $ l
 
 -- | Print all of the generated `Type.Lineup`s
