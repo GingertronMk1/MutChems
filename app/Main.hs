@@ -4,7 +4,9 @@ module Main (main) where
 
 import           Data.Calculated
 import           Data.List
+import           Data.Squad
 import           Functions.Display
+import           Types.Variation
 
 -- | Give me the best Variations given a Lineup.
 main :: IO()
