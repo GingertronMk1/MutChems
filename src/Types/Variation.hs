@@ -95,6 +95,8 @@ lineupToBestVariationRecursive' l =
     (nonNoTeams, []) -> nonNoTeams
     (nonNoTeams, noTeams) -> nonNoTeams ++ (lineupToBestVariationRecursive' . filter ((`elem` map fst noTeams) . fst) $ l)
                             
-bestOfAllSquadsFn :: [ProspectiveChange] -> Lineup -> [(ProspectiveChange, Lineup, Variation)]
-bestOfAllSquadsFn pcs = map (\(c,l) -> (c, l, lineupToBestVariationRecursive $ convertAll32Teams l))
-                      . addProspectivesInTurn pcs
+bestOfAllSquadsFn :: [(ProspectiveChange, Lineup)] -> [(ProspectiveChange, Lineup, Variation)]
+bestOfAllSquadsFn = map bestOfOneSquadFn
+
+bestOfOneSquadFn :: (ProspectiveChange, Lineup) -> (ProspectiveChange, Lineup, Variation)
+bestOfOneSquadFn (c, l) = (c, l, lineupToBestVariationRecursive $ convertAll32Teams l)

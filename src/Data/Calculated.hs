@@ -89,4 +89,4 @@ doubleFoldedVariations = doubleFoldVariations foldedVariations
 
 -- | ProspectiveChange, Lineup, and Variations for each ProspectiveChange
 bestOfAllSquads :: [(ProspectiveChange, Lineup, Variation)]
-bestOfAllSquads = bestOfAllSquadsFn prospectiveAdditions squadNoProspectives
+bestOfAllSquads = bestOfAllSquadsFn . addProspectivesInTurn prospectiveAdditions $ squadNoProspectives
