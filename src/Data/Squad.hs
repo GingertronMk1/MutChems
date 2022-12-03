@@ -101,5 +101,18 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
     Addition ("Jim Taylor", [Team legends, Team packers, Team saints]),
-    Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
+    Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
+    Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills]),
+    Replacement "Aaron Rodgers" ("Ryan Fitzpatrick", [
+      Team legends,
+      Team bengals,
+      Team bills,
+      Team buccaneers,
+      Team commanders,
+      Team dolphins,
+      Team jets,
+      Team rams,
+      Team texans,
+      Team titans
+    ])
   ]
