@@ -88,11 +88,10 @@ lineupToBestVariationRecursive l = Variation
 -- | Helper for the above
 lineupToBestVariationRecursive' :: Lineup -> [(Player, TeamOrMultiple)]
 lineupToBestVariationRecursive' [] = []
-lineupToBestVariationRecursive' l
-  | null noTeams = nonNoTeams
-  | otherwise    = nonNoTeams ++ lineupToBestVariationRecursive' next
-  where convertedL = convertSquad l
-        (Variation bestVariation) = lineupToVariations convertedL
-        (nonNoTeams, noTeams) = partition (\(_, t) -> t /= NoTeam) bestVariation
-        next = filter (\(p,_) -> p `elem` map fst noTeams) l
+lineupToBestVariationRecursive' l =
+  let convertedL = convertSquad l
+      (Variation bestVariation) = lineupToVariations convertedL
+   in case partition (\(_, t) -> t /= NoTeam) bestVariation of
+    (nonNoTeams, []) -> nonNoTeams
+    (nonNoTeams, noTeams) -> nonNoTeams ++ (lineupToBestVariationRecursive' . filter ((`elem` map fst noTeams) . fst) $ l)
                             
