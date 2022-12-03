@@ -57,7 +57,7 @@ baseSquad =
     ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
     ("Jordan Davis", [Team eagles]),
     ("Sam Adams", [Team all32Teams]),
-    ("Tony Siragusa", [Team ravens, Team colts]),
+    ("Tony Siragusa", [Team legends, Team ravens, Team colts]),
     -- le
     ("Julius Peppers", [Team legends, Team panthers, Team packers, Team bears]),
     ("George Karlaftis", [
