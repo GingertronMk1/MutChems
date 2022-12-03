@@ -17,6 +17,7 @@ baseSquad =
     ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens]),
     ("Travis Etienne Jr", [Team jaguars]),
     -- fb
+    ("Nightmare", [Team legends, Team chiefs]),
     ("Patrick Ricard", [Team ravens]),
     -- te
     ("Dave Casper", [Team all32Teams]),
@@ -100,7 +101,6 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Addition ("Jim Taylor", [Team legends, Team packers, Team saints]),
     Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
     Addition ("Benjamin St Juste", [Team commanders]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills]),
