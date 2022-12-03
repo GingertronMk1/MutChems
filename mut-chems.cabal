@@ -42,6 +42,7 @@ library
   ghc-options: -Wall -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , time >=1.9 && <2
   default-language: Haskell2010
 
 executable mut-chems-exe
@@ -54,6 +55,7 @@ executable mut-chems-exe
   build-depends:
       base >=4.7 && <5
     , mut-chems
+    , time >=1.9 && <2
   default-language: Haskell2010
 
 test-suite mut-chems-test
@@ -68,4 +70,5 @@ test-suite mut-chems-test
       HUnit ==1.6.*
     , base >=4.7 && <5
     , mut-chems
+    , time >=1.9 && <2
   default-language: Haskell2010
