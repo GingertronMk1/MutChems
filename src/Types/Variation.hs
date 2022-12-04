@@ -2,13 +2,14 @@
 -- | Module: Types.Variation
 module Types.Variation where
 
-import qualified Data.Other as Other
+import qualified Data.Other              as Other
 
 import           Data.List
+import           Data.Ord
 import           Functions.Application
 import           Types.Basic
-import           Types.TeamOrMultiple
 import           Types.ProspectiveChange
+import           Types.TeamOrMultiple
 
 -- | One variation I can have with a Lineup.
 newtype Variation
@@ -18,7 +19,7 @@ newtype Variation
 instance Ord Variation where
   compare v1 v2 = case orderListOfInts (map snd $ convertFn v1) (map snd $ convertFn v2) of
     (EQ, _) -> runThroughPreferences Other.preferences v1 v2
-    (c, _) -> c
+    (c, _)  -> c
     where
       convertFn = firstAndLength
                 . variationToTeams
@@ -81,7 +82,7 @@ lineupToVariations = Variation
 -- | Recursively iterate through the Lineup to create a Variation
 -- with everyone represented
 lineupToBestVariationRecursive :: Lineup -> Variation
-lineupToBestVariationRecursive l = Variation 
+lineupToBestVariationRecursive l = Variation
                                  . sortBy (\(a,_) (b,_) -> compareBasedOnSquad l a b)
                                  . lineupToBestVariationRecursive'
                                  $ l
@@ -94,9 +95,17 @@ lineupToBestVariationRecursive' l =
    in case partition (\(_, t) -> t /= NoTeam) bestVariation of
     (nonNoTeams, []) -> nonNoTeams
     (nonNoTeams, noTeams) -> nonNoTeams ++ (lineupToBestVariationRecursive' . filter ((`elem` map fst noTeams) . fst) $ l)
-                            
+
 bestOfAllSquadsFn :: [(ProspectiveChange, Lineup)] -> [(ProspectiveChange, Lineup, Variation)]
 bestOfAllSquadsFn = map bestOfOneSquadFn
 
 bestOfOneSquadFn :: (ProspectiveChange, Lineup) -> (ProspectiveChange, Lineup, Variation)
 bestOfOneSquadFn (c, l) = (c, l, lineupToBestVariationRecursive $ convertAll32Teams l)
+
+-- | Using the totals of each team in each Variation, kind of unfolding them?.
+totalsPerSquad :: [(Player, TeamOrMultiple)] -> [(Team, Int)]
+totalsPerSquad =
+     sortOn (Down . snd)
+     . firstAndLength
+     . concatMap (expandTeamOrMultiple . snd)
+

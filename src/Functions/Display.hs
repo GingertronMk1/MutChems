@@ -2,7 +2,6 @@
 module Functions.Display where
 
 import           Data.List
-import           Data.Ord
 import           Functions.Application
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
@@ -15,111 +14,35 @@ ppTeamOrMultiple (Team t)           = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
 ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 
--- | Prettily print some double-folded variations to a nice Markdown string.
-genMarkdown ::
-  -- | The lineup from which this markdown is initially generated
-  Lineup ->
-  -- | A list of (Player, [TeamOrMultiple]) tuples.
-  [PlayerTeams] ->
-  -- | A markdown table.
-  String
-genMarkdown s dfvs =
-  let sortedDfvs = sortBy (\(p1,_) (p2,_) -> compareBasedOnSquad s p1 p2) dfvs
-      totalCols = length . snd . head $ sortedDfvs
-      longestPlayerNameLength = maximum . map (length . fst) $ sortedDfvs
-      longestTeamNameLength = maximum . concatMap (map (length . ppTeamOrMultiple) . snd) $ sortedDfvs
-      longestPlayerNameLengthPlus4 = longestPlayerNameLength + 4
-      longestTeamNameLengthPlus4 = longestTeamNameLength + 4
-      topRow =
-        printf
-          "| %s | %s |"
-          [ "Player",
-            intercalate " | " . map show $ [1 .. totalCols]
-          ]
-      secondRow =
-        printf
-          "|%s|%s"
-          [ replicate (longestPlayerNameLengthPlus4 + 2) '-',
-            concat (replicate totalCols (printf ":%s:|" [replicate longestTeamNameLengthPlus4 '-']))
-          ]
-      theRest = intercalate "\n" . map genMarkdown' $ sortedDfvs
-      bottomRow = printf "| **TOTALS** | %s |" [totalsPerSquad sortedDfvs]
-   in intercalate
-        "\n"
-        [ topRow,
-          secondRow,
-          theRest,
-          bottomRow
-        ]
+ppProspectiveChange :: ProspectiveChange -> String
+ppProspectiveChange NoChange = "No change"
+ppProspectiveChange (Addition (p, _)) = printf "Adding %s" [p]
+ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1, p2]
+ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
+ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd ps]
 
--- | Helper for the above - make a Markdown table row for a single PlayerTeam.
-genMarkdown' :: PlayerTeams -> String
-genMarkdown' (p, ts) =
-  printf
-    "| %s | %s |"
-    [ printf "**%s**" [intercalate "&nbsp;" . words $ p],
-      (intercalate " | " . map ppTeamOrMultiple) ts
+markDownTablePrintVariation :: Variation -> String
+markDownTablePrintVariation (Variation v) =
+  intercalate "\n" [
+    "| Player | Chemistry |",
+    "|---|---|",
+    newLineMap (\(p,tom) -> printf "| %s | %s |" (map unBreakSpaces [p, ppTeamOrMultiple tom])) v,
+    printf "| TOTALS | %s |" [
+      (intercalate "<br>" . map (\(t,i) -> printf "- %s:&nbsp;%s" (map unBreakSpaces [t, show i])) . totalsPerSquad) v
     ]
+  ]
 
--- | Using the totals of each team in each Variation, kind of unfolding them?.
-totalsPerSquad :: [PlayerTeams] -> String
-totalsPerSquad =
-  intercalate "|"
-   . map (
-     intercalate "<br>"
-     . map (\(t,i) -> printf "%s:&nbsp;%s" [t, show i])
-     . sortOn (Down . snd)
-     . firstAndLength
-     . concatMap expandTeamOrMultiple
-   )
-   . rotate
-   . map snd
-
--- | Intercalate strings with markdown separators
-intercalation :: (a -> String) -> [a] -> String
-intercalation f = intercalate "\n\n---\n\n" . map f
-
--- | Take a Lineup and convert it to a markdowned set of Variations.
--- We assume this Lineup has already been converted
-squadToPrintedVariation :: Lineup -> String
-squadToPrintedVariation l = genMarkdown l
-                          . doubleFoldVariations
-                          . (:[])
-                          . lineupToBestVariationRecursive
-                          $ l
-
--- | Print all of the generated `Type.Lineup`s
-printLineups :: [(ProspectiveChange, Lineup, Variation)] -> [String]
-printLineups = map printLineupWithChange
-
--- | Print an individual `Type.Lineup` including the change made to create it
-printLineupWithChange :: (ProspectiveChange, Lineup, Variation) -> String
-printLineupWithChange (pa, l, v) =
-  let topRow = case pa of
-          NoChange               -> "# No change"
-          Addition (p, _)        -> printf "# Adding %s" [p]
-          Replacement p1 (p2, _) -> printf "# Replacing %s with %s" [p1, p2]
-          Removal p              -> printf "# Getting rid of %s" [p]
-          Removals ps            -> printf "# Getting rid of %s" [printListWithAnd ps]
-  in intercalate
-    "\n\n"
-    [
-      topRow,
-      genMarkdown l . doubleFoldVariations $ [v]
-    ]
-
--- | Print an integer number with commas as thousands separators
-ppNumber :: Integral a => a -> String
-ppNumber = reverse . ppNumber' . reverse . show . toInteger
-
--- | Helper function for the above
-ppNumber' :: String -> String
-ppNumber' n@[_,_,_]  = n
-ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
-ppNumber' ns         = ns
-
--- | Print a list of Strings finishing with an "and" before the final item
-printListWithAnd :: [String] -> String
-printListWithAnd [s] = s
-printListWithAnd ss@[_,_] = printf "%s and %s" ss
-printListWithAnd ss = printf "%s, and %s" [intercalate ", " (init ss), last ss]
+genMarkDown :: [(ProspectiveChange, Lineup, Variation)] -> String
+genMarkDown plvs =
+  let tableHead = newLineMap (\(pc,_,_) -> "<th>" ++ unBreakSpaces (ppProspectiveChange pc) ++ "</th>") plvs
+      tableBody = concatMap (\(_,_,v) -> "<td>\n\n" ++ markDownTablePrintVariation v ++ "\n\n</td>") plvs
+   in intercalate "\n" [
+    "<table>",
+    "<tr>",
+    tableHead,
+    "</tr>",
+    "<tr>",
+    tableBody,
+    "</tr>",
+    "</table>"
+   ]
