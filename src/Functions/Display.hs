@@ -28,7 +28,7 @@ markDownTablePrintVariation (Variation v) =
     "|---|---|",
     newLineMap (\(p,tom) -> printf "| %s | %s |" (map unBreakSpaces [p, ppTeamOrMultiple tom])) v,
     printf "| TOTALS | %s |" [
-      (intercalate "<br>" . map (\(t,i) -> printf "- %s: %s" (map unBreakSpaces [t, show i])) . totalsPerSquad) v
+      (intercalate "<br>" . map (\(t,i) -> printf "- %s:&nbsp;%s" (map unBreakSpaces [t, show i])) . totalsPerSquad) v
     ]
   ]
 
