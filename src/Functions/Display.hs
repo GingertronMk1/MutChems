@@ -14,6 +14,7 @@ ppTeamOrMultiple (Team t)           = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
 ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 
+-- | Nicely print a Prospective Change
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
 ppProspectiveChange (Addition (p, _)) = printf "Adding %s" [p]
@@ -21,6 +22,7 @@ ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1
 ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
 ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd ps]
 
+-- | Print a Variation as a MarkDown table
 markDownTablePrintVariation :: Variation -> String
 markDownTablePrintVariation (Variation v) =
   intercalate "\n" [
@@ -32,6 +34,7 @@ markDownTablePrintVariation (Variation v) =
     ]
   ]
 
+-- | Generate MarkDown for a set of ProspectiveChanges and Variations
 genMarkDown :: [(ProspectiveChange, Lineup, Variation)] -> String
 genMarkDown plvs =
   let tableHead = newLineMap (\(pc,_,_) -> "<th>" ++ unBreakSpaces (ppProspectiveChange pc) ++ "</th>") plvs

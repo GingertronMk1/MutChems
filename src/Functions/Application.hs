@@ -145,8 +145,11 @@ printListWithAnd [s] = s
 printListWithAnd ss@[_,_] = printf "%s and %s" ss
 printListWithAnd ss = printf "%s, and %s" [intercalate ", " (init ss), last ss]
 
+-- | Using a function to convert an input to a String, convert a list of such
+-- inputs to strings and collate them with newlines
 newLineMap :: (a -> String) -> [a] -> String
 newLineMap f = intercalate "\n" . map f
 
+-- | Convert spaces in a string to non-breaking spaces
 unBreakSpaces :: String -> String
 unBreakSpaces = intercalate "&nbsp;" . words
