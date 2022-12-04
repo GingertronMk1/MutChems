@@ -5,7 +5,7 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
-import Data.List
+import           Data.List
 
 -- | Remove duplicate entries in a list - probably not the best optimised but
 -- concise and I think quite elegant, plus doesn't need an `import` statement
@@ -128,3 +128,25 @@ splitAtPredicate' p (l, x:xs) =
   if p x
   then (reverse l, xs)
   else splitAtPredicate' p (x:l, xs)
+
+-- | Print an integer number with commas as thousands separators
+ppNumber :: Integral a => a -> String
+ppNumber = reverse . ppNumber' . reverse . show . toInteger
+
+-- | Helper function for the above
+ppNumber' :: String -> String
+ppNumber' n@[_,_,_]  = n
+ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
+ppNumber' ns         = ns
+
+-- | Print a list of Strings finishing with an "and" before the final item
+printListWithAnd :: [String] -> String
+printListWithAnd [s] = s
+printListWithAnd ss@[_,_] = printf "%s and %s" ss
+printListWithAnd ss = printf "%s, and %s" [intercalate ", " (init ss), last ss]
+
+newLineMap :: (a -> String) -> [a] -> String
+newLineMap f = intercalate "\n" . map f
+
+unBreakSpaces :: String -> String
+unBreakSpaces = intercalate "&nbsp;" . words
