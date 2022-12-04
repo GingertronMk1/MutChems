@@ -123,3 +123,6 @@ printListWithAnd :: [String] -> String
 printListWithAnd [s] = s
 printListWithAnd ss@[_,_] = printf "%s and %s" ss
 printListWithAnd ss = printf "%s, and %s" [intercalate ", " (init ss), last ss]
+
+
+
