@@ -38,7 +38,7 @@ markDownTablePrintVariation (Variation v) =
 genMarkDown :: [(ProspectiveChange, Lineup, Variation)] -> String
 genMarkDown plvs =
   let tableHead = newLineMap (\(pc,_,_) -> "<th>" ++ unBreakSpaces (ppProspectiveChange pc) ++ "</th>") plvs
-      tableBody = concatMap (\(_,_,v) -> "<td>\n\n" ++ markDownTablePrintVariation v ++ "\n\n</td>") plvs
+      tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ markDownTablePrintVariation v ++ "\n\n</td>") plvs
    in intercalate "\n" [
     "<table>",
     "<tr>",
