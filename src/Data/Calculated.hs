@@ -10,11 +10,11 @@ import           Data.List
 import           Data.Ord
 import           Data.Squad
 import           Functions.Application
+import           Functions.Display
 import           Types.Basic
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
-import           Functions.Display
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: Lineup
