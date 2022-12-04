@@ -22,7 +22,7 @@ ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
 ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd ps]
 
 markDownTablePrintVariation :: Variation -> String
-markDownTablePrintVariation (Variation v) = 
+markDownTablePrintVariation (Variation v) =
   intercalate "\n" [
     "| Player | Chemistry |",
     "|---|---|",
