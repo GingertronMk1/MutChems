@@ -84,6 +84,7 @@ baseSquad =
     ("Eddie Jackson", [Team bears]),
     -- cb
     ("Deion Sanders", [Team all32Teams]),
+    ("Benjamin St Juste", [Team commanders]),
     ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
     ("Shaquill Griffin", [Team seahawks, Team jaguars]),
     ("Sauce Gardner", [Team jets]),
@@ -102,8 +103,6 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
     Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
-    Addition ("Benjamin St Juste", [Team commanders]),
-    Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills]),
     Replacement "Aaron Rodgers" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
@@ -115,5 +114,6 @@ prospectiveAdditions =
       Team rams,
       Team texans,
       Team titans
-    ])
+    ]),
+    Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills])
   ]
