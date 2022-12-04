@@ -1,5 +1,5 @@
 -- | Module: Types.Basic
--- 
+--
 -- Alias types
 module Types.Basic where
 
