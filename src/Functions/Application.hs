@@ -131,7 +131,12 @@ splitAtPredicate' p (l, x:xs) =
 
 -- | Print an integer number with commas as thousands separators
 ppNumber :: Integral a => a -> String
-ppNumber = reverse . ppNumber' . reverse . show . toInteger
+ppNumber n =
+  let fn = reverse . ppNumber' . reverse 
+      nInteger = toInteger n
+   in if n < 0
+      then ("-"++) . fn . drop 1 . show $ nInteger
+      else fn . show $ nInteger
 
 -- | Helper function for the above
 ppNumber' :: String -> String
