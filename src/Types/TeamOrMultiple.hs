@@ -5,8 +5,6 @@ import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
 import           Data.Other
-import           Data.Teams
-import           Functions.Application
 import           Types.Basic
 
 -- * The Main Event.
@@ -104,7 +102,7 @@ filterFn threshold ts tom = case tom of
     (Team t)           -> filterFn' t
     (MultipleTeam t _) -> filterFn' t
     (Teams teams)      -> any (filterFn threshold ts) teams
-    where filterFn' t = numberOfOneTeam t > threshold || t == all32Teams
+    where filterFn' t = numberOfOneTeam t > threshold 
           numberOfOneTeam t = length . filter (== t) $ ts
 
 -- | A helper to be used in the mapping for the above
@@ -119,40 +117,6 @@ filteredSquadFn'' ::
 filteredSquadFn'' f ts = case filter f ts of
   [] -> [NoTeam]
   xs -> xs
-
--- | Change all players with all 32 teams to contain all useful teams
--- useful here being "all other actual teams" - there's no point giving him
--- the option for Jacksonville if nobody else has ever played for them
-convertAll32Teams :: Lineup -> Lineup
-convertAll32Teams l = map (
-                      second
-                      . concatMap
-                      . convertSingle
-                      . rmDups
-                      . filter (/= all32Teams)
-                      . allTeamsFn
-                      $ l
-                      ) l
-
--- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
--- be all 32 teams
-convertSingle ::
-  -- | The list of Teams that should be considered for conversion.
-  [Team] ->
-  -- | The TeamOrMultiple being converted.
-  TeamOrMultiple ->
-  -- | The resultant list.
-  [TeamOrMultiple]
-convertSingle _ NoTeam = [NoTeam]
-convertSingle ts team@(Team t) =
-  if t == all32Teams
-    then map Team ts
-    else [team]
-convertSingle ts (MultipleTeam t i) =
-  if t == all32Teams
-    then map (`MultipleTeam` i) ts
-    else [MultipleTeam t i]
-convertSingle ts (Teams t) = concatMap (convertSingle ts) t
 
 -- | Sorting 2 Players based on their position in the initial squad.
 compareBasedOnSquad ::
@@ -174,4 +138,4 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
 convertSquad :: Lineup -> Lineup
-convertSquad = fst . filteredSquadFn . convertAll32Teams
+convertSquad = fst . filteredSquadFn
