@@ -133,10 +133,11 @@ splitAtPredicate' p (l, x:xs) =
 ppNumber :: Integral a => a -> String
 ppNumber n =
   let fn = reverse . ppNumber' . reverse 
-      nInteger = show $ toInteger n
-   in if n < 0
-      then ('-':) . fn . tail $ nInteger
-      else fn nInteger
+      nString = show $ toInteger n
+      isNotInteger c = c `notElem` concatMap show ([0..9] :: [Int])
+      firstBit = takeWhile isNotInteger nString
+      lastBit = dropWhile isNotInteger nString
+   in firstBit ++ fn lastBit
 
 -- | Helper function for the above
 ppNumber' :: String -> String
