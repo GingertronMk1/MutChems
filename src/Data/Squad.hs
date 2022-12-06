@@ -24,8 +24,9 @@ baseSquad =
     ("Evan Engram", [Team giants, Team jaguars]),
     ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
-    ("AJ Brown", [Team eagles, Team titans]),
     ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
+    ("AJ Brown", [Team eagles, Team titans]),
+    ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
     ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
     -- lt
@@ -102,7 +103,6 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
     Replacement "Orlando Brown" ("Joe Thomas", [Team browns]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
