@@ -119,7 +119,7 @@ firstAndLength xs@(x:_) =
 
 -- | Split a list at the first element that satisfies a predicate, removing that element in the process
 splitAtPredicate :: (a -> Bool) -> [a] -> ([a], [a])
-splitAtPredicate p l = splitAtPredicate' p ([], l)
+splitAtPredicate p l = let (befores, _:afters) = break p l in (befores, afters)
 
 -- | Helper/accumulator for the above
 splitAtPredicate' :: (a -> Bool) -> ([a], [a]) -> ([a], [a])
@@ -134,9 +134,8 @@ ppNumber :: Integral a => a -> String
 ppNumber n =
   let fn = reverse . ppNumber' . reverse 
       nString = show $ toInteger n
-      isNotInteger c = c `notElem` concatMap show ([0..9] :: [Int])
-      firstBit = takeWhile isNotInteger nString
-      lastBit = dropWhile isNotInteger nString
+      isNotInteger c = c `elem` concatMap show ([0..9] :: [Int])
+      (firstBit, lastBit) = break isNotInteger nString
    in firstBit ++ fn lastBit
 
 -- | Helper function for the above
