@@ -135,7 +135,7 @@ ppNumber n =
   let fn = reverse . ppNumber' . reverse 
       nInteger = show $ toInteger n
    in if n < 0
-      then ("-"++) . fn . tail $ nInteger
+      then ('-':) . fn . tail $ nInteger
       else fn nInteger
 
 -- | Helper function for the above
