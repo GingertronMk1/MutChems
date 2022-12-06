@@ -118,24 +118,6 @@ filteredSquadFn'' f ts = case filter f ts of
   [] -> [NoTeam]
   xs -> xs
 
--- | Change all players with all 32 teams to contain all useful teams
--- useful here being "all other actual teams" - there's no point giving him
--- the option for Jacksonville if nobody else has ever played for them
-convertAll32Teams :: Lineup -> Lineup
-convertAll32Teams = map (\(p, toms) -> (p, concatMap (convertSingle) toms))
-
--- | Convert a single TeamOrMultiple to a list of Teams should that TeamOrMultiple
--- be all 32 teams
-convertSingle ::
-  -- | The TeamOrMultiple being converted.
-  TeamOrMultiple ->
-  -- | The resultant list.
-  [TeamOrMultiple]
-convertSingle NoTeam = [NoTeam]
-convertSingle team@(Team _) = [team]
-convertSingle (MultipleTeam t i) = [MultipleTeam t i]
-convertSingle (Teams t) = concatMap (convertSingle) t
-
 -- | Sorting 2 Players based on their position in the initial squad.
 compareBasedOnSquad ::
   -- | The initial squad.
