@@ -103,6 +103,7 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
     Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
+    Replacement "Orlando Brown" ("Joe Thomas", [Team browns]),
     Replacement "Aaron Rodgers" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
