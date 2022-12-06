@@ -6,6 +6,7 @@
 module Functions.Application where
 
 import           Data.List
+import Data.Char (isDigit)
 
 -- | Remove duplicate entries in a list - probably not the best optimised but
 -- concise and I think quite elegant, plus doesn't need an `import` statement
@@ -134,8 +135,7 @@ ppNumber :: Integral a => a -> String
 ppNumber n =
   let fn = reverse . ppNumber' . reverse 
       nString = show $ toInteger n
-      isNotInteger c = c `elem` concatMap show ([0..9] :: [Int])
-      (firstBit, lastBit) = break isNotInteger nString
+      (firstBit, lastBit) = break isDigit nString
    in firstBit ++ fn lastBit
 
 -- | Helper function for the above
