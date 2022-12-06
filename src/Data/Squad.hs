@@ -3,6 +3,7 @@
 module Data.Squad where
 
 import           Data.Teams
+import           Data.MultiTeams
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
@@ -20,7 +21,7 @@ baseSquad =
     ("Nightmare", [Team legends, Team chiefs]),
     ("Patrick Ricard", [Team ravens]),
     -- te
-    ("Dave Casper", [Team all32Teams]),
+    ("Dave Casper", all32TeamsPlusLegends),
     ("Evan Engram", [Team giants, Team jaguars]),
     ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
@@ -57,7 +58,7 @@ baseSquad =
     -- dt
     ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
     ("Jordan Davis", [Team eagles]),
-    ("Sam Adams", [Team all32Teams]),
+    ("Sam Adams", all32TeamsPlusLegends),
     ("Tony Siragusa", [Team legends, Team ravens, Team colts]),
     -- le
     ("Julius Peppers", [Team legends, Team panthers, Team packers, Team bears]),
@@ -84,7 +85,7 @@ baseSquad =
     ("Malik Hooker", [Team colts, Team cowboys]),
     ("Eddie Jackson", [Team bears]),
     -- cb
-    ("Deion Sanders", [Team all32Teams]),
+    ("Deion Sanders", all32TeamsPlusLegends),
     ("Benjamin St Juste", [Team commanders]),
     ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
     ("Shaquill Griffin", [Team seahawks, Team jaguars]),

@@ -5,10 +5,6 @@ module Data.Teams where
 
 import           Types.Basic
 
--- | A useful shorthand for any player who can have all 32 teams.
-all32Teams :: Team
-all32Teams = "all32"
-
 -- | The Chicago Bears
 bears :: Team
 bears = "Bears"

@@ -63,13 +63,9 @@ filteredSquad = fst $ filteredSquadFn squad
 numberOfOptionsFiltered :: Int
 numberOfOptionsFiltered = numberOfOptionsFn filteredSquad
 
--- | Converting all `Teams.all32` teams in the above squad.
-filteredAndConvertedSquad :: Lineup
-filteredAndConvertedSquad = convertAll32Teams filteredSquad
-
 -- | Expanding the above squad such that I can sequence it.
 expandedSquad :: [[(Player, TeamOrMultiple)]]
-expandedSquad = expandList filteredAndConvertedSquad
+expandedSquad = expandList filteredSquad
 
 -- | All variations of chems.
 allVariations :: [Variation]

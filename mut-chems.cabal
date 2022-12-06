@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Data.Calculated
+      Data.MultiTeams
       Data.Other
       Data.Squad
       Data.Teams
