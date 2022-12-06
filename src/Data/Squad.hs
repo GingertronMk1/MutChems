@@ -10,7 +10,7 @@ import           Types.TeamOrMultiple
 baseSquad :: Lineup
 baseSquad =
   [ -- qb
-    ("Aaron Rodgers", [Team packers]),
+    ("Air McNair", [Team legends, Team titans, Team ravens]),
     ("Justin Fields", [Team bears]),
     -- hb
     ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
@@ -104,7 +104,7 @@ prospectiveAdditions =
   [
     Addition ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
     Replacement "Orlando Brown" ("Joe Thomas", [Team browns]),
-    Replacement "Aaron Rodgers" ("Ryan Fitzpatrick", [
+    Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
       Team bills,
