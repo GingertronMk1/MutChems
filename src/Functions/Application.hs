@@ -105,8 +105,8 @@ rotate' :: [[a]] -> [[a]] -> [[a]]
 rotate' xs ys
   | null thisCol = reverse xs
   | otherwise = rotate' (thisCol:xs) theRest
-  where thisCol = concatMap (take 1) ys
-        theRest = map (drop 1) ys
+  where thisCol = map head ys
+        theRest = map tail ys
 
 -- | Kind of a compression algorithm?
 -- Take a list of items and compress them into tuples
@@ -133,10 +133,10 @@ splitAtPredicate' p (l, x:xs) =
 ppNumber :: Integral a => a -> String
 ppNumber n =
   let fn = reverse . ppNumber' . reverse 
-      nInteger = toInteger n
+      nInteger = show $ toInteger n
    in if n < 0
-      then ("-"++) . fn . drop 1 . show $ nInteger
-      else fn . show $ nInteger
+      then ("-"++) . fn . tail $ nInteger
+      else fn nInteger
 
 -- | Helper function for the above
 ppNumber' :: String -> String
