@@ -4,6 +4,9 @@
 module Data.Teams where
 
 import           Types.Basic
+import           Types.TeamOrMultiple
+
+-- * Individual teams
 
 -- | The Chicago Bears
 bears :: Team
@@ -136,3 +139,117 @@ titans = "Titans"
 -- | The Minnesota Vikings
 vikings :: Team
 vikings = "Vikings"
+
+-- * Divisions
+
+-- | All of the teams in the NFC North
+nfcNorth :: [TeamOrMultiple]
+nfcNorth = map Team [
+    bears,
+    lions,
+    packers,
+    vikings
+  ]
+
+-- | All of the teams in the NFC East
+nfcEast :: [TeamOrMultiple]
+nfcEast = map Team [
+    commanders,
+    cowboys,
+    eagles,
+    giants
+  ]
+
+-- | All of the teams in the NFC South
+nfcSouth :: [TeamOrMultiple]
+nfcSouth = map Team [
+    buccaneers,
+    falcons,
+    panthers,
+    saints
+  ]
+
+-- | All of the teams in the NFC West
+nfcWest :: [TeamOrMultiple]
+nfcWest = map Team [
+    cardinals,
+    niners,
+    rams,
+    seahawks
+  ]
+
+
+-- | All of the teams in the AFC North
+afcNorth :: [TeamOrMultiple]
+afcNorth = map Team [
+    bengals,
+    browns,
+    ravens,
+    steelers
+  ]
+
+
+-- | All of the teams in the AFC East
+afcEast :: [TeamOrMultiple]
+afcEast = map Team [
+    bills,
+    dolphins,
+    jets,
+    patriots
+  ]
+
+-- | All of the teams in the AFC South
+afcSouth :: [TeamOrMultiple]
+afcSouth = map Team [
+    colts,
+    jaguars,
+    texans,
+    titans
+  ]
+
+
+-- | All of the teams in the AFC West
+afcWest :: [TeamOrMultiple]
+afcWest = map Team [
+    broncos,
+    chargers,
+    chiefs,
+    raiders
+  ]
+
+
+-- * Conferences
+
+-- | All of the teams in the NFC
+nfc :: [TeamOrMultiple]
+nfc = concat [
+    nfcNorth,
+    nfcEast,
+    nfcSouth,
+    nfcWest
+  ]
+
+-- | All of the teams in the AFC
+afc :: [TeamOrMultiple]
+afc = concat [
+    afcNorth,
+    afcEast,
+    afcSouth,
+    afcWest
+  ]
+
+-- * League
+
+-- | All of the teams in the NFL
+all32Teams :: [TeamOrMultiple]
+all32Teams = nfc ++ afc
+
+-- | All of the teams in the NFL plus retired teams
+all32TeamsPlusLegends :: [TeamOrMultiple]
+all32TeamsPlusLegends = Team legends : all32Teams
+
+-- * Other bits
+
+-- | The theme teams I would rather make
+preferences :: [Team]
+preferences = [titans, legends, seahawks, eagles, raiders]

@@ -3,7 +3,6 @@
 module Data.Squad where
 
 import           Data.Teams
-import           Data.MultiTeams
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
@@ -32,7 +31,6 @@ baseSquad =
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
     -- lt
     ("Garrett Bolles", [Team broncos]),
-    ("Orlando Brown", [Team chiefs, Team ravens]),
     -- lg
     ("Quenton Nelson", [Team colts]),
     ("Andrew Norwell", [Team commanders, Team jaguars, Team panthers]),
@@ -104,7 +102,7 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Orlando Brown" ("Joe Thomas", [Team browns]),
+    Addition ("Joe Thomas", [Team browns]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
