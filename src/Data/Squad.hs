@@ -30,6 +30,7 @@ baseSquad =
     ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
     -- lt
+    ("Joe Thomas", [Team browns]),
     ("Garrett Bolles", [Team broncos]),
     -- lg
     ("Quenton Nelson", [Team colts]),
@@ -102,7 +103,6 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Addition ("Joe Thomas", [Team browns]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
