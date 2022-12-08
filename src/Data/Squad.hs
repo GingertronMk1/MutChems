@@ -115,5 +115,6 @@ prospectiveAdditions =
       Team texans,
       Team titans
     ]),
+    Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills])
   ]
