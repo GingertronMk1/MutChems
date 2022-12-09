@@ -9,20 +9,10 @@ main = do
 
 testList :: Test
 testList = TestList [
-    testRmDups,
     testPPNumber,
     testUnbreakSpaces,
     testDistanceFrom5
   ]
-
-testRmDups :: Test
-testRmDups =
-  let testDataList = [1..10] :: [Int]
-   in TestCase $
-        assertEqual
-          "rmDups"
-          testDataList
-          (rmDups $ testDataList ++ reverse testDataList)
 
 testPPNumber :: Test
 testPPNumber =

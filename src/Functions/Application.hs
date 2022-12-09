@@ -8,12 +8,6 @@ module Functions.Application where
 import           Data.List
 import Data.Char (isDigit)
 
--- | Remove duplicate entries in a list - probably not the best optimised but
--- concise and I think quite elegant, plus doesn't need an `import` statement
-rmDups :: Eq a => [a] -> [a]
-rmDups []     = []
-rmDups (x:xs) = x:rmDups (filter (/=x) xs)
-
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
 mean ls = fromIntegral (length ls) / realToFrac (sum ls)
