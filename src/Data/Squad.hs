@@ -116,6 +116,7 @@ prospectiveAdditions =
       Team texans,
       Team titans
     ]),
+    Replacement "Sauce Gardner" ("Coby Bryant", nfcWest),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     Replacement "Kiko Alonso" ("Tremaine Edmunds", [Team bills]),
     Replacement "Plaxico Burress" ("Deion Sanders (WR)", [Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys])
