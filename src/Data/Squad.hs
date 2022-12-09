@@ -31,7 +31,7 @@ baseSquad =
     ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens]),
     -- lt
     ("Joe Thomas", [Team browns]),
-    ("Garrett Bolles", [Team broncos]),
+    ("Charles Cross", [Team seahawks]),
     -- lg
     ("Quenton Nelson", [Team colts]),
     ("Andrew Norwell", [Team commanders, Team jaguars, Team panthers]),
@@ -117,5 +117,6 @@ prospectiveAdditions =
       Team titans
     ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Kiko Alonso" ("Tremaine Edmunds", [Team bills])
+    Replacement "Kiko Alonso" ("Tremaine Edmunds", [Team bills]),
+    Replacement "Plaxico Burress" ("Deion Sanders (WR)", [Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys])
   ]
