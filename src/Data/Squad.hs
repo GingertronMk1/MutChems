@@ -21,7 +21,7 @@ baseSquad =
     ("Patrick Ricard", [Team ravens]),
     -- te
     ("Dave Casper", all32TeamsPlusLegends),
-    ("Evan Engram", [Team giants, Team jaguars]),
+    ("David Njoku", [Team browns]),
     ("Hayden Hurst", [Team ravens, Team falcons, Team bengals]),
     -- wr
     ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
@@ -45,15 +45,16 @@ baseSquad =
     ("Tristan Wirfs", [Team buccaneers]),
     ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings]),
     -- mlb
+    ("Devin Bush", [Team steelers]),
     ("Bobby Wagner", [Team seahawks, Team rams]),
     ("Roquan Smith", [Team bears, Team ravens]),
     ("Kiko Alonso", [Team legends, Team bills, Team dolphins, Team eagles, Team saints]),
-    ("Tremaine Edmunds", [Team bills]),
     -- rolb
     ("Khalil Mack", [Team raiders, Team bears, Team chargers]),
     ("Jonathan Casillas", [Team legends, Team buccaneers, Team giants, Team patriots, Team saints]),
     -- lolb
     ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
+    ("Bruce Irvin", [Team seahawks, Team bears, Team falcons, Team panthers, Team raiders]),
     -- dt
     ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
     ("Jordan Davis", [Team eagles]),
@@ -79,7 +80,7 @@ baseSquad =
     ("Aidan Hutchinson", [Team lions]),
     -- ss
     ("Isaiah Pola-Mao", [Team raiders]),
-    ("Harrison Smith", [Team vikings]),
+    ("Talanoa Hufanga", [Team niners]),
     -- fs
     ("Malik Hooker", [Team colts, Team cowboys]),
     ("Eddie Jackson", [Team bears]),
@@ -116,5 +117,5 @@ prospectiveAdditions =
       Team titans
     ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Tremaine Edmunds" ("Tremaine Edmunds", [Team bills])
+    Replacement "Kiko Alonso" ("Tremaine Edmunds", [Team bills])
   ]
