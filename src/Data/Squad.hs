@@ -104,6 +104,7 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
+    Replacement "Justin Fields" ("Marcus Mariota", nfcSouth ++ [Team titans, Team raiders]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
