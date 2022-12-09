@@ -11,7 +11,7 @@ baseSquad :: Lineup
 baseSquad =
   [ -- qb
     ("Air McNair", [Team legends, Team titans, Team ravens]),
-    ("Justin Fields", [Team bears]),
+    ("Christian McCaffrey (QB)", [Team niners, Team panthers]),
     -- hb
     ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
     ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens]),
@@ -104,7 +104,6 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Justin Fields" ("Marcus Mariota", nfcSouth ++ [Team titans, Team raiders]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
