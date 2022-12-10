@@ -127,6 +127,7 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
+    Replacement "Nightmare" ("Khari Blasingame", [Team titans, Team bears]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
