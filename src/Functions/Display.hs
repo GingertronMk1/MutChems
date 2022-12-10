@@ -17,7 +17,7 @@ ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 -- | Nicely print a Prospective Change
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
-ppProspectiveChange (Addition (p, _)) = printf "Adding %s" [p]
+ppProspectiveChange (Addition (p, _, _)) = printf "Adding %s" [p]
 ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1, p2]
 ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
 ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd ps]
@@ -28,7 +28,7 @@ markDownTablePrintVariation (Variation v) =
   intercalate "\n" [
     "| Player | Chemistry |",
     "|---|---|",
-    newLineMap (\(p,tom) -> printf "| %s | %s |" (map unBreakSpaces [p, ppTeamOrMultiple tom])) v,
+    newLineMap (\(p,tom,_) -> printf "| %s | %s |" (map unBreakSpaces [p, ppTeamOrMultiple tom])) v,
     printf "| TOTALS | %s |" [
       (intercalate "<br>" . map (\(t,i) -> unBreakSpaces $ printf "- %s: %s" [t, show i]) . totalsPerSquad) v
     ]

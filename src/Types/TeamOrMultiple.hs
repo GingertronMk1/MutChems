@@ -1,7 +1,6 @@
 -- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
-import           Data.Bifunctor
 import           Data.List
 import           Data.Maybe
 import           Data.Other
@@ -42,13 +41,28 @@ instance Ord TeamOrMultiple where
 -- * Subsequent types that don't deserve their own file
 
 -- | A player and all of their teams.
+type PlayerTeamsPosition = (Player, [TeamOrMultiple], Position)
 type PlayerTeams = (Player, [TeamOrMultiple])
 
-type Lineup = [PlayerTeams]
+type Lineup = [PlayerTeamsPosition]
 
 -- | A full lineup.
-type LineupWithPositions = [(Position, Lineup)]
+type LineupWithPositions = [(Position, [(Player, [TeamOrMultiple])])]
 
+expandPosition :: (Position, [PlayerTeams]) -> [PlayerTeamsPosition]
+expandPosition (p, ptoms) = [(player, toms, p) | (player, toms) <- ptoms]
+
+getFirst :: (a,b,c) -> a
+getFirst (a,_,_) = a
+
+getSecond :: (a,b,c) -> b
+getSecond (_,b,_) = b
+
+getThird :: (a,b,c) -> c
+getThird (_,_,c) = c
+
+expandLineup :: Lineup -> [[(Player, TeamOrMultiple, Position)]]
+expandLineup = map (\(pl, toms, po) -> [(pl, tom, po) | tom <- toms])
 
 -- * Functions that take only something of a type defined in this file as argument
 
@@ -61,11 +75,11 @@ expandTeamOrMultiple (Teams ts)         = concatMap expandTeamOrMultiple ts
 
 -- | How many options do we get from a given `Lineup`?.
 numberOfOptionsFn :: Lineup -> Int
-numberOfOptionsFn = product . map (length . snd)
+numberOfOptionsFn = product . map (length . getSecond)
 
 -- | Give me a list of all t`Type.Team` in a given Lineup.
 allTeamsFn :: Lineup -> [Team]
-allTeamsFn = concatMap expandTeamOrMultiple . concatMap snd
+allTeamsFn = concatMap expandTeamOrMultiple . concatMap getSecond
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
 filteredSquadFn :: Lineup -> (Lineup, Int)
@@ -86,7 +100,7 @@ filteredSquadFn' threshold s
   | numberOfNewSOptions <= squadFilterThreshold = (newS, threshold)
   | otherwise = filteredSquadFn' (threshold + 1) newS
   where allTeams = allTeamsFn s
-        newS                = map (second . filteredSquadFn'' $ filterFn threshold allTeams) s
+        newS                = map (\(pl,tom,po) -> (pl, (filteredSquadFn'' $ filterFn threshold allTeams) tom, po)) s
         numberOfNewSOptions = numberOfOptionsFn newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
@@ -136,7 +150,7 @@ compareBasedOnSquad l p1 p2 =
 
 -- | Getting the index for a single player.
 compareBasedOnSquad' :: Lineup -> Player -> Int
-compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . fst) l)
+compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . getFirst) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity

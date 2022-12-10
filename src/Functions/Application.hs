@@ -46,14 +46,6 @@ orderListOfInts xs ys
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
     maxComp = compare (maximum xs) (maximum ys)
 
--- | Expand a tuple whos second element is a list into a list of tuples.
-expandTuple :: (a, [b]) -> [(a, b)]
-expandTuple (a, bs) = [(a, b) | b <- bs]
-
--- | Expand a list of tuples into a list of lists of tuples
-expandList :: [(a, [b])] -> [[(a, b)]]
-expandList = map expandTuple
-
 -- | Function to get the largest values from a list
 maximumValues ::
   Ord a =>

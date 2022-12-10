@@ -13,21 +13,22 @@ import           Functions.Application
 import           Functions.Display
 import           Types.Basic
 import           Types.ProspectiveChange
-import           Types.TeamOrMultiple    (Lineup, PlayerTeams,
-                                          TeamOrMultiple (NoTeam), allTeamsFn,
-                                          convertSquad, filteredSquadFn,
-                                          numberOfOptionsFn)
+import           Types.TeamOrMultiple
 import           Types.Variation
+import Data.Positions
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: Lineup
 processedStrategy = case strategy of
   NoTeam -> []
-  s      ->  [("STRATEGY: " ++ ppTeamOrMultiple s, [s])]
+  s      -> [("STRATEGY: " ++ ppTeamOrMultiple s, [s], strategyCard)]
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
-squadNoProspectives = filter (not . null . snd)  . (++processedStrategy) . concatMap snd $ baseSquad
+squadNoProspectives = filter (\(_,ts,_) -> not (null ts))
+                    . (++processedStrategy)
+                    . concatMap expandPosition
+                    $ baseSquad
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
@@ -67,12 +68,12 @@ numberOfOptionsFiltered :: Int
 numberOfOptionsFiltered = numberOfOptionsFn filteredSquad
 
 -- | Expanding the above squad such that I can sequence it.
-expandedSquad :: [[(Player, TeamOrMultiple)]]
-expandedSquad = expandList filteredSquad
+expandedSquad :: [[(Player, TeamOrMultiple, Position)]]
+expandedSquad = expandLineup filteredSquad
 
 -- | All variations of chems.
 allVariations :: [Variation]
-allVariations = map (Variation . sortOn snd) . sequence $ expandedSquad
+allVariations = map (Variation . sortOn (\(_,ts,_) -> ts)) . sequence $ expandedSquad
 
 -- | Ordered list of Variations.
 sortedVariations :: [Variation]
@@ -88,4 +89,6 @@ doubleFoldedVariations = doubleFoldVariations foldedVariations
 
 -- | ProspectiveChange, Lineup, and Variations for each ProspectiveChange
 bestOfAllSquads :: [(ProspectiveChange, Lineup, Variation)]
-bestOfAllSquads = bestOfAllSquadsFn . addProspectivesInTurn prospectiveAdditions $ squadNoProspectives
+bestOfAllSquads = bestOfAllSquadsFn
+                . addProspectivesInTurn prospectiveAdditions
+                $ squadNoProspectives
