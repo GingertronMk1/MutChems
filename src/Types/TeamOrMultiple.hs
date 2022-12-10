@@ -44,8 +44,11 @@ instance Ord TeamOrMultiple where
 -- | A player and all of their teams.
 type PlayerTeams = (Player, [TeamOrMultiple])
 
--- | A full lineup.
 type Lineup = [PlayerTeams]
+
+-- | A full lineup.
+type LineupWithPositions = [(Position, Lineup)]
+
 
 -- * Functions that take only something of a type defined in this file as argument
 
@@ -102,7 +105,7 @@ filterFn threshold ts tom = case tom of
     (Team t)           -> filterFn' t
     (MultipleTeam t _) -> filterFn' t
     (Teams teams)      -> any (filterFn threshold ts) teams
-    where filterFn' t = numberOfOneTeam t > threshold 
+    where filterFn' t = numberOfOneTeam t > threshold
           numberOfOneTeam t = length . filter (== t) $ ts
 
 -- | A helper to be used in the mapping for the above

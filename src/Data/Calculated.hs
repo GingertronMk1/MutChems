@@ -13,7 +13,10 @@ import           Functions.Application
 import           Functions.Display
 import           Types.Basic
 import           Types.ProspectiveChange
-import           Types.TeamOrMultiple
+import           Types.TeamOrMultiple    (Lineup, PlayerTeams,
+                                          TeamOrMultiple (NoTeam), allTeamsFn,
+                                          convertSquad, filteredSquadFn,
+                                          numberOfOptionsFn)
 import           Types.Variation
 
 -- | The squad with the team strategy item sorted
@@ -24,7 +27,7 @@ processedStrategy = case strategy of
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
-squadNoProspectives = filter (not . null . snd) $ baseSquad ++ processedStrategy
+squadNoProspectives = filter (not . null . snd)  . (++processedStrategy) . concatMap snd $ baseSquad
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]

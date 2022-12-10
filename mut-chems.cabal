@@ -27,6 +27,7 @@ library
   exposed-modules:
       Data.Calculated
       Data.Other
+      Data.Positions
       Data.Squad
       Data.Teams
       Functions.Application

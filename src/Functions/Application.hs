@@ -5,8 +5,8 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
+import           Data.Char (isDigit)
 import           Data.List
-import Data.Char (isDigit)
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
@@ -127,7 +127,7 @@ splitAtPredicate' p (l, x:xs) =
 -- | Print an integer number with commas as thousands separators
 ppNumber :: Integral a => a -> String
 ppNumber n =
-  let fn = reverse . ppNumber' . reverse 
+  let fn = reverse . ppNumber' . reverse
       nString = show $ toInteger n
       (firstBit, lastBit) = break isDigit nString
    in firstBit ++ fn lastBit
