@@ -24,9 +24,9 @@ ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1
 ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
 ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd ps]
 
--- | Print a Variation as a MarkDown table
-markDownTablePrintVariation :: Variation -> String
-markDownTablePrintVariation (Variation v) =
+-- | Print a Variation as a Html table
+htmlTablePrintVariation :: Variation -> String
+htmlTablePrintVariation (Variation v) =
   intercalate "\n" [
     "<table>",
     "<thead>",
@@ -36,7 +36,7 @@ markDownTablePrintVariation (Variation v) =
     "</tr>",
     "</thead>",
     "<tbody>",
-    markDownTablePrintVariation' v,
+    htmlTablePrintVariation' v,
     "</tbody>",
     "<tfoot>",
     "<tr>",
@@ -53,23 +53,23 @@ markDownTablePrintVariation (Variation v) =
     "</table>"
   ]
 
-markDownTablePrintVariation' :: [(Player, TeamOrMultiple, Position)] -> String
-markDownTablePrintVariation' = intercalate "\n" . markDownTablePrintVariation'' "none"
+htmlTablePrintVariation' :: [(Player, TeamOrMultiple, Position)] -> String
+htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 
-markDownTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
-markDownTablePrintVariation'' _ [] = []
-markDownTablePrintVariation'' oldPos ((player, team, position):ps) = 
+htmlTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
+htmlTablePrintVariation'' _ [] = []
+htmlTablePrintVariation'' oldPos ((player, team, position):ps) = 
   let thisLine = printf "<tr><td>%s</td><td>%s</td></tr>" $ map unBreakSpaces [player, ppTeamOrMultiple team]
    in if position == oldPos
-      then thisLine : markDownTablePrintVariation'' oldPos ps
-      else printf "<tr><td colspan=2><b>%s</b></td></tr>" [map toUpper position] : thisLine : markDownTablePrintVariation'' position ps
+      then thisLine : htmlTablePrintVariation'' oldPos ps
+      else printf "<tr><td colspan=2><b>%s</b></td></tr>" [map toUpper position] : thisLine : htmlTablePrintVariation'' position ps
 
 
--- | Generate MarkDown for a set of ProspectiveChanges and Variations
-genMarkDown :: [(ProspectiveChange, Lineup, Variation)] -> String
-genMarkDown plvs =
+-- | Generate Html for a set of ProspectiveChanges and Variations
+genHtml :: [(ProspectiveChange, Lineup, Variation)] -> String
+genHtml plvs =
   let tableHead = newLineMap (\(pc,_,_) -> "<th>" ++ unBreakSpaces (ppProspectiveChange pc) ++ "</th>") plvs
-      tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ markDownTablePrintVariation v ++ "\n\n</td>") plvs
+      tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ htmlTablePrintVariation v ++ "\n\n</td>") plvs
    in intercalate "\n" [
     "<table>",
     "<tr>",
