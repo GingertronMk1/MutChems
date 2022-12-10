@@ -66,4 +66,4 @@ p :: Position
 p = "p"
 
 strategyCard :: Position
-strategyCard = "strategyCard"
+strategyCard = "strategy card"
