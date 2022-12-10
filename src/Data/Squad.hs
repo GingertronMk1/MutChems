@@ -128,6 +128,13 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
     Replacement "Nightmare" ("Khari Blasingame", [Team titans, Team bears]),
+    Replacement "Breshad Perriman" ("Devin Hester", [
+      Team legends,
+      Team ravens,
+      Team falcons,
+      Team seahawks,
+      Team bears
+    ]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
