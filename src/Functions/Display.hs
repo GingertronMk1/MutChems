@@ -28,12 +28,29 @@ ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd
 markDownTablePrintVariation :: Variation -> String
 markDownTablePrintVariation (Variation v) =
   intercalate "\n" [
-    "| Player | Chemistry |",
-    "|---|---|",
+    "<table>",
+    "<thead>",
+    "<tr>",
+    "<th>Player</th>",
+    "<th>Chemistry</th>",
+    "</tr>",
+    "</thead>",
+    "<tbody>",
     markDownTablePrintVariation' v,
-    printf "| TOTALS | %s |" [
-      (intercalate "<br>" . map (\(t,i) -> unBreakSpaces $ printf "- %s: %s" [t, show i]) . totalsPerSquad) v
-    ]
+    "</tbody>",
+    "<tfoot>",
+    "<tr>",
+    "<td>",
+    "TOTALS",
+    "</td>",
+    "<td>",
+    "<ul>",
+    (intercalate "\n" . map (\(t,i) -> unBreakSpaces $ printf"<li>%s: %s</li>" [t, show i]) . totalsPerSquad) v,
+    "</ul>",
+    "</td>",
+    "</tr>",
+    "</tfoot>",
+    "</table>"
   ]
 
 markDownTablePrintVariation' :: [(Player, TeamOrMultiple, Position)] -> String
@@ -42,10 +59,10 @@ markDownTablePrintVariation' = intercalate "\n" . markDownTablePrintVariation'' 
 markDownTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
 markDownTablePrintVariation'' _ [] = []
 markDownTablePrintVariation'' oldPos ((player, team, position):ps) = 
-  let thisLine = printf "| %s | %s |" $ map unBreakSpaces [player, ppTeamOrMultiple team]
+  let thisLine = printf "<tr><td>%s</td><td>%s</td></tr>" $ map unBreakSpaces [player, ppTeamOrMultiple team]
    in if position == oldPos
       then thisLine : markDownTablePrintVariation'' oldPos ps
-      else printf "| **%s** | --- |" [map toUpper position] : thisLine : markDownTablePrintVariation'' position ps
+      else printf "<tr><td colspan=2><b>%s</b></td></tr>" [map toUpper position] : thisLine : markDownTablePrintVariation'' position ps
 
 
 -- | Generate MarkDown for a set of ProspectiveChanges and Variations
