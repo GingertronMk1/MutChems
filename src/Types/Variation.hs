@@ -69,7 +69,7 @@ doubleFold'' ::
   PlayerTeams
 doubleFold'' (Variation v) (p, ts) =
   case find ((== p) . getFirst) v of
-    Nothing     -> (p, NoTeam : ts)
+    Nothing        -> (p, NoTeam : ts)
     Just (_, t, _) -> (p, t : ts)
 
 -- | Convert a Lineup to its best variation

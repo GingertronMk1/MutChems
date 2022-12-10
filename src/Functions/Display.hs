@@ -1,13 +1,13 @@
 -- | Module: Functions.Display.
 module Functions.Display where
 
+import           Data.Char
 import           Data.List
-import Types.Basic
 import           Functions.Application
+import           Types.Basic
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
-import Data.Char
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
@@ -57,7 +57,7 @@ htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 -- | Print each row of the table, breaking on position changes
 htmlTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
 htmlTablePrintVariation'' _ [] = []
-htmlTablePrintVariation'' oldPos ((player, team, position):ps) = 
+htmlTablePrintVariation'' oldPos ((player, team, position):ps) =
   let thisLine = printf "<tr><td>%s</td><td>%s</td></tr>" $ map unBreakSpaces [player, ppTeamOrMultiple team]
    in if position == oldPos
       then thisLine : htmlTablePrintVariation'' oldPos ps

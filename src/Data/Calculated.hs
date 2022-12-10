@@ -8,6 +8,7 @@ module Data.Calculated where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Ord
+import           Data.Positions
 import           Data.Squad
 import           Functions.Application
 import           Functions.Display
@@ -15,7 +16,6 @@ import           Types.Basic
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
-import Data.Positions
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: Lineup

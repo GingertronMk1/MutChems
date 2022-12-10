@@ -1,7 +1,7 @@
 -- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
-import Functions.Application
+import           Functions.Application
 import           Types.Basic
 import           Types.TeamOrMultiple
 

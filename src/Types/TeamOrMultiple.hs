@@ -1,10 +1,10 @@
 -- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
-import Functions.Application
 import           Data.List
 import           Data.Maybe
 import           Data.Other
+import           Functions.Application
 import           Types.Basic
 
 -- * The Main Event.
