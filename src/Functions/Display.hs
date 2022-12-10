@@ -7,7 +7,7 @@ import           Functions.Application
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
-import Data.Char (toUpper)
+import Data.Char
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
@@ -31,23 +31,20 @@ htmlTablePrintVariation (Variation v) =
     "<table>",
     "<thead>",
     "<tr>",
-    "<th>Player</th>",
-    "<th>Chemistry</th>",
+    surroundInTag "th" "Player",
+    surroundInTag "th" "Chemistry",
     "</tr>",
     "</thead>",
-    "<tbody>",
-    htmlTablePrintVariation' v,
-    "</tbody>",
+    surroundInTag "tbody" $ htmlTablePrintVariation' v,
     "<tfoot>",
     "<tr>",
-    "<td>",
-    "TOTALS",
-    "</td>",
-    "<td>",
-    "<ul>",
-    (intercalate "\n" . map (\(t,i) -> unBreakSpaces $ printf"<li>%s: %s</li>" [t, show i]) . totalsPerSquad) v,
-    "</ul>",
-    "</td>",
+    surroundInTag "td" "TOTALS",
+    surroundInTag "td"
+      . surroundInTag "ul"
+      . intercalate "\n"
+      . map (\(t,i) -> unBreakSpaces $ printf"<li>%s: %s</li>" [t, show i])
+      . totalsPerSquad
+      $ v,
     "</tr>",
     "</tfoot>",
     "</table>"
@@ -68,15 +65,14 @@ htmlTablePrintVariation'' oldPos ((player, team, position):ps) =
 -- | Generate Html for a set of ProspectiveChanges and Variations
 genHtml :: [(ProspectiveChange, Lineup, Variation)] -> String
 genHtml plvs =
-  let tableHead = newLineMap (\(pc,_,_) -> "<th>" ++ unBreakSpaces (ppProspectiveChange pc) ++ "</th>") plvs
+  let tableHead = newLineMap (surroundInTag "th" . unBreakSpaces . ppProspectiveChange  . getFirst) plvs
       tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ htmlTablePrintVariation v ++ "\n\n</td>") plvs
    in intercalate "\n" [
     "<table>",
-    "<tr>",
-    tableHead,
-    "</tr>",
-    "<tr>",
-    tableBody,
-    "</tr>",
+    surroundInTag "tr" tableHead,
+    surroundInTag "tr" tableBody,
     "</table>"
    ]
+
+surroundInTag :: String -> String -> String
+surroundInTag tag content = concat ["<", tag, ">", content, "</", tag, ">"]
