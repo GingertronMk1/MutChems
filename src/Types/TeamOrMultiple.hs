@@ -1,6 +1,7 @@
 -- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
+import Functions.Application
 import           Data.List
 import           Data.Maybe
 import           Data.Other
@@ -40,27 +41,23 @@ instance Ord TeamOrMultiple where
 
 -- * Subsequent types that don't deserve their own file
 
--- | A player and all of their teams.
+-- | A player and all of their teams, as well as their position
 type PlayerTeamsPosition = (Player, [TeamOrMultiple], Position)
+
+-- | A player and all of their teams
 type PlayerTeams = (Player, [TeamOrMultiple])
 
+-- | A basic lineup
 type Lineup = [PlayerTeamsPosition]
 
 -- | A full lineup.
 type LineupWithPositions = [(Position, [(Player, [TeamOrMultiple])])]
 
+-- | Expanding a position across the PlayerTeams within a tuple
 expandPosition :: (Position, [PlayerTeams]) -> [PlayerTeamsPosition]
 expandPosition (p, ptoms) = [(player, toms, p) | (player, toms) <- ptoms]
 
-getFirst :: (a,b,c) -> a
-getFirst (a,_,_) = a
-
-getSecond :: (a,b,c) -> b
-getSecond (_,b,_) = b
-
-getThird :: (a,b,c) -> c
-getThird (_,_,c) = c
-
+-- | Expanding a full lineup to get all options
 expandLineup :: Lineup -> [[(Player, TeamOrMultiple, Position)]]
 expandLineup = map (\(pl, toms, po) -> [(pl, tom, po) | tom <- toms])
 

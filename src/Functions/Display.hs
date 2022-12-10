@@ -50,9 +50,11 @@ htmlTablePrintVariation (Variation v) =
     "</table>"
   ]
 
+-- | Print the internals of a Variation
 htmlTablePrintVariation' :: [(Player, TeamOrMultiple, Position)] -> String
 htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 
+-- | Print each row of the table, breaking on position changes
 htmlTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
 htmlTablePrintVariation'' _ [] = []
 htmlTablePrintVariation'' oldPos ((player, team, position):ps) = 

@@ -144,3 +144,16 @@ newLineMap f = intercalate "\n" . map f
 -- | Convert spaces in a string to non-breaking spaces
 unBreakSpaces :: String -> String
 unBreakSpaces = intercalate "&nbsp;" . words
+
+-- | First item in a tuple of 3
+getFirst :: (a,b,c) -> a
+getFirst (a,_,_) = a
+
+-- | Second item in a tuple of 3
+getSecond :: (a,b,c) -> b
+getSecond (_,b,_) = b
+
+-- | Third item in a tuple of 3
+getThird :: (a,b,c) -> c
+getThird (_,_,c) = c
+
