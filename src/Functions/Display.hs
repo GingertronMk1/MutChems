@@ -2,10 +2,12 @@
 module Functions.Display where
 
 import           Data.List
+import Types.Basic
 import           Functions.Application
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
+import Data.Char (toUpper)
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
@@ -28,20 +30,29 @@ markDownTablePrintVariation (Variation v) =
   intercalate "\n" [
     "| Player | Chemistry |",
     "|---|---|",
-    newLineMap (\(p,tom,_) -> printf "| %s | %s |" (map unBreakSpaces [p, ppTeamOrMultiple tom])) v,
+    markDownTablePrintVariation' v,
     printf "| TOTALS | %s |" [
       (intercalate "<br>" . map (\(t,i) -> unBreakSpaces $ printf "- %s: %s" [t, show i]) . totalsPerSquad) v
     ]
   ]
 
-positionGroupAndPrintTables :: Variation -> String
-positionGroupAndPrintTables (Variation v) = intercalate "\n\n" . map (markDownTablePrintVariation . Variation) . groupBy (\a b -> getThird a == getThird b) $ v
+markDownTablePrintVariation' :: [(Player, TeamOrMultiple, Position)] -> String
+markDownTablePrintVariation' = intercalate "\n" . markDownTablePrintVariation'' "none"
+
+markDownTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
+markDownTablePrintVariation'' _ [] = []
+markDownTablePrintVariation'' oldPos ((player, team, position):ps) = 
+  let thisLine = printf "| %s | %s |" $ map unBreakSpaces [player, ppTeamOrMultiple team]
+   in if position == oldPos
+      then thisLine : markDownTablePrintVariation'' oldPos ps
+      else printf "| **%s** | --- |" [map toUpper position] : thisLine : markDownTablePrintVariation'' position ps
+
 
 -- | Generate MarkDown for a set of ProspectiveChanges and Variations
 genMarkDown :: [(ProspectiveChange, Lineup, Variation)] -> String
 genMarkDown plvs =
   let tableHead = newLineMap (\(pc,_,_) -> "<th>" ++ unBreakSpaces (ppProspectiveChange pc) ++ "</th>") plvs
-      tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ positionGroupAndPrintTables v ++ "\n\n</td>") plvs
+      tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ markDownTablePrintVariation v ++ "\n\n</td>") plvs
    in intercalate "\n" [
     "<table>",
     "<tr>",
