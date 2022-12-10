@@ -76,5 +76,6 @@ genHtml plvs =
     "</table>"
    ]
 
+-- | Pop a string in tags
 surroundInTag :: String -> String -> String
 surroundInTag tag content = concat ["<", tag, ">", content, "</", tag, ">"]
