@@ -15,3 +15,5 @@ type TeamPlayer = (Team, [Player])
 -- | An option for the whole squad's chemistries.
 type Option = [TeamPlayer]
 
+-- | A position
+type Position = String

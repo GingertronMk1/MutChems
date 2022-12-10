@@ -15,7 +15,7 @@ main :: IO()
 main = do
   start <- getSystemTime
   writeFile "output.md"
-    . genMarkDown
+    . genHtml
     . bestOfAllSquadsFn
     . addProspectivesInTurn prospectiveAdditions
     $ squadNoProspectives

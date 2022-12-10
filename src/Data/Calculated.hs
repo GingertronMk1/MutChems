@@ -8,6 +8,7 @@ module Data.Calculated where
 import           Data.Bifunctor
 import           Data.List
 import           Data.Ord
+import           Data.Positions
 import           Data.Squad
 import           Functions.Application
 import           Functions.Display
@@ -20,11 +21,14 @@ import           Types.Variation
 processedStrategy :: Lineup
 processedStrategy = case strategy of
   NoTeam -> []
-  s      ->  [("STRATEGY: " ++ ppTeamOrMultiple s, [s])]
+  s      -> [("STRATEGY: " ++ ppTeamOrMultiple s, [s], strategyCard)]
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
-squadNoProspectives = filter (not . null . snd) $ baseSquad ++ processedStrategy
+squadNoProspectives = filter (\(_,ts,_) -> not (null ts))
+                    . (++processedStrategy)
+                    . concatMap expandPosition
+                    $ baseSquad
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
@@ -64,12 +68,12 @@ numberOfOptionsFiltered :: Int
 numberOfOptionsFiltered = numberOfOptionsFn filteredSquad
 
 -- | Expanding the above squad such that I can sequence it.
-expandedSquad :: [[(Player, TeamOrMultiple)]]
-expandedSquad = expandList filteredSquad
+expandedSquad :: [[(Player, TeamOrMultiple, Position)]]
+expandedSquad = expandLineup filteredSquad
 
 -- | All variations of chems.
 allVariations :: [Variation]
-allVariations = map (Variation . sortOn snd) . sequence $ expandedSquad
+allVariations = map (Variation . sortOn (\(_,ts,_) -> ts)) . sequence $ expandedSquad
 
 -- | Ordered list of Variations.
 sortedVariations :: [Variation]
@@ -85,4 +89,6 @@ doubleFoldedVariations = doubleFoldVariations foldedVariations
 
 -- | ProspectiveChange, Lineup, and Variations for each ProspectiveChange
 bestOfAllSquads :: [(ProspectiveChange, Lineup, Variation)]
-bestOfAllSquads = bestOfAllSquadsFn . addProspectivesInTurn prospectiveAdditions $ squadNoProspectives
+bestOfAllSquads = bestOfAllSquadsFn
+                . addProspectivesInTurn prospectiveAdditions
+                $ squadNoProspectives

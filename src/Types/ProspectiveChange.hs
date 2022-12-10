@@ -10,7 +10,7 @@ data ProspectiveChange
   -- | A Player who will replace another Player in the Lineup
   = Replacement Player PlayerTeams
   -- | A Player who will fit in without displacing another Player
-  | Addition PlayerTeams
+  | Addition PlayerTeamsPosition
   -- | No addition or replacement
   | NoChange
   -- | Removing a player
@@ -35,10 +35,12 @@ addProspectivesInTurn' (p:ps) l =
 -- | Add a single prospective addition to the squad
 addProspective :: ProspectiveChange -> Lineup -> Lineup
 addProspective NoChange l = l
-addProspective (Addition pt) l = l ++ [pt]
-addProspective (Replacement p pt) l =
-  let (firstPart, theRest) = splitAtPredicate ((==p) . fst) l
-   in firstPart ++ [pt] ++ theRest
-addProspective (Removal p) l = filter ((/=p) . fst) l
-addProspective (Removals ps) l = filter (\(p,_) -> p `notElem` ps) l
+addProspective (Addition pt) l =
+  let (befores, firstPosition:afters) = break ((==getThird pt) . getThird) l
+   in befores ++ (pt:firstPosition:afters)
+addProspective (Replacement p (newP, newPTs)) l =
+  let (firstPart, (_,_,oldPosition):theRest) = break ((==p) . getFirst) l
+   in firstPart ++ ((newP, newPTs, oldPosition):theRest)
+addProspective (Removal p) l = filter ((/=p) . getFirst) l
+addProspective (Removals ps) l = filter ((`notElem` ps) . getFirst) l
 

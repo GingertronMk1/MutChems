@@ -5,8 +5,8 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
+import           Data.Char (isDigit)
 import           Data.List
-import Data.Char (isDigit)
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
@@ -45,14 +45,6 @@ orderListOfInts xs ys
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
     maxComp = compare (maximum xs) (maximum ys)
-
--- | Expand a tuple whos second element is a list into a list of tuples.
-expandTuple :: (a, [b]) -> [(a, b)]
-expandTuple (a, bs) = [(a, b) | b <- bs]
-
--- | Expand a list of tuples into a list of lists of tuples
-expandList :: [(a, [b])] -> [[(a, b)]]
-expandList = map expandTuple
 
 -- | Function to get the largest values from a list
 maximumValues ::
@@ -127,7 +119,7 @@ splitAtPredicate' p (l, x:xs) =
 -- | Print an integer number with commas as thousands separators
 ppNumber :: Integral a => a -> String
 ppNumber n =
-  let fn = reverse . ppNumber' . reverse 
+  let fn = reverse . ppNumber' . reverse
       nString = show $ toInteger n
       (firstBit, lastBit) = break isDigit nString
    in firstBit ++ fn lastBit
@@ -152,3 +144,16 @@ newLineMap f = intercalate "\n" . map f
 -- | Convert spaces in a string to non-breaking spaces
 unBreakSpaces :: String -> String
 unBreakSpaces = intercalate "&nbsp;" . words
+
+-- | First item in a tuple of 3
+getFirst :: (a,b,c) -> a
+getFirst (a,_,_) = a
+
+-- | Second item in a tuple of 3
+getSecond :: (a,b,c) -> b
+getSecond (_,b,_) = b
+
+-- | Third item in a tuple of 3
+getThird :: (a,b,c) -> c
+getThird (_,_,c) = c
+
