@@ -141,6 +141,13 @@ prospectiveAdditions =
       Team titans
     ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Plaxico Burress" ("Deion Sanders (WR)", [Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys])
+    Replacement "Plaxico Burress" ("Deion Sanders (WR)", [
+      Team legends,
+      Team ravens,
+      Team niners,
+      Team falcons,
+      Team commanders,
+      Team cowboys
+    ])
   ]
 
