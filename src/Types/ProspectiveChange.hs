@@ -15,8 +15,6 @@ data ProspectiveChange
   | NoChange
   -- | Removing a player
   | Removal Player
-  -- | Removing multiple players in one go
-  | Removals [Player]
   deriving (Eq, Show)
 
 -- * Functions to add prospective changes to a Lineup
@@ -42,5 +40,3 @@ addProspective (Replacement p (newP, newPTs)) l =
   let (firstPart, (_,_,oldPosition):theRest) = break ((==p) . getFirst) l
    in firstPart ++ ((newP, newPTs, oldPosition):theRest)
 addProspective (Removal p) l = filter ((/=p) . getFirst) l
-addProspective (Removals ps) l = filter ((`notElem` ps) . getFirst) l
-

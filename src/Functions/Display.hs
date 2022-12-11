@@ -22,7 +22,6 @@ ppProspectiveChange NoChange = "No change"
 ppProspectiveChange (Addition (p, _, _)) = printf "Adding %s" [p]
 ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1, p2]
 ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
-ppProspectiveChange (Removals ps) = printf "Getting rid of %s" [printListWithAnd ps]
 
 -- | Print a Variation as a Html table
 htmlTablePrintVariation :: Variation -> String

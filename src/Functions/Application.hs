@@ -5,7 +5,6 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
-import           Data.Char (isDigit)
 import           Data.List
 
 -- | Take the mean of a list of Integral values.
@@ -80,20 +79,6 @@ printf' new "" _                              = concat . reverse $ new
 printf' new ('%' : 's' : olds) (item : items) = printf' (item : new) olds items
 printf' new (old : olds) items                = printf' ([old] : new) olds items
 
--- | Rotate a rectangular list.
--- By "rectangular" I mean that each sublist must be of the same length for it
--- to work properly.
-rotate :: [[a]] -> [[a]]
-rotate = rotate' []
-
--- | Helper function for the above, dropping and taking.
-rotate' :: [[a]] -> [[a]] -> [[a]]
-rotate' xs ys
-  | null thisCol = reverse xs
-  | otherwise = rotate' (thisCol:xs) theRest
-  where thisCol = map head ys
-        theRest = map tail ys
-
 -- | Kind of a compression algorithm?
 -- Take a list of items and compress them into tuples
 -- containing the item and how many times it appears in the list
@@ -102,26 +87,6 @@ firstAndLength [] = []
 firstAndLength xs@(x:_) =
   let (ins, outs) = partition (==x) xs
    in (x, length ins) : firstAndLength outs
-
--- | Print an integer number with commas as thousands separators
-ppNumber :: Integral a => a -> String
-ppNumber n =
-  let fn = reverse . ppNumber' . reverse
-      nString = show $ toInteger n
-      (firstBit, lastBit) = break isDigit nString
-   in firstBit ++ fn lastBit
-
--- | Helper function for the above
-ppNumber' :: String -> String
-ppNumber' n@[_,_,_]  = n
-ppNumber' (x:y:z:ns) = (x:y:z:",") ++ ppNumber' ns
-ppNumber' ns         = ns
-
--- | Print a list of Strings finishing with an "and" before the final item
-printListWithAnd :: [String] -> String
-printListWithAnd [s] = s
-printListWithAnd ss@[_,_] = printf "%s and %s" ss
-printListWithAnd ss = printf "%s, and %s" [intercalate ", " (init ss), last ss]
 
 -- | Using a function to convert an input to a String, convert a list of such
 -- inputs to strings and collate them with newlines
