@@ -32,13 +32,13 @@ orderListOfInts ::
   -- | Tuple containing the Ordering of the lists and a String denoting what has led to this Ordering.
   (Ordering, String)
 orderListOfInts xs ys
-  | sumComp /= EQ = (sumComp, "Sum")
+  | meanComp /= EQ = (meanComp, "Mean")
   | numComp /= EQ = (numComp, "5s")
   | maxComp /= EQ = (maxComp, "Max")
   | distComp /= EQ = (distComp, "Dist")
   | otherwise = (EQ, "Tried all of em")
   where
-    sumComp = compare (sum xs) (sum ys)
+    meanComp = compare (mean xs) (mean ys)
     num5s = length . filter (== 0) . map (`mod` 5)
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
