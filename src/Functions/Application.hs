@@ -20,7 +20,6 @@ distanceFrom5 n = distanceFrom5' $ mod n 5
 distanceFrom5' :: Int -> Int
 distanceFrom5' n = min n (5 - n)
 
-
 -- | Take the average distance from a multiple of 5 that a list of numbers are.
 avgDistanceFromMultiplesOf5 :: [Int] -> Float
 avgDistanceFromMultiplesOf5 = mean . map distanceFrom5
@@ -103,18 +102,6 @@ firstAndLength [] = []
 firstAndLength xs@(x:_) =
   let (ins, outs) = partition (==x) xs
    in (x, length ins) : firstAndLength outs
-
--- | Split a list at the first element that satisfies a predicate, removing that element in the process
-splitAtPredicate :: (a -> Bool) -> [a] -> ([a], [a])
-splitAtPredicate p l = let (befores, _:afters) = break p l in (befores, afters)
-
--- | Helper/accumulator for the above
-splitAtPredicate' :: (a -> Bool) -> ([a], [a]) -> ([a], [a])
-splitAtPredicate' _ (l, []) = (reverse l, [])
-splitAtPredicate' p (l, x:xs) =
-  if p x
-  then (reverse l, xs)
-  else splitAtPredicate' p (x:l, xs)
 
 -- | Print an integer number with commas as thousands separators
 ppNumber :: Integral a => a -> String
