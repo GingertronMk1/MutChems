@@ -21,8 +21,8 @@ baseSquad =
       ("Travis Etienne Jr", [Team jaguars])
     ]),
     (fb,[
-      ("Nightmare", [Team legends, Team chiefs]),
-      ("Patrick Ricard", [Team ravens])
+      ("Patrick Ricard", [Team ravens]),
+      ("Khari Blasingame", [Team titans, Team bears])
     ]),
     (te,[
       ("Dave Casper", all32TeamsPlusLegends),
@@ -34,7 +34,13 @@ baseSquad =
       ("AJ Brown", [Team eagles, Team titans]),
       ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
       ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
-      ("Breshad Perriman", [Team bears, Team browns, Team buccaneers, Team jets, Team ravens])
+      ("Devin Hester", [
+            Team legends,
+            Team ravens,
+            Team falcons,
+            Team seahawks,
+            Team bears
+          ])
     ]),
     (lt,[
       ("Joe Thomas", [Team browns]),
@@ -127,14 +133,6 @@ strategy = MultipleTeam titans 2
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Nightmare" ("Khari Blasingame", [Team titans, Team bears]),
-    Replacement "Breshad Perriman" ("Devin Hester", [
-      Team legends,
-      Team ravens,
-      Team falcons,
-      Team seahawks,
-      Team bears
-    ]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
