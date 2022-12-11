@@ -35,7 +35,7 @@ jobs:
         run: stack run
       - id: buildstep
         name: Build docs
-        run: ./bin/docs.sh
+        run: ./bin/docs
       - name: Upload docs for next step
         uses: actions/upload-artifact@v2
         with:
