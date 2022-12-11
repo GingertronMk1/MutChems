@@ -14,10 +14,11 @@ import           Types.Variation
 main :: IO()
 main = do
   start <- getSystemTime
-  writeFile "output.md"
-    . genHtml
-    . bestOfAllSquadsFn
-    . addProspectivesInTurn prospectiveAdditions
-    $ squadNoProspectives
+  let html = genHtml
+           . bestOfAllSquadsFn
+           . addProspectivesInTurn prospectiveAdditions
+           $ squadNoProspectives
+  writeFile "output.md" html
+  writeFile "output.html" html
   end <- getSystemTime
   putStrLn $ printf "Done in %s seconds" [show (systemSeconds end - systemSeconds start)]

@@ -1,6 +1,6 @@
 .stack-work/
 *~
-output.md
+output.*
 docdir.txt
 docs/**/*
 *.prof
