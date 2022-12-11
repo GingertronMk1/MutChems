@@ -135,6 +135,7 @@ strategy = [
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
+    Replacement "Shaquill Griffin" ("Samari Rolle", [Team legends, Team ravens, MultipleTeam titans 2]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
@@ -159,6 +160,7 @@ prospectiveAdditions =
       Team falcons,
       Team commanders,
       Team cowboys
-    ])
+    ]),
+    Replacement "Mark Glowinski" ("Nate Davis", afcSouth)
   ]
 
