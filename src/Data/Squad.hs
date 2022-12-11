@@ -145,6 +145,10 @@ prospectiveAdditions =
       Team texans,
       Team titans
     ]),
+    Replacement "Sauce Gardner" ("Adoree Jackson", [
+      Team giants,
+      Team titans
+    ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     Replacement "Plaxico Burress" ("Deion Sanders (WR)", [
       Team legends,
