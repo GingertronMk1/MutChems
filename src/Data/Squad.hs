@@ -128,8 +128,7 @@ baseSquad =
 -- | Team affinity strategy card.
 strategy :: [TeamOrMultiple]
 strategy = [
-  MultipleTeam titans 2,
-  MultipleTeam titans 5
+    MultipleTeam titans 5
   ]
 
 -- | Players I'm looking into.
