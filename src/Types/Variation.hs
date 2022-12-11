@@ -3,7 +3,6 @@
 module Types.Variation where
 
 import           Data.Teams
-
 import           Data.List
 import           Data.Ord
 import           Functions.Application
