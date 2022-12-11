@@ -1,4 +1,3 @@
-{-# LANGUAGE TupleSections #-}
 -- | Module: Types.Variation
 module Types.Variation where
 
@@ -16,11 +15,12 @@ newtype Variation
   deriving (Eq, Show)
 
 instance Ord Variation where
-  compare v1 v2 = case orderListOfInts (map snd $ convertFn v1) (map snd $ convertFn v2) of
+  compare v1 v2 = case orderListOfInts (convertFn v1) (convertFn v2) of
     (EQ, _) -> runThroughPreferences preferences v1 v2
     (c, _)  -> c
     where
-      convertFn = firstAndLength
+      convertFn = map snd
+                . firstAndLength
                 . variationToTeams
 
 -- | Take a list of Teams in order and give a comparison of 2 Team/Int tuples
