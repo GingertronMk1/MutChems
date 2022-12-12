@@ -115,7 +115,7 @@ baseSquad =
       ("Benjamin St Juste", [Team commanders]),
       ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
       ("Shaquill Griffin", [Team seahawks, Team jaguars]),
-      ("Sauce Gardner", [Team jets])
+      ("Adoree Jackson", [Team giants, Team titans])
     ]),
     (k,[
       ("Graham Gano", [Team giants, Team panthers, Team commanders])
@@ -135,7 +135,11 @@ strategy = [
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Shaquill Griffin" ("Samari Rolle", [Team legends, Team ravens, MultipleTeam titans 2]),
+    Replacement "Shaquill Griffin" ("Samari Rolle", [
+      Team legends,
+      Team ravens,
+      MultipleTeam titans 2
+    ]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
@@ -146,10 +150,6 @@ prospectiveAdditions =
       Team jets,
       Team rams,
       Team texans,
-      Team titans
-    ]),
-    Replacement "Sauce Gardner" ("Adoree Jackson", [
-      Team giants,
       Team titans
     ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
