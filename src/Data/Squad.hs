@@ -9,8 +9,7 @@ import           Types.TeamOrMultiple
 
 -- | Base squad.
 baseSquad :: LineupWithPositions
-baseSquad =
-  [
+baseSquad = [
     (qb,[
       ("Air McNair", [Team legends, Team titans, Team ravens]),
       ("Christian McCaffrey (QB)", [Team niners, Team panthers])
@@ -140,8 +139,7 @@ strategy = [
 
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
-prospectiveAdditions =
-  [
+prospectiveAdditions = [
     Replacement "Shaquill Griffin" ("Samari Rolle", [
       Team legends,
       Team ravens,
