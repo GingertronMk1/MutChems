@@ -1,7 +1,6 @@
 -- | Module: Functions.Display.
 module Functions.Display where
 
-import           Data.Char
 import           Data.List
 import           Functions.Application
 import           Types.Basic
@@ -26,27 +25,27 @@ ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
 -- | Print a Variation as a Html table
 htmlTablePrintVariation :: Variation -> String
 htmlTablePrintVariation (Variation v) =
-  intercalate "\n" [
-    "<table>",
-    "<thead>",
-    "<tr>",
-    surroundInTag "th" "Player",
-    surroundInTag "th" "Chemistry",
-    "</tr>",
-    "</thead>",
+  surroundInTag "table"
+  . concat
+  $ [
+    -- The head of the table, just 2 cells saying "Player" and "Chemistry"
+    surroundInTag "thead"
+    . surroundInTag "tr"
+    . concatMap (surroundInTag "th")
+    $ ["Player", "Chemistry"],
+    -- The body of the table, containing all players and their chemistry in this Variation
     surroundInTag "tbody" $ htmlTablePrintVariation' v,
-    "<tfoot>",
-    "<tr>",
-    surroundInTag "td" "TOTALS",
-    surroundInTag "td"
-      . surroundInTag "ul"
-      . intercalate "\n"
-      . map (\(t,i) -> unBreakSpaces $ printf"<li>%s: %s</li>" [t, show i])
+    -- The foot of the table, containing a list of all chemistries and how many there are
+    surroundInTag "tfoot"
+    . surroundInTag "tr"
+    . concatMap (surroundInTag "td")
+    $ [
+      "TOTALS",
+      surroundInTag "ul"
+      . newLineMap (\(t,i) -> unBreakSpaces . surroundInTag "li" $ t ++ ": " ++ show i)
       . totalsPerSquad
-      $ v,
-    "</tr>",
-    "</tfoot>",
-    "</table>"
+      $ v
+    ]
   ]
 
 -- | Print the internals of a Variation
@@ -60,7 +59,7 @@ htmlTablePrintVariation'' oldPos ((player, team, position):ps) =
   let thisLine = printf "<tr><td>%s</td><td>%s</td></tr>" $ map unBreakSpaces [player, ppTeamOrMultiple team]
    in if position == oldPos
       then thisLine : htmlTablePrintVariation'' oldPos ps
-      else printf "<tr><td colspan=2><b>%s</b></td></tr>" [map toUpper position] : thisLine : htmlTablePrintVariation'' position ps
+      else (surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ position) : thisLine : htmlTablePrintVariation'' position ps
 
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
@@ -77,4 +76,15 @@ genHtml plvs =
 
 -- | Pop a string in tags
 surroundInTag :: String -> String -> String
-surroundInTag tag content = concat ["<", tag, ">", content, "</", tag, ">"]
+surroundInTag openingTag content =
+  let (tag:attributes) = words openingTag
+   in concat [
+        "<",
+        tag,
+        concatMap (' ':) attributes,
+        ">",
+        content,
+        "</",
+        tag,
+        ">"
+      ]
