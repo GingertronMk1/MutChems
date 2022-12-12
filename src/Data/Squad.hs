@@ -32,15 +32,22 @@ baseSquad =
     (wr,[
       ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
       ("AJ Brown", [Team eagles, Team titans]),
-      ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans]),
-      ("Plaxico Burress", [Team legends, Team giants, Team jets, Team steelers]),
       ("Devin Hester", [
-            Team legends,
-            Team ravens,
-            Team falcons,
-            Team seahawks,
-            Team bears
-          ])
+        Team legends,
+        Team ravens,
+        Team falcons,
+        Team seahawks,
+        Team bears
+      ]),
+      ("Deion Sanders (WR)", [
+        Team legends,
+        Team ravens,
+        Team niners,
+        Team falcons,
+        Team commanders,
+        Team cowboys
+      ]),
+      ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
     ]),
     (lt,[
       ("Joe Thomas", [Team browns]),
@@ -153,14 +160,6 @@ prospectiveAdditions =
       Team titans
     ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Plaxico Burress" ("Deion Sanders (WR)", [
-      Team legends,
-      Team ravens,
-      Team niners,
-      Team falcons,
-      Team commanders,
-      Team cowboys
-    ]),
     Replacement "Mark Glowinski" ("Nate Davis", afcSouth)
   ]
 
