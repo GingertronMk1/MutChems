@@ -7,88 +7,88 @@ import           Types.Basic
 
 -- | Quarterback
 qb :: Position
-qb = "qb"
+qb = "Quarterback"
 
 -- | Halfback
 hb :: Position
-hb = "hb"
+hb = "Halfback"
 
 -- | Fullback
 fb :: Position
-fb = "fb"
+fb = "Fullback"
 
 -- | Wide Receiver
 wr :: Position
-wr = "wr"
+wr = "Wide Receiver"
 
 -- | Tight End
 te :: Position
-te = "te"
+te = "Tight End"
 
 -- | Left Tackle
 lt :: Position
-lt = "lt"
+lt = "Left Tackle"
 
 -- | Left Guard
 lg :: Position
-lg = "lg"
+lg = "Left Guard"
 
 -- | Center
 c :: Position
-c = "c"
+c = "Center"
 
 -- | Right Guard
 rg :: Position
-rg = "rg"
+rg = "Right Guard"
 
 -- | Right Tackle
 rt :: Position
-rt = "rt"
+rt = "Right Tackle"
 
 -- | Free Safety
 fs :: Position
-fs = "fs"
+fs = "Free Safety"
 
 -- | Right Outside Linebacker
 rolb :: Position
-rolb = "rolb"
+rolb = "Right Outside Linebacker"
 
 -- | Middle Linebacker
 mlb :: Position
-mlb = "mlb"
+mlb = "Middle Linebacker"
 
 -- | Left Outside Linebacker
 lolb :: Position
-lolb = "lolb"
+lolb = "Left Outside Linebacker"
 
 -- | Strong Safety
 ss :: Position
-ss = "ss"
+ss = "Strong Safety"
 
 -- | Cornerback
 cb :: Position
-cb = "cb"
+cb = "Cornerback"
 
 -- | Right Defensive End
 re :: Position
-re = "re"
+re = "Right Defensive End"
 
 -- | Defensive Tackle
 dt :: Position
-dt = "dt"
+dt = "Defensive Tackle"
 
 -- | Left Defensive End
 le :: Position
-le = "le"
+le = "Left Defensive End"
 
 -- | Kicker
 k :: Position
-k = "k"
+k = "Kicker"
 
 -- | Punter
 p :: Position
-p = "p"
+p = "Punter"
 
 -- | Strategy Cards
 strategyCard :: Position
-strategyCard = "strategy card"
+strategyCard = "Strategy Card"
