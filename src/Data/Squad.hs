@@ -113,8 +113,8 @@ baseSquad = [
       ("Talanoa Hufanga", [Team niners])
     ]),
     (fs,[
-      ("Malik Hooker", [Team colts, Team cowboys]),
-      ("Eddie Jackson", [Team bears])
+      ("Kevin Byard", [Team titans]),
+      ("Malik Hooker", [Team colts, Team cowboys])
     ]),
     (cb,[
       ("Deion Sanders", all32TeamsPlusLegends),
