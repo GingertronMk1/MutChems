@@ -121,7 +121,11 @@ baseSquad =
       ("Deion Sanders", all32TeamsPlusLegends),
       ("Benjamin St Juste", [Team commanders]),
       ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
-      ("Shaquill Griffin", [Team seahawks, Team jaguars]),
+      ("Samari Rolle", [
+        Team legends,
+        Team ravens,
+        MultipleTeam titans 2
+      ]),
       ("Adoree Jackson", [Team giants, Team titans])
     ]),
     (k,[
@@ -142,11 +146,6 @@ strategy = [
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [
-    Replacement "Shaquill Griffin" ("Samari Rolle", [
-      Team legends,
-      Team ravens,
-      MultipleTeam titans 2
-    ]),
     Replacement "Air McNair" ("Ryan Fitzpatrick", [
       Team legends,
       Team bengals,
