@@ -1,9 +1,9 @@
 -- | Module: Types.Variation
 module Types.Variation where
 
-import           Data.Teams
 import           Data.List
 import           Data.Ord
+import           Data.Teams
 import           Functions.Application
 import           Types.Basic
 import           Types.ProspectiveChange
