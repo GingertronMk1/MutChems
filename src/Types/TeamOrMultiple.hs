@@ -153,3 +153,8 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . getFirst) l)
 -- their teams and filtered by team popularity
 convertSquad :: Lineup -> Lineup
 convertSquad = fst . filteredSquadFn
+
+-- | See all the players in a Lineup that have a given Team chemistry as an option
+numberOfPlayersOnTeam :: Team -> Lineup -> [Player]
+numberOfPlayersOnTeam t = map getFirst
+                        . filter (\(_,toms,_) -> t `elem` concatMap expandTeamOrMultiple toms)
