@@ -29,8 +29,8 @@ baseSquad = [
       ("Hayden Hurst", [Team ravens, Team falcons, Team bengals])
     ]),
     (wr,[
+      ("Calvin Johnson", [Team lions, Team legends]),
       ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
-      ("AJ Brown", [Team eagles, Team titans]),
       ("Devin Hester", [
         Team legends,
         Team ravens,
@@ -105,7 +105,7 @@ baseSquad = [
       ])
     ]),
     (re,[
-      ("Aaron Donald", [Team rams]),
+      ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
       ("Aidan Hutchinson", [Team lions])
     ]),
     (ss,[
