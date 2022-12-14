@@ -23,7 +23,7 @@ baseSquad = [
         Team texans,
         Team titans
       ]),
-      ("Christian McCaffrey (QB)", [Team niners, Team panthers])
+      ("Tim Tebow", [Team legends, Team broncos, Team jets])
     ]),
     (hb,[
       ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
