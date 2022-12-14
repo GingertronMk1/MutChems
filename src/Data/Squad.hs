@@ -32,7 +32,7 @@ baseSquad = [
     ]),
     (fb,[
       ("Patrick Ricard", [Team ravens]),
-      ("Khari Blasingame", [Team titans, Team bears])
+      ("Jim Taylor", [Team legends, Team packers, Team saints])
     ]),
     (te,[
       ("Dave Casper", all32TeamsPlusLegends),
@@ -156,7 +156,7 @@ strategy = [
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Khari Blasingame" ("Nightmare", [Team legends, Team chiefs]),
+    Replacement "Patrick Ricard" ("Nightmare", [Team legends, Team chiefs]),
     Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders])
   ]
 
