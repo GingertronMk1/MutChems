@@ -42,21 +42,8 @@ baseSquad = [
     (wr,[
       ("Calvin Johnson", [Team lions, Team legends]),
       ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
-      ("Devin Hester", [
-        Team legends,
-        Team ravens,
-        Team falcons,
-        Team seahawks,
-        Team bears
-      ]),
-      ("Deion Sanders (WR)", [
-        Team legends,
-        Team ravens,
-        Team niners,
-        Team falcons,
-        Team commanders,
-        Team cowboys
-      ]),
+      ("Devin Hester", [Team legends, Team ravens, Team falcons, Team seahawks, Team bears]),
+      ("Deion Sanders (WR)", [ Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys]),
       ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
     ]),
     (lt,[
@@ -101,19 +88,7 @@ baseSquad = [
     ]),
     (le,[
       ("Jevon Kearse", [Team legends, Team titans, Team eagles]),
-      ("George Karlaftis", [
-        Team chiefs,
-        Team vikings,
-        Team saints,
-        Team giants,
-        Team packers,
-        Team broncos,
-        Team jaguars,
-        Team niners,
-        Team cardinals,
-        Team seahawks,
-        Team buccaneers
-      ])
+      ("George Karlaftis", [Team broncos, Team buccaneers, Team cardinals, Team chiefs, Team giants, Team jaguars, Team niners, Team packers, Team saints, Team seahawks, Team vikings])
     ]),
     (re,[
       ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
@@ -131,11 +106,7 @@ baseSquad = [
       ("Deion Sanders", all32TeamsPlusLegends),
       ("Benjamin St Juste", [Team commanders]),
       ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
-      ("Samari Rolle", [
-        Team legends,
-        Team ravens,
-        MultipleTeam titans 2
-      ]),
+      ("Samari Rolle", [Team legends, Team ravens, MultipleTeam titans 2]),
       ("Adoree Jackson", [Team giants, Team titans])
     ]),
     (k,[
@@ -155,8 +126,11 @@ strategy = [
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
+    -- Zero chill forge
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
+    -- Auction
     Replacement "Patrick Ricard" ("Nightmare", [Team legends, Team chiefs]),
+    -- Zero Chill field pass final reward
     Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders])
   ]
 
