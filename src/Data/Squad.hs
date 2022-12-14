@@ -89,7 +89,7 @@ baseSquad = [
       ("Tony Siragusa", [Team legends, Team ravens, Team colts])
     ]),
     (le,[
-      ("Julius Peppers", [Team legends, Team panthers, Team packers, Team bears]),
+      ("Jevon Kearse", [Team legends, Team titans, Team eagles]),
       ("George Karlaftis", [
         Team chiefs,
         Team vikings,
