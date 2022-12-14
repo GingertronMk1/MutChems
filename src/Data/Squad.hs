@@ -156,6 +156,7 @@ strategy = [
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
+    Replacement "Khari Blasingame" ("Nightmare", [Team legends, Team chiefs]),
     Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders])
   ]
 
