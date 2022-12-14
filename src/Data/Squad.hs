@@ -157,6 +157,7 @@ prospectiveAdditions = [
       Team titans
     ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Mark Glowinski" ("Nate Davis", afcSouth)
+    Replacement "Graham Gano" ("Adam Vinatieri", [Team legends, Team colts, Team patriots]),
+    Replacement "Malik Hooker" ("Steve Atwater", [Team legends, Team broncos])
   ]
 
