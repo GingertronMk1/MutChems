@@ -11,7 +11,18 @@ import           Types.TeamOrMultiple
 baseSquad :: LineupWithPositions
 baseSquad = [
     (qb,[
-      ("Air McNair", [Team legends, Team titans, Team ravens]),
+      ("Ryan Fitzpatrick", [
+        Team legends,
+        Team bengals,
+        Team bills,
+        Team buccaneers,
+        Team commanders,
+        Team dolphins,
+        Team jets,
+        Team rams,
+        Team texans,
+        Team titans
+      ]),
       ("Christian McCaffrey (QB)", [Team niners, Team panthers])
     ]),
     (hb,[
@@ -65,7 +76,7 @@ baseSquad = [
       ("Mark Glowinski", [Team giants, Team colts, Team seahawks])
     ]),
     (rt,[
-      ("Tristan Wirfs", [Team buccaneers]),
+      ("Willie Anderson", [Team legends, Team bengals, Team ravens]),
       ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings])
     ]),
     (mlb,[
@@ -109,8 +120,8 @@ baseSquad = [
       ("Aidan Hutchinson", [Team lions])
     ]),
     (ss,[
-      ("Isaiah Pola-Mao", [Team raiders]),
-      ("Talanoa Hufanga", [Team niners])
+      ("John Lynch", [Team legends, Team buccaneers, Team broncos]),
+      ("Isaiah Pola-Mao", [Team raiders])
     ]),
     (fs,[
       ("Kevin Byard", [Team titans]),
@@ -128,7 +139,7 @@ baseSquad = [
       ("Adoree Jackson", [Team giants, Team titans])
     ]),
     (k,[
-      ("Graham Gano", [Team giants, Team panthers, Team commanders])
+      ("Adam Vinatieri", [Team legends, Team colts, Team patriots])
     ]),
    (p,[
       ("Ray Guy", [Team legends, Team raiders])
@@ -144,20 +155,7 @@ strategy = [
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
-    Replacement "Air McNair" ("Ryan Fitzpatrick", [
-      Team legends,
-      Team bengals,
-      Team bills,
-      Team buccaneers,
-      Team commanders,
-      Team dolphins,
-      Team jets,
-      Team rams,
-      Team texans,
-      Team titans
-    ]),
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    Replacement "Graham Gano" ("Adam Vinatieri", [Team legends, Team colts, Team patriots]),
-    Replacement "Malik Hooker" ("Steve Atwater", [Team legends, Team broncos])
+    Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders])
   ]
 
