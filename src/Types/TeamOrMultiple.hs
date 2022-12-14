@@ -155,6 +155,6 @@ convertSquad :: Lineup -> Lineup
 convertSquad = fst . filteredSquadFn
 
 -- | See all the players in a Lineup that have a given Team chemistry as an option
-numberOfPlayersOnTeam :: Team -> Lineup -> [Player]
-numberOfPlayersOnTeam t = map getFirst
-                        . filter (\(_,toms,_) -> t `elem` concatMap expandTeamOrMultiple toms)
+numberOfPlayersOnTeam :: Team -> Lineup -> ([PlayerTeamsPosition], [PlayerTeamsPosition])
+numberOfPlayersOnTeam t = (\(ins, outs) -> (ins, outs))
+                        . partition (\(_,toms,_) -> t `elem` concatMap expandTeamOrMultiple toms)

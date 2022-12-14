@@ -88,3 +88,14 @@ surroundInTag openingTag content =
         tag,
         ">"
       ]
+
+ppNumberOfPlayersOnTeam :: Team -> Lineup -> String
+ppNumberOfPlayersOnTeam t l = let (ins, outs) = numberOfPlayersOnTeam t l
+                                  ppPlayer (p,_,pos) = printf "- %s | %s" [p,pos]
+                               in intercalate "\n" [
+                                printf "Has %s chemistry" [t],
+                                newLineMap ppPlayer ins,
+                                "\n",
+                                printf "Does not have %s chemistry" [t],
+                                newLineMap ppPlayer outs
+                               ]
