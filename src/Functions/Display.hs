@@ -89,13 +89,22 @@ surroundInTag openingTag content =
         ">"
       ]
 
-ppNumberOfPlayersOnTeam :: Team -> Lineup -> String
-ppNumberOfPlayersOnTeam t l = let (ins, outs) = numberOfPlayersOnTeam t l
+ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
+ppNumberOfPlayersOnTeam l t = let (ins, outs) = numberOfPlayersOnTeam l t
                                   ppPlayer (p,_,pos) = printf "- %s | %s" [p,pos]
                                in intercalate "\n" [
                                 printf "Has %s chemistry" [t],
+                                "",
                                 newLineMap ppPlayer ins,
-                                "\n",
+                                "",
                                 printf "Does not have %s chemistry" [t],
+                                "",
                                 newLineMap ppPlayer outs
                                ]
+
+ppNumberOfPlayersOnEveryTeam :: Lineup -> String
+ppNumberOfPlayersOnEveryTeam l =
+  let allTeams = sort . nub . allTeamsFn $ l
+   in intercalate "\n\n---\n\n"
+    . map (\t -> printf "# %s\n\n%s" [t, ppNumberOfPlayersOnTeam l t])
+    $ allTeams

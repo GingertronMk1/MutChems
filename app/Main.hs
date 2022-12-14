@@ -14,7 +14,9 @@ import           Types.Variation
 main :: IO()
 main = do
   start <- getSystemTime
-  let html = genHtml
+  let html = (++ ppNumberOfPlayersOnEveryTeam squadNoProspectives)
+           . (++ "\n\n---\n\n")
+           . genHtml
            . bestOfAllSquadsFn
            . addProspectivesInTurn prospectiveAdditions
            $ squadNoProspectives
