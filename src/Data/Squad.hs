@@ -11,18 +11,7 @@ import           Types.TeamOrMultiple
 baseSquad :: LineupWithPositions
 baseSquad = [
     (qb,[
-      ("Ryan Fitzpatrick", [
-        Team legends,
-        Team bengals,
-        Team bills,
-        Team buccaneers,
-        Team commanders,
-        Team dolphins,
-        Team jets,
-        Team rams,
-        Team texans,
-        Team titans
-      ]),
+      ("Ryan Fitzpatrick", [Team bengals, Team bills, Team buccaneers, Team commanders, Team dolphins, Team jets, Team legends, Team rams, Team texans, Team titans]),
       ("Tim Tebow", [Team legends, Team broncos, Team jets])
     ]),
     (hb,[
