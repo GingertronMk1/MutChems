@@ -252,4 +252,4 @@ all32TeamsPlusLegends = Team legends : all32Teams
 
 -- | The theme teams I would rather make
 preferences :: [Team]
-preferences = [titans, legends, seahawks, eagles, raiders]
+preferences = [legends, titans, seahawks, eagles, raiders]
