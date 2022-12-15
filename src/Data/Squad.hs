@@ -41,7 +41,7 @@ baseSquad = [
     ]),
     (lg,[
       ("Quenton Nelson", [Team colts]),
-      ("Alan Faneca", [Team legends, Team steelers, Team jets])
+      ("Alan Faneca", [Team legends, Team steelers, Team jets, Team cardinals])
     ]),
     (c,[
       ("Creed Humphrey", [Team chiefs]),
@@ -54,12 +54,11 @@ baseSquad = [
     (rt,[
       ("Willie Anderson", [Team legends, Team bengals, Team ravens]),
       ("Gary Zimmerman", [Team legends, Team broncos, Team vikings])
-      -- ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings])
     ]),
     (mlb,[
       ("Devin Bush", [Team steelers]),
       ("Bobby Wagner", [Team seahawks, Team rams]),
-      ("Roquan Smith", [Team bears, Team ravens]),
+      ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
       ("Kiko Alonso", [Team legends, Team bills, Team dolphins, Team eagles, Team saints])
     ]),
     (rolb,[
@@ -67,7 +66,7 @@ baseSquad = [
       ("Jonathan Casillas", [Team legends, Team buccaneers, Team giants, Team patriots, Team saints])
     ]),
     (lolb,[
-      ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
+      ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants]),
       ("Bruce Irvin", [Team seahawks, Team bears, Team falcons, Team panthers, Team raiders])
     ]),
     (dt,[
@@ -114,7 +113,6 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
-    Replacement "Bruce Irvin" ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants]),
     -- Zero chill forge
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     -- Auction
