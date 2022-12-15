@@ -41,7 +41,7 @@ baseSquad = [
     ]),
     (lg,[
       ("Quenton Nelson", [Team colts]),
-      ("Andrew Norwell", [Team commanders, Team jaguars, Team panthers])
+      ("Alan Faneca", [Team legends, Team steelers, Team jets])
     ]),
     (c,[
       ("Creed Humphrey", [Team chiefs]),
@@ -53,7 +53,8 @@ baseSquad = [
     ]),
     (rt,[
       ("Willie Anderson", [Team legends, Team bengals, Team ravens]),
-      ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings])
+      ("Gary Zimmerman", [Team legends, Team broncos, Team vikings])
+      -- ("Tom Compton", [Team niners, Team bears, Team broncos, Team commanders, Team falcons, Team jets, Team vikings])
     ]),
     (mlb,[
       ("Devin Bush", [Team steelers]),
@@ -113,6 +114,7 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
+    Replacement "Bruce Irvin" ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants]),
     -- Zero chill forge
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     -- Auction
@@ -120,8 +122,6 @@ prospectiveAdditions = [
     -- Zero Chill field pass final reward
     Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders]),
     -- Campus Heroes to round out the legends
-    Replacement "Jordan Davis" ("Haloti Ngata", [Team legends, Team ravens]),
-    Replacement "Charles Cross" ("Gary Zimmerman", [Team legends, Team broncos, Team vikings]),
-    Replacement "Bruce Irvin" ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants])
+    Replacement "Jordan Davis" ("Haloti Ngata", [Team legends, Team ravens])
   ]
 
