@@ -93,10 +93,10 @@ baseSquad = [
     ]),
     (cb,[
       ("Deion Sanders", all32TeamsPlusLegends),
-      ("Benjamin St Juste", [Team commanders]),
-      ("Champ Bailey", [Team commanders, Team broncos, Team legends]),
+      ("Benjamin St-Juste", [Team commanders]),
       ("Samari Rolle", [Team legends, Team ravens, MultipleTeam titans 2]),
-      ("Adoree Jackson", [Team giants, Team titans])
+      ("Adoree Jackson", [Team giants, Team titans]),
+      ("Champ Bailey", [Team commanders, Team broncos, Team legends])
     ]),
     (k,[
       ("Adam Vinatieri", [Team legends, Team colts, Team patriots])
@@ -119,6 +119,9 @@ prospectiveAdditions = [
     Replacement "Patrick Ricard" ("Nightmare", [Team legends, Team chiefs]),
     -- Zero Chill field pass final reward
     Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders]),
-    Replacement "Jordan Davis" ("Haloti Ngata", [Team legends, Team ravens])
+    -- Campus Heroes to round out the legends
+    Replacement "Jordan Davis" ("Haloti Ngata", [Team legends, Team ravens]),
+    Replacement "Charles Cross" ("Gary Zimmerman", [Team legends, Team broncos, Team vikings]),
+    Replacement "Bruce Irvin" ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants])
   ]
 
