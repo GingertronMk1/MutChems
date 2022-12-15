@@ -98,15 +98,11 @@ ppNumberOfPlayersOnTeam l t =
           "|:---|---:|",
           newLineMap ppPlayer ps
         ]
-    in intercalate "\n" [
-      printf "# %s | %s/%s" [t, show (length ins), show (length l)],
-      "",
+    in intercalate "\n\n" [
+      printf "# %s (%s/%s) {#%s}" [t, show (length ins), show (length l), t],
       printf "### Has %s chemistry" [t],
-      "",
       ppPlayers ins,
-      "",
       printf "### Does not have %s chemistry" [t],
-      "",
       ppPlayers outs
     ]
 
