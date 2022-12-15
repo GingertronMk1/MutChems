@@ -42,7 +42,7 @@ htmlTablePrintVariation (Variation v) =
     $ [
       "TOTALS",
       surroundInTag "ul"
-      . newLineMap (\(t,i) -> unBreakSpaces . surroundInTag "li" $ t ++ ": " ++ show i)
+      . newLineMap (\(t,i) -> surroundInTag "li" . printf "%s: %s" . map unBreakSpaces $ [t, show i])
       . totalsPerSquad
       $ v
     ]
@@ -78,15 +78,10 @@ genHtml plvs =
 surroundInTag :: String -> String -> String
 surroundInTag openingTag content =
   let (tag:attributes) = words openingTag
-   in concat [
-        "<",
-        tag,
-        concatMap (' ':) attributes,
-        ">",
+   in intercalate "\n\n" [
+        printf "<%s %s>" [tag, unwords attributes],
         content,
-        "</",
-        tag,
-        ">"
+        printf "</%s>" [tag]
       ]
 
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
@@ -98,13 +93,16 @@ ppNumberOfPlayersOnTeam l t =
           "|:---|---:|",
           newLineMap ppPlayer ps
         ]
-    in intercalate "\n\n" [
-      printf "# %s (%s/%s) {#%s}" [t, show (length ins), show (length l), t],
-      printf "### Has %s chemistry" [t],
-      ppPlayers ins,
-      printf "### Does not have %s chemistry" [t],
-      ppPlayers outs
-    ]
+      tag = printf "a id=\"%s\"" [t]
+    in surroundInTag tag
+    .  intercalate "\n\n"
+    $ [
+        printf "# %s - %s/%s" [t, show (length ins), show (length l)],
+        printf "### Has %s chemistry" [t],
+        ppPlayers ins,
+        printf "### Does not have %s chemistry" [t],
+        ppPlayers outs
+      ]
 
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String
 ppNumberOfPlayersOnEveryTeam l =
