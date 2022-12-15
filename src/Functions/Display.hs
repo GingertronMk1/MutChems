@@ -31,6 +31,7 @@ htmlTablePrintVariation (Variation v) =
     -- The head of the table, just 2 cells saying "Player" and "Chemistry"
     surroundInTag "thead"
     . surroundInTag "tr"
+    . removeNewLines
     . concatMap (surroundInTag "th")
     $ ["Player", "Chemistry"],
     -- The body of the table, containing all players and their chemistry in this Variation
@@ -42,7 +43,7 @@ htmlTablePrintVariation (Variation v) =
     $ [
       "TOTALS",
       surroundInTag "ul"
-      . newLineMap (\(t,i) -> surroundInTag "li" . printf "%s: %s" . map unBreakSpaces $ [t, show i])
+      . newLineMap (\(t,i) -> removeNewLines . surroundInTag "li" . printf "%s: %s" . map unBreakSpaces $ [t, show i])
       . totalsPerSquad
       $ v
     ]
@@ -56,17 +57,17 @@ htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 htmlTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
 htmlTablePrintVariation'' _ [] = []
 htmlTablePrintVariation'' oldPos ((player, team, position):ps) =
-  let thisLine = printf "<tr><td>%s</td><td>%s</td></tr>" $ map unBreakSpaces [player, ppTeamOrMultiple team]
+  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakSpaces) $ [player, ppTeamOrMultiple team]
    in if position == oldPos
       then thisLine : htmlTablePrintVariation'' oldPos ps
-      else (surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ position) : thisLine : htmlTablePrintVariation'' position ps
+      else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ position) : thisLine : htmlTablePrintVariation'' position ps
 
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
 genHtml :: [(ProspectiveChange, Lineup, Variation)] -> String
 genHtml plvs =
-  let tableHead = newLineMap (surroundInTag "th" . unBreakSpaces . ppProspectiveChange  . getFirst) plvs
-      tableBody = concatMap (\(_,_,v) -> "<td style=\"vertical-align:top\">\n\n" ++ htmlTablePrintVariation v ++ "\n\n</td>") plvs
+  let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakSpaces . ppProspectiveChange  . getFirst) plvs
+      tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . getThird) plvs
    in intercalate "\n" [
     "<table>",
     surroundInTag "tr" tableHead,
@@ -110,3 +111,6 @@ ppNumberOfPlayersOnEveryTeam l =
    in intercalate "\n\n---\n\n"
     . map (ppNumberOfPlayersOnTeam l)
     $ allTeams
+
+removeNewLines :: String -> String
+removeNewLines = filter (/='\n')
