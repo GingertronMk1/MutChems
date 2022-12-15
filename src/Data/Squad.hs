@@ -108,9 +108,7 @@ baseSquad = [
 
 -- | Team affinity strategy card.
 strategy :: [TeamOrMultiple]
-strategy = [
-    MultipleTeam titans 5
-  ]
+strategy = []
 
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
@@ -120,6 +118,7 @@ prospectiveAdditions = [
     -- Auction
     Replacement "Patrick Ricard" ("Nightmare", [Team legends, Team chiefs]),
     -- Zero Chill field pass final reward
-    Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders])
+    Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders]),
+    Replacement "Jordan Davis" ("Haloti Ngata", [Team legends, Team ravens])
   ]
 
