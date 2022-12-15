@@ -88,7 +88,7 @@ baseSquad = [
       ("Isaiah Pola-Mao", [Team raiders])
     ]),
     (fs,[
-      ("Kevin Byard", [Team titans]),
+      ("Sean Taylor", [Team legends, Team commanders]),
       ("Malik Hooker", [Team colts, Team cowboys])
     ]),
     (cb,[
@@ -117,8 +117,6 @@ prospectiveAdditions = [
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     -- Auction
     Replacement "Patrick Ricard" ("Nightmare", [Team legends, Team chiefs]),
-    -- Zero Chill field pass final reward
-    Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders]),
     -- Campus Heroes to round out the legends
     Replacement "Travis Etienne Jr" ("Demarco Murray", [Team legends, Team cowboys, Team eagles, Team titans])
   ]
