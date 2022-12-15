@@ -30,13 +30,15 @@ addProspectivesInTurn' (p:ps) l =
   let newL = addProspective p l
    in (p, newL) : addProspectivesInTurn' ps newL
 
--- | Add a single prospective addition to the squad
+-- | Add a single prospective addition to the squad.
+-- Throw an error if we're trying to replace someone who doesn't exist.
 addProspective :: ProspectiveChange -> Lineup -> Lineup
 addProspective NoChange l = l
 addProspective (Addition pt) l =
   let (befores, firstPosition:afters) = break ((==getThird pt) . getThird) l
    in befores ++ (pt:firstPosition:afters)
 addProspective (Replacement p (newP, newPTs)) l =
-  let (firstPart, (_,_,oldPosition):theRest) = break ((==p) . getFirst) l
-   in firstPart ++ ((newP, newPTs, oldPosition):theRest)
+  case break ((==p) . getFirst) l of
+    (_, [])                                -> error $ printf "No player called %s in lineup" [p]
+    (firstPart, (_,_,oldPosition):theRest) -> firstPart ++ ((newP, newPTs, oldPosition):theRest)
 addProspective (Removal p) l = filter ((/=p) . getFirst) l
