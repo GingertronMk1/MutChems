@@ -21,6 +21,5 @@ main = do
            . addProspectivesInTurn prospectiveAdditions
            $ squadNoProspectives
   writeFile "output.md" html
-  writeFile "output.html" html
   end <- getSystemTime
   putStrLn $ printf "Done in %s seconds" [show (systemSeconds end - systemSeconds start)]
