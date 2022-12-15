@@ -49,7 +49,7 @@ baseSquad = [
     ]),
     (rg,[
       ("Kevin Zeitler", [Team bengals, Team browns, Team giants, Team ravens]),
-      ("Mark Glowinski", [Team giants, Team colts, Team seahawks])
+      ("Will Shields", [Team legends, Team chiefs])
     ]),
     (rt,[
       ("Willie Anderson", [Team legends, Team bengals, Team ravens]),
