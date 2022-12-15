@@ -99,18 +99,20 @@ ppNumberOfPlayersOnTeam l t =
           newLineMap ppPlayer ps
         ]
     in intercalate "\n" [
-    printf "Has %s chemistry" [t],
-    "",
-    ppPlayers ins,
-    "",
-    printf "Does not have %s chemistry" [t],
-    "",
-    ppPlayers outs
+      printf "# %s | %s/%s" [t, show (length ins), show (length l)],
+      "",
+      printf "### Has %s chemistry" [t],
+      "",
+      ppPlayers ins,
+      "",
+      printf "### Does not have %s chemistry" [t],
+      "",
+      ppPlayers outs
     ]
 
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String
 ppNumberOfPlayersOnEveryTeam l =
   let allTeams = sort . nub . allTeamsFn $ l
    in intercalate "\n\n---\n\n"
-    . map (\t -> printf "# %s\n\n%s" [t, ppNumberOfPlayersOnTeam l t])
+    . map (ppNumberOfPlayersOnTeam l)
     $ allTeams
