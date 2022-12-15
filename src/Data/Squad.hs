@@ -72,8 +72,8 @@ baseSquad = [
     (dt,[
       ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
       ("Sam Adams", all32TeamsPlusLegends),
-      ("Jordan Davis", [Team eagles]),
-      ("Tony Siragusa", [Team legends, Team ravens, Team colts])
+      ("Tony Siragusa", [Team legends, Team ravens, Team colts]),
+      ("Merlin Olsen", [Team legends, Team rams])
     ]),
     (le,[
       ("Jevon Kearse", [Team legends, Team titans, Team eagles]),
@@ -120,6 +120,6 @@ prospectiveAdditions = [
     -- Zero Chill field pass final reward
     Replacement "Malik Hooker" ("Sean Taylor", [Team legends, Team commanders]),
     -- Campus Heroes to round out the legends
-    Replacement "Jordan Davis" ("Haloti Ngata", [Team legends, Team ravens])
+    Replacement "Travis Etienne Jr" ("Demarco Murray", [Team legends, Team cowboys, Team eagles, Team titans])
   ]
 
