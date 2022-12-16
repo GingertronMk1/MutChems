@@ -20,7 +20,7 @@ baseSquad = [
       ("Travis Etienne Jr", [Team jaguars])
     ]),
     (fb,[
-      ("Patrick Ricard", [Team ravens]),
+      ("Nightmare", [Team legends, Team chiefs]),
       ("Jim Taylor", [Team legends, Team packers, Team saints])
     ]),
     (te,[
@@ -36,7 +36,7 @@ baseSquad = [
       ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
     ]),
     (lt,[
-      ("Joe Thomas", [Team browns]),
+      ("Jonathan Ogden", [Team legends, Team ravens]),
       ("Charles Cross", [Team seahawks])
     ]),
     (lg,[
@@ -44,11 +44,11 @@ baseSquad = [
       ("Alan Faneca", [Team legends, Team steelers, Team jets, Team cardinals])
     ]),
     (c,[
-      ("Creed Humphrey", [Team chiefs]),
-      ("Frank Ragnow", [Team lions])
+      ("Russ Grimm", [Team legends, Team commanders]),
+      ("Creed Humphrey", [Team chiefs])
     ]),
     (rg,[
-      ("Kevin Zeitler", [Team bengals, Team browns, Team giants, Team ravens]),
+      ("Larry Allen", [Team legends, Team niners, Team cowboys]),
       ("Will Shields", [Team legends, Team chiefs])
     ]),
     (rt,[
@@ -81,15 +81,15 @@ baseSquad = [
     ]),
     (re,[
       ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
-      ("Aidan Hutchinson", [Team lions])
+      ("Bruce Smith", [Team legends, Team bills, Team commanders])
     ]),
     (ss,[
       ("John Lynch", [Team legends, Team buccaneers, Team broncos]),
-      ("Isaiah Pola-Mao", [Team raiders])
+      ("Nolan Cromwell", [Team legends, Team rams])
     ]),
     (fs,[
       ("Sean Taylor", [Team legends, Team commanders]),
-      ("Malik Hooker", [Team colts, Team cowboys])
+      ("Rod Woodson", [Team legends, Team niners, Team steelers, Team raiders, Team ravens])
     ]),
     (cb,[
       ("Deion Sanders", all32TeamsPlusLegends),
@@ -115,8 +115,6 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
     -- Zero chill forge
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
-    -- Auction
-    Replacement "Patrick Ricard" ("Nightmare", [Team legends, Team chiefs]),
     -- Campus Heroes to round out the legends
     Replacement "Travis Etienne Jr" ("Demarco Murray", [Team legends, Team cowboys, Team eagles, Team titans])
   ]
