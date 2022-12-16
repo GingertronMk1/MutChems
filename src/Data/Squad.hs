@@ -37,7 +37,7 @@ baseSquad = [
     ]),
     (lt,[
       ("Jonathan Ogden", [Team legends, Team ravens]),
-      ("Charles Cross", [Team seahawks])
+      ("Anthony Munoz", [Team legends, Team bengals])
     ]),
     (lg,[
       ("Quenton Nelson", [Team colts]),
