@@ -15,13 +15,25 @@ newtype Variation
   deriving (Eq, Show)
 
 instance Ord Variation where
-  compare v1 v2 = case orderListOfInts (convertFn v1) (convertFn v2) of
-    (EQ, _) -> runThroughPreferences preferences v1 v2
-    (c, _)  -> c
-    where
-      convertFn = map snd
+  compare v1 v2
+    | bestOthers1 && not bestOthers2 = LT
+    | not bestOthers1 && bestOthers2 = GT
+    | bestLegends1 && not bestLegends2 = LT
+    | not bestLegends1 && bestLegends2 = GT
+    | otherwise = fst $ orderListOfInts (map snd converted1) (map snd converted2)
+      where
+      convertFn = sortBy (comparing snd)
                 . firstAndLength
                 . variationToTeams
+      converted1 = convertFn v1
+      converted2 = convertFn v2
+      bestLegends = (\(t,n) -> t == legends && n >= 40) . head
+      bestOthers = (\(t,n) -> t /= legends && n >= 50) . head
+      bestLegends1 = bestLegends converted1
+      bestLegends2 = bestLegends converted2
+      bestOthers1 = bestOthers converted1
+      bestOthers2 = bestOthers converted2
+
 
 -- | Take a list of Teams in order and give a comparison of 2 Team/Int tuples
 runThroughPreferences :: [Team] -> Variation -> Variation -> Ordering
@@ -42,6 +54,10 @@ lineupToVariations = Variation
                    . sequence
                    . expandLineup
 
+lineupToBestVariationRecursive :: Lineup -> Variation
+lineupToBestVariationRecursive = maximum . map Variation . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts]) . convertSquad
+
+{-
 -- | Recursively iterate through the Lineup to create a Variation
 -- with everyone represented
 lineupToBestVariationRecursive :: Lineup -> Variation
@@ -58,6 +74,7 @@ lineupToBestVariationRecursive' l =
    in case partition (\(_, t,_) -> t /= NoTeam) bestVariation of
     (nonNoTeams, []) -> nonNoTeams
     (nonNoTeams, noTeams) -> nonNoTeams ++ (lineupToBestVariationRecursive' . filter ((`elem` map getFirst noTeams) . getFirst) $ l)
+-}
 
 -- | Generate the best Variations for a set of Lineups and add to the tuples
 bestOfAllSquadsFn :: [(ProspectiveChange, Lineup)] -> [(ProspectiveChange, Lineup, Variation)]
