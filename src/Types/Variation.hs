@@ -82,3 +82,13 @@ totalsPerSquad = sortOn (Down . snd)
                . firstAndLength
                . concatMap (\VP {vpTeam = t} -> expandTeamOrMultiple t)
 
+variationBackToLineup :: VariationObject -> Lineup
+variationBackToLineup (VariationObject v) = map variationPlayerToLineupPlayer v
+
+variationPlayerToLineupPlayer :: VariationPlayer -> Player
+variationPlayerToLineupPlayer (VP {vpName = n, vpTeam = t, vpPosition = p}) =
+  P {
+    pName = n,
+    pTeams = [t],
+    pPosition = p
+  }
