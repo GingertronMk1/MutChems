@@ -118,7 +118,8 @@ prospectiveAdditions = [
     -- Campus Heroes to round out the legends
     Replacement "Travis Etienne Jr" ("Demarco Murray", [Team legends, Team cowboys, Team eagles, Team titans]),
     Replacement "Ted Hendricks" ("Junior Seau", [Team legends, Team chargers, Team dolphins, Team patriots]),
-    Replacement "Bruce Irvin" ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
-    Replacement "Bobby Wagner" ("Derrick Thompson", [Team legends, Team chiefs])
+    Replacement "Bobby Wagner" ("Derrick Thompson", [Team legends, Team chiefs]),
+    -- Ted back to his rightful place
+    Replacement "Bruce Irvin" ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends])
   ]
 
