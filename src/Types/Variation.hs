@@ -22,10 +22,13 @@ instance Ord Variation where
       EQ -> fst $ orderListOfInts (map snd converted1) (map snd converted2)
       nonEQ -> nonEQ
 
+-- | Get a list of all represented teams and how many there are in a given Variation
 teamsInVariation :: Variation -> [(Team, Int)]
 teamsInVariation = firstAndLength
                  . variationToTeams
               
+-- | Take a Team and how many there are and convert it into an integer so we can
+-- more easily compare it to others - ordering them in priority
 toNumerical :: [(Team, Int)] -> Int
 toNumerical cv
   | bestT /= legends && bestN >= 50 = 4
@@ -38,9 +41,14 @@ toNumerical cv
 variationToTeams :: Variation -> [Team]
 variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . getSecond) $ v
 
+-- | Take a Lineup and convert it to a list of all Variations
 lineupToVariations :: Lineup -> [Variation]
-lineupToVariations = map Variation . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts]) . convertSquad
+lineupToVariations = map Variation
+                   . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts])
+                   . convertSquad
 
+-- | Convert a Lineup to its best Variation according to the `compare` function
+-- defined above
 lineupToBestVariation :: Lineup -> Variation
 lineupToBestVariation = maximum . lineupToVariations
 

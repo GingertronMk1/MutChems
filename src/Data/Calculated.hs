@@ -30,5 +30,6 @@ iteratedProspectiveSquads = map (second convertSquad)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
 
+-- | All Variations for the base squad as it is
 variationsNoProspectives :: [Variation]
 variationsNoProspectives = lineupToVariations squadNoProspectives

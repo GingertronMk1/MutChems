@@ -85,6 +85,7 @@ surroundInTag openingTag content =
         printf "</%s>" [tag]
       ]
 
+-- | Nicely print the number of Players with a given team chemistry in a Lineup
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
@@ -105,6 +106,7 @@ ppNumberOfPlayersOnTeam l t =
         ppPlayers outs
       ]
 
+-- | Nicely print the number of Players with each team chemistry in a Lineup
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String
 ppNumberOfPlayersOnEveryTeam l =
   let allTeams = sort . nub . allTeamsFn $ l
@@ -112,5 +114,6 @@ ppNumberOfPlayersOnEveryTeam l =
     . map (ppNumberOfPlayersOnTeam l)
     $ allTeams
 
+-- | Remove newline characters from a string
 removeNewLines :: String -> String
 removeNewLines = filter (/='\n')
