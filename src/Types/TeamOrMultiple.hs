@@ -75,11 +75,11 @@ numberOfOptionsFn :: Lineup -> Int
 numberOfOptionsFn = product . map (length . getSecond)
 
 -- | Give me a list of all t`Type.Team` in a given Lineup.
-allTeamsFn :: Lineup -> [Team]
-allTeamsFn = concatMap expandTeamOrMultiple . concatMap getSecond
+allTeamsFn :: LineupObject -> [Team]
+allTeamsFn = concatMap expandTeamOrMultiple . concatMap (\P {teams = t} -> t)
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
-filteredSquadFn :: Lineup -> (Lineup, Int)
+filteredSquadFn :: LineupObject -> (Lineup, Int)
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
@@ -88,9 +88,9 @@ filteredSquadFn' ::
   -- t`Type.Team` in a Lineup we can disregard it
   Int ->
   -- | The initial lineup to be filtered
-  Lineup ->
+  LineupObject ->
   -- | The resultant lineup
-  (Lineup, Int)
+  (LineupObject, Int)
 filteredSquadFn' threshold s
   | numberOfNewSOptions < 0 = filteredSquadFn' (threshold + 1) newS
   | numberOfNewSOptions == 0 = ([], threshold)
@@ -135,7 +135,7 @@ filteredSquadFn'' f ts = case filter f ts of
 -- | Sorting 2 Players based on their position in the initial squad.
 compareBasedOnSquad ::
   -- | The initial squad.
-  Lineup ->
+  LineupObject ->
   -- | The first Player.
   Player ->
   -- | The second Player.
@@ -146,16 +146,16 @@ compareBasedOnSquad l p1 p2 =
   compare (compareBasedOnSquad' l p1) (compareBasedOnSquad' l p2)
 
 -- | Getting the index for a single player.
-compareBasedOnSquad' :: Lineup -> Player -> Int
+compareBasedOnSquad' :: LineupObject -> Player -> Int
 compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . getFirst) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
-convertSquad :: Lineup -> Lineup
+convertSquad :: LineupObject -> LineupObject
 convertSquad = fst . filteredSquadFn
 
 -- | See all the players in a Lineup that have a given Team chemistry as an option
-numberOfPlayersOnTeam :: Lineup -> Team -> ([PlayerTeamsPosition], [PlayerTeamsPosition])
+numberOfPlayersOnTeam :: LineupObject -> Team -> ([PlayerTeamsPosition], [PlayerTeamsPosition])
 numberOfPlayersOnTeam l t =  partition (\(_,toms,_) -> t `elem` concatMap expandTeamOrMultiple toms) l
 
 data PlayerObject = P {
@@ -182,3 +182,11 @@ streamlinePositionGroup (PositionGroup {positionGroup = positionGroup, players =
 
 streamlineLineup :: InitialLineupObject -> LineupObject
 streamlineLineup = concatMap streamlinePositionGroup
+
+-- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
+ppTeamOrMultiple :: TeamOrMultiple -> String
+ppTeamOrMultiple NoTeam             = "-"
+ppTeamOrMultiple (Team t)           = t
+ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
+ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
+

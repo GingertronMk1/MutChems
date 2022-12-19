@@ -8,20 +8,6 @@ import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
 
--- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
-ppTeamOrMultiple :: TeamOrMultiple -> String
-ppTeamOrMultiple NoTeam             = "-"
-ppTeamOrMultiple (Team t)           = t
-ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
-ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
-
--- | Nicely print a Prospective Change
-ppProspectiveChange :: ProspectiveChange -> String
-ppProspectiveChange NoChange = "No change"
-ppProspectiveChange (Addition (p, _, _)) = printf "Adding %s" [p]
-ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1, p2]
-ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
-
 -- | Print a Variation as a Html table
 htmlTablePrintVariation :: Variation -> String
 htmlTablePrintVariation (Variation v) =
@@ -64,7 +50,7 @@ htmlTablePrintVariation'' oldPos ((player, team, position):ps) =
 
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
-genHtml :: [(ProspectiveChange, Lineup, Variation)] -> String
+genHtml :: [(ProspectiveChange, LineupObject, Variation)] -> String
 genHtml plvs =
   let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakSpaces . ppProspectiveChange  . getFirst) plvs
       tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . getThird) plvs
@@ -85,8 +71,8 @@ surroundInTag openingTag content =
         printf "</%s>" [tag]
       ]
 
--- | Nicely print the number of Players with a given team chemistry in a Lineup
-ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
+-- | Nicely print the number of Players with a given team chemistry in a LineupObject
+ppNumberOfPlayersOnTeam :: LineupObject -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
       ppPlayer (p,_,pos) = printf "| %s | %s |" [p,pos]
@@ -106,8 +92,8 @@ ppNumberOfPlayersOnTeam l t =
         ppPlayers outs
       ]
 
--- | Nicely print the number of Players with each team chemistry in a Lineup
-ppNumberOfPlayersOnEveryTeam :: Lineup -> String
+-- | Nicely print the number of Players with each team chemistry in a LineupObject
+ppNumberOfPlayersOnEveryTeam :: LineupObject -> String
 ppNumberOfPlayersOnEveryTeam l =
   let allTeams = sort . nub . allTeamsFn $ l
    in intercalate "\n\n---\n\n"
