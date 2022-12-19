@@ -360,5 +360,11 @@ prospectiveAdditions =
       emptyPlayer
         { pName = "Junior Seau",
           pTeams = [Team legends, Team chargers, Team dolphins, Team patriots]
+        },
+    Replacement
+      "Adoree Jackson"
+      emptyPlayer
+        { pName = "Charles Tillman",
+          pTeams = [Team legends, Team bears, Team panthers]
         }
   ]
