@@ -58,7 +58,7 @@ baseSquad = [
     (mlb,[
       ("Devin Bush", [Team steelers]),
       ("Bobby Wagner", [Team seahawks, Team rams]),
-      ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
+      ("Derrick Thompson", [Team legends, Team chiefs, Team raiders]),
       ("Kiko Alonso", [Team legends, Team bills, Team dolphins, Team eagles, Team saints])
     ]),
     (rolb,[
@@ -66,8 +66,8 @@ baseSquad = [
       ("Jonathan Casillas", [Team legends, Team buccaneers, Team giants, Team patriots, Team saints])
     ]),
     (lolb,[
-      ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants]),
-      ("Bruce Irvin", [Team seahawks, Team bears, Team falcons, Team panthers, Team raiders])
+      ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
+      ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants])
     ]),
     (dt,[
       ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
@@ -116,10 +116,6 @@ prospectiveAdditions = [
     -- Zero chill forge
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     -- Campus Heroes to round out the legends
-    Replacement "Travis Etienne Jr" ("Demarco Murray", [Team legends, Team cowboys, Team eagles, Team titans]),
-    Replacement "Ted Hendricks" ("Junior Seau", [Team legends, Team chargers, Team dolphins, Team patriots]),
-    Replacement "Bobby Wagner" ("Derrick Thompson", [Team legends, Team chiefs]),
-    -- Ted back to his rightful place
-    Replacement "Bruce Irvin" ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends])
+    Replacement "Bobby Wagner" ("Junior Seau", [Team legends, Team chargers, Team dolphins, Team patriots]),
   ]
 
