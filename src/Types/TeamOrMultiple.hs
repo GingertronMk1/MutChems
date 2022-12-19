@@ -9,6 +9,24 @@ import           Types.Basic
 
 -- * The Main Event.
 
+data Player = P {
+  pName :: PlayerName,
+  pTeams :: [TeamOrMultiple],
+  pPosition :: Position
+} deriving (Eq, Show)
+
+emptyPlayer :: Player
+emptyPlayer = P {pName = "", pTeams = [], pPosition = ""}
+
+data PositionGroup = PositionGroup {
+  pgPosition :: Position,
+  pgPlayers :: [Player]
+} deriving (Eq, Show)
+
+type InitialLineup = [PositionGroup]
+
+type Lineup = [Player]
+
 -- | Options for one or more Teams.
 data TeamOrMultiple
   -- | Null value.
@@ -41,32 +59,6 @@ instance Ord TeamOrMultiple where
 
 -- * Subsequent types that don't deserve their own file
 
--- | A player and all of their teams, as well as their position
-type PlayerTeamsPosition = (Player, [TeamOrMultiple], Position)
-
--- | A player and all of their teams
-type PlayerTeams = (Player, [TeamOrMultiple])
-
--- | A basic lineup
-type Lineup = [PlayerTeamsPosition]
-
--- | A full lineup.
-type LineupWithPositions = [(Position, [(Player, [TeamOrMultiple])])]
-
-data VariationPlayer = VP {
-  vpName :: Player,
-  vpTeam :: TeamOrMultiple,
-  vpPosition :: Position
-} deriving (Eq, Show)
-
--- | Expanding a position across the PlayerTeams within a tuple
-expandPosition :: (Position, [PlayerTeams]) -> [PlayerTeamsPosition]
-expandPosition (p, ptoms) = [(player, toms, p) | (player, toms) <- ptoms]
-
--- | Expanding a full lineup to get all options
-expandLineup :: LineupObject -> [[VariationPlayer]]
-expandLineup = map (\P {name = pl, teams = toms, position = po} -> [VP {vpName = pl, vpTeam = tom, vpPosition = po} | tom <- toms])
-
 -- * Functions that take only something of a type defined in this file as argument
 
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis.
@@ -77,15 +69,15 @@ expandTeamOrMultiple (MultipleTeam t i) = replicate i t
 expandTeamOrMultiple (Teams ts)         = concatMap expandTeamOrMultiple ts
 
 -- | How many options do we get from a given `Lineup`?.
-numberOfOptionsFn :: LineupObject -> Int
-numberOfOptionsFn = product . map (\P {teams = ts} -> length ts)
+numberOfOptionsFn :: Lineup -> Int
+numberOfOptionsFn = product . map (\P {pTeams = ts} -> length ts)
 
 -- | Give me a list of all t`Type.Team` in a given Lineup.
-allTeamsFn :: LineupObject -> [Team]
-allTeamsFn = concatMap expandTeamOrMultiple . concatMap (\P {teams = t} -> t)
+allTeamsFn :: Lineup -> [Team]
+allTeamsFn = concatMap expandTeamOrMultiple . concatMap (\P {pTeams = t} -> t)
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
-filteredSquadFn :: LineupObject -> (LineupObject, Int)
+filteredSquadFn :: Lineup -> (Lineup, Int)
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
@@ -94,16 +86,16 @@ filteredSquadFn' ::
   -- t`Type.Team` in a Lineup we can disregard it
   Int ->
   -- | The initial lineup to be filtered
-  LineupObject ->
+  Lineup ->
   -- | The resultant lineup
-  (LineupObject, Int)
+  (Lineup, Int)
 filteredSquadFn' threshold s
   | numberOfNewSOptions < 0 = filteredSquadFn' (threshold + 1) newS
   | numberOfNewSOptions == 0 = ([], threshold)
   | numberOfNewSOptions <= squadFilterThreshold = (newS, threshold)
   | otherwise = filteredSquadFn' (threshold + 1) newS
   where allTeams = allTeamsFn s
-        newS                = map (\p@(P {teams = tom}) -> p {teams = filteredSquadFn'' (filterFn threshold allTeams) tom}) s
+        newS                = map (\p@(P {pTeams = tom}) -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) tom}) s
         numberOfNewSOptions = numberOfOptionsFn newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
@@ -141,52 +133,34 @@ filteredSquadFn'' f ts = case filter f ts of
 -- | Sorting 2 Players based on their position in the initial squad.
 compareBasedOnSquad ::
   -- | The initial squad.
-  LineupObject ->
+  Lineup ->
   -- | The first Player.
-  Player ->
+  PlayerName ->
   -- | The second Player.
-  Player ->
+  PlayerName ->
   -- | The resultant Ordering.
   Ordering
 compareBasedOnSquad l p1 p2 =
   compare (compareBasedOnSquad' l p1) (compareBasedOnSquad' l p2)
 
 -- | Getting the index for a single player.
-compareBasedOnSquad' :: LineupObject -> Player -> Int
-compareBasedOnSquad' l p = fromMaybe minBound (findIndex (\P {name = n} -> n == p) l)
+compareBasedOnSquad' :: Lineup -> PlayerName -> Int
+compareBasedOnSquad' l p = fromMaybe minBound (findIndex (\P {pName = n} -> n == p) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
-convertSquad :: LineupObject -> LineupObject
+convertSquad :: Lineup -> Lineup
 convertSquad = fst . filteredSquadFn
 
 -- | See all the players in a Lineup that have a given Team chemistry as an option
-numberOfPlayersOnTeam :: LineupObject -> Team -> ([PlayerObject], [PlayerObject])
-numberOfPlayersOnTeam l t =  partition (\P {teams = toms} -> t `elem` concatMap expandTeamOrMultiple toms) l
+numberOfPlayersOnTeam :: Lineup -> Team -> ([Player], [Player])
+numberOfPlayersOnTeam l t =  partition (\P {pTeams = toms} -> t `elem` concatMap expandTeamOrMultiple toms) l
 
-data PlayerObject = P {
-  name :: Player,
-  teams :: [TeamOrMultiple],
-  position :: Position
-} deriving (Eq, Show)
+streamlinePositionGroup :: PositionGroup -> [Player]
+streamlinePositionGroup (PositionGroup {pgPosition = positionGroup, pgPlayers = players}) = 
+  map (\p -> p {pPosition = positionGroup}) players
 
-emptyPlayer :: PlayerObject
-emptyPlayer = P {name = "", teams = [], position = ""}
-
-data PositionGroup = PositionGroup {
-  positionGroup :: Position,
-  players :: [PlayerObject]
-} deriving (Eq, Show)
-
-type InitialLineupObject = [PositionGroup]
-
-type LineupObject = [PlayerObject]
-
-streamlinePositionGroup :: PositionGroup -> [PlayerObject]
-streamlinePositionGroup (PositionGroup {positionGroup = positionGroup, players = players}) = 
-  map (\p -> p {position = positionGroup}) players
-
-streamlineLineup :: InitialLineupObject -> LineupObject
+streamlineLineup :: InitialLineup -> Lineup
 streamlineLineup = concatMap streamlinePositionGroup
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.

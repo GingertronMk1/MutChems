@@ -11,17 +11,17 @@ import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
 -- | The squad with the team strategy item sorted
-processedStrategy :: [PlayerObject]
-processedStrategy = map (\s -> emptyPlayer {name = "STRATEGY: " ++ ppTeamOrMultiple s, teams = [s], position = strategyCard}) strategy
+processedStrategy :: [Player]
+processedStrategy = map (\s -> emptyPlayer {pName = "STRATEGY: " ++ ppTeamOrMultiple s, pTeams = [s], pPosition = strategyCard}) strategy
 
 -- | Just the base squad and strategy item
-squadNoProspectives :: LineupObject
-squadNoProspectives = filter (\P {teams = ts} -> not (null ts))
+squadNoProspectives :: Lineup
+squadNoProspectives = filter (\P {pTeams = ts} -> not (null ts))
                     . (++processedStrategy)
                     . streamlineLineup
                     $ baseSquad
 
 -- | The generated list of squads in "chronological" order (or at least planned)
-iteratedProspectiveSquads :: [(ProspectiveChange, LineupObject)]
+iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
 iteratedProspectiveSquads =  addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives

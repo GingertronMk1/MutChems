@@ -8,14 +8,14 @@ import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
 -- | Base squad.
-baseSquad :: InitialLineupObject
+baseSquad :: InitialLineup
 baseSquad = [
     PositionGroup {
-      positionGroup = qb,
-      players = [
+      pgPosition = qb,
+      pgPlayers = [
         emptyPlayer {
-          name = "Ryan Fitzpatrick",
-          teams = [
+          pName = "Ryan Fitzpatrick",
+          pTeams = [
             Team bengals,
             Team bills,
             Team buccaneers,
@@ -29,8 +29,8 @@ baseSquad = [
           ]
         },
         emptyPlayer {
-          name = "Tim Tebow",
-          teams = [
+          pName = "Tim Tebow",
+          pTeams = [
             Team legends,
             Team broncos,
             Team jets
@@ -38,134 +38,134 @@ baseSquad = [
         }
       ]},
     PositionGroup {
-      positionGroup = hb,
-      players = [
-        emptyPlayer {name = "CJ2K", teams = [Team legends, Team titans, Team jets, Team cardinals]},
-        emptyPlayer {name = "Rod Woodson (HB)", teams = [Team legends, Team raiders, Team niners, Team steelers, Team ravens]},
-        emptyPlayer {name = "Travis Etienne Jr", teams = [Team jaguars]}
+      pgPosition = hb,
+      pgPlayers = [
+        emptyPlayer {pName = "CJ2K", pTeams = [Team legends, Team titans, Team jets, Team cardinals]},
+        emptyPlayer {pName = "Rod Woodson (HB)", pTeams = [Team legends, Team raiders, Team niners, Team steelers, Team ravens]},
+        emptyPlayer {pName = "Travis Etienne Jr", pTeams = [Team jaguars]}
       ]},
     PositionGroup {
-      positionGroup = fb,
-      players = [
-        emptyPlayer {name = "Nightmare", teams = [Team legends, Team chiefs]},
-        emptyPlayer {name = "Jim Taylor", teams = [Team legends, Team packers, Team saints]}
+      pgPosition = fb,
+      pgPlayers = [
+        emptyPlayer {pName = "Nightmare", pTeams = [Team legends, Team chiefs]},
+        emptyPlayer {pName = "Jim Taylor", pTeams = [Team legends, Team packers, Team saints]}
       ]},
     PositionGroup {
-      positionGroup = te,
-      players = [
-        emptyPlayer {name = "Dave Casper", teams = all32TeamsPlusLegends},
-        emptyPlayer {name = "David Njoku", teams = [Team browns]},
-        emptyPlayer {name = "Hayden Hurst", teams = [Team ravens, Team falcons, Team bengals]}
+      pgPosition = te,
+      pgPlayers = [
+        emptyPlayer {pName = "Dave Casper", pTeams = all32TeamsPlusLegends},
+        emptyPlayer {pName = "David Njoku", pTeams = [Team browns]},
+        emptyPlayer {pName = "Hayden Hurst", pTeams = [Team ravens, Team falcons, Team bengals]}
       ]},
     PositionGroup {
-      positionGroup = wr,
-      players = [
-        emptyPlayer {name = "Calvin Johnson", teams = [Team lions, Team legends]},
-        emptyPlayer {name = "Randy Moss", teams = [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]},
-        emptyPlayer {name = "Devin Hester", teams = [Team legends, Team ravens, Team falcons, Team seahawks, Team bears]},
-        emptyPlayer {name = "Deion Sanders (WR)", teams = [ Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys]},
-        emptyPlayer {name = "Charlie Joiner", teams = [Team legends, Team bengals, Team chargers, Team titans]}
+      pgPosition = wr,
+      pgPlayers = [
+        emptyPlayer {pName = "Calvin Johnson", pTeams = [Team lions, Team legends]},
+        emptyPlayer {pName = "Randy Moss", pTeams = [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]},
+        emptyPlayer {pName = "Devin Hester", pTeams = [Team legends, Team ravens, Team falcons, Team seahawks, Team bears]},
+        emptyPlayer {pName = "Deion Sanders (WR)", pTeams = [ Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys]},
+        emptyPlayer {pName = "Charlie Joiner", pTeams = [Team legends, Team bengals, Team chargers, Team titans]}
       ]},
     PositionGroup {
-      positionGroup = lt,
-      players = [
-        emptyPlayer {name = "Jonathan Ogden", teams = [Team legends, Team ravens]},
-        emptyPlayer {name = "Anthony Munoz", teams = [Team legends, Team bengals]}
+      pgPosition = lt,
+      pgPlayers = [
+        emptyPlayer {pName = "Jonathan Ogden", pTeams = [Team legends, Team ravens]},
+        emptyPlayer {pName = "Anthony Munoz", pTeams = [Team legends, Team bengals]}
       ]},
     PositionGroup {
-      positionGroup = lg,
-      players = [
-        emptyPlayer {name = "Quenton Nelson", teams = [Team colts]},
-        emptyPlayer {name = "Alan Faneca", teams = [Team legends, Team steelers, Team jets, Team cardinals]}
+      pgPosition = lg,
+      pgPlayers = [
+        emptyPlayer {pName = "Quenton Nelson", pTeams = [Team colts]},
+        emptyPlayer {pName = "Alan Faneca", pTeams = [Team legends, Team steelers, Team jets, Team cardinals]}
       ]},
     PositionGroup {
-      positionGroup = c,
-      players = [
-        emptyPlayer {name = "Russ Grimm", teams = [Team legends, Team commanders]},
-        emptyPlayer {name = "Creed Humphrey", teams = [Team chiefs]}
+      pgPosition = c,
+      pgPlayers = [
+        emptyPlayer {pName = "Russ Grimm", pTeams = [Team legends, Team commanders]},
+        emptyPlayer {pName = "Creed Humphrey", pTeams = [Team chiefs]}
       ]},
     PositionGroup {
-      positionGroup = rg,
-      players = [
-        emptyPlayer {name = "Larry Allen", teams = [Team legends, Team niners, Team cowboys]},
-        emptyPlayer {name = "Will Shields", teams = [Team legends, Team chiefs]}
+      pgPosition = rg,
+      pgPlayers = [
+        emptyPlayer {pName = "Larry Allen", pTeams = [Team legends, Team niners, Team cowboys]},
+        emptyPlayer {pName = "Will Shields", pTeams = [Team legends, Team chiefs]}
       ]},
     PositionGroup {
-      positionGroup = rt,
-      players = [
-        emptyPlayer {name = "Willie Anderson", teams = [Team legends, Team bengals, Team ravens]},
-        emptyPlayer {name = "Gary Zimmerman", teams = [Team legends, Team broncos, Team vikings]}
+      pgPosition = rt,
+      pgPlayers = [
+        emptyPlayer {pName = "Willie Anderson", pTeams = [Team legends, Team bengals, Team ravens]},
+        emptyPlayer {pName = "Gary Zimmerman", pTeams = [Team legends, Team broncos, Team vikings]}
       ]},
     PositionGroup {
-      positionGroup = mlb,
-      players = [
-        emptyPlayer {name = "Devin Bush", teams = [Team steelers]},
-        emptyPlayer {name = "Derrick Thompson", teams = [Team legends, Team chiefs, Team raiders]},
-        emptyPlayer {name = "Bobby Wagner", teams = [Team seahawks, Team rams]},
-        emptyPlayer {name = "Kiko Alonso", teams = [Team legends, Team bills, Team dolphins, Team eagles, Team saints]}
+      pgPosition = mlb,
+      pgPlayers = [
+        emptyPlayer {pName = "Devin Bush", pTeams = [Team steelers]},
+        emptyPlayer {pName = "Derrick Thompson", pTeams = [Team legends, Team chiefs, Team raiders]},
+        emptyPlayer {pName = "Bobby Wagner", pTeams = [Team seahawks, Team rams]},
+        emptyPlayer {pName = "Kiko Alonso", pTeams = [Team legends, Team bills, Team dolphins, Team eagles, Team saints]}
       ]},
     PositionGroup {
-      positionGroup = rolb,
-      players = [
-        emptyPlayer {name = "Khalil Mack", teams = [Team raiders, Team bears, Team chargers]},
-        emptyPlayer {name = "Jonathan Casillas", teams = [Team legends, Team buccaneers, Team giants, Team patriots, Team saints]}
+      pgPosition = rolb,
+      pgPlayers = [
+        emptyPlayer {pName = "Khalil Mack", pTeams = [Team raiders, Team bears, Team chargers]},
+        emptyPlayer {pName = "Jonathan Casillas", pTeams = [Team legends, Team buccaneers, Team giants, Team patriots, Team saints]}
       ]},
     PositionGroup {
-      positionGroup = lolb,
-      players = [
-        emptyPlayer {name = "Ted Hendricks", teams = [Team colts, Team packers, Team raiders, Team legends]},
-        emptyPlayer {name = "Carl Banks", teams = [Team legends, Team browns, Team commanders, Team giants]}
+      pgPosition = lolb,
+      pgPlayers = [
+        emptyPlayer {pName = "Ted Hendricks", pTeams = [Team colts, Team packers, Team raiders, Team legends]},
+        emptyPlayer {pName = "Carl Banks", pTeams = [Team legends, Team browns, Team commanders, Team giants]}
       ]},
     PositionGroup {
-      positionGroup = dt,
-      players = [
-        emptyPlayer {name = "Richard Seymour", teams = [Team legends, Team patriots, Team raiders]},
-        emptyPlayer {name = "Sam Adams", teams =  all32TeamsPlusLegends},
-        emptyPlayer {name = "Tony Siragusa", teams = [Team legends, Team ravens, Team colts]},
-        emptyPlayer {name = "Merlin Olsen", teams = [Team legends, Team rams]}
+      pgPosition = dt,
+      pgPlayers = [
+        emptyPlayer {pName = "Richard Seymour", pTeams = [Team legends, Team patriots, Team raiders]},
+        emptyPlayer {pName = "Sam Adams", pTeams =  all32TeamsPlusLegends},
+        emptyPlayer {pName = "Tony Siragusa", pTeams = [Team legends, Team ravens, Team colts]},
+        emptyPlayer {pName = "Merlin Olsen", pTeams = [Team legends, Team rams]}
       ]},
     PositionGroup {
-      positionGroup = le,
-      players = [
-        emptyPlayer {name = "Jevon Kearse", teams = [Team legends, Team titans, Team eagles]},
-        emptyPlayer {name = "George Karlaftis", teams = [Team broncos, Team buccaneers, Team cardinals, Team chiefs, Team giants, Team jaguars, Team niners, Team packers, Team saints, Team seahawks, Team vikings]}
+      pgPosition = le,
+      pgPlayers = [
+        emptyPlayer {pName = "Jevon Kearse", pTeams = [Team legends, Team titans, Team eagles]},
+        emptyPlayer {pName = "George Karlaftis", pTeams = [Team broncos, Team buccaneers, Team cardinals, Team chiefs, Team giants, Team jaguars, Team niners, Team packers, Team saints, Team seahawks, Team vikings]}
       ]},
     PositionGroup {
-      positionGroup = re,
-      players = [
-        emptyPlayer {name = "Cameron Wake", teams = [Team legends, Team titans, Team dolphins]},
-        emptyPlayer {name = "Bruce Smith", teams = [Team legends, Team bills, Team commanders]}
+      pgPosition = re,
+      pgPlayers = [
+        emptyPlayer {pName = "Cameron Wake", pTeams = [Team legends, Team titans, Team dolphins]},
+        emptyPlayer {pName = "Bruce Smith", pTeams = [Team legends, Team bills, Team commanders]}
       ]},
     PositionGroup {
-      positionGroup = ss,
-      players = [
-        emptyPlayer {name = "John Lynch", teams = [Team legends, Team buccaneers, Team broncos]},
-        emptyPlayer {name = "Nolan Cromwell", teams = [Team legends, Team rams]}
+      pgPosition = ss,
+      pgPlayers = [
+        emptyPlayer {pName = "John Lynch", pTeams = [Team legends, Team buccaneers, Team broncos]},
+        emptyPlayer {pName = "Nolan Cromwell", pTeams = [Team legends, Team rams]}
       ]},
     PositionGroup {
-      positionGroup = fs,
-      players = [
-        emptyPlayer {name = "Sean Taylor", teams = [Team legends, Team commanders]},
-        emptyPlayer {name = "Rod Woodson", teams = [Team legends, Team niners, Team steelers, Team raiders, Team ravens]}
+      pgPosition = fs,
+      pgPlayers = [
+        emptyPlayer {pName = "Sean Taylor", pTeams = [Team legends, Team commanders]},
+        emptyPlayer {pName = "Rod Woodson", pTeams = [Team legends, Team niners, Team steelers, Team raiders, Team ravens]}
       ]},
     PositionGroup {
-      positionGroup = cb,
-      players = [
-        emptyPlayer {name = "Deion Sanders", teams = all32TeamsPlusLegends},
-        emptyPlayer {name = "Benjamin St-Juste", teams = [Team commanders]},
-        emptyPlayer {name = "Samari Rolle", teams = [Team legends, Team ravens, MultipleTeam titans 2]},
-        emptyPlayer {name = "Adoree Jackson", teams = [Team giants, Team titans]},
-        emptyPlayer {name = "Champ Bailey", teams = [Team commanders, Team broncos, Team legends]}
+      pgPosition = cb,
+      pgPlayers = [
+        emptyPlayer {pName = "Deion Sanders", pTeams = all32TeamsPlusLegends},
+        emptyPlayer {pName = "Benjamin St-Juste", pTeams = [Team commanders]},
+        emptyPlayer {pName = "Samari Rolle", pTeams = [Team legends, Team ravens, MultipleTeam titans 2]},
+        emptyPlayer {pName = "Adoree Jackson", pTeams = [Team giants, Team titans]},
+        emptyPlayer {pName = "Champ Bailey", pTeams = [Team commanders, Team broncos, Team legends]}
       ]},
     PositionGroup {
-      positionGroup = k,
-      players = [
-        emptyPlayer {name = "Adam Vinatieri", teams = [Team legends, Team colts, Team patriots]}
+      pgPosition = k,
+      pgPlayers = [
+        emptyPlayer {pName = "Adam Vinatieri", pTeams = [Team legends, Team colts, Team patriots]}
       ]},
    PositionGroup {
-      positionGroup = p,
-      players = [
-        emptyPlayer {name = "Ray Guy", teams = [Team legends, Team raiders]}
+      pgPosition = p,
+      pgPlayers = [
+        emptyPlayer {pName = "Ray Guy", pTeams = [Team legends, Team raiders]}
       ]
     }
   ]
@@ -178,8 +178,8 @@ strategy = []
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions = [
     -- Zero chill forge
-    Replacement "Hayden Hurst" (emptyPlayer {name = "Donald Parham", teams = [Team chargers]}),
+    Replacement "Hayden Hurst" (emptyPlayer {pName = "Donald Parham", pTeams = [Team chargers]}),
     -- Campus Heroes to round out the legends
-    Replacement "Bobby Wagner" (emptyPlayer {name = "Junior Seau", teams = [Team legends, Team chargers, Team dolphins, Team patriots]})
+    Replacement "Bobby Wagner" (emptyPlayer {pName = "Junior Seau", pTeams = [Team legends, Team chargers, Team dolphins, Team patriots]})
   ]
 

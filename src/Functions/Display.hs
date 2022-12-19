@@ -50,7 +50,7 @@ htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}
 
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
-genHtml :: [(ProspectiveChange, LineupObject, VariationObject)] -> String
+genHtml :: [(ProspectiveChange, Lineup, VariationObject)] -> String
 genHtml plvs =
   let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakSpaces . ppProspectiveChange  . getFirst) plvs
       tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . getThird) plvs
@@ -71,11 +71,11 @@ surroundInTag openingTag content =
         printf "</%s>" [tag]
       ]
 
--- | Nicely print the number of Players with a given team chemistry in a LineupObject
-ppNumberOfPlayersOnTeam :: LineupObject -> Team -> String
+-- | Nicely print the number of Players with a given team chemistry in a Lineup
+ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
-      ppPlayer (P {name = p, position = pos}) = printf "| %s | %s |" [p,pos]
+      ppPlayer (P {pName = p, pPosition = pos}) = printf "| %s | %s |" [p,pos]
       ppPlayers ps = intercalate "\n" [
           "| Player | Position |",
           "|:---|---:|",
@@ -92,8 +92,8 @@ ppNumberOfPlayersOnTeam l t =
         ppPlayers outs
       ]
 
--- | Nicely print the number of Players with each team chemistry in a LineupObject
-ppNumberOfPlayersOnEveryTeam :: LineupObject -> String
+-- | Nicely print the number of Players with each team chemistry in a Lineup
+ppNumberOfPlayersOnEveryTeam :: Lineup -> String
 ppNumberOfPlayersOnEveryTeam l =
   let allTeams = sort . nub . allTeamsFn $ l
    in intercalate "\n\n---\n\n"
