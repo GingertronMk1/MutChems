@@ -9,22 +9,36 @@ import           Types.Basic
 
 -- * The Main Event.
 
-data Player = P {
-  pName :: PlayerName,
-  pTeams :: [TeamOrMultiple],
-  pPosition :: Position
-} deriving (Eq, Show)
+-- | The Player object
+data Player
+  = P
+      { -- | The Player's name
+        pName     :: PlayerName
+        -- | All of the Player's Teams
+      , pTeams    :: [TeamOrMultiple]
+        -- | The Player's position
+      , pPosition :: Position
+      }
+  deriving (Eq, Show)
 
+-- | The empty Player, the basis for other players with sensible defaults
 emptyPlayer :: Player
 emptyPlayer = P {pName = "", pTeams = [], pPosition = ""}
 
-data PositionGroup = PositionGroup {
-  pgPosition :: Position,
-  pgPlayers :: [Player]
-} deriving (Eq, Show)
+-- | The position group: a position and the list of Players that play there
+data PositionGroup
+  = PositionGroup
+      { -- | The position
+        pgPosition :: Position
+        -- | The players
+      , pgPlayers  :: [Player]
+      }
+  deriving (Eq, Show)
 
+-- | The initial lineup - grouped by position
 type InitialLineup = [PositionGroup]
 
+-- | The actual Lineup, used for processing
 type Lineup = [Player]
 
 -- | Options for one or more Teams.
@@ -56,10 +70,6 @@ instance Ord TeamOrMultiple where
   compare (Teams t1s)           (Teams t2s)           = compare (maximum t1s) (maximum t2s)
   compare NoTeam                _                     = LT
   compare _                     NoTeam                = GT
-
--- * Subsequent types that don't deserve their own file
-
--- * Functions that take only something of a type defined in this file as argument
 
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis.
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
@@ -156,10 +166,12 @@ convertSquad = fst . filteredSquadFn
 numberOfPlayersOnTeam :: Lineup -> Team -> ([Player], [Player])
 numberOfPlayersOnTeam l t =  partition (\P {pTeams = toms} -> t `elem` concatMap expandTeamOrMultiple toms) l
 
+-- | Take a position group and assign its position to all of its constituent players
 streamlinePositionGroup :: PositionGroup -> [Player]
-streamlinePositionGroup (PositionGroup {pgPosition = positionGroup, pgPlayers = players}) = 
+streamlinePositionGroup (PositionGroup {pgPosition = positionGroup, pgPlayers = players}) =
   map (\p -> p {pPosition = positionGroup}) players
 
+-- | Streamline the entire lineup
 streamlineLineup :: InitialLineup -> Lineup
 streamlineLineup = concatMap streamlinePositionGroup
 
