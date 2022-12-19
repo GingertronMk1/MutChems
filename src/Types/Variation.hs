@@ -82,21 +82,24 @@ totalsPerSquad = sortOn (Down . snd)
                . firstAndLength
                . concatMap (\VP {vpTeam = t} -> expandTeamOrMultiple t)
 
-variationBackToLineup :: VariationObject -> Lineup
-variationBackToLineup (VariationObject v) = map variationPlayerToLineupPlayer v
-
+-- | List up the single Team belonging to a Variation player
 variationPlayerToLineupPlayer :: VariationPlayer -> Player
-variationPlayerToLineupPlayer (VP {vpName = n, vpTeam = t, vpPosition = p}) =
+variationPlayerToLineupPlayer vp =
   P {
-    pName = n,
-    pTeams = [t],
-    pPosition = p
+    pName = vpName vp,
+    pTeams = [vpTeam vp],
+    pPosition = vpPosition vp
   }
 
+-- | Generate a fully populated variation
 recursiveGetBestSquads :: Lineup -> VariationObject
 recursiveGetBestSquads l =
   let ret@(VariationObject bestSquad) = lineupToBestVariation l
-      (noTeams, hasTeams) = foldr (\p (ins, outs) -> if vpTeam p == NoTeam then (p:ins, outs) else (ins, p:outs)) ([], []) bestSquad
+      (noTeams, hasTeams) =
+        foldr
+          (\p (ins, outs) -> if vpTeam p == NoTeam then (p:ins, outs) else (ins, p:outs))
+          ([], [])
+          bestSquad
    in if null noTeams
       then ret
       else let hasTeamsLineup = map variationPlayerToLineupPlayer hasTeams
