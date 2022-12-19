@@ -57,8 +57,8 @@ baseSquad = [
     ]),
     (mlb,[
       ("Devin Bush", [Team steelers]),
-      ("Bobby Wagner", [Team seahawks, Team rams]),
       ("Derrick Thompson", [Team legends, Team chiefs, Team raiders]),
+      ("Bobby Wagner", [Team seahawks, Team rams]),
       ("Kiko Alonso", [Team legends, Team bills, Team dolphins, Team eagles, Team saints])
     ]),
     (rolb,[
