@@ -80,7 +80,7 @@ surroundInTag :: String -> String -> String
 surroundInTag openingTag content =
   let (tag:attributes) = words openingTag
    in intercalate "\n\n" [
-        printf "<%s %s>" [tag, unwords attributes],
+        printf "<%s%s>" [tag, concatMap (' ':) attributes],
         content,
         printf "</%s>" [tag]
       ]
