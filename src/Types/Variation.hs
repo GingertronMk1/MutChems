@@ -49,7 +49,7 @@ variationToTeams :: Variation -> [Team]
 variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . getSecond) $ v
 
 lineupToVariations :: Lineup -> [Variation]
-lineupToVariations = sort . map Variation . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts]) . convertSquad
+lineupToVariations = map Variation . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts]) . convertSquad
 
 lineupToBestVariation :: Lineup -> Variation
 lineupToBestVariation = maximum . lineupToVariations
