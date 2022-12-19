@@ -8,23 +8,9 @@ import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 import           Types.Variation
 
--- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
-ppTeamOrMultiple :: TeamOrMultiple -> String
-ppTeamOrMultiple NoTeam             = "-"
-ppTeamOrMultiple (Team t)           = t
-ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
-ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
-
--- | Nicely print a Prospective Change
-ppProspectiveChange :: ProspectiveChange -> String
-ppProspectiveChange NoChange = "No change"
-ppProspectiveChange (Addition (p, _, _)) = printf "Adding %s" [p]
-ppProspectiveChange (Replacement p1 (p2, _)) = printf "Replacing %s with %s" [p1, p2]
-ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
-
--- | Print a Variation as a Html table
-htmlTablePrintVariation :: Variation -> String
-htmlTablePrintVariation (Variation v) =
+-- | Print a VariationObject as a Html table
+htmlTablePrintVariation :: VariationObject -> String
+htmlTablePrintVariation (VariationObject v) =
   surroundInTag "table"
   . concat
   $ [
@@ -34,7 +20,7 @@ htmlTablePrintVariation (Variation v) =
     . removeNewLines
     . concatMap (surroundInTag "th")
     $ ["Player", "Chemistry"],
-    -- The body of the table, containing all players and their chemistry in this Variation
+    -- The body of the table, containing all players and their chemistry in this VariationObject
     surroundInTag "tbody" $ htmlTablePrintVariation' v,
     -- The foot of the table, containing a list of all chemistries and how many there are
     surroundInTag "tfoot"
@@ -49,22 +35,22 @@ htmlTablePrintVariation (Variation v) =
     ]
   ]
 
--- | Print the internals of a Variation
-htmlTablePrintVariation' :: [(Player, TeamOrMultiple, Position)] -> String
+-- | Print the internals of a VariationObject
+htmlTablePrintVariation' :: [VariationPlayer] -> String
 htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 
 -- | Print each row of the table, breaking on position changes
-htmlTablePrintVariation'' :: String -> [(Player, TeamOrMultiple, Position)] -> [String]
+htmlTablePrintVariation'' :: String -> [VariationPlayer] -> [String]
 htmlTablePrintVariation'' _ [] = []
-htmlTablePrintVariation'' oldPos ((player, team, position):ps) =
-  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakSpaces) $ [player, ppTeamOrMultiple team]
-   in if position == oldPos
+htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}):ps) =
+  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakSpaces) $ [p, ppTeamOrMultiple t]
+   in if pos == oldPos
       then thisLine : htmlTablePrintVariation'' oldPos ps
-      else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ position) : thisLine : htmlTablePrintVariation'' position ps
+      else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ pos) : thisLine : htmlTablePrintVariation'' pos ps
 
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
-genHtml :: [(ProspectiveChange, Lineup, Variation)] -> String
+genHtml :: [(ProspectiveChange, Lineup, VariationObject)] -> String
 genHtml plvs =
   let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakSpaces . ppProspectiveChange  . getFirst) plvs
       tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . getThird) plvs
@@ -89,7 +75,7 @@ surroundInTag openingTag content =
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
-      ppPlayer (p,_,pos) = printf "| %s | %s |" [p,pos]
+      ppPlayer (P {pName = p, pPosition = pos}) = printf "| %s | %s |" [p,pos]
       ppPlayers ps = intercalate "\n" [
           "| Player | Position |",
           "|:---|---:|",
