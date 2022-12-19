@@ -359,5 +359,11 @@ prospectiveAdditions =
       emptyPlayer
         { pName = "Charles Tillman",
           pTeams = [Team legends, Team bears, Team panthers]
+        },
+    Replacement
+      "Benjamin St-Juste"
+      emptyPlayer
+        { pName = "Ty Law",
+          pTeams = [Team legends, Team broncos, Team chiefs, Team jets, Team patriots]
         }
   ]
