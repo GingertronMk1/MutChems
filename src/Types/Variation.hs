@@ -18,10 +18,6 @@ instance Ord Variation where
   compare v1 v2 =
     let converted1 = teamsInVariation v1
         converted2 = teamsInVariation v2
-        toNumerical c
-          | bestOthers c = 2 :: Int
-          | bestLegends c = 1 :: Int
-          | otherwise = 0 :: Int
     in case compare (toNumerical converted1) (toNumerical converted2) of
       EQ -> fst $ orderListOfInts (map snd converted1) (map snd converted2)
       nonEQ -> nonEQ
@@ -29,20 +25,14 @@ instance Ord Variation where
 teamsInVariation :: Variation -> [(Team, Int)]
 teamsInVariation = firstAndLength
                  . variationToTeams
-
-bestLegends :: [(Team, Int)] -> Bool
-bestLegends = (\(t,n) -> t == legends && n == 40) . maximumBy (comparing snd)
-
-bestOthers :: [(Team, Int)] -> Bool
-bestOthers = (\(t,n) -> t /= legends && n == 50) . maximumBy (comparing snd)
-
--- | Take a list of Teams in order and give a comparison of 2 Team/Int tuples
-runThroughPreferences :: [Team] -> Variation -> Variation -> Ordering
-runThroughPreferences [] _ _ = EQ
-runThroughPreferences (p:ps) v1 v2 = case compare (numTeam v2) (numTeam v1) of
-  EQ -> runThroughPreferences ps v1 v2
-  c  -> c
-  where numTeam = length . filter (==p) . variationToTeams
+              
+toNumerical :: [(Team, Int)] -> Int
+toNumerical cv
+  | bestT /= legends && bestN >= 50 = 4
+  | bestT /= legends && bestN >= 40 = 3
+  | bestT == legends && bestN >= 40 = 2
+  | otherwise                       = 1
+  where (bestT, bestN) = maximumBy (comparing snd) cv
 
 -- | Taking a Variation and reducing it to just the list of Teams it contains
 variationToTeams :: Variation -> [Team]
