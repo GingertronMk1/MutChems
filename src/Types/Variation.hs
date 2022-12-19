@@ -10,7 +10,7 @@ import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
 -- | The object representing a Variation of a squad
-data VariationObject
+newtype VariationObject
   = VariationObject [VariationPlayer]
   deriving (Eq, Show)
 

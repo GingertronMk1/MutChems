@@ -23,5 +23,4 @@ squadNoProspectives = filter (\P {pTeams = ts} -> not (null ts))
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
-iteratedProspectiveSquads =  addProspectivesInTurn prospectiveAdditions
-                          $ squadNoProspectives
+iteratedProspectiveSquads =  addProspectivesInTurn prospectiveAdditions squadNoProspectives
