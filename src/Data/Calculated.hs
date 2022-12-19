@@ -5,13 +5,10 @@
 -- just variables more or less
 module Data.Calculated where
 
-import           Data.Bifunctor
 import           Data.Positions
 import           Data.Squad
--- import           Functions.Display
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
-import           Types.Variation
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: [PlayerObject]
@@ -28,7 +25,3 @@ squadNoProspectives = filter (\P {teams = ts} -> not (null ts))
 iteratedProspectiveSquads :: [(ProspectiveChange, LineupObject)]
 iteratedProspectiveSquads =  addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
-
--- | All Variations for the base squad as it is
--- variationsNoProspectives :: [VariationObject]
--- variationsNoProspectives = lineupToVariations squadNoProspectives

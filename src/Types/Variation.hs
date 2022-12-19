@@ -9,11 +9,6 @@ import           Types.Basic
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
--- | One VariationObject I can have with a LineupObject.
-newtype Variation
-  = Variation [(Player, TeamOrMultiple, Position)]
-  deriving (Eq, Show)
-
 data VariationObject = VariationObject [VariationPlayer] deriving (Eq, Show)
 
 instance Ord VariationObject where

@@ -42,11 +42,11 @@ htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 -- | Print each row of the table, breaking on position changes
 htmlTablePrintVariation'' :: String -> [VariationPlayer] -> [String]
 htmlTablePrintVariation'' _ [] = []
-htmlTablePrintVariation'' oldPos ((VP {vpName = player, vpTeam = team, vpPosition = position}):ps) =
-  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakSpaces) $ [player, ppTeamOrMultiple team]
-   in if position == oldPos
+htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}):ps) =
+  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakSpaces) $ [p, ppTeamOrMultiple t]
+   in if pos == oldPos
       then thisLine : htmlTablePrintVariation'' oldPos ps
-      else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ position) : thisLine : htmlTablePrintVariation'' position ps
+      else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ pos) : thisLine : htmlTablePrintVariation'' pos ps
 
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
