@@ -145,12 +145,12 @@ compareBasedOnSquad ::
   -- | The initial squad.
   Lineup ->
   -- | The first Player.
-  PlayerName ->
+  Player ->
   -- | The second Player.
-  PlayerName ->
+  Player ->
   -- | The resultant Ordering.
   Ordering
-compareBasedOnSquad l p1 p2 =
+compareBasedOnSquad l (P {pName = p1}) (P {pName = p2}) =
   compare (compareBasedOnSquad' l p1) (compareBasedOnSquad' l p2)
 
 -- | Getting the index for a single player.

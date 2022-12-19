@@ -14,12 +14,13 @@ import           Types.Variation
 main :: IO()
 main = do
   start <- getSystemTime
+  let bestOfAllSquads = bestOfAllSquadsFn
+                      . addProspectivesInTurn prospectiveAdditions
+                      $ squadNoProspectives
   let html = (++ ppNumberOfPlayersOnEveryTeam squadNoProspectives)
            . (++ "\n\n---\n\n")
            . genHtml
-           . bestOfAllSquadsFn
-           . addProspectivesInTurn prospectiveAdditions
-           $ squadNoProspectives
+           $ bestOfAllSquads
   writeFile "output.md" html
   end <- getSystemTime
   putStrLn $ printf "Done in %s seconds" [show (systemSeconds end - systemSeconds start)]
