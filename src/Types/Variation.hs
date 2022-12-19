@@ -15,25 +15,26 @@ newtype Variation
   deriving (Eq, Show)
 
 instance Ord Variation where
-  compare v1 v2
-    | bestOthers1 && not bestOthers2 = LT
-    | not bestOthers1 && bestOthers2 = GT
-    | bestLegends1 && not bestLegends2 = LT
-    | not bestLegends1 && bestLegends2 = GT
-    | otherwise = fst $ orderListOfInts (map snd converted1) (map snd converted2)
-      where
-      convertFn = sortBy (comparing snd)
-                . firstAndLength
-                . variationToTeams
-      converted1 = convertFn v1
-      converted2 = convertFn v2
-      bestLegends = (\(t,n) -> t == legends && n >= 40) . head
-      bestOthers = (\(t,n) -> t /= legends && n >= 50) . head
-      bestLegends1 = bestLegends converted1
-      bestLegends2 = bestLegends converted2
-      bestOthers1 = bestOthers converted1
-      bestOthers2 = bestOthers converted2
+  compare v1 v2 =
+    let converted1 = teamsInVariation v1
+        converted2 = teamsInVariation v2
+        toNumerical c
+          | bestOthers c = 2 :: Int
+          | bestLegends c = 1 :: Int
+          | otherwise = 0 :: Int
+    in case compare (toNumerical converted1) (toNumerical converted2) of
+      EQ -> fst $ orderListOfInts (map snd converted1) (map snd converted2)
+      nonEQ -> nonEQ
 
+teamsInVariation :: Variation -> [(Team, Int)]
+teamsInVariation = firstAndLength
+                 . variationToTeams
+
+bestLegends :: [(Team, Int)] -> Bool
+bestLegends = (\(t,n) -> t == legends && n == 40) . maximumBy (comparing snd)
+
+bestOthers :: [(Team, Int)] -> Bool
+bestOthers = (\(t,n) -> t /= legends && n == 50) . maximumBy (comparing snd)
 
 -- | Take a list of Teams in order and give a comparison of 2 Team/Int tuples
 runThroughPreferences :: [Team] -> Variation -> Variation -> Ordering
@@ -47,34 +48,11 @@ runThroughPreferences (p:ps) v1 v2 = case compare (numTeam v2) (numTeam v1) of
 variationToTeams :: Variation -> [Team]
 variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . getSecond) $ v
 
--- | Convert a Lineup to its best variation
-lineupToVariations :: Lineup -> Variation
-lineupToVariations = Variation
-                   . maximum
-                   . sequence
-                   . expandLineup
+lineupToVariations :: Lineup -> [Variation]
+lineupToVariations = sort . map Variation . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts]) . convertSquad
 
-lineupToBestVariationRecursive :: Lineup -> Variation
-lineupToBestVariationRecursive = maximum . map Variation . mapM (\(pl, ts, pos) -> [(pl, t, pos) | t <- ts]) . convertSquad
-
-{-
--- | Recursively iterate through the Lineup to create a Variation
--- with everyone represented
-lineupToBestVariationRecursive :: Lineup -> Variation
-lineupToBestVariationRecursive l = Variation
-                                 . sortBy (\(a,_,_) (b,_,_) -> compareBasedOnSquad l a b)
-                                 . lineupToBestVariationRecursive'
-                                 $ l
-
--- | Helper for the above
-lineupToBestVariationRecursive' :: Lineup -> [(Player, TeamOrMultiple, Position)]
-lineupToBestVariationRecursive' l =
-  let convertedL = convertSquad l
-      (Variation bestVariation) = lineupToVariations convertedL
-   in case partition (\(_, t,_) -> t /= NoTeam) bestVariation of
-    (nonNoTeams, []) -> nonNoTeams
-    (nonNoTeams, noTeams) -> nonNoTeams ++ (lineupToBestVariationRecursive' . filter ((`elem` map getFirst noTeams) . getFirst) $ l)
--}
+lineupToBestVariation :: Lineup -> Variation
+lineupToBestVariation = maximum . lineupToVariations
 
 -- | Generate the best Variations for a set of Lineups and add to the tuples
 bestOfAllSquadsFn :: [(ProspectiveChange, Lineup)] -> [(ProspectiveChange, Lineup, Variation)]
@@ -82,11 +60,11 @@ bestOfAllSquadsFn = map bestOfOneSquadFn
 
 -- | Generate the best Variation for a given Lineup and add it to the provided Tuple
 bestOfOneSquadFn :: (ProspectiveChange, Lineup) -> (ProspectiveChange, Lineup, Variation)
-bestOfOneSquadFn (c, l) = (c, l, lineupToBestVariationRecursive l)
+bestOfOneSquadFn (c, l) = (c, l, lineupToBestVariation l)
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?.
 totalsPerSquad :: [(Player, TeamOrMultiple, Position)] -> [(Team, Int)]
 totalsPerSquad = sortOn (Down . snd)
-              . firstAndLength
-              . concatMap (expandTeamOrMultiple . getSecond)
+               . firstAndLength
+               . concatMap (expandTeamOrMultiple . getSecond)
 

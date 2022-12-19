@@ -11,6 +11,7 @@ import           Data.Squad
 import           Functions.Display
 import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
+import           Types.Variation
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: Lineup
@@ -28,3 +29,6 @@ iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
 iteratedProspectiveSquads = map (second convertSquad)
                           . addProspectivesInTurn prospectiveAdditions
                           $ squadNoProspectives
+
+variationsNoProspectives :: [Variation]
+variationsNoProspectives = lineupToVariations squadNoProspectives
