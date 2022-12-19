@@ -187,8 +187,8 @@ baseSquad =
                 pTeams = [Team legends, Team chiefs, Team raiders]
               },
             emptyPlayer
-              { pName = "Bobby Wagner",
-                pTeams = [Team seahawks, Team rams]
+              { pName = "Junior Seau",
+                pTeams = [Team legends, Team chargers, Team dolphins, Team patriots]
               },
             emptyPlayer
               { pName = "Kiko Alonso",
@@ -353,13 +353,6 @@ prospectiveAdditions =
       emptyPlayer
         { pName = "Donald Parham",
           pTeams = [Team chargers]
-        },
-    -- Campus Heroes to round out the legends
-    Replacement
-      "Bobby Wagner"
-      emptyPlayer
-        { pName = "Junior Seau",
-          pTeams = [Team legends, Team chargers, Team dolphins, Team patriots]
         },
     Replacement
       "Adoree Jackson"
