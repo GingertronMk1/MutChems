@@ -157,3 +157,28 @@ convertSquad = fst . filteredSquadFn
 -- | See all the players in a Lineup that have a given Team chemistry as an option
 numberOfPlayersOnTeam :: Lineup -> Team -> ([PlayerTeamsPosition], [PlayerTeamsPosition])
 numberOfPlayersOnTeam l t =  partition (\(_,toms,_) -> t `elem` concatMap expandTeamOrMultiple toms) l
+
+data PlayerObject = P {
+  name :: Player,
+  teams :: [TeamOrMultiple],
+  position :: Position
+} deriving (Eq, Show)
+
+emptyPlayer :: PlayerObject
+emptyPlayer = P {name = "", teams = [], position = ""}
+
+data PositionGroup = PositionGroup {
+  positionGroup :: Position,
+  players :: [PlayerObject]
+} deriving (Eq, Show)
+
+type InitialLineupObject = [PositionGroup]
+
+type LineupObject = [PlayerObject]
+
+streamlinePositionGroup :: PositionGroup -> [PlayerObject]
+streamlinePositionGroup (PositionGroup {positionGroup = positionGroup, players = players}) = 
+  map (\p -> p {position = positionGroup}) players
+
+streamlineLineup :: InitialLineupObject -> LineupObject
+streamlineLineup = concatMap streamlinePositionGroup

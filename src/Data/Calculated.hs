@@ -33,3 +33,9 @@ iteratedProspectiveSquads = map (second convertSquad)
 -- | All Variations for the base squad as it is
 variationsNoProspectives :: [Variation]
 variationsNoProspectives = lineupToVariations squadNoProspectives
+
+objectedSquad :: InitialLineupObject
+objectedSquad = map (\(pos, plas) -> PositionGroup {
+    positionGroup = pos,
+    players = map (\(p, ts) -> emptyPlayer {name = p, teams = ts}) plas
+  }) baseSquad

@@ -8,102 +8,165 @@ import           Types.ProspectiveChange
 import           Types.TeamOrMultiple
 
 -- | Base squad.
-baseSquad :: LineupWithPositions
+baseSquad :: InitialLineupObject
 baseSquad = [
-    (qb,[
-      ("Ryan Fitzpatrick", [Team bengals, Team bills, Team buccaneers, Team commanders, Team dolphins, Team jets, Team legends, Team rams, Team texans, Team titans]),
-      ("Tim Tebow", [Team legends, Team broncos, Team jets])
-    ]),
-    (hb,[
-      ("CJ2K", [Team legends, Team titans, Team jets, Team cardinals]),
-      ("Rod Woodson (HB)", [Team legends, Team raiders, Team niners, Team steelers, Team ravens]),
-      ("Travis Etienne Jr", [Team jaguars])
-    ]),
-    (fb,[
-      ("Nightmare", [Team legends, Team chiefs]),
-      ("Jim Taylor", [Team legends, Team packers, Team saints])
-    ]),
-    (te,[
-      ("Dave Casper", all32TeamsPlusLegends),
-      ("David Njoku", [Team browns]),
-      ("Hayden Hurst", [Team ravens, Team falcons, Team bengals])
-    ]),
-    (wr,[
-      ("Calvin Johnson", [Team lions, Team legends]),
-      ("Randy Moss", [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]),
-      ("Devin Hester", [Team legends, Team ravens, Team falcons, Team seahawks, Team bears]),
-      ("Deion Sanders (WR)", [ Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys]),
-      ("Charlie Joiner", [Team legends, Team bengals, Team chargers, Team titans])
-    ]),
-    (lt,[
-      ("Jonathan Ogden", [Team legends, Team ravens]),
-      ("Anthony Munoz", [Team legends, Team bengals])
-    ]),
-    (lg,[
-      ("Quenton Nelson", [Team colts]),
-      ("Alan Faneca", [Team legends, Team steelers, Team jets, Team cardinals])
-    ]),
-    (c,[
-      ("Russ Grimm", [Team legends, Team commanders]),
-      ("Creed Humphrey", [Team chiefs])
-    ]),
-    (rg,[
-      ("Larry Allen", [Team legends, Team niners, Team cowboys]),
-      ("Will Shields", [Team legends, Team chiefs])
-    ]),
-    (rt,[
-      ("Willie Anderson", [Team legends, Team bengals, Team ravens]),
-      ("Gary Zimmerman", [Team legends, Team broncos, Team vikings])
-    ]),
-    (mlb,[
-      ("Devin Bush", [Team steelers]),
-      ("Derrick Thompson", [Team legends, Team chiefs, Team raiders]),
-      ("Bobby Wagner", [Team seahawks, Team rams]),
-      ("Kiko Alonso", [Team legends, Team bills, Team dolphins, Team eagles, Team saints])
-    ]),
-    (rolb,[
-      ("Khalil Mack", [Team raiders, Team bears, Team chargers]),
-      ("Jonathan Casillas", [Team legends, Team buccaneers, Team giants, Team patriots, Team saints])
-    ]),
-    (lolb,[
-      ("Ted Hendricks", [Team colts, Team packers, Team raiders, Team legends]),
-      ("Carl Banks", [Team legends, Team browns, Team commanders, Team giants])
-    ]),
-    (dt,[
-      ("Richard Seymour", [Team legends, Team patriots, Team raiders]),
-      ("Sam Adams", all32TeamsPlusLegends),
-      ("Tony Siragusa", [Team legends, Team ravens, Team colts]),
-      ("Merlin Olsen", [Team legends, Team rams])
-    ]),
-    (le,[
-      ("Jevon Kearse", [Team legends, Team titans, Team eagles]),
-      ("George Karlaftis", [Team broncos, Team buccaneers, Team cardinals, Team chiefs, Team giants, Team jaguars, Team niners, Team packers, Team saints, Team seahawks, Team vikings])
-    ]),
-    (re,[
-      ("Cameron Wake", [Team legends, Team titans, Team dolphins]),
-      ("Bruce Smith", [Team legends, Team bills, Team commanders])
-    ]),
-    (ss,[
-      ("John Lynch", [Team legends, Team buccaneers, Team broncos]),
-      ("Nolan Cromwell", [Team legends, Team rams])
-    ]),
-    (fs,[
-      ("Sean Taylor", [Team legends, Team commanders]),
-      ("Rod Woodson", [Team legends, Team niners, Team steelers, Team raiders, Team ravens])
-    ]),
-    (cb,[
-      ("Deion Sanders", all32TeamsPlusLegends),
-      ("Benjamin St-Juste", [Team commanders]),
-      ("Samari Rolle", [Team legends, Team ravens, MultipleTeam titans 2]),
-      ("Adoree Jackson", [Team giants, Team titans]),
-      ("Champ Bailey", [Team commanders, Team broncos, Team legends])
-    ]),
-    (k,[
-      ("Adam Vinatieri", [Team legends, Team colts, Team patriots])
-    ]),
-   (p,[
-      ("Ray Guy", [Team legends, Team raiders])
-    ])
+    PositionGroup {
+      positionGroup = qb,
+      players = [
+        emptyPlayer {
+          name = "Ryan Fitzpatrick",
+          teams = [
+            Team bengals,
+            Team bills,
+            Team buccaneers,
+            Team commanders,
+            Team dolphins,
+            Team jets,
+            Team legends,
+            Team rams,
+            Team texans,
+            Team titans
+          ]
+        },
+        emptyPlayer {
+          name = "Tim Tebow",
+          teams = [
+            Team legends,
+            Team broncos,
+            Team jets
+          ]
+        }
+      ]},
+    PositionGroup {
+      positionGroup = hb,
+      players = [
+        emptyPlayer {name = "CJ2K", teams = [Team legends, Team titans, Team jets, Team cardinals]},
+        emptyPlayer {name = "Rod Woodson (HB)", teams = [Team legends, Team raiders, Team niners, Team steelers, Team ravens]},
+        emptyPlayer {name = "Travis Etienne Jr", teams = [Team jaguars]}
+    ]},
+    PositionGroup {
+      positionGroup = fb,
+      players = [
+        emptyPlayer {name = "Nightmare", teams = [Team legends, Team chiefs]},
+        emptyPlayer {name = "Jim Taylor", teams = [Team legends, Team packers, Team saints]}
+    ]},
+    PositionGroup {
+      positionGroup = te,
+      players = [
+      emptyPlayer {name = "Dave Casper", teams = all32TeamsPlusLegends},
+      emptyPlayer {name = "David Njoku", teams = [Team browns]},
+      emptyPlayer {name = "Hayden Hurst", teams = [Team ravens, Team falcons, Team bengals]}
+    ]},
+    PositionGroup {
+      positionGroup = wr,
+      players = [
+      emptyPlayer {name = "Calvin Johnson", teams = [Team lions, Team legends]},
+      emptyPlayer {name = "Randy Moss", teams = [Team legends, Team titans, Team raiders, Team niners, Team vikings, Team patriots]},
+      emptyPlayer {name = "Devin Hester", teams = [Team legends, Team ravens, Team falcons, Team seahawks, Team bears]},
+      emptyPlayer {name = "Deion Sanders (WR)", teams = [ Team legends, Team ravens, Team niners, Team falcons, Team commanders, Team cowboys]},
+      emptyPlayer {name = "Charlie Joiner", teams = [Team legends, Team bengals, Team chargers, Team titans]}
+    ]},
+    PositionGroup {
+      positionGroup = lt,
+      players = [
+      emptyPlayer {name = "Jonathan Ogden", teams = [Team legends, Team ravens]},
+      emptyPlayer {name = "Anthony Munoz", teams = [Team legends, Team bengals]}
+    ]},
+    PositionGroup {
+      positionGroup = lg,
+      players = [
+      emptyPlayer {name = "Quenton Nelson", teams = [Team colts]},
+      emptyPlayer {name = "Alan Faneca", teams = [Team legends, Team steelers, Team jets, Team cardinals]}
+    ]},
+    PositionGroup {
+      positionGroup = c,
+      players = [
+      emptyPlayer {name = "Russ Grimm", teams = [Team legends, Team commanders]},
+      emptyPlayer {name = "Creed Humphrey", teams = [Team chiefs]}
+    ]},
+    PositionGroup {
+      positionGroup = rg,
+      players = [
+      emptyPlayer {name = "Larry Allen", teams = [Team legends, Team niners, Team cowboys]},
+      emptyPlayer {name = "Will Shields", teams = [Team legends, Team chiefs]}
+    ]},
+    PositionGroup {
+      positionGroup = rt,
+      players = [
+      emptyPlayer {name = "Willie Anderson", teams = [Team legends, Team bengals, Team ravens]},
+      emptyPlayer {name = "Gary Zimmerman", teams = [Team legends, Team broncos, Team vikings]}
+    ]},
+    PositionGroup {
+      positionGroup = mlb,
+      players = [
+      emptyPlayer {name = "Devin Bush", teams = [Team steelers]},
+      emptyPlayer {name = "Derrick Thompson", teams = [Team legends, Team chiefs, Team raiders]},
+      emptyPlayer {name = "Bobby Wagner", teams = [Team seahawks, Team rams]},
+      emptyPlayer {name = "Kiko Alonso", teams = [Team legends, Team bills, Team dolphins, Team eagles, Team saints]}
+    ]},
+    PositionGroup {
+      positionGroup = rolb,
+      players = [
+      emptyPlayer {name = "Khalil Mack", teams = [Team raiders, Team bears, Team chargers]},
+      emptyPlayer {name = "Jonathan Casillas", teams = [Team legends, Team buccaneers, Team giants, Team patriots, Team saints]}
+    ]},
+    PositionGroup {
+      positionGroup = lolb,
+      players = [
+      emptyPlayer {name = "Ted Hendricks", teams = [Team colts, Team packers, Team raiders, Team legends]},
+      emptyPlayer {name = "Carl Banks", teams = [Team legends, Team browns, Team commanders, Team giants]}
+    ]},
+    PositionGroup {
+      positionGroup = dt,
+      players = [
+      emptyPlayer {name = "Richard Seymour", teams = [Team legends, Team patriots, Team raiders]},
+      emptyPlayer {name = "Sam Adams", teams =  all32TeamsPlusLegends},
+      emptyPlayer {name = "Tony Siragusa", teams = [Team legends, Team ravens, Team colts]},
+      emptyPlayer {name = "Merlin Olsen", teams = [Team legends, Team rams]}
+    ]},
+    PositionGroup {
+      positionGroup = le,
+      players = [
+      emptyPlayer {name = "Jevon Kearse", teams = [Team legends, Team titans, Team eagles]},
+      emptyPlayer {name = "George Karlaftis", teams = [Team broncos, Team buccaneers, Team cardinals, Team chiefs, Team giants, Team jaguars, Team niners, Team packers, Team saints, Team seahawks, Team vikings]}
+    ]},
+    PositionGroup {
+      positionGroup = re,
+      players = [
+      emptyPlayer {name = "Cameron Wake", teams = [Team legends, Team titans, Team dolphins]},
+      emptyPlayer {name = "Bruce Smith", teams = [Team legends, Team bills, Team commanders]}
+    ]},
+    PositionGroup {
+      positionGroup = ss,
+      players = [
+      emptyPlayer {name = "John Lynch", teams = [Team legends, Team buccaneers, Team broncos]},
+      emptyPlayer {name = "Nolan Cromwell", teams = [Team legends, Team rams]}
+    ]},
+    PositionGroup {
+      positionGroup = fs,
+      players = [
+      emptyPlayer {name = "Sean Taylor", teams = [Team legends, Team commanders]},
+      emptyPlayer {name = "Rod Woodson", teams = [Team legends, Team niners, Team steelers, Team raiders, Team ravens]}
+    ]},
+    PositionGroup {
+      positionGroup = cb,
+      players = [
+      emptyPlayer {name = "Deion Sanders", teams = all32TeamsPlusLegends},
+      emptyPlayer {name = "Benjamin St-Juste", teams = [Team commanders]},
+      emptyPlayer {name = "Samari Rolle", teams = [Team legends, Team ravens, MultipleTeam titans 2]},
+      emptyPlayer {name = "Adoree Jackson", teams = [Team giants, Team titans]},
+      emptyPlayer {name = "Champ Bailey", teams = [Team commanders, Team broncos, Team legends]}
+    ]},
+    PositionGroup {
+      positionGroup = k,
+      players = [
+      emptyPlayer {name = "Adam Vinatieri", teams = [Team legends, Team colts, Team patriots]}
+    ]},
+   PositionGroup {
+      positionGroup = p,
+      players = [
+      emptyPlayer {name = "Ray Guy", teams = [Team legends, Team raiders]}
+    ]}
   ]
 
 -- | Team affinity strategy card.
@@ -116,6 +179,6 @@ prospectiveAdditions = [
     -- Zero chill forge
     Replacement "Hayden Hurst" ("Donald Parham", [Team chargers]),
     -- Campus Heroes to round out the legends
-    Replacement "Bobby Wagner" ("Junior Seau", [Team legends, Team chargers, Team dolphins, Team patriots]),
+    Replacement "Bobby Wagner" ("Junior Seau", [Team legends, Team chargers, Team dolphins, Team patriots])
   ]
 
