@@ -3,7 +3,8 @@
 echo "Stack installing"
 stack install
 
-while read p; do
-  echo "Installing $p"
-  stack install $p
-done < requirements.txt
+cat requirements.txt | while read line || [[ -n $line ]];
+do
+  echo "Installing $line"
+  stack install $line
+done
