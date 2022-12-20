@@ -32,7 +32,7 @@ jobs:
       - name: Test the thing
         run: stack test
       - name: Check formatting
-        run: ormolu --mode check $(find . -name '*.hs')
+        run: stack exec ormolu -- --mode check $(find . -name '*.hs')
       - name: Run the thing
         run: stack run
       - id: buildstep
