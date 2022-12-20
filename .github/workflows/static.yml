@@ -28,11 +28,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install
-        run: ./bin/install
+        run: stack install
       - name: Test the thing
         run: stack test
-      - name: Check formatting
-        run: stack exec ormolu -- --mode check $(find . -name '*.hs')
       - name: Run the thing
         run: stack run
       - id: buildstep
