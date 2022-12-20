@@ -1,0 +1,3 @@
+#!/bin/sh
+
+stack exec ormolu -- --mode inplace $(find src app -name '*.hs')
