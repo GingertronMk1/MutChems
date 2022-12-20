@@ -3,7 +3,7 @@
 -- List of positions
 module Data.Positions where
 
-import           Types.Basic
+import Types.Basic
 
 -- | Quarterback
 qb :: Position

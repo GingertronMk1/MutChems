@@ -1,6 +1,5 @@
-import           Test.HUnit
-
-import           Functions.Application
+import Functions.Application
+import Test.HUnit
 
 main :: IO ()
 main = do
@@ -8,16 +7,19 @@ main = do
   print testCounts
 
 testList :: Test
-testList = TestList [
-    testUnbreakSpaces,
-    testDistanceFrom5
-  ]
+testList =
+  TestList
+    [ testUnbreakSpaces,
+      testDistanceFrom5
+    ]
 
 testUnbreakSpaces :: Test
-testUnbreakSpaces = TestCase $ assertEqual
-  "replaceSpaces should replace all spaces with &nbsp;"
-  "Hello,&nbsp;World!"
-  (unBreakSpaces "Hello, World!")
+testUnbreakSpaces =
+  TestCase $
+    assertEqual
+      "replaceSpaces should replace all spaces with &nbsp;"
+      "Hello,&nbsp;World!"
+      (unBreakSpaces "Hello, World!")
 
 testDistanceFrom5 :: Test
 testDistanceFrom5 = TestCase $ do

@@ -1,24 +1,23 @@
 -- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
-import           Data.List
-import           Data.Maybe
-import           Data.Other
-import           Functions.Application
-import           Types.Basic
+import Data.List
+import Data.Maybe
+import Data.Other
+import Functions.Application
+import Types.Basic
 
 -- * The Main Event.
 
 -- | The Player object
-data Player
-  = P
-      { -- | The Player's name
-        pName     :: PlayerName
-        -- | All of the Player's Teams
-      , pTeams    :: [TeamOrMultiple]
-        -- | The Player's position
-      , pPosition :: Position
-      }
+data Player = P
+  { -- | The Player's name
+    pName :: PlayerName,
+    -- | All of the Player's Teams
+    pTeams :: [TeamOrMultiple],
+    -- | The Player's position
+    pPosition :: Position
+  }
   deriving (Eq, Show)
 
 -- | The empty Player, the basis for other players with sensible defaults
@@ -26,13 +25,12 @@ emptyPlayer :: Player
 emptyPlayer = P {pName = "", pTeams = [], pPosition = ""}
 
 -- | The position group: a position and the list of Players that play there
-data PositionGroup
-  = PositionGroup
-      { -- | The position
-        pgPosition :: Position
-        -- | The players
-      , pgPlayers  :: [Player]
-      }
+data PositionGroup = PositionGroup
+  { -- | The position
+    pgPosition :: Position,
+    -- | The players
+    pgPlayers :: [Player]
+  }
   deriving (Eq, Show)
 
 -- | The initial lineup - grouped by position
@@ -43,40 +41,40 @@ type Lineup = [Player]
 
 -- | Options for one or more Teams.
 data TeamOrMultiple
-  -- | Null value.
-  = NoTeam
-  -- | A single Team.
-  | Team Team
-  -- | A single Team with a multiplier, e.g. Raiders x3.
-  | MultipleTeam Team Int
-  -- | Multiple Teams, e.g. Broncos + Seahawks.
-  | Teams [TeamOrMultiple]
+  = -- | Null value.
+    NoTeam
+  | -- | A single Team.
+    Team Team
+  | -- | A single Team with a multiplier, e.g. Raiders x3.
+    MultipleTeam Team Int
+  | -- | Multiple Teams, e.g. Broncos + Seahawks.
+    Teams [TeamOrMultiple]
   deriving (Eq, Show)
 
 -- | The Ord instance - compare the "lowest" team name in each.
 instance Ord TeamOrMultiple where
   -- We're going to base this on MultipleTeams
   -- Comparing 2 MultipleTeams
-  compare (MultipleTeam t1 i1)  (MultipleTeam t2 i2) = case compare t1 t2 of
-    EQ -> compare i1 i2   -- If it's the same Team then compare how many it is
-    c  -> c               -- Otherwise compare the Team
-  compare t1@(MultipleTeam _ _) (Team t2)             = compare t1 (MultipleTeam t2 1)
-  compare t1@(MultipleTeam _ _) (Teams t2s)           = compare t1 (maximum t2s)
-  compare (Team t1)             (Team t2)             = compare (MultipleTeam t1 1) (MultipleTeam t2 1)
-  compare (Team t1)             t2@(MultipleTeam _ _) = compare (MultipleTeam t1 1) t2
-  compare (Team t1)             (Teams t2s)           = compare (MultipleTeam t1 1) (maximum t2s)
-  compare (Teams t1s)           t2@(Team _)           = compare (maximum t1s) t2
-  compare (Teams t1s)           t2@(MultipleTeam _ _) = compare (maximum t1s) t2
-  compare (Teams t1s)           (Teams t2s)           = compare (maximum t1s) (maximum t2s)
-  compare NoTeam                _                     = LT
-  compare _                     NoTeam                = GT
+  compare (MultipleTeam t1 i1) (MultipleTeam t2 i2) = case compare t1 t2 of
+    EQ -> compare i1 i2 -- If it's the same Team then compare how many it is
+    c -> c -- Otherwise compare the Team
+  compare t1@(MultipleTeam _ _) (Team t2) = compare t1 (MultipleTeam t2 1)
+  compare t1@(MultipleTeam _ _) (Teams t2s) = compare t1 (maximum t2s)
+  compare (Team t1) (Team t2) = compare (MultipleTeam t1 1) (MultipleTeam t2 1)
+  compare (Team t1) t2@(MultipleTeam _ _) = compare (MultipleTeam t1 1) t2
+  compare (Team t1) (Teams t2s) = compare (MultipleTeam t1 1) (maximum t2s)
+  compare (Teams t1s) t2@(Team _) = compare (maximum t1s) t2
+  compare (Teams t1s) t2@(MultipleTeam _ _) = compare (maximum t1s) t2
+  compare (Teams t1s) (Teams t2s) = compare (maximum t1s) (maximum t2s)
+  compare NoTeam _ = LT
+  compare _ NoTeam = GT
 
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis.
 expandTeamOrMultiple :: TeamOrMultiple -> [Team]
-expandTeamOrMultiple NoTeam             = []
-expandTeamOrMultiple (Team t)           = [t]
+expandTeamOrMultiple NoTeam = []
+expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
-expandTeamOrMultiple (Teams ts)         = concatMap expandTeamOrMultiple ts
+expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 
 -- | How many options do we get from a given `Lineup`?.
 numberOfOptionsFn :: Lineup -> Int
@@ -104,9 +102,10 @@ filteredSquadFn' threshold s
   | numberOfNewSOptions == 0 = ([], threshold)
   | numberOfNewSOptions <= squadFilterThreshold = (newS, threshold)
   | otherwise = filteredSquadFn' (threshold + 1) newS
-  where allTeams = allTeamsFn s
-        newS                = map (\p@(P {pTeams = tom}) -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) tom}) s
-        numberOfNewSOptions = numberOfOptionsFn newS
+  where
+    allTeams = allTeamsFn s
+    newS = map (\p@(P {pTeams = tom}) -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) tom}) s
+    numberOfNewSOptions = numberOfOptionsFn newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
 filterFn ::
@@ -120,12 +119,13 @@ filterFn ::
   -- | The resultant boolean value
   Bool
 filterFn threshold ts tom = case tom of
-    NoTeam             -> False
-    (Team t)           -> filterFn' t
-    (MultipleTeam t _) -> filterFn' t
-    (Teams teams)      -> any (filterFn threshold ts) teams
-    where filterFn' t = numberOfOneTeam t > threshold
-          numberOfOneTeam t = length . filter (== t) $ ts
+  NoTeam -> False
+  (Team t) -> filterFn' t
+  (MultipleTeam t _) -> filterFn' t
+  (Teams teams) -> any (filterFn threshold ts) teams
+  where
+    filterFn' t = numberOfOneTeam t > threshold
+    numberOfOneTeam t = length . filter (== t) $ ts
 
 -- | A helper to be used in the mapping for the above
 filteredSquadFn'' ::
@@ -164,7 +164,7 @@ convertSquad = fst . filteredSquadFn
 
 -- | See all the players in a Lineup that have a given Team chemistry as an option
 numberOfPlayersOnTeam :: Lineup -> Team -> ([Player], [Player])
-numberOfPlayersOnTeam l t =  partition (\P {pTeams = toms} -> t `elem` concatMap expandTeamOrMultiple toms) l
+numberOfPlayersOnTeam l t = partition (\P {pTeams = toms} -> t `elem` concatMap expandTeamOrMultiple toms) l
 
 -- | Take a position group and assign its position to all of its constituent players
 streamlinePositionGroup :: PositionGroup -> [Player]
@@ -177,10 +177,10 @@ streamlineLineup = concatMap streamlinePositionGroup
 
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
-ppTeamOrMultiple NoTeam             = "-"
-ppTeamOrMultiple (Team t)           = t
+ppTeamOrMultiple NoTeam = "-"
+ppTeamOrMultiple (Team t) = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
-ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
+ppTeamOrMultiple (Teams ts) = intercalate "/" $ map show ts
 
 -- | Making sure a lineup is valid for our purposes - no duplicated names
 checkLineupIsValid :: Lineup -> Lineup
@@ -189,13 +189,14 @@ checkLineupIsValid l = checkLineupIsValid' l l
 -- | Helper function for the above
 checkLineupIsValid' :: Lineup -> Lineup -> Lineup
 checkLineupIsValid' [] l = l
-checkLineupIsValid' allPs@(P {pName = currentPlayerName}:ps) l =
-  case filter (\p' -> pName p' == currentPlayerName) allPs
-   of [_] -> checkLineupIsValid' ps l
-      ps' -> error
-           $ printf
-             "There are %s players called %s, in positions %s. This constitutes an invalid lineup."
-             [ show (length ps'),
-               currentPlayerName,
-               intercalate ", " . map pPosition $ ps'
-             ]
+checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
+  case filter (\p' -> pName p' == currentPlayerName) allPs of
+    [_] -> checkLineupIsValid' ps l
+    ps' ->
+      error $
+        printf
+          "There are %s players called %s, in positions %s. This constitutes an invalid lineup."
+          [ show (length ps'),
+            currentPlayerName,
+            intercalate ", " . map pPosition $ ps'
+          ]

@@ -5,10 +5,10 @@
 -- just variables more or less
 module Data.Calculated where
 
-import           Data.Positions
-import           Data.Squad
-import           Types.ProspectiveChange
-import           Types.TeamOrMultiple
+import Data.Positions
+import Data.Squad
+import Types.ProspectiveChange
+import Types.TeamOrMultiple
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: [Player]
@@ -16,11 +16,12 @@ processedStrategy = map (\s -> emptyPlayer {pName = "STRATEGY: " ++ ppTeamOrMult
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
-squadNoProspectives = filter (\P {pTeams = ts} -> not (null ts))
-                    . (++processedStrategy)
-                    . streamlineLineup
-                    $ baseSquad
+squadNoProspectives =
+  filter (\P {pTeams = ts} -> not (null ts))
+    . (++ processedStrategy)
+    . streamlineLineup
+    $ baseSquad
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
-iteratedProspectiveSquads =  addProspectivesInTurn prospectiveAdditions squadNoProspectives
+iteratedProspectiveSquads = addProspectivesInTurn prospectiveAdditions squadNoProspectives

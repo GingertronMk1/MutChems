@@ -5,7 +5,7 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
-import           Data.List
+import Data.List
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
@@ -75,17 +75,17 @@ printf' ::
   [String] ->
   -- | The resultant String - a reversed, concatenated version of the accumulator.
   String
-printf' new "" _                              = concat . reverse $ new
+printf' new "" _ = concat . reverse $ new
 printf' new ('%' : 's' : olds) (item : items) = printf' (item : new) olds items
-printf' new (old : olds) items                = printf' ([old] : new) olds items
+printf' new (old : olds) items = printf' ([old] : new) olds items
 
 -- | Kind of a compression algorithm?
 -- Take a list of items and compress them into tuples
 -- containing the item and how many times it appears in the list
 firstAndLength :: Eq a => [a] -> [(a, Int)]
 firstAndLength [] = []
-firstAndLength xs@(x:_) =
-  let (ins, outs) = partition (==x) xs
+firstAndLength xs@(x : _) =
+  let (ins, outs) = partition (== x) xs
    in (x, length ins) : firstAndLength outs
 
 -- | Using a function to convert an input to a String, convert a list of such
@@ -98,14 +98,13 @@ unBreakSpaces :: String -> String
 unBreakSpaces = intercalate "&nbsp;" . words
 
 -- | First item in a tuple of 3
-getFirst :: (a,b,c) -> a
-getFirst (a,_,_) = a
+getFirst :: (a, b, c) -> a
+getFirst (a, _, _) = a
 
 -- | Second item in a tuple of 3
-getSecond :: (a,b,c) -> b
-getSecond (_,b,_) = b
+getSecond :: (a, b, c) -> b
+getSecond (_, b, _) = b
 
 -- | Third item in a tuple of 3
-getThird :: (a,b,c) -> c
-getThird (_,_,c) = c
-
+getThird :: (a, b, c) -> c
+getThird (_, _, c) = c
