@@ -1,7 +1,9 @@
 #!/bin/sh
 
+echo "Stack installing"
 stack install
 
 while read p; do
+  echo "Installing $p"
   stack install $p
 done < requirements.txt
