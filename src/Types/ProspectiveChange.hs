@@ -27,7 +27,7 @@ addProspectivesInTurn ps l = (NoChange, l) : addProspectivesInTurn' ps l
 addProspectivesInTurn' :: [ProspectiveChange] -> Lineup -> [(ProspectiveChange, Lineup)]
 addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p:ps) l =
-  let newL = addProspective p l
+  let newL = checkLineupIsValid . addProspective p . checkLineupIsValid $ l
    in (p, newL) : addProspectivesInTurn' ps newL
 
 -- | Add a single prospective addition to the squad.

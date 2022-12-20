@@ -182,3 +182,19 @@ ppTeamOrMultiple (Team t)           = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
 ppTeamOrMultiple (Teams ts)         = intercalate "/" $ map show ts
 
+checkLineupIsValid :: Lineup -> Lineup
+checkLineupIsValid l = checkLineupIsValid' l l
+
+checkLineupIsValid' :: Lineup -> Lineup -> Lineup
+checkLineupIsValid' [] l = l
+checkLineupIsValid' allPs@(P {pName = currentPlayerName}:ps) l =
+  let filteredPs = filter (\p' -> pName p' == currentPlayerName) allPs
+   in if length filteredPs == 1
+      then checkLineupIsValid' ps l
+      else error
+         $ printf
+             "There are %s players called %s, in positions %s. This constitutes an invalid lineup."
+             [ show (length filteredPs),
+               currentPlayerName,
+               intercalate ", " . map pPosition $ filteredPs
+             ]
