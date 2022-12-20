@@ -213,8 +213,8 @@ baseSquad =
       { pgPosition = lolb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Ted Hendricks",
-                pTeams = [Team colts, Team packers, Team raiders, Team legends]
+              { pName = "Mike Vrabel",
+                pTeams = [Team legends, Team patriots, Team steelers, Team chiefs]
               },
             emptyPlayer
               { pName = "Carl Banks",
@@ -260,10 +260,6 @@ baseSquad =
       { pgPosition = re,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Cameron Wake",
-                pTeams = [Team legends, Team titans, Team dolphins]
-              },
-            emptyPlayer
               { pName = "Bruce Smith",
                 pTeams = [Team legends, Team bills, Team commanders]
               }
@@ -347,7 +343,13 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ -- Zero chill forge
+  [ Replacement
+      "John Lynch"
+      emptyPlayer
+        { pName = "Ted Hendricks (SS)",
+          pTeams = [Team colts, Team packers, Team raiders, Team legends]
+        },
+    -- Zero chill forge
     Replacement
       "Hayden Hurst"
       emptyPlayer
