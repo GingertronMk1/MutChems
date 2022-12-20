@@ -307,8 +307,8 @@ baseSquad =
                 pTeams = [Team legends, Team ravens, MultipleTeam titans 2]
               },
             emptyPlayer
-              { pName = "Adoree Jackson",
-                pTeams = [Team giants, Team titans]
+              { pName = "Calvin Johnson (CB)",
+                pTeams = [Team legends, Team lions]
               },
             emptyPlayer
               { pName = "Champ Bailey",
@@ -343,13 +343,7 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement
-      "Adoree Jackson"
-      emptyPlayer
-        { pName = "Calvin Johnson (CB)",
-          pTeams = [Team legends, Team lions]
-        },
-    Replacement -- Zero chill forge
+  [ Replacement -- Zero chill forge
       "Hayden Hurst"
       emptyPlayer
         { pName = "Donald Parham",
