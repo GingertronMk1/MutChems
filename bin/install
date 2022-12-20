@@ -1,10 +1,13 @@
 #!/bin/sh
 
-echo "Stack installing"
+echo "Stack installing program"
 stack install
 
-cat requirements.txt | while read line || [[ -n $line ]];
-do
-  echo "Installing $line"
+echo "Going through requirements"
+
+REQUIREMENTS=$(cat requirements.txt)
+
+for line in $REQUIREMENTS; do
+  echo "Stack installing $line"
   stack install $line
 done
