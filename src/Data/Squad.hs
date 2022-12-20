@@ -354,5 +354,11 @@ prospectiveAdditions =
       emptyPlayer
         { pName = "Ty Law",
           pTeams = [Team legends, Team broncos, Team chiefs, Team jets, Team patriots]
+        },
+    Replacement
+      "Deion Sanders (WR)"
+      emptyPlayer
+        { pName = "Steve Smith Sr",
+          pTeams = [Team legends, Team panthers, Team ravens]
         }
   ]
