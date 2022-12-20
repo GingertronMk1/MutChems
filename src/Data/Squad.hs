@@ -269,8 +269,8 @@ baseSquad =
       { pgPosition = ss,
         pgPlayers =
           [ emptyPlayer
-              { pName = "John Lynch",
-                pTeams = [Team legends, Team buccaneers, Team broncos]
+              { pName = "Ted Hendricks (SS)",
+                pTeams = [Team colts, Team packers, Team raiders, Team legends]
               },
             emptyPlayer
               { pName = "Nolan Cromwell",
@@ -344,23 +344,16 @@ strategy = []
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Replacement
-      "John Lynch"
+      "Adoree Jackson"
       emptyPlayer
-        { pName = "Ted Hendricks (SS)",
-          pTeams = [Team colts, Team packers, Team raiders, Team legends]
+        { pName = "Calvin Johnson (CB)",
+          pTeams = [Team legends, Team lions]
         },
-    -- Zero chill forge
-    Replacement
+    Replacement -- Zero chill forge
       "Hayden Hurst"
       emptyPlayer
         { pName = "Donald Parham",
           pTeams = [Team chargers]
-        },
-    Replacement
-      "Adoree Jackson"
-      emptyPlayer
-        { pName = "Charles Tillman",
-          pTeams = [Team legends, Team bears, Team panthers]
         },
     Replacement
       "Benjamin St-Juste"
