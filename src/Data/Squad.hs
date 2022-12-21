@@ -55,7 +55,8 @@ baseSquad =
                   [ Team legends,
                     Team steelers,
                     Team ravens,
-                    Team niners
+                    Team niners,
+                    Team raiders
                   ]
               },
             emptyPlayer
@@ -453,6 +454,7 @@ baseSquad =
               { pName = "Rod Woodson",
                 pTeams =
                   [ Team legends,
+                    Team steelers,
                     Team raiders,
                     Team ravens,
                     Team niners
@@ -541,14 +543,25 @@ prospectiveAdditions =
             ]
         },
     Replacement
-      "Benjamin St-Juste"
+      "Rod Woodson"
       emptyPlayer
-        { pName = "Night Train Lane",
+        { pName = "Weapon X",
           pTeams =
             [ Team legends,
-              Team lions,
-              Team rams,
-              Team cardinals
+              Team eagles,
+              Team broncos
+            ]
+        },
+    Replacement
+      "Benjamin St-Juste"
+      emptyPlayer
+        { pName = "Rod Woodson",
+          pTeams =
+            [ Team legends,
+              Team steelers,
+              Team niners,
+              Team ravens,
+              Team raiders
             ]
         },
     Replacement
@@ -559,16 +572,6 @@ prospectiveAdditions =
             [ Team legends,
               Team panthers,
               Team ravens
-            ]
-        },
-    Replacement
-      "Rod Woodson"
-      emptyPlayer
-        { pName = "Weapon X",
-          pTeams =
-            [ Team legends,
-              Team eagles,
-              Team broncos
             ]
         }
   ]
