@@ -38,7 +38,7 @@ addProspective (Addition p@(P {pPosition = additionPosition})) l =
   let (befores, firstPosition : afters) = break ((additionPosition ==) . pPosition) l
    in befores ++ (p : firstPosition : afters)
 addProspective (Replacement p newP) l =
-  case break ((== p) . pName) l of
+  case break ((p ==) . pName) l of
     (_, []) -> error $ printf "No player called %s in lineup" [p]
     (firstPart, P {pPosition = oldPosition} : theRest) -> firstPart ++ (newP {pPosition = oldPosition} : theRest)
 addProspective (Removal p) l = filter ((/= p) . pName) l

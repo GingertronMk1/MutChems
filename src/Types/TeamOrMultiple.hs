@@ -125,7 +125,7 @@ filterFn threshold ts tom = case tom of
   (Teams teams) -> any (filterFn threshold ts) teams
   where
     filterFn' t = numberOfOneTeam t > threshold
-    numberOfOneTeam t = length . filter (== t) $ ts
+    numberOfOneTeam t = length . filter (t ==) $ ts
 
 -- | A helper to be used in the mapping for the above
 filteredSquadFn'' ::
@@ -155,7 +155,7 @@ compareBasedOnSquad l (P {pName = p1}) (P {pName = p2}) =
 
 -- | Getting the index for a single player.
 compareBasedOnSquad' :: Lineup -> PlayerName -> Int
-compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((== p) . pName) l)
+compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((p ==) . pName) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
@@ -190,7 +190,7 @@ checkLineupIsValid l = checkLineupIsValid' l l
 checkLineupIsValid' :: Lineup -> Lineup -> Lineup
 checkLineupIsValid' [] l = l
 checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
-  case filter ((== currentPlayerName) . pName) allPs of
+  case filter ((currentPlayerName ==) . pName) allPs of
     [_] -> checkLineupIsValid' ps l
     ps' ->
       error $

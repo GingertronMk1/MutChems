@@ -40,7 +40,7 @@ orderListOfInts xs ys
   | otherwise = (EQ, "Tried all of em")
   where
     meanComp = compare (mean xs) (mean ys)
-    num5s = length . filter (== 0) . map (`mod` 5)
+    num5s = length . filter (0 ==) . map (`mod` 5)
     numComp = compare (num5s xs) (num5s ys)
     distComp = compare (avgDistanceFromMultiplesOf5 ys) (avgDistanceFromMultiplesOf5 xs)
     maxComp = compare (maximum xs) (maximum ys)
@@ -86,7 +86,7 @@ printf' new (old : olds) items = printf' ([old] : new) olds items
 firstAndLength :: Eq a => [a] -> [(a, Int)]
 firstAndLength [] = []
 firstAndLength xs@(x : _) =
-  let (ins, outs) = partition (== x) xs
+  let (ins, outs) = partition (x ==) xs
    in (x, length ins) : firstAndLength outs
 
 -- | Using a function to convert an input to a String, convert a list of such
