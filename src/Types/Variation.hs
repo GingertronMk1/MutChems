@@ -104,6 +104,6 @@ recursiveGetBestSquads l =
         then ret
         else
           let hasTeamsLineup = map variationPlayerToLineupPlayer hasTeams
-              noTeamsLineup = filter (\p -> pName p `elem` map vpName noTeams) l
+              noTeamsLineup = filter ((`elem` map vpName noTeams) . pName) l
               newLineup = sortBy (compareBasedOnSquad l) (hasTeamsLineup ++ noTeamsLineup)
            in recursiveGetBestSquads newLineup
