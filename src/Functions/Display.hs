@@ -75,7 +75,6 @@ surroundInTag openingTag content =
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
-      ppPlayer (P {pName = p, pPosition = pos}) = printf "| %s | %s |" [p, pos]
       ppPlayers ps =
         intercalate
           "\n"
@@ -92,6 +91,10 @@ ppNumberOfPlayersOnTeam l t =
             printf "### Does not have %s chemistry" [t],
             ppPlayers outs
           ]
+
+-- | Print a player's name and position as a row in a MarkDown table
+ppPlayer :: Player -> String
+ppPlayer (P {pName = p, pPosition = pos}) = printf "| %s | %s |" [p, pos]
 
 -- | Nicely print the number of Players with each team chemistry in a Lineup
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String
