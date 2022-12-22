@@ -101,11 +101,9 @@ baseSquad =
                   ]
               },
             emptyPlayer
-              { pName = "Hayden Hurst",
+              { pName = "Donald Parham",
                 pTeams =
-                  [ Team falcons,
-                    Team bengals,
-                    Team ravens
+                  [ Team chargers
                   ]
               }
           ]
@@ -535,14 +533,6 @@ strategy = []
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Replacement -- Zero chill forge
-      "Hayden Hurst"
-      emptyPlayer
-        { pName = "Donald Parham",
-          pTeams =
-            [ Team chargers
-            ]
-        },
-    Replacement
       "Rod Woodson"
       emptyPlayer
         { pName = "Weapon X",
