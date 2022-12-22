@@ -28,7 +28,7 @@ htmlTablePrintVariation (VariationObject v) =
           . concatMap (surroundInTag "td")
           $ [ "TOTALS",
               surroundInTag "ul"
-                . newLineMap (\(t, i) -> removeNewLines . surroundInTag "li" . printf "%s: %s" . map unBreakSpaces $ [t, show i])
+                . newLineMap (\(t, i) -> removeNewLines . surroundInTag "li" . printf "%s: %s" . map unBreakCharacters $ [t, show i])
                 . totalsPerSquad
                 $ v
             ]
@@ -42,7 +42,7 @@ htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 htmlTablePrintVariation'' :: String -> [VariationPlayer] -> [String]
 htmlTablePrintVariation'' _ [] = []
 htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}) : ps) =
-  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakSpaces) $ [p, ppTeamOrMultiple t]
+  let thisLine = removeNewLines . surroundInTag "tr" . concatMap (surroundInTag "td" . unBreakCharacters) $ [p, ppTeamOrMultiple t]
    in if pos == oldPos
         then thisLine : htmlTablePrintVariation'' oldPos ps
         else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ pos) : thisLine : htmlTablePrintVariation'' pos ps
@@ -50,7 +50,7 @@ htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}
 -- | Generate Html for a set of ProspectiveChanges and Variations
 genHtml :: [(ProspectiveChange, Lineup, VariationObject)] -> String
 genHtml plvs =
-  let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakSpaces . ppProspectiveChange . getFirst) plvs
+  let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakCharacters . ppProspectiveChange . getFirst) plvs
       tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . getThird) plvs
    in intercalate
         "\n"

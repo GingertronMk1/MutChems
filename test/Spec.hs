@@ -9,17 +9,17 @@ main = do
 testList :: Test
 testList =
   TestList
-    [ testUnbreakSpaces,
+    [ testunBreakCharacters,
       testDistanceFrom5
     ]
 
-testUnbreakSpaces :: Test
-testUnbreakSpaces =
+testunBreakCharacters :: Test
+testunBreakCharacters =
   TestCase $
     assertEqual
       "replaceSpaces should replace all spaces with &nbsp;"
       "Hello,&nbsp;World!"
-      (unBreakSpaces "Hello, World!")
+      (unBreakCharacters "Hello, World!")
 
 testDistanceFrom5 :: Test
 testDistanceFrom5 = TestCase $ do
