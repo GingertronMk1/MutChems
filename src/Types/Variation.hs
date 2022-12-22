@@ -99,11 +99,7 @@ variationPlayerToLineupPlayer vp =
 recursiveGetBestSquads :: Lineup -> Variation
 recursiveGetBestSquads l =
   let ret@(Variation bestSquad) = lineupToBestVariation l
-      (noTeams, hasTeams) =
-        foldr
-          recursiveGetBestSquads'
-          ([], [])
-          bestSquad
+      (noTeams, hasTeams) = partition ((NoTeam ==) . vpTeam) bestSquad
    in if null noTeams
         then ret
         else
@@ -111,10 +107,3 @@ recursiveGetBestSquads l =
               noTeamsLineup = filter (\p -> pName p `elem` map vpName noTeams) l
               newLineup = sortBy (compareBasedOnSquad l) (hasTeamsLineup ++ noTeamsLineup)
            in recursiveGetBestSquads newLineup
-
-recursiveGetBestSquads' ::
-  VariationPlayer ->
-  ([VariationPlayer], [VariationPlayer]) ->
-  ([VariationPlayer], [VariationPlayer])
-recursiveGetBestSquads' p (ins, outs) =
-  if vpTeam p == NoTeam then (p : ins, outs) else (ins, p : outs)
