@@ -33,7 +33,7 @@ data VariationPlayer = VP
 
 -- | Expanding a full lineup to get all options
 expandLineup :: Lineup -> [[VariationPlayer]]
-expandLineup = map (\P {pName = pl, pTeams = toms, pPosition = po} -> [VP {vpName = pl, vpTeam = tom, vpPosition = po} | tom <- toms])
+expandLineup = map playerToVariationPlayers
 
 -- | Get a list of all represented teams and how many there are in a given Variation
 teamsInVariation :: Variation -> [(Team, Int)]
@@ -54,14 +54,17 @@ toNumerical cv
 
 -- | Taking a Variation and reducing it to just the list of Teams it contains
 variationToTeams :: Variation -> [Team]
-variationToTeams (Variation v) = sort . concatMap (\VP {vpTeam = t} -> expandTeamOrMultiple t) $ v
+variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . vpTeam) $ v
 
 -- | Take a Lineup and convert it to a list of all Variations
 lineupToVariations :: Lineup -> [Variation]
 lineupToVariations =
   map Variation
-    . mapM (\P {pName = pl, pTeams = ts, pPosition = pos} -> [VP {vpName = pl, vpTeam = t, vpPosition = pos} | t <- ts])
+    . mapM playerToVariationPlayers
     . convertSquad
+
+playerToVariationPlayers :: Player -> [VariationPlayer]
+playerToVariationPlayers p = [VP {vpName = pName p, vpTeam = t, vpPosition = pPosition p} | t <- pTeams p]
 
 -- | Convert a Lineup to its best Variation according to the `compare` function
 -- defined above
@@ -81,7 +84,7 @@ totalsPerSquad :: [VariationPlayer] -> [(Team, Int)]
 totalsPerSquad =
   sortOn (Down . snd)
     . firstAndLength
-    . concatMap (\VP {vpTeam = t} -> expandTeamOrMultiple t)
+    . concatMap (expandTeamOrMultiple . vpTeam)
 
 -- | List up the single Team belonging to a Variation player
 variationPlayerToLineupPlayer :: VariationPlayer -> Player
@@ -98,7 +101,7 @@ recursiveGetBestSquads l =
   let ret@(Variation bestSquad) = lineupToBestVariation l
       (noTeams, hasTeams) =
         foldr
-          (\p (ins, outs) -> if vpTeam p == NoTeam then (p : ins, outs) else (ins, p : outs))
+          recursiveGetBestSquads'
           ([], [])
           bestSquad
    in if null noTeams
@@ -108,3 +111,10 @@ recursiveGetBestSquads l =
               noTeamsLineup = filter (\p -> pName p `elem` map vpName noTeams) l
               newLineup = sortBy (compareBasedOnSquad l) (hasTeamsLineup ++ noTeamsLineup)
            in recursiveGetBestSquads newLineup
+
+recursiveGetBestSquads' ::
+  VariationPlayer ->
+  ([VariationPlayer], [VariationPlayer]) ->
+  ([VariationPlayer], [VariationPlayer])
+recursiveGetBestSquads' p (ins, outs) =
+  if vpTeam p == NoTeam then (p : ins, outs) else (ins, p : outs)
