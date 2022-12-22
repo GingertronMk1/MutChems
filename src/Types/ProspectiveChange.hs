@@ -35,13 +35,13 @@ addProspectivesInTurn' (p : ps) l =
 addProspective :: ProspectiveChange -> Lineup -> Lineup
 addProspective NoChange l = l
 addProspective (Addition p@(P {pPosition = additionPosition})) l =
-  let (befores, firstPosition : afters) = break (\P {pPosition = playerPosition} -> playerPosition == additionPosition) l
+  let (befores, firstPosition : afters) = break ((additionPosition==) . pPosition) l
    in befores ++ (p : firstPosition : afters)
 addProspective (Replacement p newP) l =
-  case break (\P {pName = playerName} -> p == playerName) l of
+  case break ((==p) . pName) l of
     (_, []) -> error $ printf "No player called %s in lineup" [p]
     (firstPart, P {pPosition = oldPosition} : theRest) -> firstPart ++ (newP {pPosition = oldPosition} : theRest)
-addProspective (Removal p) l = filter (\P {pName = playerName} -> playerName == p) l
+addProspective (Removal p) l = filter ((/=p) . pName) l
 
 -- | Nicely print a Prospective Change
 ppProspectiveChange :: ProspectiveChange -> String

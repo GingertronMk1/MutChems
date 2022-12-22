@@ -78,11 +78,11 @@ expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 
 -- | How many options do we get from a given `Lineup`?.
 numberOfOptionsFn :: Lineup -> Int
-numberOfOptionsFn = product . map (\P {pTeams = ts} -> length ts)
+numberOfOptionsFn = product . map (length . pTeams)
 
 -- | Give me a list of all t`Type.Team` in a given Lineup.
 allTeamsFn :: Lineup -> [Team]
-allTeamsFn = concatMap expandTeamOrMultiple . concatMap (\P {pTeams = t} -> t)
+allTeamsFn = concatMap expandTeamOrMultiple . concatMap pTeams
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
 filteredSquadFn :: Lineup -> (Lineup, Int)
@@ -104,7 +104,7 @@ filteredSquadFn' threshold s
   | otherwise = filteredSquadFn' (threshold + 1) newS
   where
     allTeams = allTeamsFn s
-    newS = map (\p@(P {pTeams = tom}) -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) tom}) s
+    newS = map (\p -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) . pTeams $ p}) s
     numberOfNewSOptions = numberOfOptionsFn newS
 
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
@@ -155,7 +155,7 @@ compareBasedOnSquad l (P {pName = p1}) (P {pName = p2}) =
 
 -- | Getting the index for a single player.
 compareBasedOnSquad' :: Lineup -> PlayerName -> Int
-compareBasedOnSquad' l p = fromMaybe minBound (findIndex (\P {pName = n} -> n == p) l)
+compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((==p) . pName) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
@@ -164,7 +164,7 @@ convertSquad = fst . filteredSquadFn
 
 -- | See all the players in a Lineup that have a given Team chemistry as an option
 numberOfPlayersOnTeam :: Lineup -> Team -> ([Player], [Player])
-numberOfPlayersOnTeam l t = partition (\P {pTeams = toms} -> t `elem` concatMap expandTeamOrMultiple toms) l
+numberOfPlayersOnTeam l t = partition (elem t . concatMap expandTeamOrMultiple . pTeams) l
 
 -- | Take a position group and assign its position to all of its constituent players
 streamlinePositionGroup :: PositionGroup -> [Player]
@@ -190,7 +190,7 @@ checkLineupIsValid l = checkLineupIsValid' l l
 checkLineupIsValid' :: Lineup -> Lineup -> Lineup
 checkLineupIsValid' [] l = l
 checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
-  case filter (\p' -> pName p' == currentPlayerName) allPs of
+  case filter ((==currentPlayerName) . pName) allPs of
     [_] -> checkLineupIsValid' ps l
     ps' ->
       error $

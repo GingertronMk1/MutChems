@@ -17,7 +17,7 @@ processedStrategy = map (\s -> emptyPlayer {pName = "STRATEGY: " ++ ppTeamOrMult
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
 squadNoProspectives =
-  filter (\P {pTeams = ts} -> not (null ts))
+  filter (not . null . pTeams)
     . (++ processedStrategy)
     . streamlineLineup
     $ baseSquad
