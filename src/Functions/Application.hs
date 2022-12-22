@@ -5,8 +5,8 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
-import Data.Other
 import Data.List
+import Data.Other
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
@@ -97,8 +97,8 @@ newLineMap f = intercalate "\n" . map f
 -- | Convert spaces in a string to non-breaking spaces
 unBreakCharacters :: String -> String
 unBreakCharacters [] = []
-unBreakCharacters (c:cs) = case find ((==c) . fst) unBrokenCharacters of
-  Just (_,s) -> s ++ unBreakCharacters cs
+unBreakCharacters (c : cs) = case lookup c unBrokenCharacters of
+  Just s -> s ++ unBreakCharacters cs
   Nothing -> c : unBreakCharacters cs
 
 -- | First item in a tuple of 3

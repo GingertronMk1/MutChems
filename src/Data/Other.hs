@@ -4,8 +4,8 @@
 module Data.Other where
 
 unBrokenCharacters :: [(Char, String)]
-unBrokenCharacters = [
-    (' ', "&nbsp;"),
+unBrokenCharacters =
+  [ (' ', "&nbsp;"),
     ('-', "&#8209;")
   ]
 
