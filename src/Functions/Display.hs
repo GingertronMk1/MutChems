@@ -8,9 +8,9 @@ import Types.ProspectiveChange
 import Types.TeamOrMultiple
 import Types.Variation
 
--- | Print a VariationObject as a Html table
-htmlTablePrintVariation :: VariationObject -> String
-htmlTablePrintVariation (VariationObject v) =
+-- | Print a Variation as a Html table
+htmlTablePrintVariation :: Variation -> String
+htmlTablePrintVariation (Variation v) =
   surroundInTag "table"
     . concat
     $ [
@@ -20,7 +20,7 @@ htmlTablePrintVariation (VariationObject v) =
           . removeNewLines
           . concatMap (surroundInTag "th")
           $ ["Player", "Chemistry"],
-        -- The body of the table, containing all players and their chemistry in this VariationObject
+        -- The body of the table, containing all players and their chemistry in this Variation
         surroundInTag "tbody" $ htmlTablePrintVariation' v,
         -- The foot of the table, containing a list of all chemistries and how many there are
         surroundInTag "tfoot"
@@ -34,7 +34,7 @@ htmlTablePrintVariation (VariationObject v) =
             ]
       ]
 
--- | Print the internals of a VariationObject
+-- | Print the internals of a Variation
 htmlTablePrintVariation' :: [VariationPlayer] -> String
 htmlTablePrintVariation' = intercalate "\n" . htmlTablePrintVariation'' "none"
 
@@ -48,7 +48,7 @@ htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}
         else (removeNewLines . surroundInTag "tr" . surroundInTag "td colspan=2" . surroundInTag "b" $ pos) : thisLine : htmlTablePrintVariation'' pos ps
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
-genHtml :: [(ProspectiveChange, Lineup, VariationObject)] -> String
+genHtml :: [(ProspectiveChange, Lineup, Variation)] -> String
 genHtml plvs =
   let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakCharacters . ppProspectiveChange . getFirst) plvs
       tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . getThird) plvs

@@ -10,11 +10,11 @@ import Types.ProspectiveChange
 import Types.TeamOrMultiple
 
 -- | The object representing a Variation of a squad
-newtype VariationObject
-  = VariationObject [VariationPlayer]
+newtype Variation
+  = Variation [VariationPlayer]
   deriving (Eq, Show)
 
-instance Ord VariationObject where
+instance Ord Variation where
   compare v1 v2 =
     let converted1 = teamsInVariation v1
         converted2 = teamsInVariation v2
@@ -35,8 +35,8 @@ data VariationPlayer = VP
 expandLineup :: Lineup -> [[VariationPlayer]]
 expandLineup = map (\P {pName = pl, pTeams = toms, pPosition = po} -> [VP {vpName = pl, vpTeam = tom, vpPosition = po} | tom <- toms])
 
--- | Get a list of all represented teams and how many there are in a given VariationObject
-teamsInVariation :: VariationObject -> [(Team, Int)]
+-- | Get a list of all represented teams and how many there are in a given Variation
+teamsInVariation :: Variation -> [(Team, Int)]
 teamsInVariation =
   firstAndLength
     . variationToTeams
@@ -52,31 +52,31 @@ toNumerical cv
   where
     (bestT, bestN) = maximumBy (comparing snd) cv
 
--- | Taking a VariationObject and reducing it to just the list of Teams it contains
-variationToTeams :: VariationObject -> [Team]
-variationToTeams (VariationObject v) = sort . concatMap (\VP {vpTeam = t} -> expandTeamOrMultiple t) $ v
+-- | Taking a Variation and reducing it to just the list of Teams it contains
+variationToTeams :: Variation -> [Team]
+variationToTeams (Variation v) = sort . concatMap (\VP {vpTeam = t} -> expandTeamOrMultiple t) $ v
 
 -- | Take a Lineup and convert it to a list of all Variations
-lineupToVariations :: Lineup -> [VariationObject]
+lineupToVariations :: Lineup -> [Variation]
 lineupToVariations =
-  map VariationObject
+  map Variation
     . mapM (\P {pName = pl, pTeams = ts, pPosition = pos} -> [VP {vpName = pl, vpTeam = t, vpPosition = pos} | t <- ts])
     . convertSquad
 
--- | Convert a Lineup to its best VariationObject according to the `compare` function
+-- | Convert a Lineup to its best Variation according to the `compare` function
 -- defined above
-lineupToBestVariation :: Lineup -> VariationObject
+lineupToBestVariation :: Lineup -> Variation
 lineupToBestVariation = maximum . lineupToVariations
 
 -- | Generate the best Variations for a set of Lineups and add to the tuples
-bestOfAllSquadsFn :: [(ProspectiveChange, Lineup)] -> [(ProspectiveChange, Lineup, VariationObject)]
+bestOfAllSquadsFn :: [(ProspectiveChange, Lineup)] -> [(ProspectiveChange, Lineup, Variation)]
 bestOfAllSquadsFn = map bestOfOneSquadFn
 
--- | Generate the best VariationObject for a given Lineup and add it to the provided Tuple
-bestOfOneSquadFn :: (ProspectiveChange, Lineup) -> (ProspectiveChange, Lineup, VariationObject)
+-- | Generate the best Variation for a given Lineup and add it to the provided Tuple
+bestOfOneSquadFn :: (ProspectiveChange, Lineup) -> (ProspectiveChange, Lineup, Variation)
 bestOfOneSquadFn (c, l) = (c, l, recursiveGetBestSquads l)
 
--- | Using the totals of each team in each VariationObject, kind of unfolding them?.
+-- | Using the totals of each team in each Variation, kind of unfolding them?.
 totalsPerSquad :: [VariationPlayer] -> [(Team, Int)]
 totalsPerSquad =
   sortOn (Down . snd)
@@ -93,9 +93,9 @@ variationPlayerToLineupPlayer vp =
     }
 
 -- | Generate a fully populated variation
-recursiveGetBestSquads :: Lineup -> VariationObject
+recursiveGetBestSquads :: Lineup -> Variation
 recursiveGetBestSquads l =
-  let ret@(VariationObject bestSquad) = lineupToBestVariation l
+  let ret@(Variation bestSquad) = lineupToBestVariation l
       (noTeams, hasTeams) =
         foldr
           (\p (ins, outs) -> if vpTeam p == NoTeam then (p : ins, outs) else (ins, p : outs))
