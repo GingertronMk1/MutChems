@@ -14,10 +14,10 @@ newtype Variation
   = Variation [VariationPlayer]
   deriving (Eq, Show)
 
-data AnalysisObject = A
-  { aLineup :: Lineup,
-    aProspectiveChange :: ProspectiveChange,
-    aVariation :: Variation
+data DisplayObject = DisplayObject
+  { displayObjectLineup :: Lineup,
+    displayObjectProspectiveChange :: ProspectiveChange,
+    displayObjectVariation :: Variation
   }
   deriving (Eq, Show)
 
@@ -79,13 +79,13 @@ lineupToBestVariation :: Lineup -> Variation
 lineupToBestVariation = maximum . lineupToVariations
 
 -- | Generate the best Variations for a set of Lineups and add to the tuples
-bestOfAllSquadsFn :: [LineupAndProspectiveChange] -> [AnalysisObject]
+bestOfAllSquadsFn :: [BuildObject] -> [DisplayObject]
 bestOfAllSquadsFn = map bestOfOneSquadFn
 
 -- | Generate the best Variation for a given Lineup and add it to the provided Tuple
-bestOfOneSquadFn :: LineupAndProspectiveChange -> AnalysisObject
-bestOfOneSquadFn (LAPC {lapcLineup = l, lapcProspectiveChange = pc}) =
-  A {aLineup = l, aProspectiveChange = pc, aVariation = recursiveGetBestSquads l}
+bestOfOneSquadFn :: BuildObject -> DisplayObject
+bestOfOneSquadFn (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
+  DisplayObject {displayObjectLineup = l, displayObjectProspectiveChange = pc, displayObjectVariation = recursiveGetBestSquads l}
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?.
 totalsPerSquad :: [VariationPlayer] -> [(Team, Int)]

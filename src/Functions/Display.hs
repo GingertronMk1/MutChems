@@ -49,10 +49,24 @@ htmlTablePrintVariation'' oldPos ((VP {vpName = p, vpTeam = t, vpPosition = pos}
 
 -- | Generate Html for a set of ProspectiveChanges and Variations
 -- genHtml :: [(ProspectiveChange, Variation)] -> String
-genHtml :: [AnalysisObject] -> String
+genHtml :: [DisplayObject] -> String
 genHtml plvs =
-  let tableHead = newLineMap (removeNewLines . surroundInTag "th" . unBreakCharacters . ppProspectiveChange . aProspectiveChange) plvs
-      tableBody = concatMap (surroundInTag "td style=\"vertical-align:top\"" . htmlTablePrintVariation . aVariation) plvs
+  let tableHead =
+        newLineMap
+          ( removeNewLines
+              . surroundInTag "th"
+              . unBreakCharacters
+              . ppProspectiveChange
+              . displayObjectProspectiveChange
+          )
+          plvs
+      tableBody =
+        concatMap
+          ( surroundInTag "td style=\"vertical-align:top\""
+              . htmlTablePrintVariation
+              . displayObjectVariation
+          )
+          plvs
    in intercalate
         "\n"
         [ "<table>",

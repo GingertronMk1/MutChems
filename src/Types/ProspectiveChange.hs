@@ -17,24 +17,24 @@ data ProspectiveChange
     Removal PlayerName
   deriving (Eq, Show)
 
-data LineupAndProspectiveChange = LAPC
-  { lapcLineup :: Lineup,
-    lapcProspectiveChange :: ProspectiveChange
+data BuildObject = BuildObject
+  { buildObjectLineup :: Lineup,
+    buildObjectProspectiveChange :: ProspectiveChange
   }
   deriving (Eq, Show)
 
 -- * Functions to add prospective changes to a Lineup
 
 -- | Add each ProspectiveChange in turn to the squad, keeping the initial squad
-addProspectivesInTurn :: [ProspectiveChange] -> Lineup -> [LineupAndProspectiveChange]
-addProspectivesInTurn ps l = LAPC {lapcLineup = l, lapcProspectiveChange = NoChange} : addProspectivesInTurn' ps l
+addProspectivesInTurn :: [ProspectiveChange] -> Lineup -> [BuildObject]
+addProspectivesInTurn ps l = BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = NoChange} : addProspectivesInTurn' ps l
 
 -- | Add the remaining prospectives in turn
-addProspectivesInTurn' :: [ProspectiveChange] -> Lineup -> [LineupAndProspectiveChange]
+addProspectivesInTurn' :: [ProspectiveChange] -> Lineup -> [BuildObject]
 addProspectivesInTurn' [] _ = []
 addProspectivesInTurn' (p : ps) l =
   let newL = checkLineupIsValid . addProspective p . checkLineupIsValid $ l
-   in LAPC {lapcLineup = newL, lapcProspectiveChange = p} : addProspectivesInTurn' ps newL
+   in BuildObject {buildObjectLineup = newL, buildObjectProspectiveChange = p} : addProspectivesInTurn' ps newL
 
 -- | Add a single prospective addition to the squad.
 -- Throw an error if we're trying to replace someone who doesn't exist.
