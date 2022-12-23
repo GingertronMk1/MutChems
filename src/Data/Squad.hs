@@ -464,13 +464,22 @@ baseSquad =
       { pgPosition = Positions.cb,
         pgPlayers =
           [ emptyPlayer
+              { pName = "Calvin Johnson (CB)",
+                pTeams =
+                  [ Team legends,
+                    Team lions
+                  ]
+              },
+            emptyPlayer
               { pName = "Deion Sanders",
                 pTeams = all32TeamsPlusLegends
               },
             emptyPlayer
-              { pName = "Benjamin St-Juste",
+              { pName = "Mike Haynes",
                 pTeams =
-                  [ Team commanders
+                  [ Team legends,
+                    Team raiders,
+                    Team patriots
                   ]
               },
             emptyPlayer
@@ -479,13 +488,6 @@ baseSquad =
                   [ Team legends,
                     Team ravens,
                     MultipleTeam titans 2
-                  ]
-              },
-            emptyPlayer
-              { pName = "Calvin Johnson (CB)",
-                pTeams =
-                  [ Team legends,
-                    Team lions
                   ]
               },
             emptyPlayer
@@ -540,16 +542,6 @@ prospectiveAdditions =
             [ Team legends,
               Team eagles,
               Team broncos
-            ]
-        },
-    Replacement
-      "Benjamin St-Juste"
-      emptyPlayer
-        { pName = "Mike Haynes",
-          pTeams =
-            [ Team legends,
-              Team raiders,
-              Team patriots
             ]
         },
     Replacement
