@@ -91,8 +91,10 @@ baseSquad =
       { pgPosition = Positions.te,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Dave Casper",
-                pTeams = all32TeamsPlusLegends
+              { pName = "Donald Parham",
+                pTeams =
+                  [ Team chargers
+                  ]
               },
             emptyPlayer
               { pName = "David Njoku",
@@ -101,10 +103,8 @@ baseSquad =
                   ]
               },
             emptyPlayer
-              { pName = "Donald Parham",
-                pTeams =
-                  [ Team chargers
-                  ]
+              { pName = "Dave Casper",
+                pTeams = all32TeamsPlusLegends
               }
           ]
       },
