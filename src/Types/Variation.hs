@@ -14,7 +14,7 @@ newtype Variation
   = Variation [VariationPlayer]
   deriving (Eq, Show)
 
--- | An object containing a Lineup, the ProspectiveChange that has led to it, 
+-- | An object containing a Lineup, the ProspectiveChange that has led to it,
 -- and the best Variation - according to the functions defined below - of that
 -- Lineup
 data DisplayObject = DisplayObject
@@ -28,12 +28,16 @@ instance Ord Variation where
   compare v1 v2
     | ord1 /= ord2 = compare ord1 ord2
     | n1 /= n2 = compare n1 n2
-    | otherwise = fst
-                $ orderListOfInts (map snd converted1) (map snd converted2)
-    where converted1 = teamsInVariation v1
-          converted2 = teamsInVariation v2
-          (ord1, n1) = toNumerical converted1
-          (ord2, n2) = toNumerical converted2
+    | otherwise =
+      fst $
+        orderListOfInts
+          (map snd converted1)
+          (map snd converted2)
+    where
+      converted1 = teamsInVariation v1
+      converted2 = teamsInVariation v2
+      (ord1, n1) = toNumerical converted1
+      (ord2, n2) = toNumerical converted2
 
 -- | The players involved in a Variation - identical to the t`Types.TeamOrMultiple.Player`
 -- except only one Team allowed
@@ -93,10 +97,11 @@ bestOfAllSquadsFn = map bestOfOneSquadFn
 -- | Generate the best Variation for a given Lineup and add it to the provided Tuple
 bestOfOneSquadFn :: BuildObject -> DisplayObject
 bestOfOneSquadFn (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
-  DisplayObject { displayObjectLineup = l,
-                  displayObjectProspectiveChange = pc,
-                  displayObjectVariation = recursiveGetBestSquads l
-                }
+  DisplayObject
+    { displayObjectLineup = l,
+      displayObjectProspectiveChange = pc,
+      displayObjectVariation = recursiveGetBestSquads l
+    }
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?.
 totalsPerSquad :: [VariationPlayer] -> [(Team, Int)]

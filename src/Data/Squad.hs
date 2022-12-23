@@ -568,7 +568,7 @@ prospectiveAdditions =
       "Devin Bush"
       emptyPlayer
         { pName = "Ray Nitschke",
-          pTeams = 
+          pTeams =
             [ Team legends,
               Team packers
             ]
