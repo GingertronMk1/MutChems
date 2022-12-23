@@ -23,5 +23,5 @@ squadNoProspectives =
     $ baseSquad
 
 -- | The generated list of squads in "chronological" order (or at least planned)
-iteratedProspectiveSquads :: [(ProspectiveChange, Lineup)]
+iteratedProspectiveSquads :: [LineupAndProspectiveChange]
 iteratedProspectiveSquads = addProspectivesInTurn prospectiveAdditions squadNoProspectives
