@@ -563,5 +563,14 @@ prospectiveAdditions =
               Team panthers,
               Team ravens
             ]
+        },
+    Replacement
+      "Devin Bush"
+      emptyPlayer
+        { pName = "Ray Nitschke",
+          pTeams = 
+            [ Team legends,
+              Team packers
+            ]
         }
   ]
