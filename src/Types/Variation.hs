@@ -14,6 +14,9 @@ newtype Variation
   = Variation [VariationPlayer]
   deriving (Eq, Show)
 
+-- | An object containing a Lineup, the ProspectiveChange that has led to it, 
+-- and the best Variation - according to the functions defined below - of that
+-- Lineup
 data DisplayObject = DisplayObject
   { displayObjectLineup :: Lineup,
     displayObjectProspectiveChange :: ProspectiveChange,
@@ -70,6 +73,8 @@ lineupToVariations =
     . mapM playerToVariationPlayers
     . convertSquad
 
+-- | Taking an individual Player and splitting out all of their Teams into a list
+-- of VariationPlayers
 playerToVariationPlayers :: Player -> [VariationPlayer]
 playerToVariationPlayers p = [VP {vpName = pName p, vpTeam = t, vpPosition = pPosition p} | t <- pTeams p]
 

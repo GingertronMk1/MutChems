@@ -17,6 +17,8 @@ data ProspectiveChange
     Removal PlayerName
   deriving (Eq, Show)
 
+-- | An object containing a Lineup and a ProspectiveChange that has led to that
+-- Lineup
 data BuildObject = BuildObject
   { buildObjectLineup :: Lineup,
     buildObjectProspectiveChange :: ProspectiveChange
