@@ -90,7 +90,10 @@ bestOfAllSquadsFn = map bestOfOneSquadFn
 -- | Generate the best Variation for a given Lineup and add it to the provided Tuple
 bestOfOneSquadFn :: BuildObject -> DisplayObject
 bestOfOneSquadFn (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
-  DisplayObject {displayObjectLineup = l, displayObjectProspectiveChange = pc, displayObjectVariation = recursiveGetBestSquads l}
+  DisplayObject { displayObjectLineup = l,
+                  displayObjectProspectiveChange = pc,
+                  displayObjectVariation = recursiveGetBestSquads l
+                }
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?.
 totalsPerSquad :: [VariationPlayer] -> [(Team, Int)]
