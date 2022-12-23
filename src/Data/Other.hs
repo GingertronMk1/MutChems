@@ -3,6 +3,8 @@
 -- Just useful bits and bobs - should maybe be an env file? Idk
 module Data.Other where
 
+-- | A key/value list to use with the `lookup` function to replace certain
+-- characters with their HTML "non-breaking" versions
 unBrokenCharacters :: [(Char, String)]
 unBrokenCharacters =
   [ (' ', "&nbsp;"),
