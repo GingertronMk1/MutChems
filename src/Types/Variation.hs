@@ -25,12 +25,15 @@ data DisplayObject = DisplayObject
   deriving (Eq, Show)
 
 instance Ord Variation where
-  compare v1 v2 =
-    let converted1 = teamsInVariation v1
-        converted2 = teamsInVariation v2
-     in case compare (toNumerical converted1) (toNumerical converted2) of
-          EQ -> fst $ orderListOfInts (map snd converted1) (map snd converted2)
-          nonEQ -> nonEQ
+  compare v1 v2
+    | ord1 /= ord2 = compare ord1 ord2
+    | n1 /= n2 = compare n1 n2
+    | otherwise = fst
+                $ orderListOfInts (map snd converted1) (map snd converted2)
+    where converted1 = teamsInVariation v1
+          converted2 = teamsInVariation v2
+          (ord1, n1) = toNumerical converted1
+          (ord2, n2) = toNumerical converted2
 
 -- | The players involved in a Variation - identical to the t`Types.TeamOrMultiple.Player`
 -- except only one Team allowed
@@ -53,12 +56,12 @@ teamsInVariation =
 
 -- | Take a Team and how many there are and convert it into an integer so we can
 -- more easily compare it to others - ordering them in priority
-toNumerical :: [(Team, Int)] -> Int
+toNumerical :: [(Team, Int)] -> (Int, Int)
 toNumerical cv
-  | bestT /= legends && bestN >= 50 = 4
-  | bestT /= legends && bestN >= 40 = 3
-  | bestT == legends && bestN >= 40 = 2
-  | otherwise = 1
+  | bestT /= legends && bestN >= 50 = (4, bestN)
+  | bestT /= legends && bestN >= 40 = (3, bestN)
+  | bestT == legends && bestN >= 40 = (2, bestN)
+  | otherwise = (1, bestN)
   where
     (bestT, bestN) = maximumBy (comparing snd) cv
 
