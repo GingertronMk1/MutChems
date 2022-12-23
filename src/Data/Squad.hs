@@ -532,7 +532,7 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement -- Zero chill forge
+  [ Replacement
       "Rod Woodson"
       emptyPlayer
         { pName = "Weapon X",
@@ -545,13 +545,11 @@ prospectiveAdditions =
     Replacement
       "Benjamin St-Juste"
       emptyPlayer
-        { pName = "Rod Woodson",
+        { pName = "Mike Haynes",
           pTeams =
             [ Team legends,
-              Team steelers,
-              Team niners,
-              Team ravens,
-              Team raiders
+              Team raiders,
+              Team patriots
             ]
         },
     Replacement
@@ -571,6 +569,16 @@ prospectiveAdditions =
           pTeams =
             [ Team legends,
               Team packers
+            ]
+        },
+    Replacement
+      "Jim Taylor"
+      emptyPlayer
+        { pName = "William Perry (FB)",
+          pTeams =
+            [ Team legends,
+              Team bears,
+              Team eagles
             ]
         }
   ]
