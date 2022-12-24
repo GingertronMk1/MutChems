@@ -537,21 +537,33 @@ prospectiveAdditions =
   [ Replacement
       "Rod Woodson"
       emptyPlayer
-        { pName = "Weapon X",
+        { pName = "Steve Atwater",
           pTeams =
             [ Team legends,
-              Team eagles,
-              Team broncos
+              Team broncos,
+              Team jets
             ]
         },
     Replacement
-      "Deion Sanders (WR)"
+      "Charlie Joiner"
       emptyPlayer
         { pName = "Steve Smith Sr",
           pTeams =
             [ Team legends,
               Team panthers,
               Team ravens
+            ]
+        },
+    Replacement
+      "Champ Bailey"
+      emptyPlayer
+        { pName = "Rod Woodson",
+          pTeams =
+            [ Team legends,
+              Team steelers,
+              Team niners,
+              Team ravens,
+              Team raiders
             ]
         },
     Replacement
