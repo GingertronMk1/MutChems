@@ -545,6 +545,15 @@ prospectiveAdditions =
             ]
         },
     Replacement
+      "Khalil Mack"
+      emptyPlayer
+        { pName = "Derrick Brooks",
+          pTeams =
+            [ Team legends,
+              Team buccaneers
+            ]
+        },
+    Replacement
       "Charlie Joiner"
       emptyPlayer
         { pName = "Steve Smith Sr",
