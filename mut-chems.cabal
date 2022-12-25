@@ -5,11 +5,11 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           mut-chems
-version:        2.1.0.0
+version:        1.0.0
 description:    Please see the README on GitHub at <https://github.com/GingertronMk1/MutChems#readme>
 homepage:       https://github.com/gingertronmk1/mut#readme
 bug-reports:    https://github.com/gingertronmk1/mut/issues
-author:         Author name here
+author:         Jack Ellis
 maintainer:     jackellis1504@gmail.com
 copyright:      Jack Ellis
 license:        BSD3
