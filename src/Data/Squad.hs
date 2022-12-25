@@ -42,6 +42,14 @@ baseSquad =
       { pgPosition = Positions.hb,
         pgPlayers =
           [ emptyPlayer
+              { pName = "LaDainian Tomlinson",
+                pTeams =
+                  [ Team legends,
+                    Team chargers,
+                    Team jets
+                  ]
+              },
+            emptyPlayer
               { pName = "CJ2K",
                 pTeams =
                   [ Team legends,
@@ -57,12 +65,6 @@ baseSquad =
                     Team ravens,
                     Team niners,
                     Team raiders
-                  ]
-              },
-            emptyPlayer
-              { pName = "Travis Etienne Jr",
-                pTeams =
-                  [ Team jaguars
                   ]
               }
           ]
@@ -430,10 +432,10 @@ baseSquad =
                   ]
               },
             emptyPlayer
-              { pName = "Nolan Cromwell",
+              { pName = "Adrian Wilson",
                 pTeams =
                   [ Team legends,
-                    Team rams
+                    Team cardinals
                   ]
               }
           ]
