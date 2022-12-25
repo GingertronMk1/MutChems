@@ -114,6 +114,14 @@ baseSquad =
       { pgPosition = Positions.wr,
         pgPlayers =
           [ emptyPlayer
+              { pName = "Herman Moore",
+                pTeams =
+                  [ Team legends,
+                    Team lions,
+                    Team giants
+                  ]
+              },
+            emptyPlayer
               { pName = "Calvin Johnson",
                 pTeams =
                   [ Team lions,
@@ -150,15 +158,6 @@ baseSquad =
                     Team falcons,
                     Team commanders,
                     Team cowboys
-                  ]
-              },
-            emptyPlayer
-              { pName = "Charlie Joiner",
-                pTeams =
-                  [ Team legends,
-                    Team bengals,
-                    Team chargers,
-                    Team titans
                   ]
               }
           ]
@@ -265,9 +264,10 @@ baseSquad =
       { pgPosition = Positions.mlb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Devin Bush",
+              { pName = "Ray Nitschke",
                 pTeams =
-                  [ Team steelers
+                  [ Team legends,
+                    Team packers
                   ]
               },
             emptyPlayer
@@ -556,16 +556,6 @@ prospectiveAdditions =
             ]
         },
     Replacement
-      "Charlie Joiner"
-      emptyPlayer
-        { pName = "Steve Smith Sr",
-          pTeams =
-            [ Team legends,
-              Team panthers,
-              Team ravens
-            ]
-        },
-    Replacement
       "Champ Bailey"
       emptyPlayer
         { pName = "Rod Woodson",
@@ -575,15 +565,6 @@ prospectiveAdditions =
               Team niners,
               Team ravens,
               Team raiders
-            ]
-        },
-    Replacement
-      "Devin Bush"
-      emptyPlayer
-        { pName = "Ray Nitschke",
-          pTeams =
-            [ Team legends,
-              Team packers
             ]
         },
     Replacement
