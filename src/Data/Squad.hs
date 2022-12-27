@@ -501,34 +501,12 @@ prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Addition
       emptyPlayer
-        { pName = "Steve Atwater",
-          pTeams =
-            [ Team legends,
-              Team broncos,
-              Team jets
-            ],
-          pPosition = Positions.fs
-        },
-    Addition
-      emptyPlayer
         { pName = "Derrick Brooks",
           pTeams =
             [ Team legends,
               Team buccaneers
             ],
           pPosition = Positions.rolb
-        },
-    Replacement
-      "Champ Bailey"
-      emptyPlayer
-        { pName = "Rod Woodson",
-          pTeams =
-            [ Team legends,
-              Team steelers,
-              Team niners,
-              Team ravens,
-              Team raiders
-            ]
         },
     Replacement
       "Jim Taylor"
