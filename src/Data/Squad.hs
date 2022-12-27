@@ -73,13 +73,6 @@ baseSquad =
       { pgPosition = Positions.fb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Nightmare",
-                pTeams =
-                  [ Team legends,
-                    Team chiefs
-                  ]
-              },
-            emptyPlayer
               { pName = "Jim Taylor",
                 pTeams =
                   [ Team legends,
@@ -96,12 +89,6 @@ baseSquad =
               { pName = "Donald Parham",
                 pTeams =
                   [ Team chargers
-                  ]
-              },
-            emptyPlayer
-              { pName = "David Njoku",
-                pTeams =
-                  [ Team browns
                   ]
               },
             emptyPlayer
@@ -137,16 +124,6 @@ baseSquad =
                     Team niners,
                     Team vikings,
                     Team patriots
-                  ]
-              },
-            emptyPlayer
-              { pName = "Devin Hester",
-                pTeams =
-                  [ Team legends,
-                    Team ravens,
-                    Team falcons,
-                    Team seahawks,
-                    Team bears
                   ]
               },
             emptyPlayer
@@ -209,12 +186,6 @@ baseSquad =
                 pTeams =
                   [ Team legends,
                     Team commanders
-                  ]
-              },
-            emptyPlayer
-              { pName = "Creed Humphrey",
-                pTeams =
-                  [ Team chiefs
                   ]
               }
           ]
@@ -303,14 +274,6 @@ baseSquad =
       { pgPosition = Positions.rolb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Khalil Mack",
-                pTeams =
-                  [ Team raiders,
-                    Team bears,
-                    Team chargers
-                  ]
-              },
-            emptyPlayer
               { pName = "Jonathan Casillas",
                 pTeams =
                   [ Team legends,
@@ -449,16 +412,6 @@ baseSquad =
                   [ Team legends,
                     Team commanders
                   ]
-              },
-            emptyPlayer
-              { pName = "Rod Woodson",
-                pTeams =
-                  [ Team legends,
-                    Team steelers,
-                    Team raiders,
-                    Team ravens,
-                    Team niners
-                  ]
               }
           ]
       },
@@ -482,14 +435,6 @@ baseSquad =
                   [ Team legends,
                     Team raiders,
                     Team patriots
-                  ]
-              },
-            emptyPlayer
-              { pName = "Samari Rolle",
-                pTeams =
-                  [ Team legends,
-                    Team ravens,
-                    MultipleTeam titans 2
                   ]
               },
             emptyPlayer
@@ -536,24 +481,24 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement
-      "Rod Woodson"
+  [ Addition
       emptyPlayer
         { pName = "Steve Atwater",
           pTeams =
             [ Team legends,
               Team broncos,
               Team jets
-            ]
+            ],
+          pPosition = Positions.fs
         },
-    Replacement
-      "Khalil Mack"
+    Addition
       emptyPlayer
         { pName = "Derrick Brooks",
           pTeams =
             [ Team legends,
               Team buccaneers
-            ]
+            ],
+          pPosition = Positions.rolb
         },
     Replacement
       "Champ Bailey"
