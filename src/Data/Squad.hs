@@ -412,6 +412,14 @@ baseSquad =
                   [ Team legends,
                     Team commanders
                   ]
+              },
+            emptyPlayer
+              { pName = "Steve Atwater",
+                pTeams =
+                  [ Team legends,
+                    Team broncos,
+                    Team jets
+                  ]
               }
           ]
       },
@@ -435,6 +443,16 @@ baseSquad =
                   [ Team legends,
                     Team raiders,
                     Team patriots
+                  ]
+              },
+            emptyPlayer
+              { pName = "Rod Woodson"
+                pTeams =
+                  [ Team legends,
+                    Team steelers,
+                    Team niners,
+                    Team ravens,
+                    Team raiders
                   ]
               },
             emptyPlayer
