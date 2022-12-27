@@ -446,7 +446,7 @@ baseSquad =
                   ]
               },
             emptyPlayer
-              { pName = "Rod Woodson"
+              { pName = "Rod Woodson",
                 pTeams =
                   [ Team legends,
                     Team steelers,
