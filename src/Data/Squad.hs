@@ -438,14 +438,6 @@ baseSquad =
                 pTeams = all32TeamsPlusLegends
               },
             emptyPlayer
-              { pName = "Mike Haynes",
-                pTeams =
-                  [ Team legends,
-                    Team raiders,
-                    Team patriots
-                  ]
-              },
-            emptyPlayer
               { pName = "Rod Woodson",
                 pTeams =
                   [ Team legends,
@@ -453,6 +445,14 @@ baseSquad =
                     Team niners,
                     Team ravens,
                     Team raiders
+                  ]
+              },
+            emptyPlayer
+              { pName = "Mike Haynes",
+                pTeams =
+                  [ Team legends,
+                    Team raiders,
+                    Team patriots
                   ]
               },
             emptyPlayer
