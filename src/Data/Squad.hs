@@ -499,7 +499,17 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Addition
+  [ Replacement
+      "Mike Vrabel"
+      emptyPlayer
+        { pName = "Ted Hendricks",
+          pTeams =
+            [ Team legends,
+              Team packers,
+              Team colts
+            ]
+        },
+    Addition
       emptyPlayer
         { pName = "Derrick Brooks",
           pTeams =
