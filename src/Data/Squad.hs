@@ -518,14 +518,14 @@ prospectiveAdditions =
             ],
           pPosition = Positions.rolb
         },
-    Replacement
-      "Jim Taylor"
+    Addition
       emptyPlayer
         { pName = "William Perry (FB)",
           pTeams =
             [ Team legends,
               Team bears,
               Team eagles
-            ]
+            ],
+          pPosition = Positions.fb
         }
   ]
