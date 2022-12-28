@@ -162,9 +162,11 @@ baseSquad =
       { pgPosition = Positions.lg,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Quenton Nelson",
+              { pName = "Randall McDaniel",
                 pTeams =
-                  [ Team colts
+                  [ Team legends,
+                    Team vikings,
+                    Team buccaneers
                   ]
               },
             emptyPlayer
@@ -386,12 +388,10 @@ baseSquad =
       { pgPosition = Positions.ss,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Ted Hendricks (SS)",
+              { pName = "Kam Chancellor",
                 pTeams =
                   [ Team legends,
-                    Team raiders,
-                    Team colts,
-                    Team packers
+                    Team seahawks
                   ]
               },
             emptyPlayer
