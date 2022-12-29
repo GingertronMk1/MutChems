@@ -3,7 +3,7 @@
 
 echo "Building docs..."
 HADDOCK_OUTPUT="$(stack haddock --haddock-arguments="-o ./docs" "$@" 2>&1)"
-MISSING_DOCS="$(echo "$HADDOCK_OUTPUT" | grep "^    ")"
+MISSING_DOCS="$(echo "$HADDOCK_OUTPUT" | grep "^( ){4,4}")"
 
 echo "Output:"
 echo "$HADDOCK_OUTPUT"
