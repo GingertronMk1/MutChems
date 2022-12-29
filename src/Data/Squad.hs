@@ -492,8 +492,8 @@ baseSquad =
   ]
 
 -- | Team affinity strategy card.
-strategy :: [TeamOrMultiple]
-strategy = []
+strategy :: TeamOrMultiple
+strategy = NoTeam
 
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]

@@ -12,7 +12,15 @@ import Types.TeamOrMultiple
 
 -- | The squad with the team strategy item sorted
 processedStrategy :: [Player]
-processedStrategy = map (\s -> emptyPlayer {pName = "STRATEGY: " ++ ppTeamOrMultiple s, pTeams = [s], pPosition = strategyCard}) strategy
+processedStrategy = case strategy of
+  NoTeam -> []
+  tom ->
+    [ emptyPlayer
+        { pName = "STRATEGY: " ++ ppTeamOrMultiple tom,
+          pTeams = [tom],
+          pPosition = strategyCard
+        }
+    ]
 
 -- | Just the base squad and strategy item
 squadNoProspectives :: Lineup
