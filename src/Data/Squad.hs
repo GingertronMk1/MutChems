@@ -101,18 +101,18 @@ baseSquad =
       { pgPosition = Positions.wr,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Herman Moore",
-                pTeams =
-                  [ Team legends,
-                    Team lions,
-                    Team giants
-                  ]
-              },
-            emptyPlayer
               { pName = "Calvin Johnson",
                 pTeams =
                   [ Team lions,
                     Team legends
+                  ]
+              },
+            emptyPlayer
+              { pName = "Steve Smith Sr",
+                pTeams =
+                  [ Team legends,
+                    Team ravens,
+                    Team panthers
                   ]
               },
             emptyPlayer
@@ -162,20 +162,20 @@ baseSquad =
       { pgPosition = Positions.lg,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Randall McDaniel",
-                pTeams =
-                  [ Team legends,
-                    Team vikings,
-                    Team buccaneers
-                  ]
-              },
-            emptyPlayer
               { pName = "Alan Faneca",
                 pTeams =
                   [ Team legends,
                     Team steelers,
                     Team jets,
                     Team cardinals
+                  ]
+              },
+            emptyPlayer
+              { pName = "Randall McDaniel",
+                pTeams =
+                  [ Team legends,
+                    Team vikings,
+                    Team buccaneers
                   ]
               }
           ]
@@ -291,12 +291,11 @@ baseSquad =
       { pgPosition = Positions.lolb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Mike Vrabel",
+              { pName = "Ted Hendricks",
                 pTeams =
                   [ Team legends,
-                    Team patriots,
-                    Team steelers,
-                    Team chiefs
+                    Team packers,
+                    Team colts
                   ]
               },
             emptyPlayer
@@ -499,17 +498,7 @@ strategy = []
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement
-      "Mike Vrabel"
-      emptyPlayer
-        { pName = "Ted Hendricks",
-          pTeams =
-            [ Team legends,
-              Team packers,
-              Team colts
-            ]
-        },
-    Addition
+  [ Addition
       emptyPlayer
         { pName = "Derrick Brooks",
           pTeams =
