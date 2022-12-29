@@ -32,4 +32,7 @@ squadNoProspectives =
 
 -- | The generated list of squads in "chronological" order (or at least planned)
 iteratedProspectiveSquads :: [BuildObject]
-iteratedProspectiveSquads = addProspectivesInTurn prospectiveAdditions squadNoProspectives
+iteratedProspectiveSquads =
+  addProspectivesInTurn
+    prospectiveAdditions
+    squadNoProspectives
