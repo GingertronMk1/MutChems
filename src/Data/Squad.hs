@@ -42,11 +42,12 @@ baseSquad =
       { pgPosition = Positions.hb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "LaDainian Tomlinson",
+              { pName = "Marshawn Lynch",
                 pTeams =
                   [ Team legends,
-                    Team chargers,
-                    Team jets
+                    Team bills,
+                    Team seahawks,
+                    Team raiders
                   ]
               },
             emptyPlayer
@@ -184,6 +185,14 @@ baseSquad =
       { pgPosition = Positions.c,
         pgPlayers =
           [ emptyPlayer
+              { pName = "Jeff Saturday",
+                pTeams =
+                  [ Team legends,
+                    Team colts,
+                    Team packers
+                  ]
+              },
+            emptyPlayer
               { pName = "Russ Grimm",
                 pTeams =
                   [ Team legends,
@@ -506,15 +515,5 @@ prospectiveAdditions =
               Team buccaneers
             ],
           pPosition = Positions.rolb
-        },
-    Addition
-      emptyPlayer
-        { pName = "William Perry (FB)",
-          pTeams =
-            [ Team legends,
-              Team bears,
-              Team eagles
-            ],
-          pPosition = Positions.fb
         }
   ]
