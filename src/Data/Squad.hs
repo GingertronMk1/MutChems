@@ -508,5 +508,15 @@ prospectiveAdditions =
               Team buccaneers
             ],
           pPosition = Positions.rolb
+        },
+    Addition
+      emptyPlayer
+        { pName = "Forrest Gregg",
+          pTeams =
+            [ Team legends,
+              Team packers,
+              Team cowboys
+            ],
+          pPosition = Positions.rt
         }
   ]
