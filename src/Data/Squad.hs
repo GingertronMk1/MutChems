@@ -151,10 +151,11 @@ baseSquad =
                   ]
               },
             emptyPlayer
-              { pName = "Anthony Munoz",
+              { pName = "Gary Zimmerman",
                 pTeams =
                   [ Team legends,
-                    Team bengals
+                    Team broncos,
+                    Team vikings
                   ]
               }
           ]
@@ -230,14 +231,6 @@ baseSquad =
                   [ Team legends,
                     Team bengals,
                     Team ravens
-                  ]
-              },
-            emptyPlayer
-              { pName = "Gary Zimmerman",
-                pTeams =
-                  [ Team legends,
-                    Team broncos,
-                    Team vikings
                   ]
               }
           ]
