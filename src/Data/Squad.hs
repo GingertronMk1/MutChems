@@ -353,22 +353,6 @@ baseSquad =
                     Team titans,
                     Team eagles
                   ]
-              },
-            emptyPlayer
-              { pName = "George Karlaftis",
-                pTeams =
-                  [ Team broncos,
-                    Team buccaneers,
-                    Team cardinals,
-                    Team chiefs,
-                    Team giants,
-                    Team jaguars,
-                    Team niners,
-                    Team packers,
-                    Team saints,
-                    Team seahawks,
-                    Team vikings
-                  ]
               }
           ]
       },
