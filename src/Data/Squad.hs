@@ -463,5 +463,15 @@ prospectiveAdditions =
               Team legends
             ],
           pPosition = Positions.te
+        },
+    Addition
+      emptyPlayer
+        { pName = "Todd Heap",
+          pTeams =
+            [ Team ravens,
+              Team cardinals,
+              Team legends
+            ],
+          pPosition = Positions.te
         }
   ]
