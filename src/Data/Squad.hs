@@ -454,6 +454,14 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [
-
+  [ Addition
+      emptyPlayer
+        { pName = "Delanie Walker",
+          pTeams =
+            [ Team niners,
+              Team titans,
+              Team legends
+            ],
+          pPosition = Positions.te
+        }
   ]
