@@ -464,14 +464,14 @@ prospectiveAdditions =
             ],
           pPosition = Positions.te
         },
-    Addition
+    Replacement
+      "Donald Parham"
       emptyPlayer
         { pName = "Todd Heap",
           pTeams =
             [ Team ravens,
               Team cardinals,
               Team legends
-            ],
-          pPosition = Positions.te
+            ]
         }
   ]
