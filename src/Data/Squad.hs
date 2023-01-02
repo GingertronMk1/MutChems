@@ -149,14 +149,6 @@ baseSquad =
                   [ Team legends,
                     Team ravens
                   ]
-              },
-            emptyPlayer
-              { pName = "Gary Zimmerman",
-                pTeams =
-                  [ Team legends,
-                    Team broncos,
-                    Team vikings
-                  ]
               }
           ]
       },
@@ -171,14 +163,6 @@ baseSquad =
                     Team jets,
                     Team cardinals
                   ]
-              },
-            emptyPlayer
-              { pName = "Randall McDaniel",
-                pTeams =
-                  [ Team legends,
-                    Team vikings,
-                    Team buccaneers
-                  ]
               }
           ]
       },
@@ -192,13 +176,6 @@ baseSquad =
                     Team colts,
                     Team packers
                   ]
-              },
-            emptyPlayer
-              { pName = "Russ Grimm",
-                pTeams =
-                  [ Team legends,
-                    Team commanders
-                  ]
               }
           ]
       },
@@ -211,13 +188,6 @@ baseSquad =
                   [ Team legends,
                     Team niners,
                     Team cowboys
-                  ]
-              },
-            emptyPlayer
-              { pName = "Will Shields",
-                pTeams =
-                  [ Team legends,
-                    Team chiefs
                   ]
               }
           ]
@@ -484,23 +454,6 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Addition
-      emptyPlayer
-        { pName = "Derrick Brooks",
-          pTeams =
-            [ Team legends,
-              Team buccaneers
-            ],
-          pPosition = Positions.rolb
-        },
-    Addition
-      emptyPlayer
-        { pName = "Forrest Gregg",
-          pTeams =
-            [ Team legends,
-              Team packers,
-              Team cowboys
-            ],
-          pPosition = Positions.rt
-        }
+  [
+
   ]
