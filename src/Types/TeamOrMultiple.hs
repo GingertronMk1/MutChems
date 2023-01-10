@@ -162,7 +162,8 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((p ==) . pName) l)
 convertSquad :: Lineup -> Lineup
 convertSquad = fst . filteredSquadFn
 
--- | See all the players in a Lineup that have a given Team chemistry as an option
+-- | See all the players in a Lineup that have a given Team chemistry as an option.
+-- Partitions the players into a tuple of the form (ins, outs)
 numberOfPlayersOnTeam :: Lineup -> Team -> ([Player], [Player])
 numberOfPlayersOnTeam l t = partition (elem t . concatMap expandTeamOrMultiple . pTeams) l
 

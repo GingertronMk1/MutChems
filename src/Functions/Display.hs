@@ -2,6 +2,7 @@
 module Functions.Display where
 
 import Data.List
+import Data.Ord
 import Functions.Application
 import Types.Basic
 import Types.ProspectiveChange
@@ -117,6 +118,7 @@ ppNumberOfPlayersOnEveryTeam l =
   let allTeams = sort . nub . allTeamsFn $ l
    in intercalate "\n\n---\n\n"
         . map (ppNumberOfPlayersOnTeam l)
+        . sortOn (Down . length . fst . numberOfPlayersOnTeam l)
         $ allTeams
 
 -- | Remove newline characters from a string
