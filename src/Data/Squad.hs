@@ -2,10 +2,10 @@
 -- Module: Data.Squad
 module Data.Squad where
 
-import qualified Data.Positions as Positions
-import Data.Teams
-import Types.ProspectiveChange
-import Types.TeamOrMultiple
+import qualified Data.Positions          as Positions
+import           Data.Teams
+import           Types.ProspectiveChange
+import           Types.TeamOrMultiple
 
 -- | Base squad.
 baseSquad :: InitialLineup
@@ -80,18 +80,40 @@ baseSquad =
                     Team packers,
                     Team saints
                   ]
+              },
+            emptyPlayer
+              { pName = "Keith Byars",
+                pTeams =
+                  [ Team legends,
+                    MultipleTeam eagles 2,
+                    Team dolphins,
+                    Team patriots,
+                    Team jets
+                  ]
+
               }
           ]
       },
     PositionGroup
       { pgPosition = Positions.te,
         pgPlayers =
-          [ emptyPlayer
-              { pName = "Donald Parham",
-                pTeams =
-                  [ Team chargers
-                  ]
-              },
+          [      emptyPlayer
+        { pName = "Delanie Walker",
+          pTeams =
+            [ Team niners,
+              Team titans,
+              Team legends
+            ],
+          pPosition = Positions.te
+        },
+      emptyPlayer
+        { pName = "Todd Heap",
+          pTeams =
+            [ Team ravens,
+              Team cardinals,
+              Team legends
+            ]
+        },
             emptyPlayer
               { pName = "Dave Casper",
                 pTeams = all32TeamsPlusLegends
@@ -454,24 +476,4 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Addition
-      emptyPlayer
-        { pName = "Delanie Walker",
-          pTeams =
-            [ Team niners,
-              Team titans,
-              Team legends
-            ],
-          pPosition = Positions.te
-        },
-    Replacement
-      "Donald Parham"
-      emptyPlayer
-        { pName = "Todd Heap",
-          pTeams =
-            [ Team ravens,
-              Team cardinals,
-              Team legends
-            ]
-        }
-  ]
+  []
