@@ -2,10 +2,10 @@
 -- Module: Data.Squad
 module Data.Squad where
 
-import qualified Data.Positions          as Positions
-import           Data.Teams
-import           Types.ProspectiveChange
-import           Types.TeamOrMultiple
+import qualified Data.Positions as Positions
+import Data.Teams
+import Types.ProspectiveChange
+import Types.TeamOrMultiple
 
 -- | Base squad.
 baseSquad :: InitialLineup
@@ -90,30 +90,29 @@ baseSquad =
                     Team patriots,
                     Team jets
                   ]
-
               }
           ]
       },
     PositionGroup
       { pgPosition = Positions.te,
         pgPlayers =
-          [      emptyPlayer
-        { pName = "Delanie Walker",
-          pTeams =
-            [ Team niners,
-              Team titans,
-              Team legends
-            ],
-          pPosition = Positions.te
-        },
-      emptyPlayer
-        { pName = "Todd Heap",
-          pTeams =
-            [ Team ravens,
-              Team cardinals,
-              Team legends
-            ]
-        },
+          [ emptyPlayer
+              { pName = "Delanie Walker",
+                pTeams =
+                  [ Team niners,
+                    Team titans,
+                    Team legends
+                  ],
+                pPosition = Positions.te
+              },
+            emptyPlayer
+              { pName = "Todd Heap",
+                pTeams =
+                  [ Team ravens,
+                    Team cardinals,
+                    Team legends
+                  ]
+              },
             emptyPlayer
               { pName = "Dave Casper",
                 pTeams = all32TeamsPlusLegends
