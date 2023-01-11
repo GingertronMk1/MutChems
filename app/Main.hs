@@ -3,13 +3,13 @@
 module Main (main) where
 
 import Data.Calculated
+import Data.Other (squadFilterThreshold)
 import Data.Squad
 import Data.Time.Clock.System
 import Functions.Application
 import Functions.Display
 import Types.ProspectiveChange
 import Types.Variation
-import Data.Other (squadFilterThreshold)
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()

@@ -19,6 +19,7 @@ squadFilterThresholdString = "1 000 000"
 
 -- | The maximum number of Variations per Lineup
 squadFilterThreshold :: Int
-squadFilterThreshold = read
-                     . filter isDigit
-                     $ squadFilterThresholdString
+squadFilterThreshold =
+  read
+    . filter isDigit
+    $ squadFilterThresholdString
