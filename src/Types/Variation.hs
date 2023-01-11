@@ -74,11 +74,11 @@ variationToTeams :: Variation -> [Team]
 variationToTeams (Variation v) = sort . concatMap (expandTeamOrMultiple . vpTeam) $ v
 
 -- | Take a Lineup and convert it to a list of all Variations
-lineupToVariations :: Lineup -> [Variation]
-lineupToVariations =
+lineupToVariations :: Lineup -> Int -> [Variation]
+lineupToVariations n =
   map Variation
     . mapM playerToVariationPlayers
-    . convertSquad
+    . convertSquad n
 
 -- | Taking an individual Player and splitting out all of their Teams into a list
 -- of VariationPlayers
@@ -87,20 +87,20 @@ playerToVariationPlayers p = [VP {vpName = pName p, vpTeam = t, vpPosition = pPo
 
 -- | Convert a Lineup to its best Variation according to the `compare` function
 -- defined above
-lineupToBestVariation :: Lineup -> Variation
-lineupToBestVariation = maximum . lineupToVariations
+lineupToBestVariation :: Lineup -> Int -> Variation
+lineupToBestVariation n = maximum . lineupToVariations n
 
 -- | Generate the best Variations for a set of Lineups and add to the tuples
-bestOfAllSquadsFn :: [BuildObject] -> [DisplayObject]
-bestOfAllSquadsFn = map bestOfOneSquadFn
+bestOfAllSquadsFn :: Int -> [BuildObject] -> [DisplayObject]
+bestOfAllSquadsFn n = map (bestOfOneSquadFn n)
 
 -- | Generate the best Variation for a given Lineup and add it to the provided Tuple
-bestOfOneSquadFn :: BuildObject -> DisplayObject
-bestOfOneSquadFn (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
+bestOfOneSquadFn :: Int -> BuildObject -> DisplayObject
+bestOfOneSquadFn n (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
   DisplayObject
     { displayObjectLineup = l,
       displayObjectProspectiveChange = pc,
-      displayObjectVariation = recursiveGetBestSquads l
+      displayObjectVariation = recursiveGetBestSquads l n
     }
 
 -- | Using the totals of each team in each Variation, kind of unfolding them?.
@@ -120,9 +120,9 @@ variationPlayerToLineupPlayer vp =
     }
 
 -- | Generate a fully populated variation
-recursiveGetBestSquads :: Lineup -> Variation
-recursiveGetBestSquads l =
-  let ret@(Variation bestSquad) = lineupToBestVariation l
+recursiveGetBestSquads :: Lineup -> Int -> Variation
+recursiveGetBestSquads l n =
+  let ret@(Variation bestSquad) = lineupToBestVariation l n
       (noTeams, hasTeams) = partition ((NoTeam ==) . vpTeam) bestSquad
    in if null noTeams
         then ret
@@ -130,4 +130,4 @@ recursiveGetBestSquads l =
           let hasTeamsLineup = map variationPlayerToLineupPlayer hasTeams
               noTeamsLineup = filter ((`elem` map vpName noTeams) . pName) l
               newLineup = sortBy (compareBasedOnSquad l) (hasTeamsLineup ++ noTeamsLineup)
-           in recursiveGetBestSquads newLineup
+           in recursiveGetBestSquads newLineup n

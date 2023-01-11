@@ -13,4 +13,4 @@ unBrokenCharacters =
 
 -- | The maximum number of Variations per Lineup
 squadFilterThreshold :: Int
-squadFilterThreshold = 10 * 1000
+squadFilterThreshold = 10 * 100000

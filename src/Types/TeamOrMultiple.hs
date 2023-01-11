@@ -85,7 +85,7 @@ allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple . concatMap pTeams
 
 -- | Filter a given squad such that it contains only `squadFilterThreshold` options
-filteredSquadFn :: Lineup -> (Lineup, Int)
+filteredSquadFn :: Lineup -> Int -> (Lineup, Int)
 filteredSquadFn = filteredSquadFn' 0
 
 -- | Helper for the above - does the actual filtering
@@ -95,14 +95,17 @@ filteredSquadFn' ::
   Int ->
   -- | The initial lineup to be filtered
   Lineup ->
+  -- | The max number of options
+  Int ->
   -- | The resultant lineup
   (Lineup, Int)
-filteredSquadFn' threshold s
-  | numberOfNewSOptions < 0 = filteredSquadFn' (threshold + 1) newS
+filteredSquadFn' threshold s limit
+  | numberOfNewSOptions < 0 = nextIfNotZero
   | numberOfNewSOptions == 0 = ([], threshold)
-  | numberOfNewSOptions <= squadFilterThreshold = (newS, threshold)
-  | otherwise = filteredSquadFn' (threshold + 1) newS
+  | numberOfNewSOptions <= limit = (newS, threshold)
+  | otherwise = nextIfNotZero
   where
+    nextIfNotZero = filteredSquadFn' (threshold + 1) newS limit
     allTeams = allTeamsFn s
     newS = map (\p -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) . pTeams $ p}) s
     numberOfNewSOptions = numberOfOptionsFn newS
@@ -159,8 +162,8 @@ compareBasedOnSquad' l p = fromMaybe minBound (findIndex ((p ==) . pName) l)
 
 -- | Turn a Lineup into one where all of the `Data.Teams.all32Teams` players have been given
 -- their teams and filtered by team popularity
-convertSquad :: Lineup -> Lineup
-convertSquad = fst . filteredSquadFn
+convertSquad :: Lineup -> Int -> Lineup
+convertSquad n = fst . filteredSquadFn n
 
 -- | See all the players in a Lineup that have a given Team chemistry as an option.
 -- Partitions the players into a tuple of the form (ins, outs)

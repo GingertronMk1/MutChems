@@ -9,15 +9,16 @@ import Functions.Application
 import Functions.Display
 import Types.ProspectiveChange
 import Types.Variation
+import Data.Other (squadFilterThreshold)
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()
 main = do
   start <- getSystemTime
-  let bestOfAllSquads =
-        bestOfAllSquadsFn
-          . addProspectivesInTurn prospectiveAdditions
-          $ squadNoProspectives
+  let allProspectiveSquads = addProspectivesInTurn prospectiveAdditions squadNoProspectives
+  let squadFilterThreshold' = div squadFilterThreshold (length allProspectiveSquads)
+  putStrLn $ printf "Limiting to %s options per iteration" [show squadFilterThreshold']
+  let bestOfAllSquads = bestOfAllSquadsFn squadFilterThreshold' allProspectiveSquads
   let html =
         (++ ppNumberOfPlayersOnEveryTeam squadNoProspectives)
           . (++ "\n\n---\n\n")
