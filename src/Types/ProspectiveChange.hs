@@ -55,5 +55,7 @@ addProspective (Removal p) l = filter ((/= p) . pName) l
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
 ppProspectiveChange (Addition (P {pName = p})) = printf "Adding %s" [p]
-ppProspectiveChange (Replacement p1 (P {pName = p2})) = printf "Replacing %s with %s" [p1, p2]
+ppProspectiveChange (Replacement p1 (P {pName = p2}))
+  | p1 == p2 = printf "Replacing %s with a different %s" [p1, p2]
+  | otherwise = printf "Replacing %s with %s" [p1, p2]
 ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
