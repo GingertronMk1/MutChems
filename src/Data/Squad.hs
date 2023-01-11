@@ -16,25 +16,25 @@ baseSquad =
           [ emptyPlayer
               { pName = "Ryan Fitzpatrick",
                 pTeams =
-                  [ Team bengals,
-                    Team bills,
-                    Team buccaneers,
-                    Team commanders,
-                    Team dolphins,
-                    Team jets,
-                    Team legends,
-                    Team rams,
-                    Team texans,
-                    Team titans
-                  ]
+                  withLegends
+                    [ Team bengals,
+                      Team bills,
+                      Team buccaneers,
+                      Team commanders,
+                      Team dolphins,
+                      Team jets,
+                      Team rams,
+                      Team texans,
+                      Team titans
+                    ]
               },
             emptyPlayer
               { pName = "Tim Tebow",
                 pTeams =
-                  [ Team legends,
-                    Team broncos,
-                    Team jets
-                  ]
+                  withLegends
+                    [ Team broncos,
+                      Team jets
+                    ]
               }
           ]
       },
@@ -44,29 +44,29 @@ baseSquad =
           [ emptyPlayer
               { pName = "Marshawn Lynch",
                 pTeams =
-                  [ Team legends,
-                    Team bills,
-                    Team seahawks,
-                    Team raiders
-                  ]
+                  withLegends
+                    [ Team bills,
+                      Team seahawks,
+                      Team raiders
+                    ]
               },
             emptyPlayer
               { pName = "CJ2K",
                 pTeams =
-                  [ Team legends,
-                    Team jets,
-                    Team cardinals
-                  ]
+                  withLegends
+                    [ Team jets,
+                      Team cardinals
+                    ]
               },
             emptyPlayer
               { pName = "Rod Woodson (HB)",
                 pTeams =
-                  [ Team legends,
-                    Team steelers,
-                    Team ravens,
-                    Team niners,
-                    Team raiders
-                  ]
+                  withLegends
+                    [ Team steelers,
+                      Team ravens,
+                      Team niners,
+                      Team raiders
+                    ]
               }
           ]
       },
@@ -76,20 +76,20 @@ baseSquad =
           [ emptyPlayer
               { pName = "Jim Taylor",
                 pTeams =
-                  [ Team legends,
-                    Team packers,
-                    Team saints
-                  ]
+                  withLegends
+                    [ Team packers,
+                      Team saints
+                    ]
               },
             emptyPlayer
               { pName = "Keith Byars",
                 pTeams =
-                  [ Team legends,
-                    MultipleTeam eagles 2,
-                    Team dolphins,
-                    Team patriots,
-                    Team jets
-                  ]
+                  withLegends
+                    [ MultipleTeam eagles 2,
+                      Team dolphins,
+                      Team patriots,
+                      Team jets
+                    ]
               }
           ]
       },
@@ -99,19 +99,19 @@ baseSquad =
           [ emptyPlayer
               { pName = "Delanie Walker",
                 pTeams =
-                  [ Team niners,
-                    Team titans,
-                    Team legends
-                  ],
+                  withLegends
+                    [ Team niners,
+                      Team titans
+                    ],
                 pPosition = Positions.te
               },
             emptyPlayer
               { pName = "Todd Heap",
                 pTeams =
-                  [ Team ravens,
-                    Team cardinals,
-                    Team legends
-                  ]
+                  withLegends
+                    [ Team ravens,
+                      Team cardinals
+                    ]
               },
             emptyPlayer
               { pName = "Dave Casper",
@@ -125,39 +125,39 @@ baseSquad =
           [ emptyPlayer
               { pName = "Calvin Johnson",
                 pTeams =
-                  [ Team lions,
-                    Team legends
-                  ]
+                  withLegends
+                    [ Team lions
+                    ]
               },
             emptyPlayer
               { pName = "Steve Smith Sr",
                 pTeams =
-                  [ Team legends,
-                    Team ravens,
-                    Team panthers
-                  ]
+                  withLegends
+                    [ Team ravens,
+                      Team panthers
+                    ]
               },
             emptyPlayer
               { pName = "Randy Moss",
                 pTeams =
-                  [ Team legends,
-                    Team titans,
-                    Team raiders,
-                    Team niners,
-                    Team vikings,
-                    Team patriots
-                  ]
+                  withLegends
+                    [ Team titans,
+                      Team raiders,
+                      Team niners,
+                      Team vikings,
+                      Team patriots
+                    ]
               },
             emptyPlayer
               { pName = "Deion Sanders (WR)",
                 pTeams =
-                  [ Team legends,
-                    Team ravens,
-                    Team niners,
-                    Team falcons,
-                    Team commanders,
-                    Team cowboys
-                  ]
+                  withLegends
+                    [ Team ravens,
+                      Team niners,
+                      Team falcons,
+                      Team commanders,
+                      Team cowboys
+                    ]
               }
           ]
       },
@@ -167,9 +167,9 @@ baseSquad =
           [ emptyPlayer
               { pName = "Jonathan Ogden",
                 pTeams =
-                  [ Team legends,
-                    Team ravens
-                  ]
+                  withLegends
+                    [ Team ravens
+                    ]
               }
           ]
       },
@@ -179,11 +179,11 @@ baseSquad =
           [ emptyPlayer
               { pName = "Alan Faneca",
                 pTeams =
-                  [ Team legends,
-                    Team steelers,
-                    Team jets,
-                    Team cardinals
-                  ]
+                  withLegends
+                    [ Team steelers,
+                      Team jets,
+                      Team cardinals
+                    ]
               }
           ]
       },
@@ -193,10 +193,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Jeff Saturday",
                 pTeams =
-                  [ Team legends,
-                    Team colts,
-                    Team packers
-                  ]
+                  withLegends
+                    [ Team colts,
+                      Team packers
+                    ]
               }
           ]
       },
@@ -206,10 +206,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Larry Allen",
                 pTeams =
-                  [ Team legends,
-                    Team niners,
-                    Team cowboys
-                  ]
+                  withLegends
+                    [ Team niners,
+                      Team cowboys
+                    ]
               }
           ]
       },
@@ -219,10 +219,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Willie Anderson",
                 pTeams =
-                  [ Team legends,
-                    Team bengals,
-                    Team ravens
-                  ]
+                  withLegends
+                    [ Team bengals,
+                      Team ravens
+                    ]
               }
           ]
       },
@@ -232,36 +232,36 @@ baseSquad =
           [ emptyPlayer
               { pName = "Ray Nitschke",
                 pTeams =
-                  [ Team legends,
-                    Team packers
-                  ]
+                  withLegends
+                    [ Team packers
+                    ]
               },
             emptyPlayer
               { pName = "Derrick Thompson",
                 pTeams =
-                  [ Team legends,
-                    Team chiefs,
-                    Team raiders
-                  ]
+                  withLegends
+                    [ Team chiefs,
+                      Team raiders
+                    ]
               },
             emptyPlayer
               { pName = "Junior Seau",
                 pTeams =
-                  [ Team legends,
-                    Team chargers,
-                    Team dolphins,
-                    Team patriots
-                  ]
+                  withLegends
+                    [ Team chargers,
+                      Team dolphins,
+                      Team patriots
+                    ]
               },
             emptyPlayer
               { pName = "Kiko Alonso",
                 pTeams =
-                  [ Team legends,
-                    Team bills,
-                    Team dolphins,
-                    Team eagles,
-                    Team saints
-                  ]
+                  withLegends
+                    [ Team bills,
+                      Team dolphins,
+                      Team eagles,
+                      Team saints
+                    ]
               }
           ]
       },
@@ -271,12 +271,12 @@ baseSquad =
           [ emptyPlayer
               { pName = "Jonathan Casillas",
                 pTeams =
-                  [ Team legends,
-                    Team buccaneers,
-                    Team giants,
-                    Team patriots,
-                    Team saints
-                  ]
+                  withLegends
+                    [ Team buccaneers,
+                      Team giants,
+                      Team patriots,
+                      Team saints
+                    ]
               }
           ]
       },
@@ -286,19 +286,19 @@ baseSquad =
           [ emptyPlayer
               { pName = "Ted Hendricks",
                 pTeams =
-                  [ Team legends,
-                    Team packers,
-                    Team colts
-                  ]
+                  withLegends
+                    [ Team packers,
+                      Team colts
+                    ]
               },
             emptyPlayer
               { pName = "Carl Banks",
                 pTeams =
-                  [ Team legends,
-                    Team browns,
-                    Team commanders,
-                    Team giants
-                  ]
+                  withLegends
+                    [ Team browns,
+                      Team commanders,
+                      Team giants
+                    ]
               }
           ]
       },
@@ -308,10 +308,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Richard Seymour",
                 pTeams =
-                  [ Team legends,
-                    Team patriots,
-                    Team raiders
-                  ]
+                  withLegends
+                    [ Team patriots,
+                      Team raiders
+                    ]
               },
             emptyPlayer
               { pName = "Sam Adams",
@@ -320,17 +320,17 @@ baseSquad =
             emptyPlayer
               { pName = "Tony Siragusa",
                 pTeams =
-                  [ Team legends,
-                    Team ravens,
-                    Team colts
-                  ]
+                  withLegends
+                    [ Team ravens,
+                      Team colts
+                    ]
               },
             emptyPlayer
               { pName = "Merlin Olsen",
                 pTeams =
-                  [ Team legends,
-                    Team rams
-                  ]
+                  withLegends
+                    [ Team rams
+                    ]
               }
           ]
       },
@@ -340,10 +340,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Jevon Kearse",
                 pTeams =
-                  [ Team legends,
-                    Team titans,
-                    Team eagles
-                  ]
+                  withLegends
+                    [ Team titans,
+                      Team eagles
+                    ]
               }
           ]
       },
@@ -353,10 +353,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Bruce Smith",
                 pTeams =
-                  [ Team legends,
-                    Team bills,
-                    Team commanders
-                  ]
+                  withLegends
+                    [ Team bills,
+                      Team commanders
+                    ]
               }
           ]
       },
@@ -366,16 +366,16 @@ baseSquad =
           [ emptyPlayer
               { pName = "Kam Chancellor",
                 pTeams =
-                  [ Team legends,
-                    Team seahawks
-                  ]
+                  withLegends
+                    [ Team seahawks
+                    ]
               },
             emptyPlayer
               { pName = "Adrian Wilson",
                 pTeams =
-                  [ Team legends,
-                    Team cardinals
-                  ]
+                  withLegends
+                    [ Team cardinals
+                    ]
               }
           ]
       },
@@ -385,17 +385,17 @@ baseSquad =
           [ emptyPlayer
               { pName = "Sean Taylor",
                 pTeams =
-                  [ Team legends,
-                    Team commanders
-                  ]
+                  withLegends
+                    [ Team commanders
+                    ]
               },
             emptyPlayer
               { pName = "Steve Atwater",
                 pTeams =
-                  [ Team legends,
-                    Team broncos,
-                    Team jets
-                  ]
+                  withLegends
+                    [ Team broncos,
+                      Team jets
+                    ]
               }
           ]
       },
@@ -405,9 +405,9 @@ baseSquad =
           [ emptyPlayer
               { pName = "Calvin Johnson (CB)",
                 pTeams =
-                  [ Team legends,
-                    Team lions
-                  ]
+                  withLegends
+                    [ Team lions
+                    ]
               },
             emptyPlayer
               { pName = "Deion Sanders",
@@ -416,28 +416,28 @@ baseSquad =
             emptyPlayer
               { pName = "Rod Woodson",
                 pTeams =
-                  [ Team legends,
-                    Team steelers,
-                    Team niners,
-                    Team ravens,
-                    Team raiders
-                  ]
+                  withLegends
+                    [ Team steelers,
+                      Team niners,
+                      Team ravens,
+                      Team raiders
+                    ]
               },
             emptyPlayer
               { pName = "Mike Haynes",
                 pTeams =
-                  [ Team legends,
-                    Team raiders,
-                    Team patriots
-                  ]
+                  withLegends
+                    [ Team raiders,
+                      Team patriots
+                    ]
               },
             emptyPlayer
               { pName = "Champ Bailey",
                 pTeams =
-                  [ Team commanders,
-                    Team broncos,
-                    Team legends
-                  ]
+                  withLegends
+                    [ Team commanders,
+                      Team broncos
+                    ]
               }
           ]
       },
@@ -447,10 +447,10 @@ baseSquad =
           [ emptyPlayer
               { pName = "Adam Vinatieri",
                 pTeams =
-                  [ Team legends,
-                    Team colts,
-                    Team patriots
-                  ]
+                  withLegends
+                    [ Team colts,
+                      Team patriots
+                    ]
               }
           ]
       },
@@ -460,9 +460,9 @@ baseSquad =
           [ emptyPlayer
               { pName = "Ray Guy",
                 pTeams =
-                  [ Team legends,
-                    Team raiders
-                  ]
+                  withLegends
+                    [ Team raiders
+                    ]
               }
           ]
       }
@@ -475,4 +475,44 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  []
+  [ Replacement
+      "Todd Heap"
+      emptyPlayer
+        { pName = "Rob Gronkowski",
+          pTeams = [Teams [Teams all32TeamsPlusLegends, Teams all32TeamsPlusLegends]]
+        },
+    Replacement
+      "Junior Seau"
+      emptyPlayer
+        { pName = "Willie Lanier",
+          pTeams = withLegends [Team chiefs]
+        },
+    Addition
+      emptyPlayer
+        { pName = "Jay Hilgenberg",
+          pTeams =
+            withLegends
+              [ Team bears,
+                Team browns,
+                Team saints
+              ],
+          pPosition = Positions.c
+        },
+    Addition
+      emptyPlayer
+        { pName = "Fred Biletnikoff",
+          pTeams = withLegends [Team raiders],
+          pPosition = Positions.wr
+        },
+    Replacement
+      "Steve Atwater"
+      emptyPlayer
+        { pName = "Ed Reed",
+          pTeams =
+            withLegends
+              [ Team ravens,
+                Team jets,
+                Team texans
+              ]
+        }
+  ]

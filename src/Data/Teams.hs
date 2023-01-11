@@ -260,10 +260,13 @@ all32Teams = nfc ++ afc
 
 -- | All of the teams in the NFL plus retired teams
 all32TeamsPlusLegends :: [TeamOrMultiple]
-all32TeamsPlusLegends = Team legends : all32Teams
+all32TeamsPlusLegends = withLegends all32Teams
 
 -- * Other bits
 
 -- | The theme teams I would rather make
 preferences :: [Team]
 preferences = [legends, titans, seahawks, eagles, raiders]
+
+withLegends :: [TeamOrMultiple] -> [TeamOrMultiple]
+withLegends ts = Team legends : ts
