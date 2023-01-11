@@ -479,7 +479,7 @@ prospectiveAdditions =
       "Todd Heap"
       emptyPlayer
         { pName = "Rob Gronkowski",
-          pTeams = [Teams [Teams all32TeamsPlusLegends, Teams all32TeamsPlusLegends]]
+          pTeams = comboOfTeams [all32TeamsPlusLegends, all32TeamsPlusLegends]
         },
     Replacement
       "Junior Seau"

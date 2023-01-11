@@ -181,7 +181,7 @@ ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam = "-"
 ppTeamOrMultiple (Team t) = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
-ppTeamOrMultiple (Teams ts) = intercalate "/" $ map show ts
+ppTeamOrMultiple (Teams ts) = intercalate "/" $ map ppTeamOrMultiple ts
 
 -- | Making sure a lineup is valid for our purposes - no duplicated names
 checkLineupIsValid :: Lineup -> Lineup
@@ -201,3 +201,7 @@ checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
             currentPlayerName,
             intercalate ", " . map pPosition $ ps'
           ]
+
+-- | Generate Teams instances for combinations of teams
+comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
+comboOfTeams = map Teams . sequence

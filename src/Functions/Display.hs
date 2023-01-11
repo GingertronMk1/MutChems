@@ -29,6 +29,7 @@ htmlTablePrintVariation (Variation v) =
           . concatMap (surroundInTag "td")
           $ [ "TOTALS",
               surroundInTag "ul"
+                . unBreakCharacters
                 . newLineMap (\(t, i) -> removeNewLines . surroundInTag "li" . printf "%s: %s" . map unBreakCharacters $ [t, show i])
                 . totalsPerSquad
                 $ v
