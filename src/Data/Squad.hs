@@ -470,7 +470,8 @@ prospectiveAdditions =
   [ Removals
       [ "Derrick Johnson",
         "Mike Haynes",
-        "Ted Hendricks"
+        "Ted Hendricks",
+        "Keith Byars"
       ],
     Replacement
       "Adrian Wilson"
