@@ -106,14 +106,6 @@ baseSquad =
                 pPosition = Positions.te
               },
             emptyPlayer
-              { pName = "Todd Heap",
-                pTeams =
-                  withLegends
-                    [ Team ravens,
-                      Team cardinals
-                    ]
-              },
-            emptyPlayer
               { pName = "Dave Casper",
                 pTeams = all32TeamsPlusLegends
               }
@@ -475,17 +467,29 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement
-      "Todd Heap"
+  [ Addition
       emptyPlayer
         { pName = "Rob Gronkowski",
-          pTeams = all32TeamsPlusLegends
+          pTeams = all32TeamsPlusLegends,
+          pPosition = Positions.te
         },
     Replacement
       "Derrick Johnson"
       emptyPlayer
         { pName = "Willie Lanier",
           pTeams = withLegends [Team chiefs]
+        },
+    Removal "Ted Hendricks",
+    Replacement
+      "Adrian Wilson"
+      emptyPlayer
+        { pName = "Ted Hendricks",
+          pTeams =
+            withLegends
+              [ Team raiders,
+                Team packers,
+                Team colts
+              ]
         },
     Addition
       emptyPlayer
