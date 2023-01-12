@@ -237,7 +237,7 @@ baseSquad =
                     ]
               },
             emptyPlayer
-              { pName = "Derrick Thompson",
+              { pName = "Derrick Johnson",
                 pTeams =
                   withLegends
                     [ Team chiefs,
@@ -482,7 +482,7 @@ prospectiveAdditions =
           pTeams = all32TeamsPlusLegends
         },
     Replacement
-      "Junior Seau"
+      "Derrick Johnson"
       emptyPlayer
         { pName = "Willie Lanier",
           pTeams = withLegends [Team chiefs]
