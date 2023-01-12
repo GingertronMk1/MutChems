@@ -468,9 +468,7 @@ strategy = NoTeam
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Removals
-      [ "Derrick Johnson",
-        "Mike Haynes",
-        "Ted Hendricks",
+      [ "Ted Hendricks",
         "Keith Byars"
       ],
     Replacement
@@ -490,7 +488,8 @@ prospectiveAdditions =
           pTeams = all32TeamsPlusLegends,
           pPosition = Positions.te
         },
-    Addition
+    Replacement
+      "Junior Seau"
       emptyPlayer
         { pName = "Willie Lanier",
           pTeams = withLegends [Team chiefs],
