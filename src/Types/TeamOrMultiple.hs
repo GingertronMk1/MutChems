@@ -83,7 +83,7 @@ numberOfOptionsFn = product . map (length . pTeams)
 allTeamsFn :: Lineup -> [Team]
 allTeamsFn = concatMap expandTeamOrMultiple . concatMap pTeams
 
--- | Filter a given squad such that it contains only `squadFilterThreshold` options
+-- | Filter a given squad such that it contains only `Data.Calculated.squadFilterThreshold` options
 filteredSquadFn :: Lineup -> Int -> (Lineup, Int)
 filteredSquadFn = filteredSquadFn' 0
 

@@ -268,5 +268,6 @@ all32TeamsPlusLegends = withLegends all32Teams
 preferences :: [Team]
 preferences = [legends, titans, seahawks, eagles, raiders]
 
+-- | Quick function to add legends to a given list of teams
 withLegends :: [TeamOrMultiple] -> [TeamOrMultiple]
 withLegends ts = Team legends : ts
