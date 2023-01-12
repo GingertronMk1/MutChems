@@ -1,6 +1,7 @@
 -- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
+import Data.List
 import Functions.Application
 import Types.Basic
 import Types.TeamOrMultiple
@@ -14,7 +15,7 @@ data ProspectiveChange
   | -- | No addition or replacement
     NoChange
   | -- | Removing a player
-    Removal PlayerName
+    Removals [PlayerName]
   deriving (Eq, Show)
 
 -- | An object containing a Lineup and a ProspectiveChange that has led to that
@@ -49,7 +50,7 @@ addProspective (Replacement p newP) l =
   case break ((p ==) . pName) l of
     (_, []) -> error $ printf "No player called %s in lineup" [p]
     (firstPart, P {pPosition = oldPosition} : theRest) -> firstPart ++ (newP {pPosition = oldPosition} : theRest)
-addProspective (Removal p) l = filter ((/= p) . pName) l
+addProspective (Removals p) l = filter ((`notElem` p) . pName) l
 
 -- | Nicely print a Prospective Change
 ppProspectiveChange :: ProspectiveChange -> String
@@ -58,4 +59,4 @@ ppProspectiveChange (Addition (P {pName = p})) = printf "Adding %s" [p]
 ppProspectiveChange (Replacement p1 (P {pName = p2}))
   | p1 == p2 = printf "Replacing %s with a different %s" [p1, p2]
   | otherwise = printf "Replacing %s with %s" [p1, p2]
-ppProspectiveChange (Removal p) = printf "Getting rid of %s" [p]
+ppProspectiveChange (Removals p) = printf "Getting rid of %s" [intercalate ", " p]

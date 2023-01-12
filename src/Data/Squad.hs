@@ -467,9 +467,11 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Removal "Derrick Johnson",
-    Removal "Mike Haynes",
-    Removal "Ted Hendricks",
+  [ Removals
+      [ "Derrick Johnson",
+        "Mike Haynes",
+        "Ted Hendricks"
+      ],
     Replacement
       "Adrian Wilson"
       emptyPlayer
