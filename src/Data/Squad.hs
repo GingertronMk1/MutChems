@@ -467,18 +467,8 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Addition
-      emptyPlayer
-        { pName = "Rob Gronkowski",
-          pTeams = all32TeamsPlusLegends,
-          pPosition = Positions.te
-        },
-    Replacement
-      "Derrick Johnson"
-      emptyPlayer
-        { pName = "Willie Lanier",
-          pTeams = withLegends [Team chiefs]
-        },
+  [ Removal "Derrick Johnson",
+    Removal "Mike Haynes",
     Removal "Ted Hendricks",
     Replacement
       "Adrian Wilson"
@@ -490,6 +480,18 @@ prospectiveAdditions =
                 Team packers,
                 Team colts
               ]
+        },
+    Addition
+      emptyPlayer
+        { pName = "Rob Gronkowski",
+          pTeams = all32TeamsPlusLegends,
+          pPosition = Positions.te
+        },
+    Addition
+      emptyPlayer
+        { pName = "Willie Lanier",
+          pTeams = withLegends [Team chiefs],
+          pPosition = Positions.mlb
         },
     Addition
       emptyPlayer
