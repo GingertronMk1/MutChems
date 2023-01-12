@@ -97,6 +97,10 @@ newLineMap f = intercalate "\n" . map f
 -- | Convert spaces in a string to non-breaking spaces
 unBreakCharacters :: String -> String
 unBreakCharacters [] = []
-unBreakCharacters (c : cs) = case lookup c unBrokenCharacters of
-  Just s -> s ++ unBreakCharacters cs
-  Nothing -> c : unBreakCharacters cs
+unBreakCharacters (c : cs) =
+  let unBrokenCharacters = [ (' ', "&nbsp;"),
+                             ('-', "&#8209;")
+                           ]
+  in case lookup c unBrokenCharacters of
+    Just s -> s ++ unBreakCharacters cs
+    Nothing -> c : unBreakCharacters cs

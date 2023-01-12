@@ -3,7 +3,6 @@ module Types.TeamOrMultiple where
 
 import Data.List
 import Data.Maybe
-import Data.Other
 import Functions.Application
 import Types.Basic
 

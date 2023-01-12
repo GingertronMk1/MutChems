@@ -3,7 +3,6 @@
 module Main (main) where
 
 import Data.Calculated
-import Data.Other (squadFilterThreshold)
 import Data.Squad
 import Data.Time.Clock.System
 import Functions.Application

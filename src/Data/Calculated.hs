@@ -5,7 +5,9 @@
 -- just variables more or less
 module Data.Calculated where
 
+import Data.Char
 import Data.Positions
+import Data.Other
 import Data.Squad
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
@@ -36,3 +38,10 @@ iteratedProspectiveSquads =
   addProspectivesInTurn
     prospectiveAdditions
     squadNoProspectives
+
+-- | The maximum number of Variations per Lineup
+squadFilterThreshold :: Int
+squadFilterThreshold =
+  read
+    . filter isDigit
+    $ squadFilterThresholdString
