@@ -97,9 +97,10 @@ newLineMap f = intercalate "\n" . map f
 unBreakCharacters :: String -> String
 unBreakCharacters [] = []
 unBreakCharacters (c : cs) =
-  let unBrokenCharacters = [ (' ', "&nbsp;"),
-                             ('-', "&#8209;")
-                           ]
-  in case lookup c unBrokenCharacters of
-    Just s -> s ++ unBreakCharacters cs
-    Nothing -> c : unBreakCharacters cs
+  let unBrokenCharacters =
+        [ (' ', "&nbsp;"),
+          ('-', "&#8209;")
+        ]
+   in case lookup c unBrokenCharacters of
+        Just s -> s ++ unBreakCharacters cs
+        Nothing -> c : unBreakCharacters cs

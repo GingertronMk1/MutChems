@@ -6,8 +6,8 @@
 module Data.Calculated where
 
 import Data.Char
-import Data.Positions
 import Data.Other
+import Data.Positions
 import Data.Squad
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
