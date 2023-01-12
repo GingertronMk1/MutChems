@@ -3,11 +3,33 @@
 echo "Stack installing program"
 stack install
 
-echo "Going through requirements"
+if [ ! -f src/Data/Other.hs ]; then
+  echo "Copying Other.hs.dist"
+  cp src/Data/Other.hs.dist src/Data/Other.hs
+else
+  echo "Skipping copy of Other data"
+fi
 
-REQUIREMENTS=$(cat requirements.txt)
+INSTALL_REQUIREMENTS=0
 
-for line in $REQUIREMENTS; do
-  echo "Stack installing $line"
-  stack install $line
+while getopts r: flag
+do
+  case "${flag}" in
+    r) INSTALL_REQUIREMENTS=${OPTARG}
+  esac
 done
+
+if [ $INSTALL_REQUIREMENTS -gt 0 ]; then
+  echo "Going through requirements"
+
+  REQUIREMENTS=$(cat requirements.txt)
+
+  for line in $REQUIREMENTS; do
+    echo "Stack installing $line"
+    stack install $line
+  done
+else
+  echo "Skipping requirements"
+fi
+
+echo "Done"
