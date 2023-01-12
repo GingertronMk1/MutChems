@@ -3,8 +3,6 @@
 -- Just useful bits and bobs - should maybe be an env file? Idk
 module Data.Other where
 
-import Data.Char (isDigit)
-
 -- | The threshold as a string
 squadFilterThresholdString :: String
 squadFilterThresholdString = "10 000 000"
