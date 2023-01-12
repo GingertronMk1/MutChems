@@ -6,7 +6,6 @@
 module Functions.Application where
 
 import Data.List
-import Data.Other
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
