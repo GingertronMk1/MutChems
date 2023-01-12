@@ -80,16 +80,6 @@ baseSquad =
                     [ Team packers,
                       Team saints
                     ]
-              },
-            emptyPlayer
-              { pName = "Keith Byars",
-                pTeams =
-                  withLegends
-                    [ MultipleTeam eagles 2,
-                      Team dolphins,
-                      Team patriots,
-                      Team jets
-                    ]
               }
           ]
       },
@@ -102,12 +92,17 @@ baseSquad =
                   withLegends
                     [ Team niners,
                       Team titans
-                    ],
-                pPosition = Positions.te
+                    ]
               },
             emptyPlayer
               { pName = "Dave Casper",
                 pTeams = all32TeamsPlusLegends
+              },
+            emptyPlayer
+              { pName = "Rob Gronkowski",
+                pTeams =
+                  [ Team patriots
+                  ]
               }
           ]
       },
@@ -202,6 +197,13 @@ baseSquad =
                     [ Team niners,
                       Team cowboys
                     ]
+              },
+            emptyPlayer
+              { pName = "Will Shields",
+                pTeams =
+                  withLegends
+                    [ Team chiefs
+                    ]
               }
           ]
       },
@@ -276,14 +278,6 @@ baseSquad =
       { pgPosition = Positions.lolb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Ted Hendricks",
-                pTeams =
-                  withLegends
-                    [ Team packers,
-                      Team colts
-                    ]
-              },
-            emptyPlayer
               { pName = "Carl Banks",
                 pTeams =
                   withLegends
@@ -363,10 +357,12 @@ baseSquad =
                     ]
               },
             emptyPlayer
-              { pName = "Adrian Wilson",
+              { pName = "Ted Hendricks",
                 pTeams =
                   withLegends
-                    [ Team cardinals
+                    [ Team raiders,
+                      Team packers,
+                      Team colts
                     ]
               }
           ]
@@ -467,28 +463,7 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Removals
-      [ "Ted Hendricks",
-        "Keith Byars"
-      ],
-    Replacement
-      "Adrian Wilson"
-      emptyPlayer
-        { pName = "Ted Hendricks",
-          pTeams =
-            withLegends
-              [ Team raiders,
-                Team packers,
-                Team colts
-              ]
-        },
-    Addition
-      emptyPlayer
-        { pName = "Rob Gronkowski",
-          pTeams = all32TeamsPlusLegends,
-          pPosition = Positions.te
-        },
-    Replacement
+  [ Replacement
       "Junior Seau"
       emptyPlayer
         { pName = "Willie Lanier",
