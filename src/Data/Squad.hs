@@ -287,16 +287,16 @@ baseSquad =
       { pgPosition = Positions.dt,
         pgPlayers =
           [ emptyPlayer
+              { pName = "Sam Adams",
+                pTeams = all32TeamsPlusLegends
+              },
+            emptyPlayer
               { pName = "Richard Seymour",
                 pTeams =
                   withLegends
                     [ Team patriots,
                       Team raiders
                     ]
-              },
-            emptyPlayer
-              { pName = "Sam Adams",
-                pTeams = all32TeamsPlusLegends
               },
             emptyPlayer
               { pName = "Tony Siragusa",
