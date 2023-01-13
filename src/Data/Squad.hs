@@ -80,16 +80,6 @@ baseSquad =
                     [ Team packers,
                       Team saints
                     ]
-              },
-            emptyPlayer
-              { pName = "Michael Burton",
-                pTeams =
-                  [ Team bears,
-                    Team chiefs,
-                    Team commanders,
-                    Team lions,
-                    Team saints
-                  ]
               }
           ]
       },
@@ -181,12 +171,6 @@ baseSquad =
                       Team jets,
                       Team cardinals
                     ]
-              },
-            emptyPlayer
-              { pName = "Cordell Volson",
-                pTeams =
-                  [ Team bengals
-                  ]
               }
           ]
       },
@@ -341,13 +325,6 @@ baseSquad =
                     [ Team titans,
                       Team eagles
                     ]
-              },
-            emptyPlayer
-              { pName = "Folorunso Fatukasi",
-                pTeams =
-                  [ Team jaguars,
-                    Team jets
-                  ]
               }
           ]
       },
