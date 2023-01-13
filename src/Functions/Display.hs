@@ -100,13 +100,17 @@ ppNumberOfPlayersOnTeam l t =
             newLineMap ppPlayer ps
           ]
       tag = printf "a id=\"%s\"" [t]
+      ppIns = case ins of
+        [] -> printf "### No players have %s chemistry" [t]
+        _  -> printf "### Has %s chemistry" [t] ++ "\n\n" ++ ppPlayers ins
+      ppOuts = case outs of
+        [] -> printf "### All players have %s chemistry" [t]
+        _  -> printf "### Does not have %s chemistry" [t] ++ "\n\n" ++ ppPlayers outs
    in surroundInTag tag
         . intercalate "\n\n"
         $ [ printf "# %s - %s/%s" [t, show (length ins), show (length l)],
-            printf "### Has %s chemistry" [t],
-            ppPlayers ins,
-            printf "### Does not have %s chemistry" [t],
-            ppPlayers outs
+            ppIns,
+            ppOuts
           ]
 
 -- | Print a player's name and position as a row in a MarkDown table
