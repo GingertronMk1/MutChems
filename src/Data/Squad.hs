@@ -110,6 +110,14 @@ baseSquad =
       { pgPosition = Positions.wr,
         pgPlayers =
           [ emptyPlayer
+              { pName = "Herman Moore",
+                pTeams =
+                  withLegends
+                    [ Team lions,
+                      Team giants
+                    ]
+              },
+            emptyPlayer
               { pName = "Calvin Johnson",
                 pTeams =
                   withLegends
@@ -469,11 +477,11 @@ prospectiveAdditions =
               ],
           pPosition = Positions.c
         },
-    Addition
+    Replacement
+      "Randy Moss"
       emptyPlayer
         { pName = "Fred Biletnikoff",
-          pTeams = withLegends [Team raiders],
-          pPosition = Positions.wr
+          pTeams = withLegends [Team raiders]
         },
     Replacement
       "Steve Atwater"
