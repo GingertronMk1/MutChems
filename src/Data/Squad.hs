@@ -231,20 +231,15 @@ baseSquad =
                     ]
               },
             emptyPlayer
+              { pName = "Willie Lanier",
+                pTeams = withLegends [Team chiefs]
+              },
+            emptyPlayer
               { pName = "Derrick Johnson",
                 pTeams =
                   withLegends
                     [ Team chiefs,
                       Team raiders
-                    ]
-              },
-            emptyPlayer
-              { pName = "Junior Seau",
-                pTeams =
-                  withLegends
-                    [ Team chargers,
-                      Team dolphins,
-                      Team patriots
                     ]
               },
             emptyPlayer
@@ -463,14 +458,7 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement
-      "Junior Seau"
-      emptyPlayer
-        { pName = "Willie Lanier",
-          pTeams = withLegends [Team chiefs],
-          pPosition = Positions.mlb
-        },
-    Addition
+  [ Addition
       emptyPlayer
         { pName = "Jay Hilgenberg",
           pTeams =
