@@ -92,20 +92,15 @@ surroundInTag openingTag content =
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
-      ppPlayers ps =
-        intercalate
-          "\n"
-          [ "| Player | Position |",
-            "|:---|---:|",
-            newLineMap ppPlayer ps
-          ]
       tag = printf "a id=\"%s\"" [t]
-      ppIns = case ins of
-        [] -> printf "### No players have %s chemistry" [t]
-        _  -> printf "### Has %s chemistry" [t] ++ "\n\n" ++ ppPlayers ins
-      ppOuts = case outs of
-        [] -> printf "### All players have %s chemistry" [t]
-        _  -> printf "### Does not have %s chemistry" [t] ++ "\n\n" ++ ppPlayers outs
+      ppIns = printInsOrOuts
+        ins 
+        (printf "### No players have %s chemistry" [t])
+        (printf "### Has %s chemistry\n\n%s" [t, makePlayerTable ins])
+      ppOuts = printInsOrOuts
+        outs
+        (printf "### All players have %s chemistry" [t])
+        (printf "### Does not have %s chemistry\n\n%s" [t, makePlayerTable outs])
    in surroundInTag tag
         . intercalate "\n\n"
         $ [ printf "# %s - %s/%s" [t, show (length ins), show (length l)],
@@ -113,9 +108,21 @@ ppNumberOfPlayersOnTeam l t =
             ppOuts
           ]
 
--- | Print a player's name and position as a row in a MarkDown table
-ppPlayer :: Player -> String
-ppPlayer (P {pName = p, pPosition = pos}) = printf "| %s | %s |" [p, pos]
+-- | Make a MarkDown table of players with their positions
+makePlayerTable :: [Player] -> String
+makePlayerTable ps =
+  intercalate
+    "\n"
+    [ "| Player | Position |",
+      "|:---|---:|",
+      newLineMap (\P {pName = pn, pPosition = pp} -> printf "| %s | %s |" [pn, pp]) ps
+    ]
+
+-- | Takes a list of Players and prints one of 2 strings depending on how many there are
+printInsOrOuts :: [Player] -> String -> String -> String
+printInsOrOuts ps outString inString = case ps of
+  [] -> outString
+  _  -> inString
 
 -- | Nicely print the number of Players with each team chemistry in a Lineup
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String
