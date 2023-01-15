@@ -13,7 +13,7 @@ mean ls = fromIntegral (length ls) / realToFrac (sum ls)
 
 -- | Take the minimum distance from a multiple of 5 that a number is.
 distanceFrom5 :: Int -> Int
-distanceFrom5 n = distanceFrom5' $ mod n 5
+distanceFrom5 = distanceFrom5' . flip mod 5
 
 -- | Take the distance from 5 a given Int value is
 distanceFrom5' :: Int -> Int
