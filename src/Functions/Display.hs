@@ -95,15 +95,13 @@ ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
       tag = printf "a id=\"%s\"" t
       ppIns =
-        printInsOrOuts
-          ins
-          (printf "### No players have %s chemistry" t)
-          (printf "### Has %s chemistry\n\n%s" t (makePlayerTable ins))
+        if null ins
+          then printf "### No players have %s chemistry" t
+          else printf "### Has %s chemistry\n\n%s" t (makePlayerTable ins)
       ppOuts =
-        printInsOrOuts
-          outs
-          (printf "### All players have %s chemistry" t)
-          (printf "### Does not have %s chemistry\n\n%s" t (makePlayerTable outs))
+        if null outs
+          then printf "### All players have %s chemistry" t
+          else printf "### Does not have %s chemistry\n\n%s" t (makePlayerTable outs)
    in surroundInTag tag
         . intercalate "\n\n"
         $ [ printf "# %s - %d/%d" t (length ins) (length l),
@@ -120,12 +118,6 @@ makePlayerTable ps =
       "|:---|---:|",
       newLineMap (\P {pName = pn, pPosition = pp} -> printf "| %s | %s |" pn pp) ps
     ]
-
--- | Takes a list of Players and prints one of 2 strings depending on how many there are
-printInsOrOuts :: [Player] -> String -> String -> String
-printInsOrOuts ps outString inString = case ps of
-  [] -> outString
-  _ -> inString
 
 -- | Nicely print the number of Players with each team chemistry in a Lineup
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String
