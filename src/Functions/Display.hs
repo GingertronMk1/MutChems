@@ -82,12 +82,9 @@ genHtml plvs =
 surroundInTag :: String -> String -> String
 surroundInTag openingTag content =
   let (tag : attributes) = words openingTag
-   in intercalate
-        "\n\n"
-        [ printf "<%s%s>" tag (concatMap (' ' :) attributes),
-          content,
-          printf "</%s>" tag
-        ]
+   in printf "<%s%s>" tag (concatMap (' ' :) attributes)
+   ++ content
+   ++ printf "</%s>" tag
 
 -- | Nicely print the number of Players with a given team chemistry in a Lineup
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
@@ -104,7 +101,7 @@ ppNumberOfPlayersOnTeam l t =
           else printf "### Does not have %s chemistry\n\n%s" t (makePlayerTable outs)
    in surroundInTag tag
         . intercalate "\n\n"
-        $ [ printf "# %s - %d/%d" t (length ins) (length l),
+        $ [ printf "\n\n# %s - %d/%d" t (length ins) (length l),
             ppIns,
             ppOuts
           ]
