@@ -415,14 +415,6 @@ baseSquad =
                     ]
               },
             emptyPlayer
-              { pName = "Mike Haynes",
-                pTeams =
-                  withLegends
-                    [ Team raiders,
-                      Team patriots
-                    ]
-              },
-            emptyPlayer
               { pName = "Champ Bailey",
                 pTeams =
                   withLegends
@@ -466,7 +458,8 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Addition
+  [ Replacement
+      "Jeff Saturday"
       emptyPlayer
         { pName = "Jay Hilgenberg",
           pTeams =
@@ -474,8 +467,7 @@ prospectiveAdditions =
               [ Team bears,
                 Team browns,
                 Team saints
-              ],
-          pPosition = Positions.c
+              ]
         },
     Replacement
       "Randy Moss"
