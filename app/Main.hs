@@ -5,8 +5,8 @@ module Main (main) where
 import Data.Calculated
 import Data.Squad
 import Data.Time.Clock.System
-import Functions.Application
 import Functions.Display
+import Text.Printf
 import Types.ProspectiveChange
 import Types.Variation
 
@@ -16,7 +16,7 @@ main = do
   start <- getSystemTime
   let allProspectiveSquads = addProspectivesInTurn prospectiveAdditions squadNoProspectives
   let squadFilterThreshold' = div squadFilterThreshold (length allProspectiveSquads)
-  putStrLn $ printf "Limiting to %s options per iteration" [show squadFilterThreshold']
+  putStrLn $ printf "Limiting to %d options per iteration" squadFilterThreshold'
   let bestOfAllSquads = bestOfAllSquadsFn squadFilterThreshold' allProspectiveSquads
   let html =
         (++ ppNumberOfPlayersOnEveryTeam squadNoProspectives)
@@ -25,4 +25,4 @@ main = do
           $ bestOfAllSquads
   writeFile "output.md" html
   end <- getSystemTime
-  putStrLn $ printf "Done in %s seconds" [show (systemSeconds end - systemSeconds start)]
+  putStrLn $ printf "Done in %d seconds" (systemSeconds end - systemSeconds start)

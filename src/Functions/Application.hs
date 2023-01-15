@@ -55,30 +55,6 @@ maximumValues xs =
   let firstMax = maximum xs
    in filter (firstMax <=) xs
 
--- | A function to print a formatted string with a series of placeholdser.
-printf ::
-  -- | The placeholdered String to be formatted.
-  String ->
-  -- | The list of items to put in those placeholders.
-  [String] ->
-  -- | The resultant String.
-  String
-printf = printf' []
-
--- | The printf function that does all the work.
-printf' ::
-  -- | The accumulating list of Strings.
-  [String] ->
-  -- | The placeholdered String to be formatted.
-  String ->
-  -- | The list of items to put in those placeholders.
-  [String] ->
-  -- | The resultant String - a reversed, concatenated version of the accumulator.
-  String
-printf' new "" _ = concat . reverse $ new
-printf' new ('%' : 's' : olds) (item : items) = printf' (item : new) olds items
-printf' new (old : olds) items = printf' ([old] : new) olds items
-
 -- | Kind of a compression algorithm?
 -- Take a list of items and compress them into tuples
 -- containing the item and how many times it appears in the list

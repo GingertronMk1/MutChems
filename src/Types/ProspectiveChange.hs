@@ -2,7 +2,7 @@
 module Types.ProspectiveChange where
 
 import Data.List
-import Functions.Application
+import Text.Printf
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -48,15 +48,15 @@ addProspective (Addition p@(P {pPosition = additionPosition})) l =
    in befores ++ (p : firstPosition : afters)
 addProspective (Replacement p newP) l =
   case break ((p ==) . pName) l of
-    (_, []) -> error $ printf "No player called %s in lineup" [p]
+    (_, []) -> error $ printf "No player called %s in lineup" p
     (firstPart, P {pPosition = oldPosition} : theRest) -> firstPart ++ (newP {pPosition = oldPosition} : theRest)
 addProspective (Removals p) l = filter ((`notElem` p) . pName) l
 
 -- | Nicely print a Prospective Change
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
-ppProspectiveChange (Addition (P {pName = p})) = printf "Adding %s" [p]
+ppProspectiveChange (Addition (P {pName = p})) = printf "Adding %s" p
 ppProspectiveChange (Replacement p1 (P {pName = p2}))
-  | p1 == p2 = printf "Replacing %s with a different %s" [p1, p2]
-  | otherwise = printf "Replacing %s with %s" [p1, p2]
-ppProspectiveChange (Removals p) = printf "Getting rid of %s" [intercalate ", " p]
+  | p1 == p2 = printf "Replacing %s with a different %s" p1 p2
+  | otherwise = printf "Replacing %s with %s" p1 p2
+ppProspectiveChange (Removals p) = printf "Getting rid of %s" (intercalate ", " p)

@@ -3,7 +3,8 @@ module Functions.Display where
 
 import Data.List
 import Data.Ord
-import Functions.Application
+import Functions.Application (newLineMap, unBreakCharacters)
+import Text.Printf
 import Types.Basic
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
@@ -30,7 +31,7 @@ htmlTablePrintVariation (Variation v) =
           $ [ "TOTALS",
               surroundInTag "ul"
                 . unBreakCharacters
-                . newLineMap (\(t, i) -> removeNewLines . surroundInTag "li" . printf "%s: %s" . map unBreakCharacters $ [t, show i])
+                . newLineMap (\(t, i) -> removeNewLines . surroundInTag "li" $ printf "%s: %s" t (show i))
                 . totalsPerSquad
                 $ v
             ]
@@ -83,27 +84,29 @@ surroundInTag openingTag content =
   let (tag : attributes) = words openingTag
    in intercalate
         "\n\n"
-        [ printf "<%s%s>" [tag, concatMap (' ' :) attributes],
+        [ printf "<%s%s>" tag (concatMap (' ' :) attributes),
           content,
-          printf "</%s>" [tag]
+          printf "</%s>" tag
         ]
 
 -- | Nicely print the number of Players with a given team chemistry in a Lineup
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
 ppNumberOfPlayersOnTeam l t =
   let (ins, outs) = numberOfPlayersOnTeam l t
-      tag = printf "a id=\"%s\"" [t]
-      ppIns = printInsOrOuts
-        ins 
-        (printf "### No players have %s chemistry" [t])
-        (printf "### Has %s chemistry\n\n%s" [t, makePlayerTable ins])
-      ppOuts = printInsOrOuts
-        outs
-        (printf "### All players have %s chemistry" [t])
-        (printf "### Does not have %s chemistry\n\n%s" [t, makePlayerTable outs])
+      tag = printf "a id=\"%s\"" t
+      ppIns =
+        printInsOrOuts
+          ins
+          (printf "### No players have %s chemistry" t)
+          (printf "### Has %s chemistry\n\n%s" t (makePlayerTable ins))
+      ppOuts =
+        printInsOrOuts
+          outs
+          (printf "### All players have %s chemistry" t)
+          (printf "### Does not have %s chemistry\n\n%s" t (makePlayerTable outs))
    in surroundInTag tag
         . intercalate "\n\n"
-        $ [ printf "# %s - %s/%s" [t, show (length ins), show (length l)],
+        $ [ printf "# %s - %d/%d" t (length ins) (length l),
             ppIns,
             ppOuts
           ]
@@ -115,14 +118,14 @@ makePlayerTable ps =
     "\n"
     [ "| Player | Position |",
       "|:---|---:|",
-      newLineMap (\P {pName = pn, pPosition = pp} -> printf "| %s | %s |" [pn, pp]) ps
+      newLineMap (\P {pName = pn, pPosition = pp} -> printf "| %s | %s |" pn pp) ps
     ]
 
 -- | Takes a list of Players and prints one of 2 strings depending on how many there are
 printInsOrOuts :: [Player] -> String -> String -> String
 printInsOrOuts ps outString inString = case ps of
   [] -> outString
-  _  -> inString
+  _ -> inString
 
 -- | Nicely print the number of Players with each team chemistry in a Lineup
 ppNumberOfPlayersOnEveryTeam :: Lineup -> String

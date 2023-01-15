@@ -3,7 +3,7 @@ module Types.TeamOrMultiple where
 
 import Data.List
 import Data.Maybe
-import Functions.Application
+import Text.Printf
 import Types.Basic
 
 -- * The Main Event.
@@ -182,7 +182,7 @@ streamlineLineup = concatMap streamlinePositionGroup
 ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam = "-"
 ppTeamOrMultiple (Team t) = t
-ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" [t, show i]
+ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%d" t i
 ppTeamOrMultiple (Teams ts) = intercalate "/" $ map ppTeamOrMultiple ts
 
 -- | Making sure a lineup is valid for our purposes - no duplicated names
@@ -198,11 +198,10 @@ checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
     ps' ->
       error $
         printf
-          "There are %s players called %s, in positions %s. This constitutes an invalid lineup."
-          [ show (length ps'),
-            currentPlayerName,
-            intercalate ", " . map pPosition $ ps'
-          ]
+          "There are %d players called %s, in positions %s. This constitutes an invalid lineup."
+          (length ps')
+          currentPlayerName
+          (intercalate ", " . map pPosition $ ps')
 
 -- | Generate Teams instances for combinations of teams
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
