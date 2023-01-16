@@ -21,7 +21,12 @@ data Player = P
 
 -- | The empty Player, the basis for other players with sensible defaults
 emptyPlayer :: Player
-emptyPlayer = P {pName = "", pTeams = [], pPosition = ""}
+emptyPlayer =
+  P
+    { pName = "",
+      pTeams = [],
+      pPosition = ""
+    }
 
 -- | The position group: a position and the list of Players that play there
 data PositionGroup = PositionGroup
