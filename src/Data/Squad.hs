@@ -110,6 +110,15 @@ baseSquad =
       { pgPosition = Positions.wr,
         pgPlayers =
           [ emptyPlayer
+              { pName = "Plaxico Burress",
+                pTeams =
+                  withLegends
+                    [ Team steelers,
+                      Team giants,
+                      Team jets
+                    ]
+              },
+            emptyPlayer
               { pName = "Herman Moore",
                 pTeams =
                   withLegends
@@ -130,17 +139,6 @@ baseSquad =
                   withLegends
                     [ Team ravens,
                       Team panthers
-                    ]
-              },
-            emptyPlayer
-              { pName = "Randy Moss",
-                pTeams =
-                  withLegends
-                    [ Team titans,
-                      Team raiders,
-                      Team niners,
-                      Team vikings,
-                      Team patriots
                     ]
               },
             emptyPlayer
@@ -462,7 +460,7 @@ prospectiveAdditions =
   [ Replacement
       "Randy Moss"
       emptyPlayer
-        { pName = "Fred Biletnikoff",
+        { pName = "Steve Smith Sr",
           pTeams = withLegends [Team raiders]
         },
     Replacement
