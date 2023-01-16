@@ -464,6 +464,12 @@ prospectiveAdditions =
           pTeams = withLegends [Team raiders]
         },
     Replacement
+      "Larry Allen"
+      emptyPlayer
+        { pName = "Marshal Yanda",
+          pTeams = withLegends [Team ravens]
+        },
+    Replacement
       "Steve Atwater"
       emptyPlayer
         { pName = "Ed Reed",
