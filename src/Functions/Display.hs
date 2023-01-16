@@ -83,8 +83,8 @@ surroundInTag :: String -> String -> String
 surroundInTag openingTag content =
   let (tag : attributes) = words openingTag
    in printf "<%s%s>" tag (concatMap (' ' :) attributes)
-   ++ content
-   ++ printf "</%s>" tag
+        ++ content
+        ++ printf "</%s>" tag
 
 -- | Nicely print the number of Players with a given team chemistry in a Lineup
 ppNumberOfPlayersOnTeam :: Lineup -> Team -> String
