@@ -458,9 +458,9 @@ strategy = NoTeam
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Replacement
-      "Randy Moss"
+      "Steve Smith Sr"
       emptyPlayer
-        { pName = "Steve Smith Sr",
+        { pName = "Fred Biletnikoff",
           pTeams = withLegends [Team raiders]
         },
     Replacement
