@@ -134,14 +134,6 @@ baseSquad =
                     ]
               },
             emptyPlayer
-              { pName = "Steve Smith Sr",
-                pTeams =
-                  withLegends
-                    [ Team ravens,
-                      Team panthers
-                    ]
-              },
-            emptyPlayer
               { pName = "Deion Sanders (WR)",
                 pTeams =
                   withLegends
@@ -198,11 +190,10 @@ baseSquad =
       { pgPosition = Positions.rg,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Larry Allen",
+              { pName = "Marshal Yanda",
                 pTeams =
                   withLegends
-                    [ Team niners,
-                      Team cowboys
+                    [ Team ravens
                     ]
               },
             emptyPlayer
@@ -457,17 +448,11 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Replacement
-      "Steve Smith Sr"
+  [ Addition
       emptyPlayer
         { pName = "Fred Biletnikoff",
-          pTeams = withLegends [Team raiders]
-        },
-    Replacement
-      "Larry Allen"
-      emptyPlayer
-        { pName = "Marshal Yanda",
-          pTeams = withLegends [Team ravens]
+          pTeams = withLegends [Team raiders],
+          pPosition = Positions.wr
         },
     Replacement
       "Steve Atwater"
