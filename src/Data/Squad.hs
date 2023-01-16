@@ -186,11 +186,12 @@ baseSquad =
       { pgPosition = Positions.c,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Jeff Saturday",
+              { pName = "Jay Hilgenberg",
                 pTeams =
                   withLegends
-                    [ Team colts,
-                      Team packers
+                    [ Team bears,
+                      Team browns,
+                      Team saints
                     ]
               }
           ]
@@ -459,17 +460,6 @@ strategy = NoTeam
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Replacement
-      "Jeff Saturday"
-      emptyPlayer
-        { pName = "Jay Hilgenberg",
-          pTeams =
-            withLegends
-              [ Team bears,
-                Team browns,
-                Team saints
-              ]
-        },
-    Replacement
       "Randy Moss"
       emptyPlayer
         { pName = "Fred Biletnikoff",
