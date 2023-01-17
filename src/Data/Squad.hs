@@ -469,6 +469,6 @@ prospectiveAdditions =
       "Rob Gronkowski"
       emptyPlayer
         { pName = "Rob Gronkowski",
-          pTeams = comboOfTeams [all32TeamsPlusLegends, all32TeamsPlusLegends]
+          pTeams = teamsForSlots 2 all32TeamsPlusLegends
         }
   ]

@@ -211,3 +211,6 @@ checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
 -- | Generate Teams instances for combinations of teams
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
 comboOfTeams = map Teams . sequence
+
+teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
+teamsForSlots n = comboOfTeams . replicate n
