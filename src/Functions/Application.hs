@@ -51,9 +51,7 @@ maximumValues ::
   [a] ->
   -- | Largest values from that list
   [a]
-maximumValues xs =
-  let firstMax = maximum xs
-   in filter (firstMax <=) xs
+maximumValues xs = filter (maximum xs <=) xs
 
 -- | Kind of a compression algorithm?
 -- Take a list of items and compress them into tuples
