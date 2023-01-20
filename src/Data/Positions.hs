@@ -92,3 +92,30 @@ p = "Punter"
 -- | Strategy Cards
 strategyCard :: Position
 strategyCard = "Strategy Card"
+
+-- | The maximum number of players in any position, to use with `lookup`
+numInPositions :: [(Position, Int)]
+numInPositions =
+  [ (qb, 2),
+    (hb, 3),
+    (fb, 2),
+    (wr, 5),
+    (te, 3),
+    (lt, 2),
+    (lg, 2),
+    (c, 2),
+    (rg, 2),
+    (rt, 2),
+    (fs, 2),
+    (rolb, 2),
+    (mlb, 4),
+    (lolb, 2),
+    (ss, 2),
+    (cb, 5),
+    (re, 2),
+    (dt, 4),
+    (le, 2),
+    (k, 1),
+    (p, 1),
+    (strategyCard, 1)
+  ]

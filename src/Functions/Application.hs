@@ -78,3 +78,8 @@ unBreakCharacters (c : cs) =
    in case lookup c unBrokenCharacters of
         Just s -> s ++ unBreakCharacters cs
         Nothing -> c : unBreakCharacters cs
+
+printThingsWithAnd :: [String] -> String
+printThingsWithAnd [x] = x
+printThingsWithAnd [x, y] = x ++ ", " ++ y
+printThingsWithAnd xs = intercalate ", " (init xs) ++ ", and " ++ last xs

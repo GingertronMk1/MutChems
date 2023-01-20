@@ -3,6 +3,8 @@ module Types.TeamOrMultiple where
 
 import Data.List
 import Data.Maybe
+import Data.Positions
+import Functions.Application
 import Text.Printf
 import Types.Basic
 
@@ -192,21 +194,31 @@ ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 
 -- | Making sure a lineup is valid for our purposes - no duplicated names
 checkLineupIsValid :: Lineup -> Lineup
-checkLineupIsValid l = checkLineupIsValid' l l
+checkLineupIsValid l = checkPlayerNames l $ checkNumPositions l l
 
 -- | Helper function for the above
-checkLineupIsValid' :: Lineup -> Lineup -> Lineup
-checkLineupIsValid' [] l = l
-checkLineupIsValid' allPs@(P {pName = currentPlayerName} : ps) l =
+checkPlayerNames :: Lineup -> Lineup -> Lineup
+checkPlayerNames [] l = l
+checkPlayerNames allPs@(P {pName = currentPlayerName} : ps) l =
   case filter ((currentPlayerName ==) . pName) allPs of
-    [_] -> checkLineupIsValid' ps l
+    [_] -> checkPlayerNames ps l
     ps' ->
       error $
         printf
           "There are %d players called %s, in positions %s. This constitutes an invalid lineup."
           (length ps')
           currentPlayerName
-          (intercalate ", " . map pPosition $ ps')
+          (printThingsWithAnd . map pPosition $ ps')
+
+checkNumPositions :: Lineup -> Lineup -> Lineup
+checkNumPositions l [] = l
+checkNumPositions l ((P {pPosition = pos}) : ps) = case lookup pos numInPositions of
+  Just n ->
+    let numPlayersInPosition = length . filter ((== pos) . pPosition) $ l
+     in if n < numPlayersInPosition
+          then error $ printf "There are %d players in position %s, more than the maximum of %d" numPlayersInPosition pos n
+          else checkNumPositions l ps
+  Nothing -> error $ printf "There is no provision for position %s" pos
 
 -- | Generate Teams instances for combinations of teams
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]

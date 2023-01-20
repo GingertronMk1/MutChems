@@ -1,7 +1,7 @@
 -- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
-import Data.List
+import Functions.Application
 import Text.Printf
 import Types.Basic
 import Types.TeamOrMultiple
@@ -44,8 +44,9 @@ addProspectivesInTurn' (p : ps) l =
 addProspective :: ProspectiveChange -> Lineup -> Lineup
 addProspective NoChange l = l
 addProspective (Addition p@(P {pPosition = additionPosition})) l =
-  let (befores, firstPosition : afters) = break ((additionPosition ==) . pPosition) l
-   in befores ++ (p : firstPosition : afters)
+  case break ((additionPosition ==) . pPosition) l of
+    (befores, []) -> befores ++ [p]
+    (befores, firstPosition : afters) -> befores ++ (p : firstPosition : afters)
 addProspective (Replacement p newP) l =
   case break ((p ==) . pName) l of
     (_, []) -> error $ printf "No player called %s in lineup" p
@@ -59,4 +60,4 @@ ppProspectiveChange (Addition (P {pName = p})) = printf "Adding %s" p
 ppProspectiveChange (Replacement p1 (P {pName = p2}))
   | p1 == p2 = printf "Replacing %s with a different %s" p1 p2
   | otherwise = printf "Replacing %s with %s" p1 p2
-ppProspectiveChange (Removals p) = printf "Getting rid of %s" (intercalate ", " p)
+ppProspectiveChange (Removals p) = printf "Getting rid of %s" (printThingsWithAnd p)
