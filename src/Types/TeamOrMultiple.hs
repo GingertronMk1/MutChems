@@ -188,7 +188,7 @@ ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam = "-"
 ppTeamOrMultiple (Team t) = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%d" t i
-ppTeamOrMultiple (Teams ts) = intercalate "/" $ map ppTeamOrMultiple ts
+ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 
 -- | Making sure a lineup is valid for our purposes - no duplicated names
 checkLineupIsValid :: Lineup -> Lineup
