@@ -127,11 +127,8 @@ baseSquad =
                     ]
               },
             emptyPlayer
-              { pName = "Calvin Johnson",
-                pTeams =
-                  withLegends
-                    [ Team lions
-                    ]
+              { pName = "Fred Biletnikoff",
+                pTeams = withLegends [Team raiders]
               },
             emptyPlayer
               { pName = "Deion Sanders (WR)",
@@ -169,6 +166,10 @@ baseSquad =
                       Team jets,
                       Team cardinals
                     ]
+              },
+            emptyPlayer
+              { pName = "Bruce Matthews",
+                pTeams = withLegends [Team titans]
               }
           ]
       },
@@ -448,13 +449,7 @@ strategy = NoTeam
 -- | Players I'm looking into.
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
-  [ Addition
-      emptyPlayer
-        { pName = "Fred Biletnikoff",
-          pTeams = withLegends [Team raiders],
-          pPosition = Positions.wr
-        },
-    Replacement
+  [ Replacement
       "Steve Atwater"
       emptyPlayer
         { pName = "Ed Reed",
