@@ -3,7 +3,7 @@ module Types.TeamOrMultiple where
 
 import Data.List
 import Data.Maybe
-import Data.Positions
+import qualified Data.Positions as P
 import Functions.Application
 import Text.Printf
 import Types.Basic
@@ -192,16 +192,18 @@ ppTeamOrMultiple (Team t) = t
 ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%d" t i
 ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 
+-- * Validity checking a given Lineup
+
 -- | Making sure a lineup is valid for our purposes - no duplicated names
 checkLineupIsValid :: Lineup -> Lineup
-checkLineupIsValid l = checkPlayerNames l $ checkNumPositions l l
+checkLineupIsValid = checkPlayerNames . checkNumPositions
 
--- | Helper function for the above
-checkPlayerNames :: Lineup -> Lineup -> Lineup
-checkPlayerNames [] l = l
-checkPlayerNames allPs@(P {pName = currentPlayerName} : ps) l =
+-- | Ensuring no duplicated names
+checkPlayerNames :: Lineup -> Lineup
+checkPlayerNames [] = []
+checkPlayerNames allPs@(currP@(P {pName = currentPlayerName}) : ps) =
   case filter ((currentPlayerName ==) . pName) allPs of
-    [_] -> checkPlayerNames ps l
+    [_] -> currP : checkPlayerNames ps
     ps' ->
       error $
         printf
@@ -210,19 +212,21 @@ checkPlayerNames allPs@(P {pName = currentPlayerName} : ps) l =
           currentPlayerName
           (printThingsWithAnd . map pPosition $ ps')
 
-checkNumPositions :: Lineup -> Lineup -> Lineup
-checkNumPositions l [] = l
-checkNumPositions l ((P {pPosition = pos}) : ps) = case lookup pos numInPositions of
+-- | Ensuring the correct number of players per position
+checkNumPositions :: Lineup -> Lineup
+checkNumPositions [] = []
+checkNumPositions (currP@(P {pPosition = pos}) : ps) = case lookup pos P.numInPositions of
   Just n ->
-    let numPlayersInPosition = length . filter ((== pos) . pPosition) $ l
+    let numPlayersInPosition = (+ 1) . length . filter ((== pos) . pPosition) $ ps
      in if n < numPlayersInPosition
           then error $ printf "There are %d players in position %s, more than the maximum of %d" numPlayersInPosition pos n
-          else checkNumPositions l ps
+          else currP : checkNumPositions ps
   Nothing -> error $ printf "There is no provision for position %s" pos
 
 -- | Generate Teams instances for combinations of teams
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
 comboOfTeams = map Teams . sequence
 
+-- | Given a list of TeamOrMultiples, generate all combinations for `n` slots
 teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
