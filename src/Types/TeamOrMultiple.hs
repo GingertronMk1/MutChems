@@ -112,12 +112,20 @@ filteredSquadFn' threshold s limit
   | otherwise = nextIfNotZero
   where
     nextIfNotZero = filteredSquadFn' (threshold + 1) newS limit
-    allTeams = allTeamsFn s
-    newS = map (\p -> p {pTeams = filteredSquadFn'' (filterFn threshold allTeams) . pTeams $ p}) s
+    newS = map (filterIndividualPlayer threshold (allTeamsFn s)) s
     numberOfNewSOptions = numberOfOptionsFn newS
 
+filterIndividualPlayer :: Int -> [Team] -> Player -> Player
+filterIndividualPlayer threshold teamList player =
+  player
+    { pTeams =
+        filterListOfTeamOrMultiples (filterIndividualTeamOrMultiple threshold teamList)
+          . pTeams
+          $ player
+    }
+
 -- | The function we use to filter the list of `TeamOrMultiple`s in the squad
-filterFn ::
+filterIndividualTeamOrMultiple ::
   -- | The threshold number - if there are fewer than this many instances of a
   -- t`Type.Team` in a Lineup we can disregard it
   Int ->
@@ -127,17 +135,17 @@ filterFn ::
   TeamOrMultiple ->
   -- | The resultant boolean value
   Bool
-filterFn threshold ts tom = case tom of
+filterIndividualTeamOrMultiple threshold ts tom = case tom of
   NoTeam -> False
   (Team t) -> filterFn' t
   (MultipleTeam t _) -> filterFn' t
-  (Teams teams) -> any (filterFn threshold ts) teams
+  (Teams teams) -> any (filterIndividualTeamOrMultiple threshold ts) teams
   where
     filterFn' t = numberOfOneTeam t > threshold
     numberOfOneTeam t = length . filter (t ==) $ ts
 
 -- | A helper to be used in the mapping for the above
-filteredSquadFn'' ::
+filterListOfTeamOrMultiples ::
   -- | Nominally the `filterFn` defined in the above's `let` block - should maybe pull that out
   -- into its own function
   (TeamOrMultiple -> Bool) ->
@@ -145,7 +153,7 @@ filteredSquadFn'' ::
   [TeamOrMultiple] ->
   -- | Resultant list of TeamOrMultiples
   [TeamOrMultiple]
-filteredSquadFn'' f ts = case filter f ts of
+filterListOfTeamOrMultiples f ts = case filter f ts of
   [] -> [NoTeam]
   xs -> xs
 
