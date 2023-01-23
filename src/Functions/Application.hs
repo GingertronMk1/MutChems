@@ -6,6 +6,7 @@
 module Functions.Application where
 
 import Data.List
+import Text.Printf
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
@@ -81,5 +82,5 @@ unBreakCharacters (c : cs) =
 
 printThingsWithAnd :: [String] -> String
 printThingsWithAnd [x] = x
-printThingsWithAnd [x, y] = x ++ ", " ++ y
-printThingsWithAnd xs = intercalate ", " (init xs) ++ ", and " ++ last xs
+printThingsWithAnd [x, y] = printf "%s, %s" x y
+printThingsWithAnd xs = printf "%s, and %s" (intercalate ", " $ init xs) (last xs)
