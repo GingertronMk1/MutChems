@@ -14,18 +14,13 @@ baseSquad =
       { pgPosition = Positions.qb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Ryan Fitzpatrick",
+              { pName = "Michael Vick",
                 pTeams =
                   withLegends
-                    [ Team bengals,
-                      Team bills,
-                      Team buccaneers,
-                      Team commanders,
-                      Team dolphins,
-                      Team jets,
-                      Team rams,
-                      Team texans,
-                      Team titans
+                    [ Team falcons,
+                      Team eagles,
+                      Team steelers,
+                      Team jets
                     ]
               },
             emptyPlayer
