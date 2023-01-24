@@ -101,7 +101,8 @@ baseSquad =
             emptyPlayer
               { pName = "Rob Gronkowski",
                 pTeams =
-                  [ Team patriots
+                  [ Team patriots,
+                    Team buccaneers
                   ]
               }
           ]
