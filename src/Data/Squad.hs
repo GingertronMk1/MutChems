@@ -42,12 +42,13 @@ baseSquad =
       { pgPosition = Positions.hb,
         pgPlayers =
           [ emptyPlayer
-              { pName = "Marshawn Lynch",
+              { pName = "Keith Byars",
                 pTeams =
                   withLegends
-                    [ Team bills,
-                      Team seahawks,
-                      Team raiders
+                    [ Team eagles,
+                      Team dolphins,
+                      Team patriots,
+                      Team jets
                     ]
               },
             emptyPlayer
@@ -466,5 +467,16 @@ prospectiveAdditions =
       emptyPlayer
         { pName = "Rob Gronkowski",
           pTeams = teamsForSlots 2 all32TeamsPlusLegends
+        },
+    Addition
+      emptyPlayer
+        { pName = "Stevie Johnson",
+          pTeams =
+            withLegends
+              [ Team bills,
+                Team niners,
+                Team chargers
+              ],
+          pPosition = Positions.wr
         }
   ]
