@@ -9,6 +9,7 @@ import Data.Char
 import Data.Other
 import Data.Positions
 import Data.Squad
+import Types.Basic
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
 
@@ -45,3 +46,7 @@ squadFilterThreshold =
   read
     . filter isDigit
     $ squadFilterThresholdString
+
+squadsMinusTeam :: Team -> [BuildObject]
+squadsMinusTeam t =
+  map (\bo@(BuildObject {buildObjectLineup = bol}) -> bo {buildObjectLineup = filterOutTeam t bol}) iteratedProspectiveSquads

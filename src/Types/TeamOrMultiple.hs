@@ -239,3 +239,15 @@ comboOfTeams = map Teams . sequence
 -- | Given a list of TeamOrMultiples, generate all combinations for `n` slots
 teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
+
+filterOutTeam :: Team -> Lineup -> Lineup
+filterOutTeam t = map (filterOutTeam' t)
+
+filterOutTeam' :: Team -> Player -> Player
+filterOutTeam' t p@(P {pTeams = pts}) = p {pTeams = filter (not . filterOutTeam'' t) pts}
+
+filterOutTeam'' :: Team -> TeamOrMultiple -> Bool
+filterOutTeam'' _ NoTeam = False
+filterOutTeam'' t1 (Team t2) = t1 == t2
+filterOutTeam'' t1 (MultipleTeam t2 _) = t1 == t2
+filterOutTeam'' t1 (Teams ts) = all (filterOutTeam'' t1) ts
