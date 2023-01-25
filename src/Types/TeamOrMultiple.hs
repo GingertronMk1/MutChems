@@ -135,11 +135,12 @@ filterIndividualTeamOrMultiple ::
   TeamOrMultiple ->
   -- | The resultant boolean value
   Bool
-filterIndividualTeamOrMultiple threshold ts tom = case tom of
-  NoTeam -> False
-  (Team t) -> filterFn' t
-  (MultipleTeam t _) -> filterFn' t
-  (Teams teams) -> any (filterIndividualTeamOrMultiple threshold ts) teams
+filterIndividualTeamOrMultiple threshold ts tom =
+  case tom of
+    NoTeam -> False
+    (Team t) -> filterFn' t
+    (MultipleTeam t _) -> filterFn' t
+    (Teams teams) -> any (filterIndividualTeamOrMultiple threshold ts) teams
   where
     filterFn' t = numberOfOneTeam t > threshold
     numberOfOneTeam t = length . filter (t ==) $ ts
