@@ -33,3 +33,9 @@ else
 fi
 
 echo "Done"
+
+echo "Copying pre-commit hook"
+
+ln ./bin/check-new-lines .git/hooks/pre-commit
+
+echo "Pre-commit hook copied!"

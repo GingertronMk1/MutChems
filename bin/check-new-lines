@@ -1,0 +1,18 @@
+#!/bin/sh
+
+FILES=$(git status --porcelain)
+
+for line in $FILES; do
+  # echo "$line"
+  if [[ -e "$line" ]]
+  then
+    if [[ -s "$line" && -z "$(tail -c 1 "$line")" ]]
+    then
+        echo "Newline at end of $line!"
+    else
+        exec 1>&2
+        echo "No newline at end of $line!"
+        exit 1
+    fi
+  fi
+done
