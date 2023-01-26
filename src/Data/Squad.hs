@@ -452,6 +452,24 @@ strategy = NoTeam
 prospectiveAdditions :: [ProspectiveChange]
 prospectiveAdditions =
   [ Replacement
+      "Ryan Fitzpatrick"
+      emptyPlayer
+        { pName = "Randall Cunningham",
+          pTeams =
+            withLegends
+              [ Team eagles,
+                Team vikings,
+                Team cowboys,
+                Team ravens
+              ]
+        },
+      Replacement
+      "Rob Gronkowski"
+      emptyPlayer
+        { pName = "Rob Gronkowski",
+          pTeams = teamsForSlots 2 all32TeamsPlusLegends
+        },
+    Replacement
       "Steve Atwater"
       emptyPlayer
         { pName = "Ed Reed",
@@ -461,22 +479,5 @@ prospectiveAdditions =
                 Team jets,
                 Team texans
               ]
-        },
-    Replacement
-      "Rob Gronkowski"
-      emptyPlayer
-        { pName = "Rob Gronkowski",
-          pTeams = teamsForSlots 2 all32TeamsPlusLegends
-        },
-    Addition
-      emptyPlayer
-        { pName = "Stevie Johnson",
-          pTeams =
-            withLegends
-              [ Team bills,
-                Team niners,
-                Team chargers
-              ],
-          pPosition = Positions.wr
         }
   ]
