@@ -5,9 +5,12 @@
 -- just variables more or less
 module Data.Calculated where
 
+import qualified Data.ByteString.Lazy.Char8 as BSC8
+import Data.Aeson
 import Data.Char
 import Data.Other
 import Data.Positions
+import Data.List
 import Data.Squad
 import Types.Basic
 import Types.ProspectiveChange
@@ -50,3 +53,22 @@ squadFilterThreshold =
 squadsMinusTeam :: Team -> [BuildObject]
 squadsMinusTeam t =
   map (\bo@(BuildObject {buildObjectLineup = bol}) -> bo {buildObjectLineup = filterOutTeam t bol}) iteratedProspectiveSquads
+
+jsonedSquads :: IO ()
+jsonedSquads =
+  do
+    let squads = BSC8.unpack
+               . encode
+               . buildObjectLineup
+               . head
+               $ iteratedProspectiveSquads
+    writeFile "output.json" squads
+
+fromJSONSquads :: IO()
+fromJSONSquads = do
+  jsonSquads <- BSC8.readFile "output.json"
+  -- print jsonSquads
+  let squads = eitherDecode jsonSquads :: Either String Lineup
+  case squads of
+    Left s -> putStrLn s
+    Right s -> print s
