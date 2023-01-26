@@ -67,7 +67,6 @@ jsonedSquads =
 fromJSONSquads :: IO()
 fromJSONSquads = do
   jsonSquads <- BSC8.readFile "output.json"
-  -- print jsonSquads
   let squads = eitherDecode jsonSquads :: Either String Lineup
   case squads of
     Left s -> putStrLn s
