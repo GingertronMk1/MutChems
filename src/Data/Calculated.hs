@@ -37,12 +37,12 @@ squadNoProspectives =
     . streamlineLineup
     $ baseSquad
 
--- | The generated list of squads in "chronological" order (or at least planned)
-iteratedProspectiveSquads :: [BuildObject]
-iteratedProspectiveSquads =
-  addProspectivesInTurn
-    prospectiveAdditions
-    squadNoProspectives
+-- -- | The generated list of squads in "chronological" order (or at least planned)
+-- iteratedProspectiveSquads :: [BuildObject]
+-- iteratedProspectiveSquads =
+--   addProspectivesInTurn
+--     prospectiveAdditions
+--     squadNoProspectives
 
 -- | The maximum number of Variations per Lineup
 squadFilterThreshold :: Int
@@ -51,14 +51,14 @@ squadFilterThreshold =
     . filter isDigit
     $ squadFilterThresholdString
 
-squadsMinusTeam :: Team -> [BuildObject]
-squadsMinusTeam t =
-  map (\bo@(BuildObject {buildObjectLineup = bol}) -> bo {buildObjectLineup = filterOutTeam t bol}) iteratedProspectiveSquads
+-- squadsMinusTeam :: Team -> [BuildObject]
+-- squadsMinusTeam t =
+--   map (\bo@(BuildObject {buildObjectLineup = bol}) -> bo {buildObjectLineup = filterOutTeam t bol}) iteratedProspectiveSquads
 
-toJSONLineup :: IO ()
-toJSONLineup = do
-  let jsonLineups = lineupToJSONLineup . buildObjectLineup . head $ iteratedProspectiveSquads
-  writeFile "output.json" . BSC8.unpack . encode $ jsonLineups
+-- toJSONLineup :: IO ()
+-- toJSONLineup = do
+--   let jsonLineups = lineupToJSONLineup . buildObjectLineup . head $ iteratedProspectiveSquads
+--   writeFile "output.json" . BSC8.unpack . encode $ jsonLineups
 
 toJSONInit :: IO ()
 toJSONInit = do
@@ -70,10 +70,20 @@ toJSONInit = do
   }
   writeFile "output.json" . BSC8.unpack . encode $ jsonInitObject
 
-fromJSONInit :: IO ()
+fromJSONInit :: IO JSONInitObject
 fromJSONInit = do
-  input <- readFile "input.json"
-  let possibleInput = eitherDecode . BSC8.pack $ input :: Either String JSONInitObject
+  possibleInput <- fromJSONInit'
   case possibleInput of
-    Left s -> putStrLn s
-    Right jsio -> print jsio
+    Left s -> error s
+    Right jsio -> return jsio
+
+fromJSONInit' = do
+  input <- readFile "input.json"
+  return $ eitherDecode . BSC8.pack $ input
+
+iteratedProspectiveSquads :: IO [BuildObject]
+iteratedProspectiveSquads = do
+  possibleInput <- fromJSONInit'
+  case possibleInput of
+    Left s -> error s
+    Right jsio -> return $ initObjectToBuildObjects jsio

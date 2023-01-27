@@ -19,7 +19,7 @@ main = do
         if "--nolegends" `elem` arguments
           then Teams.legends
           else ""
-  let allProspectiveSquads = squadsMinusTeam filteredTeam
+  allProspectiveSquads <- iteratedProspectiveSquads
   let squadFilterThreshold' = div squadFilterThreshold (length allProspectiveSquads)
   if filteredTeam /= ""
     then putStrLn $ "Filtering out " ++ Teams.legends
