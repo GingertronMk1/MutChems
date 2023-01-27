@@ -150,7 +150,7 @@ jsonPositionGroupToPlayers jpg =
     ( \p ->
         emptyPlayer
           { pName = jpName p,
-            pTeams = map teamToTeamOrMultiple (jpTeams p),
+            pTeams = convertJSONTeams . jpTeams $ p,
             pPosition = jpgPosition jpg
           }
     )

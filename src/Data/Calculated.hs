@@ -103,5 +103,5 @@ sortMyInput = do
 sortMyInput' :: JSONInitObject -> IO ()
 sortMyInput' jsio = do
   let sortedJSIO = sortLineupInJSONInitObject jsio
-  let fixedLineup = map (\pg@(JSONPositionGroup {jpgPlayers = ps}) -> pg {jpgPlayers = reverse ps}) . jsonIOSquad $ sortedJSIO
-  writeFile "sideput.json" . BSC8.unpack . encode $ sortedJSIO {jsonIOSquad = fixedLineup}
+  writeFile "sideput.json" . BSC8.unpack . encode $ sortedJSIO
+
