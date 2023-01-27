@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -33,6 +33,7 @@ library
       Functions.Application
       Functions.Display
       Types.Basic
+      Types.JSON.Lineup
       Types.ProspectiveChange
       Types.TeamOrMultiple
       Types.Variation
