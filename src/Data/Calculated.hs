@@ -64,10 +64,11 @@ toJSONInit :: IO ()
 toJSONInit = do
   let jsonSquad = lineupToJSONLineup squadNoProspectives
   let jsonProspectiveChanges = map prospectiveChangeToJSONProspectiveChange prospectiveAdditions
-  let jsonInitObject = JSONInitObject {
-    jsonIOSquad = jsonSquad,
-    jsonIOProspectiveChanges = jsonProspectiveChanges
-  }
+  let jsonInitObject =
+        JSONInitObject
+          { jsonIOSquad = jsonSquad,
+            jsonIOProspectiveChanges = jsonProspectiveChanges
+          }
   writeFile "output.json" . BSC8.unpack . encode $ jsonInitObject
 
 fromJSONInit :: IO JSONInitObject
@@ -86,4 +87,9 @@ iteratedProspectiveSquads = do
   possibleInput <- fromJSONInit'
   case possibleInput of
     Left s -> error s
-    Right jsio -> return $ initObjectToBuildObjects jsio
+    Right jsio ->
+      return
+        . initObjectToBuildObjects
+        . sortLineupInJSONInitObject
+        $ jsio
+
