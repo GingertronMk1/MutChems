@@ -8,6 +8,7 @@ import Data.Time.Clock.System
 import Functions.Display
 import System.Environment
 import Text.Printf
+import Types.ProspectiveChange
 import Types.Variation
 
 -- | Give me the best Variations given a Lineup.
@@ -20,6 +21,7 @@ main = do
           then Teams.legends
           else ""
   allProspectiveSquads <- iteratedProspectiveSquads
+  let squadNoProspectives = buildObjectLineup . head $ allProspectiveSquads
   let squadFilterThreshold' = div squadFilterThreshold (length allProspectiveSquads)
   if filteredTeam /= ""
     then putStrLn $ "Filtering out " ++ Teams.legends

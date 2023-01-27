@@ -29,47 +29,12 @@ processedStrategy = case strategy of
         }
     ]
 
--- | Just the base squad and strategy item
-squadNoProspectives :: Lineup
-squadNoProspectives =
-  filter (not . null . pTeams)
-    . (++ processedStrategy)
-    . streamlineLineup
-    $ baseSquad
-
--- -- | The generated list of squads in "chronological" order (or at least planned)
--- iteratedProspectiveSquads :: [BuildObject]
--- iteratedProspectiveSquads =
---   addProspectivesInTurn
---     prospectiveAdditions
---     squadNoProspectives
-
 -- | The maximum number of Variations per Lineup
 squadFilterThreshold :: Int
 squadFilterThreshold =
   read
     . filter isDigit
     $ squadFilterThresholdString
-
--- squadsMinusTeam :: Team -> [BuildObject]
--- squadsMinusTeam t =
---   map (\bo@(BuildObject {buildObjectLineup = bol}) -> bo {buildObjectLineup = filterOutTeam t bol}) iteratedProspectiveSquads
-
--- toJSONLineup :: IO ()
--- toJSONLineup = do
---   let jsonLineups = lineupToJSONLineup . buildObjectLineup . head $ iteratedProspectiveSquads
---   writeFile "output.json" . BSC8.unpack . encode $ jsonLineups
-
-toJSONInit :: IO ()
-toJSONInit = do
-  let jsonSquad = lineupToJSONLineup squadNoProspectives
-  let jsonProspectiveChanges = map prospectiveChangeToJSONProspectiveChange prospectiveAdditions
-  let jsonInitObject =
-        JSONInitObject
-          { jsonIOSquad = jsonSquad,
-            jsonIOProspectiveChanges = jsonProspectiveChanges
-          }
-  writeFile "output.json" . BSC8.unpack . encode $ jsonInitObject
 
 fromJSONInit :: IO JSONInitObject
 fromJSONInit = do
@@ -78,6 +43,7 @@ fromJSONInit = do
     Left s -> error s
     Right jsio -> return jsio
 
+fromJSONInit' :: IO (Either String JSONInitObject)
 fromJSONInit' = do
   input <- readFile "input.json"
   return $ eitherDecode . BSC8.pack $ input
