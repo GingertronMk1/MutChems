@@ -28,31 +28,6 @@ data BuildObject = BuildObject
 
 -- * Functions to add prospective changes to a Lineup
 
--- | Add each ProspectiveChange in turn to the squad, keeping the initial squad
-addProspectivesInTurn :: [ProspectiveChange] -> Lineup -> [BuildObject]
-addProspectivesInTurn ps l = BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = NoChange} : addProspectivesInTurn' ps l
-
--- | Add the remaining prospectives in turn
-addProspectivesInTurn' :: [ProspectiveChange] -> Lineup -> [BuildObject]
-addProspectivesInTurn' [] _ = []
-addProspectivesInTurn' (p : ps) l =
-  let newL = checkLineupIsValid . addProspective p . checkLineupIsValid $ l
-   in BuildObject {buildObjectLineup = newL, buildObjectProspectiveChange = p} : addProspectivesInTurn' ps newL
-
--- | Add a single prospective addition to the squad.
--- Throw an error if we're trying to replace someone who doesn't exist.
-addProspective :: ProspectiveChange -> Lineup -> Lineup
-addProspective NoChange l = l
-addProspective (Addition p@(P {pPosition = additionPosition})) l =
-  case break ((additionPosition ==) . pPosition) l of
-    (befores, []) -> befores ++ [p]
-    (befores, firstPosition : afters) -> befores ++ (p : firstPosition : afters)
-addProspective (Replacement p newP) l =
-  case break ((p ==) . pName) l of
-    (_, []) -> error $ printf "No player called %s in lineup" p
-    (firstPart, P {pPosition = oldPosition} : theRest) -> firstPart ++ (newP {pPosition = oldPosition} : theRest)
-addProspective (Removals p) l = filter ((`notElem` p) . pName) l
-
 -- | Nicely print a Prospective Change
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"

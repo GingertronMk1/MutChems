@@ -8,7 +8,7 @@ for line in $FILES; do
   then
     if [[ -s "$line" && -z "$(tail -c 1 "$line")" ]]
     then
-        echo "Newline at end of $line!"
+        continue
     else
         exec 1>&2
         echo "No newline at end of $line!"
