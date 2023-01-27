@@ -8,3 +8,9 @@ Now I just need to work out how to test things...
 
 If installing new, run `./bin/install -r 1` to install with all additional requirements (defined in requirements.txt).
 If you don't want those requirements (they're not needed for functionality) you can just run `./bin/install`
+
+### Current way it works
+
+- File `input.json` is read, converted into a `JSONBuildObject`
+- `JSONBuildObject` is converted into a `BuildObject`
+- Then this is spread into all possible `Variation`s of the `Lineup` contained within it
