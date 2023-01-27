@@ -29,7 +29,6 @@ resolver: lts-19.33
 #   subdirs:
 #   - auto-update
 #   - wai
-allow-newer: true
 packages:
 - .
 # Dependency packages to be pulled from upstream that are not in the resolver.
