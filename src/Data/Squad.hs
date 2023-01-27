@@ -45,7 +45,7 @@ baseSquad =
               { pName = "Keith Byars",
                 pTeams =
                   withLegends
-                    [ Team eagles,
+                    [ MultipleTeam eagles 2,
                       Team dolphins,
                       Team patriots,
                       Team jets
@@ -463,7 +463,7 @@ prospectiveAdditions =
                 Team ravens
               ]
         },
-      Replacement
+    Replacement
       "Rob Gronkowski"
       emptyPlayer
         { pName = "Rob Gronkowski",

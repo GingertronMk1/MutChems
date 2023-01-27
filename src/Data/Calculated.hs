@@ -5,14 +5,15 @@
 -- just variables more or less
 module Data.Calculated where
 
-import qualified Data.ByteString.Lazy.Char8 as BSC8
 import Data.Aeson
+import qualified Data.ByteString.Lazy.Char8 as BSC8
 import Data.Char
+import Data.List
 import Data.Other
 import Data.Positions
-import Data.List
 import Data.Squad
 import Types.Basic
+import Types.JSON.Lineup
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
 
@@ -54,20 +55,17 @@ squadsMinusTeam :: Team -> [BuildObject]
 squadsMinusTeam t =
   map (\bo@(BuildObject {buildObjectLineup = bol}) -> bo {buildObjectLineup = filterOutTeam t bol}) iteratedProspectiveSquads
 
-jsonedSquads :: IO ()
-jsonedSquads =
-  do
-    let squads = BSC8.unpack
-               . encode
-               . buildObjectLineup
-               . head
-               $ iteratedProspectiveSquads
-    writeFile "output.json" squads
+toJSONLineup :: IO ()
+toJSONLineup = do
+  let jsonLineups = lineupToJSONLineup . buildObjectLineup . head $ iteratedProspectiveSquads
+  writeFile "output.json" . BSC8.unpack . encode $ jsonLineups
 
-fromJSONSquads :: IO()
-fromJSONSquads = do
-  jsonSquads <- BSC8.readFile "output.json"
-  let squads = eitherDecode jsonSquads :: Either String Lineup
-  case squads of
-    Left s -> putStrLn s
-    Right s -> print s
+toJSONInit :: IO ()
+toJSONInit = do
+  let jsonSquad = lineupToJSONLineup squadNoProspectives
+  let jsonProspectiveChanges = map prospectiveChangeToJSONProspectiveChange prospectiveAdditions
+  let jsonInitObject = JSONInitObject {
+    jsonIOSquad = jsonSquad,
+    jsonIOProspectiveChanges = jsonProspectiveChanges
+  }
+  writeFile "output.json" . BSC8.unpack . encode $ jsonInitObject

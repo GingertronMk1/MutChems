@@ -1,15 +1,16 @@
 {-# LANGUAGE DeriveGeneric #-}
+
 -- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
+import Data.Aeson
 import Data.List
 import Data.Maybe
 import qualified Data.Positions as P
-import GHC.Generics
 import Functions.Application
+import GHC.Generics
 import Text.Printf
 import Types.Basic
-import Data.Aeson
 
 -- * A TeamOrMultiple - a means of displaying one or more Team Chemistries
 
@@ -25,6 +26,7 @@ data TeamOrMultiple
   deriving (Eq, Show, Generic)
 
 instance FromJSON TeamOrMultiple
+
 instance ToJSON TeamOrMultiple
 
 -- | The Ord instance - compare the "lowest" team name in each.
@@ -53,8 +55,8 @@ expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
 expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 
-
 -- * The Player object - containing a name, a list of TeamOrMultiples, and a position
+
 data Player = P
   { -- | The Player's name
     pName :: PlayerName,
@@ -66,6 +68,7 @@ data Player = P
   deriving (Eq, Show, Generic)
 
 instance FromJSON Player
+
 instance ToJSON Player
 
 -- | The empty Player, the basis for other players with sensible defaults
@@ -81,6 +84,7 @@ emptyPlayer =
 type Lineup = [Player]
 
 -- * The position group: a position and the list of Players that play there
+
 -- this is the basis for the Lineup
 data PositionGroup = PositionGroup
   { -- | The position
@@ -91,6 +95,7 @@ data PositionGroup = PositionGroup
   deriving (Eq, Show, Generic)
 
 instance FromJSON PositionGroup
+
 instance ToJSON PositionGroup
 
 -- | The initial lineup - grouped by position
