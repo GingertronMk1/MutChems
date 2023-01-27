@@ -6,6 +6,7 @@ import Data.Aeson
 import Data.List
 import Data.List.Split
 import Data.Positions
+import Data.Teams
 import GHC.Generics
 import Text.Printf
 import Types.Basic
@@ -47,7 +48,7 @@ lineupToJSONLineup :: Lineup -> JSONLineup
 lineupToJSONLineup = lineupToJSONLineup' []
 
 lineupToJSONLineup' :: JSONLineup -> Lineup -> JSONLineup
-lineupToJSONLineup' jl [] = jl
+lineupToJSONLineup' jl [] = reverse jl
 lineupToJSONLineup' jl (p@(P {pPosition = currPosition}) : ps) =
   let jsonPlayer = JSONPlayer {jpName = pName p, jpTeams = map teamOrMultipleToJSON (pTeams p)}
       (currInPosition, others) = partition ((== currPosition) . jpgPosition) jl
@@ -149,15 +150,27 @@ jsonPositionGroupToPlayers jpg =
     ( \p ->
         emptyPlayer
           { pName = jpName p,
-            pTeams = map jsonTeamOrMultipleToTeamOrMultiple (jpTeams p),
+            pTeams = map teamToTeamOrMultiple (jpTeams p),
             pPosition = jpgPosition jpg
           }
     )
     (jpgPlayers jpg)
 
-jsonTeamOrMultipleToTeamOrMultiple :: String -> TeamOrMultiple
-jsonTeamOrMultipleToTeamOrMultiple s
-  | '|' `elem` s = Teams $ map jsonTeamOrMultipleToTeamOrMultiple . splitOn "|" $ s
+specialTeamDesignations :: [(String, [TeamOrMultiple])]
+specialTeamDesignations =
+  [ ("all32Teams", all32Teams),
+    ("all32TeamsPlusLegends", all32TeamsPlusLegends),
+    ("gronkTeams", teamsForSlots 2 all32TeamsPlusLegends)
+  ]
+
+convertJSONTeams :: [String] -> [TeamOrMultiple]
+convertJSONTeams ts = case lookup (head ts) specialTeamDesignations of
+  Just ts' -> ts'
+  Nothing -> map teamToTeamOrMultiple ts
+
+teamToTeamOrMultiple :: String -> TeamOrMultiple
+teamToTeamOrMultiple s
+  | '|' `elem` s = Teams $ map teamToTeamOrMultiple . splitOn "|" $ s
   | '.' `elem` s =
     let (teamName, '.' : num) = break (== '.') s
      in MultipleTeam teamName (read num :: Int)
