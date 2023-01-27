@@ -69,3 +69,11 @@ toJSONInit = do
     jsonIOProspectiveChanges = jsonProspectiveChanges
   }
   writeFile "output.json" . BSC8.unpack . encode $ jsonInitObject
+
+fromJSONInit :: IO ()
+fromJSONInit = do
+  input <- readFile "input.json"
+  let possibleInput = eitherDecode . BSC8.pack $ input :: Either String JSONInitObject
+  case possibleInput of
+    Left s -> putStrLn s
+    Right jsio -> print jsio
