@@ -8,26 +8,9 @@ module Data.Calculated where
 import Data.Aeson
 import qualified Data.ByteString.Lazy.Char8 as BSC8
 import Data.Char
-import Data.List
 import Data.Other
-import Data.Positions
-import Data.Squad
-import Types.Basic
 import Types.JSON.Lineup
 import Types.ProspectiveChange
-import Types.TeamOrMultiple
-
--- | The squad with the team strategy item sorted
-processedStrategy :: [Player]
-processedStrategy = case strategy of
-  NoTeam -> []
-  tom ->
-    [ emptyPlayer
-        { pName = "STRATEGY: " ++ ppTeamOrMultiple tom,
-          pTeams = [tom],
-          pPosition = strategyCard
-        }
-    ]
 
 -- | The maximum number of Variations per Lineup
 squadFilterThreshold :: Int
@@ -36,38 +19,29 @@ squadFilterThreshold =
     . filter isDigit
     $ squadFilterThresholdString
 
+-- | Read the JSON file containing the Team information and return it
 fromJSONInit :: IO JSONInitObject
 fromJSONInit = do
-  possibleInput <- fromJSONInit'
-  case possibleInput of
+  input <- readFile "input.json"
+  case eitherDecode . BSC8.pack $ input of
     Left s -> error s
     Right jsio -> return jsio
 
-fromJSONInit' :: IO (Either String JSONInitObject)
-fromJSONInit' = do
-  input <- readFile "input.json"
-  return $ eitherDecode . BSC8.pack $ input
-
+-- | Get the build objects from the JSON init objects
 iteratedProspectiveSquads :: IO [BuildObject]
 iteratedProspectiveSquads = do
-  possibleInput <- fromJSONInit'
-  case possibleInput of
-    Left s -> error s
-    Right jsio ->
-      return
-        . initObjectToBuildObjects
-        . sortLineupInJSONInitObject
-        $ jsio
+  jsio <- fromJSONInit
+  return
+    . initObjectToBuildObjects
+    . sortLineupInJSONInitObject
+    $ jsio
 
+-- | Write to a file on the side a sorted version of the suqad
 sortMyInput :: IO ()
 sortMyInput = do
-  myIn <- fromJSONInit' 
-  case myIn of
-    Left s -> error s
-    Right jsio -> sortMyInput' jsio
-
-sortMyInput' :: JSONInitObject -> IO ()
-sortMyInput' jsio = do
-  let sortedJSIO = sortLineupInJSONInitObject jsio
-  writeFile "sideput.json" . BSC8.unpack . encode $ sortedJSIO
-
+  myIn <- fromJSONInit
+  writeFile "sideput.json"
+    . BSC8.unpack
+    . encode
+    . sortLineupInJSONInitObject
+    $ myIn
