@@ -32,8 +32,8 @@ iteratedProspectiveSquads :: IO [BuildObject]
 iteratedProspectiveSquads = do
   jsio <- fromJSONInit
   return
+    . map sortLineupInBuildObject
     . initObjectToBuildObjects
-    . sortLineupInJSONInitObject
     $ jsio
 
 -- | Write to a file on the side a sorted version of the suqad

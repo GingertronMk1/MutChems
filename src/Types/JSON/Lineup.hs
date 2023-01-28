@@ -82,8 +82,8 @@ lineupToJSONLineup = lineupToJSONLineup' []
 -- | Helper for the above
 lineupToJSONLineup' :: JSONLineup -> Lineup -> JSONLineup
 lineupToJSONLineup' jl [] = reverse jl
-lineupToJSONLineup' jl (p@(P {pPosition = currPosition}) : ps) =
-  let jsonPlayer = JSONPlayer {jpName = pName p, jpTeams = map teamOrMultipleToJSON (pTeams p)}
+lineupToJSONLineup' jl (P {pName = currName, pPosition = currPosition, pTeams = currTeams} : ps) =
+  let jsonPlayer = JSONPlayer {jpName = currName, jpTeams = map teamOrMultipleToJSON currTeams}
       (currInPosition, others) = partition ((== currPosition) . jpgPosition) jl
    in lineupToJSONLineup'
         ( JSONPositionGroup
@@ -97,8 +97,8 @@ lineupToJSONLineup' jl (p@(P {pPosition = currPosition}) : ps) =
 -- | ProspectiveChange
 prospectiveChangeToJSONProspectiveChange :: ProspectiveChange -> JSONProspectiveChange
 prospectiveChangeToJSONProspectiveChange NoChange = JSONNoChange
-prospectiveChangeToJSONProspectiveChange (Replacement p1 p) = JSONReplacement p1 (playerToJSONPlayer p)
-prospectiveChangeToJSONProspectiveChange (Addition p) = JSONAddition (playerToJSONPlayer p) (pPosition p)
+prospectiveChangeToJSONProspectiveChange (Replacement p1 p2) = JSONReplacement p1 (playerToJSONPlayer p2)
+prospectiveChangeToJSONProspectiveChange (Addition newP) = JSONAddition (playerToJSONPlayer newP) (pPosition newP)
 prospectiveChangeToJSONProspectiveChange (Removals ps) = JSONRemovals ps
 
 -- | Player
@@ -128,7 +128,7 @@ applyJSONProspectiveChange l (JSONRemovals ps) =
 -- (There shouldn't be more than one anyway)
 removePlayersFromPositionGroup :: [PlayerName] -> JSONPositionGroup -> JSONPositionGroup
 removePlayersFromPositionGroup ps pg@(JSONPositionGroup {jpgPlayers = ps2}) =
-  pg {jpgPlayers = filter (\p -> jpName p `notElem` ps) ps2}
+  pg {jpgPlayers = filter ((`notElem` ps) . jpName) ps2}
 
 -- | Determining whether or not a group contains a player
 jsonPositionGroupContainsJSONPlayer :: PlayerName -> JSONPositionGroup -> Bool
@@ -172,10 +172,10 @@ initObjectToBuildObjects'
 jsonPositionGroupToPlayers :: JSONPositionGroup -> [Player]
 jsonPositionGroupToPlayers jpg =
   map
-    ( \p ->
+    ( \(JSONPlayer {jpName = _jpName, jpTeams = _jpTeams}) ->
         emptyPlayer
-          { pName = jpName p,
-            pTeams = convertJSONTeams . jpTeams $ p,
+          { pName = _jpName,
+            pTeams = convertJSONTeams _jpTeams,
             pPosition = jpgPosition jpg
           }
     )

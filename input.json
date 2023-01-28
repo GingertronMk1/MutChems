@@ -2,6 +2,20 @@
   "jsonIOProspectiveChanges": [
     {
       "contents": [
+        {
+          "jpName": "William Perry",
+          "jpTeams": [
+            "Bears",
+            "Eagles",
+            "Legends"
+          ]
+        },
+        "Fullback"
+      ],
+      "tag": "JSONAddition"
+    },
+    {
+      "contents": [
         "Rob Gronkowski",
         {
           "jpName": "Rob Gronkowski",

@@ -1,6 +1,8 @@
 -- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
+import Data.List
+import Data.Positions
 import Functions.Application
 import Text.Printf
 import Types.Basic
@@ -36,3 +38,12 @@ ppProspectiveChange (Replacement p1 (P {pName = p2}))
   | p1 == p2 = printf "Replacing %s with a different %s" p1 p2
   | otherwise = printf "Replacing %s with %s" p1 p2
 ppProspectiveChange (Removals p) = printf "Getting rid of %s" (printThingsWithAnd p)
+
+sortLineupInBuildObject :: BuildObject -> BuildObject
+sortLineupInBuildObject bo@(BuildObject {buildObjectLineup = l}) =
+  bo {buildObjectLineup = sortOn sortPosition l}
+
+sortPosition :: Player -> Int
+sortPosition (P {pPosition = pos}) = case findIndex ((== pos) . fst) numInPositions of
+  Just n -> n
+  Nothing -> length numInPositions
