@@ -1,14 +1,10 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.TeamOrMultiple
 module Types.TeamOrMultiple where
 
-import Data.Aeson
 import Data.List
 import Data.Maybe
 import qualified Data.Positions as P
 import Functions.Application
-import GHC.Generics
 import Text.Printf
 import Types.Basic
 
@@ -23,11 +19,7 @@ data TeamOrMultiple
     MultipleTeam Team Int
   | -- | Multiple Teams, e.g. Broncos + Seahawks.
     Teams [TeamOrMultiple]
-  deriving (Eq, Show, Generic)
-
-instance FromJSON TeamOrMultiple
-
-instance ToJSON TeamOrMultiple
+  deriving (Eq, Show)
 
 -- | The Ord instance - compare the "lowest" team name in each.
 instance Ord TeamOrMultiple where
@@ -65,11 +57,7 @@ data Player = P
     -- | The Player's position
     pPosition :: !Position
   }
-  deriving (Eq, Show, Generic)
-
-instance FromJSON Player
-
-instance ToJSON Player
+  deriving (Eq, Show)
 
 -- | The empty Player, the basis for other players with sensible defaults
 emptyPlayer :: Player
@@ -92,11 +80,7 @@ data PositionGroup = PositionGroup
     -- | The players
     pgPlayers :: [Player]
   }
-  deriving (Eq, Show, Generic)
-
-instance FromJSON PositionGroup
-
-instance ToJSON PositionGroup
+  deriving (Eq, Show)
 
 -- | The initial lineup - grouped by position
 type InitialLineup = [PositionGroup]
