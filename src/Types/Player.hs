@@ -419,13 +419,13 @@ printDisplayObjectAsHtmlTable
 
 -- * IO Actions for testing purposes
 
-genHTML :: Int -> IO ()
-genHTML n = do
+genHTML :: String -> String -> Int -> IO ()
+genHTML inFile outFile n = do
   JSONInitObject
     { groupedLineup = gl,
       prospectiveChanges = pcs
     } <-
-    decodeJSONInitObject "test.json"
+    decodeJSONInitObject inFile
   let buildObjects =
         iterativelyApplyProspectiveChanges pcs
           . flattenGroupedLineup
@@ -442,4 +442,4 @@ genHTML n = do
             "</tr>",
             "</table>"
           ]
-  writeFile "output.md" html
+  writeFile outFile html

@@ -8,7 +8,6 @@ module Data.Calculated where
 import Data.Char
 import Data.Other
 
-
 squadFilterThreshold :: Int
 squadFilterThreshold =
   read
