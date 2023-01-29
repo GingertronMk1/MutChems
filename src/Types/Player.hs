@@ -392,11 +392,13 @@ test = do
       prospectiveChanges = pcs
     } <-
     decodeJSONInitObject "test.json"
-  let displayObjects =
-        map buildObjectToDisplayObject
-          . iterativelyApplyProspectiveChanges pcs
+  let buildObjects =
+        iterativelyApplyProspectiveChanges pcs
           . flattenGroupedLineup
           $ gl
+  print buildObjects
+  let displayObjects =
+        map buildObjectToDisplayObject buildObjects
   let html =
         intercalate
           "\n"
