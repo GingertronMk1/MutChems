@@ -4,7 +4,7 @@ module Types.Player where
 
 import Data.Aeson
 import qualified Data.ByteString.Lazy as BS
-import Data.List (find, group, groupBy, intercalate, maximumBy, sort, sortOn)
+import Data.List (find, group, groupBy, intercalate, intersect, maximumBy, sort, sortOn)
 import Data.List.Split (splitOn)
 import Data.Ord (comparing)
 import Data.Teams (all32Teams, all32TeamsPlusLegends, legends)
@@ -186,46 +186,41 @@ decodeTeamOrMultiple s
      in MultipleTeam teamName (read num :: Int)
   | otherwise = Team s
 
-test :: IO ()
-test = do
-  teamJSON <- BS.readFile "test.json"
-  let teams = eitherDecode teamJSON :: Either String GroupedLineup
-  case teams of
-    Left s -> error s
-    Right gl -> test' gl
-
-test' :: GroupedLineup -> IO ()
-test' gl = do
-  let fl = reduceFlatLineup 10000 . flattenGroupedLineup $ gl
-  print fl
-
--- print . maximum . flatLineupToVariations $ fl
-
+-- TODO: Actually account for Teams rather than just TeamOrMultiples
 reduceFlatLineup :: Int -> FlatLineup -> (FlatLineup, Int)
 reduceFlatLineup = reduceFlatLineup' 0
 
 reduceFlatLineup' :: Int -> Int -> FlatLineup -> (FlatLineup, Int)
 reduceFlatLineup' teamThreshold variationLimit lineup
   | numberOfNewLineupOptions < 0 = nextIfNotZero
-  | numberOfNewLineupOptions == 1 = (newLineup, teamThreshold)
+  | numberOfNewLineupOptions == 0 = (newLineup, teamThreshold)
   | numberOfNewLineupOptions <= variationLimit = (newLineup, teamThreshold)
   | otherwise = nextIfNotZero
   where
     nextIfNotZero = reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
     newLineup = map (reducePlayerTeams filteredTeams) lineup
-    filteredTeams = filterTeamsByNumber teamThreshold allTeamsInLineup
-    allTeamsInLineup = concatMap playerTeams lineup
+    filteredTeams = filterListByNumber teamThreshold allTeamOrMultiplesInCurrentLineup
+    allTeamOrMultiplesInCurrentLineup = allTeamsInLineup lineup
     numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
 
-reducePlayerTeams :: [TeamOrMultiple] -> Player -> Player
+allTeamOrMultiplesInLineup :: FlatLineup -> [TeamOrMultiple]
+allTeamOrMultiplesInLineup = concatMap playerTeams
+
+allTeamsInLineup :: FlatLineup -> [Team]
+allTeamsInLineup = concatMap teamOrMultipleToTeams . allTeamOrMultiplesInLineup
+
+reducePlayerTeams ::
+  [Team] -> -- The list of banned TeamOrMultiples
+  Player -> -- Initial Player
+  Player -- Fixed Player
 reducePlayerTeams toms p@(Player {playerTeams = ts}) =
-  let ts' = case filter (`notElem` toms) ts of
+  let ts' = case filter (teamOrMultipleContainsTeams toms) ts of
         [] -> [NoTeam]
         ts'' -> ts''
    in p {playerTeams = ts'}
 
-filterTeamsByNumber :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
-filterTeamsByNumber n =
+filterListByNumber :: Ord a => Int -> [a] -> [a]
+filterListByNumber n =
   concat
     . filter (\toms' -> length toms' < n)
     . group
@@ -251,3 +246,30 @@ playerToVariationPlayers
         }
       | pTeam <- pTeams
     ]
+
+teamOrMultipleToTeams :: TeamOrMultiple -> [Team]
+teamOrMultipleToTeams NoTeam = []
+teamOrMultipleToTeams (Team t) = [t]
+teamOrMultipleToTeams (MultipleTeam t n) = replicate n t
+teamOrMultipleToTeams (Teams ts) = concatMap teamOrMultipleToTeams ts
+
+teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
+teamOrMultipleContainsTeams ts tom =
+  null $ intersect (teamOrMultipleToTeams tom) ts
+
+-- * IO Actions for testing purposes
+
+test :: IO ()
+test = do
+  teamJSON <- BS.readFile "test.json"
+  let teams = eitherDecode teamJSON :: Either String GroupedLineup
+  case teams of
+    Left s -> error s
+    Right gl -> test' gl
+
+test' :: GroupedLineup -> IO ()
+test' gl = do
+  let fl = reduceFlatLineup 100000 . flattenGroupedLineup $ gl
+  print fl
+  print . maximum . flatLineupToVariations . fst $ fl
+
