@@ -17,6 +17,16 @@
         {
           "tag": "Replacement",
           "contents": [
+            "Rob Gronkowski",
+            {
+              "groupedPlayerName": "Rob Gronkowski",
+              "groupedPlayerTeams": ["gronkTeams"]
+            }
+          ]
+        },
+        {
+          "tag": "Replacement",
+          "contents": [
             "Tim Tebow",
             {
               "groupedPlayerName": "Drew Bledsoe",
