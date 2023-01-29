@@ -4,7 +4,7 @@ module Types.Player where
 
 import Data.Aeson (FromJSON, ToJSON, eitherDecode)
 import qualified Data.ByteString.Lazy as BS
-import Data.List (find, group, groupBy, intercalate, intersect, maximumBy, sort, sortOn)
+import Data.List (find, findIndex, group, groupBy, intercalate, intersect, maximumBy, partition, sort, sortOn)
 import Data.List.Split (splitOn)
 import Data.Ord (comparing)
 import Data.Teams (all32Teams, all32TeamsPlusLegends, legends)
@@ -157,7 +157,17 @@ groupFlatLineup fl =
 
 groupedPlayerToPlayer :: GroupedPlayer -> Position -> Player
 groupedPlayerToPlayer (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) pos =
-  Player {playerName = name, playerTeams = decodeTeamOrMultiples teams, playerPosition = pos}
+  Player
+    { playerName = name,
+      playerTeams = decodeTeamOrMultiples teams,
+      playerPosition = pos
+    }
+
+playerPositionInInitialLineup :: FlatLineup -> PlayerName -> Int
+playerPositionInInitialLineup initialLineup pName =
+  case findIndex ((== pName) . playerName) initialLineup of
+    Just n -> n
+    Nothing -> 1 + length initialLineup
 
 -- * The Variation
 
@@ -243,6 +253,22 @@ decodeTeamOrMultiple s
     let (teamName, '.' : num) = break (== '.') s
      in MultipleTeam teamName (read num :: Int)
   | otherwise = Team s
+
+reduceFlatLineupRecursive :: Int -> FlatLineup -> FlatLineup
+reduceFlatLineupRecursive n fl =
+  sortOn (playerPositionInInitialLineup fl . playerName) $
+    reduceFlatLineupRecursive' n fl
+
+reduceFlatLineupRecursive' :: Int -> FlatLineup -> FlatLineup
+reduceFlatLineupRecursive' n fl =
+  let (reducedLineup, _) = reduceFlatLineup n fl
+   in case partition ((== [NoTeam]) . playerTeams) reducedLineup of
+        ([], fl') -> fl'
+        (noTeams, fl') ->
+          (fl' ++)
+            . reduceFlatLineupRecursive' n
+            . filter (\p -> playerName p `elem` map playerName noTeams)
+            $ fl
 
 reduceFlatLineup :: Int -> FlatLineup -> (FlatLineup, Int)
 reduceFlatLineup = reduceFlatLineup' 0
@@ -347,7 +373,7 @@ iterativelyApplyProspectiveChanges' (pc : pcs) fl =
 
 buildObjectToDisplayObject :: BuildObject -> DisplayObject
 buildObjectToDisplayObject (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
-  let (newFlatLineup, _) = reduceFlatLineup 1000000 l
+  let newFlatLineup = reduceFlatLineupRecursive 1000000 l
    in DisplayObject
         { displayObjectVariation = maximum . flatLineupToVariations $ newFlatLineup,
           displayObjectProspectiveChange = pc
