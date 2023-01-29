@@ -2,7 +2,7 @@
 
 module Types.Player where
 
-import Data.Aeson
+import Data.Aeson (FromJSON, ToJSON, eitherDecode)
 import qualified Data.ByteString.Lazy as BS
 import Data.List (find, group, groupBy, intercalate, intersect, maximumBy, sort, sortOn)
 import Data.List.Split (splitOn)
@@ -10,6 +10,7 @@ import Data.Ord (comparing)
 import Data.Teams (all32Teams, all32TeamsPlusLegends, legends)
 import Functions.Application (firstAndLength, orderListOfInts)
 import GHC.Generics (Generic)
+import Text.Printf (printf)
 import Types.Basic (EncodedTeamOrMultiple, PlayerName, Position, Team)
 import Types.TeamOrMultiple (TeamOrMultiple (..), expandTeamOrMultiple, teamsForSlots)
 
@@ -34,6 +35,34 @@ data GroupedPlayer = GroupedPlayer
 instance FromJSON GroupedPlayer
 
 instance ToJSON GroupedPlayer
+
+data ProspectiveChange
+  = Addition GroupedPlayer Position
+  | Replacement PlayerName GroupedPlayer
+  | NoChange
+  | Removals [PlayerName]
+  deriving (Eq, Show, Generic)
+
+instance FromJSON ProspectiveChange
+
+instance ToJSON ProspectiveChange
+
+data JSONInitObject = JSONInitObject
+  { groupedLineup :: GroupedLineup,
+    prospectiveChanges :: [ProspectiveChange]
+  }
+  deriving (Eq, Show, Generic)
+
+instance FromJSON JSONInitObject
+
+instance ToJSON JSONInitObject
+
+decodeJSONInitObject :: String -> IO JSONInitObject
+decodeJSONInitObject s = do
+  teamJSON <- BS.readFile s
+  case eitherDecode teamJSON of
+    Left err -> error err
+    Right tj -> return tj
 
 -- * Definitions for the types that we use for regular analysis
 
@@ -61,6 +90,28 @@ instance FromJSON GroupedLineup
 instance ToJSON GroupedLineup
 
 type FlatLineup = [Player]
+
+data BuildObject = BuildObject
+  { buildObjectLineup :: FlatLineup,
+    buildObjectProspectiveChange :: ProspectiveChange
+  }
+  deriving (Eq, Show)
+
+data DisplayObject = DisplayObject
+  { displayObjectVariation :: Variation,
+    displayObjectProspectiveChange :: ProspectiveChange
+  }
+  deriving (Eq, Show)
+
+ppDisplayObject :: DisplayObject -> String
+ppDisplayObject (DisplayObject {displayObjectVariation = var}) =
+  intercalate "\n"
+    . map
+      ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt, variationPlayerPosition = vpp}) ->
+          printf "%s | %s | %s" vpn (show vpt) vpp
+      )
+    . variationToList
+    $ var
 
 -- * Flattening and unflattening lineups
 
@@ -104,6 +155,10 @@ groupFlatLineup fl =
           )
           groups
 
+groupedPlayerToPlayer :: GroupedPlayer -> Position -> Player
+groupedPlayerToPlayer (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) pos =
+  Player {playerName = name, playerTeams = decodeTeamOrMultiples teams, playerPosition = pos}
+
 -- * The Variation
 
 newtype Variation = Variation [VariationPlayer]
@@ -123,6 +178,9 @@ instance Ord Variation where
       converted2 = teamsInVariation v2
       (ord1, n1) = toNumerical converted1
       (ord2, n2) = toNumerical converted2
+
+variationToList :: Variation -> [VariationPlayer]
+variationToList (Variation v) = v
 
 -- | Take a Team and how many there are and convert it into an integer so we can
 -- more easily compare it to others - ordering them in priority
@@ -186,7 +244,6 @@ decodeTeamOrMultiple s
      in MultipleTeam teamName (read num :: Int)
   | otherwise = Team s
 
--- TODO: Actually account for Teams rather than just TeamOrMultiples
 reduceFlatLineup :: Int -> FlatLineup -> (FlatLineup, Int)
 reduceFlatLineup = reduceFlatLineup' 0
 
@@ -257,19 +314,51 @@ teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
 teamOrMultipleContainsTeams ts tom =
   null $ intersect (teamOrMultipleToTeams tom) ts
 
+-- * Applying prospective changes
+
+applyProspectiveChange :: ProspectiveChange -> FlatLineup -> FlatLineup
+applyProspectiveChange NoChange fl = fl
+applyProspectiveChange (Addition gp position) fl =
+  let (befores, afters) = break ((== position) . playerPosition) fl
+   in befores ++ (groupedPlayerToPlayer gp position : afters)
+applyProspectiveChange (Replacement oldP newP) fl =
+  case break ((== oldP) . playerName) fl of
+    (_, []) -> error $ printf "No player called %s" oldP
+    (befores, (Player {playerPosition = oldPosition}) : afters) ->
+      befores ++ (groupedPlayerToPlayer newP oldPosition : afters)
+applyProspectiveChange (Removals ps) fl = filter ((`notElem` ps) . playerName) fl
+
+iterativelyApplyProspectiveChanges ::
+  [ProspectiveChange] ->
+  FlatLineup ->
+  [BuildObject]
+iterativelyApplyProspectiveChanges pcs fl =
+  BuildObject {buildObjectLineup = fl, buildObjectProspectiveChange = NoChange} : iterativelyApplyProspectiveChanges' pcs fl
+
+iterativelyApplyProspectiveChanges' ::
+  [ProspectiveChange] ->
+  FlatLineup ->
+  [BuildObject]
+iterativelyApplyProspectiveChanges' [] _ = []
+iterativelyApplyProspectiveChanges' (pc : pcs) fl =
+  let newFL = applyProspectiveChange pc fl
+   in BuildObject {buildObjectLineup = newFL, buildObjectProspectiveChange = pc} : iterativelyApplyProspectiveChanges' pcs newFL
+
+buildObjectToDisplayObject :: BuildObject -> DisplayObject
+buildObjectToDisplayObject (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
+  DisplayObject
+    { displayObjectVariation = maximum . flatLineupToVariations . fst . reduceFlatLineup 10000 $ l,
+      displayObjectProspectiveChange = pc
+    }
+
 -- * IO Actions for testing purposes
 
 test :: IO ()
 test = do
-  teamJSON <- BS.readFile "test.json"
-  let teams = eitherDecode teamJSON :: Either String GroupedLineup
-  case teams of
-    Left s -> error s
-    Right gl -> test' gl
-
-test' :: GroupedLineup -> IO ()
-test' gl = do
-  let fl = reduceFlatLineup 100000 . flattenGroupedLineup $ gl
-  print fl
-  print . maximum . flatLineupToVariations . fst $ fl
-
+  JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs} <- decodeJSONInitObject "test.json"
+  putStrLn
+    . intercalate "\n\n"
+    . map (ppDisplayObject . buildObjectToDisplayObject)
+    . iterativelyApplyProspectiveChanges pcs
+    . flattenGroupedLineup
+    $ gl
