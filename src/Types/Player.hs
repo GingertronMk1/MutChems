@@ -41,7 +41,7 @@ data ProspectiveChange
   | Replacement PlayerName GroupedPlayer
   | NoChange
   | Removals [PlayerName]
-  deriving (Eq, Show, Generic)
+  deriving (Show, Generic)
 
 instance FromJSON ProspectiveChange
 
@@ -51,7 +51,7 @@ data JSONInitObject = JSONInitObject
   { groupedLineup :: GroupedLineup,
     prospectiveChanges :: [ProspectiveChange]
   }
-  deriving (Eq, Show, Generic)
+  deriving (Show, Generic)
 
 instance FromJSON JSONInitObject
 
@@ -95,13 +95,13 @@ data BuildObject = BuildObject
   { buildObjectLineup :: FlatLineup,
     buildObjectProspectiveChange :: ProspectiveChange
   }
-  deriving (Eq, Show)
+  deriving (Show)
 
 data DisplayObject = DisplayObject
   { displayObjectVariation :: Variation,
     displayObjectProspectiveChange :: ProspectiveChange
   }
-  deriving (Eq, Show)
+  deriving (Show)
 
 ppDisplayObject :: DisplayObject -> String
 ppDisplayObject (DisplayObject {displayObjectVariation = var}) =
