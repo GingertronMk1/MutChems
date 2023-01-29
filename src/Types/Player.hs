@@ -351,14 +351,59 @@ buildObjectToDisplayObject (BuildObject {buildObjectLineup = l, buildObjectProsp
       displayObjectProspectiveChange = pc
     }
 
+-- * Pretty printing things as HTML Tables
+
+ppProspectiveChange :: ProspectiveChange -> String
+ppProspectiveChange NoChange = "No change"
+ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =
+  printf "Adding %s at %s" name pos
+ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = newName}))
+  | oldName == newName = printf "Replacing %s with a different %s" oldName newName
+  | otherwise = printf "Replacing %s with %s" oldName newName
+ppProspectiveChange (Removals ps) = printf "Removing" $ intercalate ", " ps
+
+printDisplayObjectAsHtmlTable :: DisplayObject -> String
+printDisplayObjectAsHtmlTable
+  ( DisplayObject
+      { displayObjectVariation = var,
+        displayObjectProspectiveChange = pc
+      }
+    ) =
+    intercalate
+      "\n"
+      [ "<table>",
+        printf "<tr><th colspan=2>%s</th></tr>" $ ppProspectiveChange pc,
+        intercalate "\n"
+          . map
+            ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
+                printf "<tr><td>%s</td><td>%s</td></tr>" vpn (show vpt)
+            )
+          . variationToList
+          $ var,
+        "</table>"
+      ]
+
 -- * IO Actions for testing purposes
 
 test :: IO ()
 test = do
-  JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs} <- decodeJSONInitObject "test.json"
-  putStrLn
-    . intercalate "\n\n"
-    . map (ppDisplayObject . buildObjectToDisplayObject)
-    . iterativelyApplyProspectiveChanges pcs
-    . flattenGroupedLineup
-    $ gl
+  JSONInitObject
+    { groupedLineup = gl,
+      prospectiveChanges = pcs
+    } <-
+    decodeJSONInitObject "test.json"
+  let displayObjects =
+        map buildObjectToDisplayObject
+          . iterativelyApplyProspectiveChanges pcs
+          . flattenGroupedLineup
+          $ gl
+  let html =
+        intercalate
+          "\n"
+          [ "<table>",
+            "<tr>",
+            intercalate "\n" . map (printf "<td>%s</td>" . printDisplayObjectAsHtmlTable) $ displayObjects,
+            "</tr>",
+            "</table>"
+          ]
+  writeFile "testout.md" html
