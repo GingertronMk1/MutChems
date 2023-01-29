@@ -2,6 +2,7 @@
 module Types.TeamOrMultiple where
 
 import Data.List
+import Data.List.Split
 import Data.Maybe
 import qualified Data.Positions as P
 import Functions.Application
