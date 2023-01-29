@@ -371,9 +371,9 @@ iterativelyApplyProspectiveChanges' (pc : pcs) fl =
   let newFL = applyProspectiveChange pc fl
    in BuildObject {buildObjectLineup = newFL, buildObjectProspectiveChange = pc} : iterativelyApplyProspectiveChanges' pcs newFL
 
-buildObjectToDisplayObject :: BuildObject -> DisplayObject
-buildObjectToDisplayObject (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
-  let newFlatLineup = reduceFlatLineupRecursive 1000000 l
+buildObjectToDisplayObject :: Int -> BuildObject -> DisplayObject
+buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
+  let newFlatLineup = reduceFlatLineupRecursive n l
    in DisplayObject
         { displayObjectVariation = maximum . flatLineupToVariations $ newFlatLineup,
           displayObjectProspectiveChange = pc
@@ -419,8 +419,8 @@ printDisplayObjectAsHtmlTable
 
 -- * IO Actions for testing purposes
 
-test :: IO ()
-test = do
+genHTML :: Int -> IO ()
+genHTML n = do
   JSONInitObject
     { groupedLineup = gl,
       prospectiveChanges = pcs
@@ -432,7 +432,7 @@ test = do
           $ gl
   -- print . head $ buildObjects
   let displayObjects =
-        map buildObjectToDisplayObject buildObjects
+        map (buildObjectToDisplayObject n) buildObjects
   let html =
         intercalate
           "\n"

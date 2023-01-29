@@ -5,8 +5,12 @@
 -- just variables more or less
 module Data.Calculated where
 
-import Data.Aeson
-import qualified Data.ByteString.Lazy.Char8 as BSC8
 import Data.Char
 import Data.Other
-import Types.Player
+
+
+squadFilterThreshold :: Int
+squadFilterThreshold =
+  read
+    . filter isDigit
+    $ squadFilterThresholdString
