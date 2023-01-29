@@ -119,7 +119,7 @@ flattenPositionGroup :: PositionGroup -> [Player]
 flattenPositionGroup (PositionGroup {positionGroupPosition = pos, positionGroupPlayers = players}) =
   [ Player
       { playerName = pName,
-        playerTeams = map decodeTeamOrMultiple pTeams,
+        playerTeams = decodeTeamOrMultiples pTeams,
         playerPosition = pos
       }
     | ( GroupedPlayer
@@ -279,7 +279,7 @@ reducePlayerTeams toms p@(Player {playerTeams = ts}) =
 filterListByNumber :: Ord a => Int -> [a] -> [a]
 filterListByNumber n =
   concat
-    . filter (\toms' -> length toms' < n)
+    . filter (\toms' -> length toms' >= n)
     . group
     . sort
 
@@ -312,7 +312,8 @@ teamOrMultipleToTeams (Teams ts) = concatMap teamOrMultipleToTeams ts
 
 teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
 teamOrMultipleContainsTeams ts tom =
-  null $ intersect (teamOrMultipleToTeams tom) ts
+  let teamOrMultipleTeams = teamOrMultipleToTeams tom
+   in not . null $ teamOrMultipleTeams `intersect` ts
 
 -- * Applying prospective changes
 
@@ -346,10 +347,11 @@ iterativelyApplyProspectiveChanges' (pc : pcs) fl =
 
 buildObjectToDisplayObject :: BuildObject -> DisplayObject
 buildObjectToDisplayObject (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
-  DisplayObject
-    { displayObjectVariation = maximum . flatLineupToVariations . fst . reduceFlatLineup 10000 $ l,
-      displayObjectProspectiveChange = pc
-    }
+  let (newFlatLineup, _) = reduceFlatLineup 1000000 l
+   in DisplayObject
+        { displayObjectVariation = maximum . flatLineupToVariations $ newFlatLineup,
+          displayObjectProspectiveChange = pc
+        }
 
 -- * Pretty printing things as HTML Tables
 
@@ -361,6 +363,12 @@ ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = new
   | oldName == newName = printf "Replacing %s with a different %s" oldName newName
   | otherwise = printf "Replacing %s with %s" oldName newName
 ppProspectiveChange (Removals ps) = printf "Removing" $ intercalate ", " ps
+
+ppTeamOrMultiple :: TeamOrMultiple -> String
+ppTeamOrMultiple NoTeam = "-"
+ppTeamOrMultiple (Team t) = t
+ppTeamOrMultiple (MultipleTeam t n) = printf "%s x %d" t n
+ppTeamOrMultiple (Teams ts) = intercalate " | " . map ppTeamOrMultiple $ ts
 
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
 printDisplayObjectAsHtmlTable
@@ -376,7 +384,7 @@ printDisplayObjectAsHtmlTable
         intercalate "\n"
           . map
             ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
-                printf "<tr><td>%s</td><td>%s</td></tr>" vpn (show vpt)
+                printf "<tr><td>%s</td><td>%s</td></tr>" vpn (ppTeamOrMultiple vpt)
             )
           . variationToList
           $ var,
@@ -396,7 +404,7 @@ test = do
         iterativelyApplyProspectiveChanges pcs
           . flattenGroupedLineup
           $ gl
-  print buildObjects
+  -- print . head $ buildObjects
   let displayObjects =
         map buildObjectToDisplayObject buildObjects
   let html =
