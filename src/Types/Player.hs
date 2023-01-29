@@ -406,4 +406,4 @@ test = do
             "</tr>",
             "</table>"
           ]
-  writeFile "testout.md" html
+  writeFile "output.md" html
