@@ -40,18 +40,16 @@ printDisplayObjectAsHtmlTable
       { displayObjectVariation = var
       }
     ) =
-    intercalate
-      "\n"
-      [ "<table>",
-        intercalate "\n"
-          . map
-            ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
-                printf "<tr><td>%s</td><td>%s</td></tr>" (unBreakCharacters vpn) (unBreakCharacters $ ppTeamOrMultiple vpt)
-            )
-          . variationToList
-          $ var,
-        "</table>"
-      ]
+    wrapInTag "table"
+      . intercalate "\n"
+      . map
+        ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
+            wrapInTag "tr" $
+              (wrapInTag "td" . unBreakCharacters $ vpn)
+                ++ (wrapInTag "td" . unBreakCharacters . ppTeamOrMultiple $ vpt)
+        )
+      . variationToList
+      $ var
 
 printDisplayObjectsAsHtmlTable :: [DisplayObject] -> String
 printDisplayObjectsAsHtmlTable dos =

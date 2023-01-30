@@ -28,6 +28,19 @@
           ]
         },
         {
+          "tag": "Replacement",
+          "contents": [
+            "Jim Taylor",
+            {
+              "groupedPlayerName": "Christian Okoye",
+              "groupedPlayerTeams": [
+                "Legends",
+                "Chiefs"
+              ]
+            }
+          ]
+        },
+        {
           "tag": "Addition",
           "contents": [
             {
