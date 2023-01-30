@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.4.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -31,8 +31,15 @@ library
       Data.Teams
       Functions.Application
       Types.Basic
+      Types.BuildObject
+      Types.DisplayObject
+      Types.InitObject
+      Types.Lineup
       Types.Player
+      Types.PositionGroup
+      Types.ProspectiveChange
       Types.TeamOrMultiple
+      Types.Variation
   other-modules:
       Paths_mut_chems
   hs-source-dirs:

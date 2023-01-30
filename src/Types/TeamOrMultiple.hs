@@ -3,6 +3,7 @@ module Types.TeamOrMultiple where
 
 import Data.List
 import Data.Maybe
+import Data.List.Split
 import qualified Data.Positions as P
 import Functions.Application
 import Text.Printf
@@ -65,3 +66,15 @@ comboOfTeams = map Teams . sequence
 -- | Given a list of TeamOrMultiples, generate all combinations for `n` slots
 teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
+
+
+teamOrMultipleToTeams :: TeamOrMultiple -> [Team]
+teamOrMultipleToTeams NoTeam = []
+teamOrMultipleToTeams (Team t) = [t]
+teamOrMultipleToTeams (MultipleTeam t n) = replicate n t
+teamOrMultipleToTeams (Teams ts) = concatMap teamOrMultipleToTeams ts
+
+teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
+teamOrMultipleContainsTeams ts tom =
+  let teamOrMultipleTeams = teamOrMultipleToTeams tom
+   in not . null $ teamOrMultipleTeams `intersect` ts

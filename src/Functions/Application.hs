@@ -84,3 +84,11 @@ printThingsWithAnd :: [String] -> String
 printThingsWithAnd [x] = x
 printThingsWithAnd [x, y] = printf "%s and %s" x y
 printThingsWithAnd xs = printf "%s, and %s" (intercalate ", " $ init xs) (last xs)
+
+filterListByNumber :: Ord a => Int -> [a] -> [a]
+filterListByNumber n =
+  concat
+    . filter (\toms' -> length toms' >= n)
+    . group
+    . sort
+
