@@ -32,8 +32,7 @@ printDisplayObjectAsHtmlTable
       . newLineMap
         ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
             wrapInTag "tr"
-              . newLineMap
-                (wrapInTag "td" . unBreakCharacters)
+              . concatMap (wrapInTag "td" . unBreakCharacters)
               $ [ vpn,
                   ppTeamOrMultiple vpt
                 ]
