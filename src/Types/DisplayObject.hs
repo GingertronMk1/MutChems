@@ -2,7 +2,6 @@ module Types.DisplayObject where
 
 import Data.List
 import Functions.Application
-import Text.Printf
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
@@ -15,16 +14,6 @@ data DisplayObject = DisplayObject
     displayObjectProspectiveChange :: ProspectiveChange
   }
   deriving (Show)
-
-ppDisplayObject :: DisplayObject -> String
-ppDisplayObject (DisplayObject {displayObjectVariation = var}) =
-  intercalate "\n"
-    . map
-      ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt, variationPlayerPosition = vpp}) ->
-          printf "%s | %s | %s" vpn (show vpt) vpp
-      )
-    . variationToList
-    $ var
 
 buildObjectToDisplayObject :: Int -> BuildObject -> DisplayObject
 buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
