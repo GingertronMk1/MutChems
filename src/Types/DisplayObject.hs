@@ -1,6 +1,5 @@
 module Types.DisplayObject where
 
-import Data.List
 import Functions.Application
 import Types.BuildObject
 import Types.Lineup
@@ -30,12 +29,14 @@ printDisplayObjectAsHtmlTable
       }
     ) =
     wrapInTag "table"
-      . intercalate "\n"
-      . map
+      . newLineMap
         ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
-            wrapInTag "tr" $
-              (wrapInTag "td" . unBreakCharacters $ vpn)
-                ++ (wrapInTag "td" . unBreakCharacters . ppTeamOrMultiple $ vpt)
+            wrapInTag "tr"
+              . newLineMap
+                (wrapInTag "td" . unBreakCharacters)
+              $ [ vpn,
+                  ppTeamOrMultiple vpt
+                ]
         )
       . variationToList
       $ var
@@ -45,13 +46,11 @@ printDisplayObjectsAsHtmlTable dos =
   wrapInTag "table" $
     ( wrapInTag "thead"
         . wrapInTag "tr"
-        . intercalate "\n"
-        . map (wrapInTag "th" . ppProspectiveChange . displayObjectProspectiveChange)
+        . newLineMap (wrapInTag "th" . ppProspectiveChange . displayObjectProspectiveChange)
         $ dos
     )
       ++ ( wrapInTag "tbody"
-             . intercalate "\n"
-             . map
+             . newLineMap
                (wrapInTag "td" . printDisplayObjectAsHtmlTable)
              $ dos
          )

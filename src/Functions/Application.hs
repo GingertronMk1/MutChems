@@ -63,11 +63,6 @@ firstAndLength xs@(x : _) =
   let (ins, outs) = partition (x ==) xs
    in (x, length ins) : firstAndLength outs
 
--- | Using a function to convert an input to a String, convert a list of such
--- inputs to strings and collate them with newlines
-newLineMap :: (a -> String) -> [a] -> String
-newLineMap f = intercalate "\n" . map f
-
 -- | Convert spaces in a string to non-breaking spaces
 unBreakCharacters :: String -> String
 unBreakCharacters [] = []
@@ -118,3 +113,6 @@ ppInteger' str =
    in if length taken == 3 && theRest /= ""
         then printf "%s,%s" taken (ppInteger' theRest)
         else taken
+
+newLineMap :: (a -> String) -> [a] -> String
+newLineMap f = intercalate "\n" . map f
