@@ -102,7 +102,7 @@ splitOn' f s = case dropWhile f s of
 
 wrapInTag :: String -> String -> String
 wrapInTag tag content =
-  printf "<%s>\n%s\n</%s>" tag content tag
+  printf "<%s> %s </%s>" tag content tag
 
 ppInteger :: Int -> String
 ppInteger = reverse . ppInteger' . reverse . show
