@@ -8,7 +8,7 @@ import Data.List (find, findIndex, group, groupBy, intercalate, intersect, maxim
 import Data.List.Split (splitOn)
 import Data.Ord (comparing)
 import Data.Teams (all32Teams, all32TeamsPlusLegends, legends)
-import Functions.Application (firstAndLength, orderListOfInts)
+import Functions.Application (firstAndLength, orderListOfInts, printThingsWithAnd)
 import GHC.Generics (Generic)
 import Text.Printf (printf)
 import Types.Basic (EncodedTeamOrMultiple, PlayerName, Position, Team)
@@ -388,7 +388,7 @@ ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =
 ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = newName}))
   | oldName == newName = printf "Replacing %s with a different %s" oldName newName
   | otherwise = printf "Replacing %s with %s" oldName newName
-ppProspectiveChange (Removals ps) = printf "Removing" $ intercalate ", " ps
+ppProspectiveChange (Removals ps) = printf "Removing" $ printThingsWithAnd ps
 
 ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam = "-"
@@ -427,7 +427,7 @@ genHTML inFile outFile n = do
     } <-
     decodeJSONInitObject inFile
   let displayObjects =
-          map (buildObjectToDisplayObject n)
+        map (buildObjectToDisplayObject n)
           . iterativelyApplyProspectiveChanges pcs
           . flattenGroupedLineup
           $ gl
