@@ -108,3 +108,13 @@ splitOn' f s = case dropWhile f s of
 wrapInTag :: String -> String -> String
 wrapInTag tag content =
   printf "<%s>\n%s\n</%s>" tag content tag
+
+ppInteger :: Int -> String
+ppInteger = reverse . ppInteger' . reverse . show
+
+ppInteger' :: String -> String
+ppInteger' str =
+  let (taken, theRest) = splitAt 3 str
+   in if length taken == 3 && theRest /= ""
+        then printf "%s,%s" taken (ppInteger' theRest)
+        else taken
