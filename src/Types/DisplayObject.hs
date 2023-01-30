@@ -1,6 +1,7 @@
 module Types.DisplayObject where
 
 import Data.List
+import Functions.Application
 import Text.Printf
 import Types.BuildObject
 import Types.Lineup
@@ -36,20 +37,34 @@ buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectPro
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
 printDisplayObjectAsHtmlTable
   ( DisplayObject
-      { displayObjectVariation = var,
-        displayObjectProspectiveChange = pc
+      { displayObjectVariation = var
       }
     ) =
     intercalate
       "\n"
       [ "<table>",
-        printf "<tr><th colspan=2>%s</th></tr>" $ ppProspectiveChange pc,
         intercalate "\n"
           . map
             ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
-                printf "<tr><td>%s</td><td>%s</td></tr>" vpn (ppTeamOrMultiple vpt)
+                printf "<tr><td>%s</td><td>%s</td></tr>" (unBreakCharacters vpn) (unBreakCharacters $ ppTeamOrMultiple vpt)
             )
           . variationToList
           $ var,
         "</table>"
       ]
+
+printDisplayObjectsAsHtmlTable :: [DisplayObject] -> String
+printDisplayObjectsAsHtmlTable dos =
+  wrapInTag "table" $
+    ( wrapInTag "thead"
+        . wrapInTag "tr"
+        . intercalate "\n"
+        . map (wrapInTag "th" . ppProspectiveChange . displayObjectProspectiveChange)
+        $ dos
+    )
+      ++ ( wrapInTag "tbody"
+             . intercalate "\n"
+             . map
+               (wrapInTag "td" . printDisplayObjectAsHtmlTable)
+             $ dos
+         )

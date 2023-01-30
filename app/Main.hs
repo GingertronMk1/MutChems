@@ -2,9 +2,8 @@
 -- Module: Main
 module Main (main) where
 
-import Data.List
+import Functions.Application
 import System.Environment
-import Text.Printf
 import Types.ArgumentList
 import Types.Basic
 import Types.BuildObject
@@ -42,12 +41,7 @@ genHTML inFile outFile filterThreshold disregardTeams = do
           . flattenGroupedLineup
           $ gl
   let html =
-        intercalate
-          "\n"
-          [ "<table>",
-            "<tr>",
-            intercalate "\n" . map (printf "<td>%s</td>" . printDisplayObjectAsHtmlTable) $ displayObjects,
-            "</tr>",
-            "</table>"
-          ]
+        wrapInTag "table"
+          . wrapInTag "tr"
+          $ printDisplayObjectsAsHtmlTable displayObjects
   writeFile outFile html

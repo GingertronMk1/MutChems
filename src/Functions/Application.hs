@@ -104,3 +104,7 @@ splitOn' f s = case dropWhile f s of
   s' -> w : splitOn' f s''
     where
       (w, s'') = break f s'
+
+wrapInTag :: String -> String -> String
+wrapInTag tag content =
+  printf "<%s>\n%s\n</%s>" tag content tag

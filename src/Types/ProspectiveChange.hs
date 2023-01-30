@@ -36,8 +36,8 @@ applyProspectiveChange (Removals ps) fl = filter ((`notElem` ps) . playerName) f
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
 ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =
-  printf "Adding %s at %s" name pos
+  printf "Adding %s at %s" (unBreakCharacters name) pos
 ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = newName}))
-  | oldName == newName = printf "Replacing %s with a different %s" oldName newName
-  | otherwise = printf "Replacing %s with %s" oldName newName
-ppProspectiveChange (Removals ps) = printf "Removing" $ printThingsWithAnd ps
+  | oldName == newName = printf "Replacing %s with a different %s" (unBreakCharacters oldName) (unBreakCharacters newName)
+  | otherwise = printf "Replacing %s with %s" (unBreakCharacters oldName) (unBreakCharacters newName)
+ppProspectiveChange (Removals ps) = printf "Removing" $ printThingsWithAnd . map unBreakCharacters $ ps
