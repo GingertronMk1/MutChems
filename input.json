@@ -23,21 +23,6 @@
               "groupedPlayerTeams": ["gronkTeams"]
             }
           ]
-        },
-        {
-          "tag": "Replacement",
-          "contents": [
-            "Tim Tebow",
-            {
-              "groupedPlayerName": "Drew Bledsoe",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Patriots",
-                "Bills",
-                "Cowboys"
-              ]
-            }
-          ]
         }
       ],
       "groupedLineup": [
@@ -309,6 +294,13 @@
         },
         {
           "positionGroupPlayers": [
+            {
+              "groupedPlayerName": "Derrick Brooks",
+              "groupedPlayerTeams": [
+                "Legends",
+                "Buccaneers"
+              ]
+            },
             {
               "groupedPlayerName": "Jonathan Casillas",
               "groupedPlayerTeams": [
