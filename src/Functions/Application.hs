@@ -91,3 +91,16 @@ filterListByNumber n =
     . filter (\toms' -> length toms' >= n)
     . group
     . sort
+
+dropUntil :: (a -> Bool) -> [a] -> [a]
+dropUntil f = tail . dropWhile f
+
+splitOn :: (Char -> Bool) -> String -> [String]
+splitOn f = filter (not . null) . splitOn' f
+
+splitOn' :: (Char -> Bool) -> String -> [String]
+splitOn' f s = case dropWhile f s of
+  "" -> []
+  s' -> w : splitOn' f s''
+    where
+      (w, s'') = break f s'

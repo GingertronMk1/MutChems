@@ -84,3 +84,7 @@ playerToVariationPlayers
         }
       | pTeam <- pTeams
     ]
+
+filterOutTeamsFromPlayer :: [Team] -> Player -> Player
+filterOutTeamsFromPlayer ts p@(Player {playerTeams = pts}) =
+  p {playerTeams = filter (not . teamOrMultipleContainsTeams ts) pts}

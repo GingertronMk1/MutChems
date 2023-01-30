@@ -4,7 +4,7 @@
 module Data.Teams where
 
 import Data.List
-import Data.List.Split
+import Functions.Application
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -303,7 +303,7 @@ decodeTeamOrMultiples etoms = case find ((== head etoms) . fst) specialTeamDesig
 -- | Converting a given Team to a TeamOrMultiple
 decodeTeamOrMultiple :: EncodedTeamOrMultiple -> TeamOrMultiple
 decodeTeamOrMultiple s
-  | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn "|" $ s
+  | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn (== '|') $ s
   | '.' `elem` s =
     let (teamName, '.' : num) = break (== '.') s
      in MultipleTeam teamName (read num :: Int)
