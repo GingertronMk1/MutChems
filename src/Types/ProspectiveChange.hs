@@ -1,49 +1,43 @@
--- | Module: Types.ProspectiveChange
+{-# LANGUAGE DeriveGeneric #-}
+
 module Types.ProspectiveChange where
 
-import Data.List
-import Data.Positions
+import Data.Aeson
 import Functions.Application
+import GHC.Generics
 import Text.Printf
 import Types.Basic
-import Types.TeamOrMultiple
+import Types.Lineup
+import Types.Player
 
--- | A type to represent potential additions/replacements for my squad
 data ProspectiveChange
-  = -- | A Player who will replace another Player in the Lineup
-    Replacement PlayerName Player
-  | -- | A Player who will fit in without displacing another Player
-    Addition Player
-  | -- | No addition or replacement
-    NoChange
-  | -- | Removing a player
-    Removals [PlayerName]
-  deriving (Eq, Show)
+  = Addition GroupedPlayer Position
+  | Replacement PlayerName GroupedPlayer
+  | NoChange
+  | Removals [PlayerName]
+  deriving (Show, Generic)
 
--- | An object containing a Lineup and a ProspectiveChange that has led to that
--- Lineup
-data BuildObject = BuildObject
-  { buildObjectLineup :: Lineup,
-    buildObjectProspectiveChange :: ProspectiveChange
-  }
-  deriving (Eq, Show)
+instance FromJSON ProspectiveChange
 
--- * Functions to add prospective changes to a Lineup
+instance ToJSON ProspectiveChange
 
--- | Nicely print a Prospective Change
+applyProspectiveChange :: ProspectiveChange -> FlatLineup -> FlatLineup
+applyProspectiveChange NoChange fl = fl
+applyProspectiveChange (Addition gp position) fl =
+  let (befores, afters) = break ((== position) . playerPosition) fl
+   in befores ++ (groupedPlayerToPlayer gp position : afters)
+applyProspectiveChange (Replacement oldP newP) fl =
+  case break ((== oldP) . playerName) fl of
+    (_, []) -> error $ printf "No player called %s" oldP
+    (befores, (Player {playerPosition = oldPosition}) : afters) ->
+      befores ++ (groupedPlayerToPlayer newP oldPosition : afters)
+applyProspectiveChange (Removals ps) fl = filter ((`notElem` ps) . playerName) fl
+
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
-ppProspectiveChange (Addition (P {pName = p})) = printf "Adding %s" p
-ppProspectiveChange (Replacement p1 (P {pName = p2}))
-  | p1 == p2 = printf "Replacing %s with a different %s" p1 p2
-  | otherwise = printf "Replacing %s with %s" p1 p2
-ppProspectiveChange (Removals p) = printf "Getting rid of %s" (printThingsWithAnd p)
-
-sortLineupInBuildObject :: BuildObject -> BuildObject
-sortLineupInBuildObject bo@(BuildObject {buildObjectLineup = l}) =
-  bo {buildObjectLineup = sortOn sortPosition l}
-
-sortPosition :: Player -> Int
-sortPosition (P {pPosition = pos}) = case findIndex ((== pos) . fst) numInPositions of
-  Just n -> n
-  Nothing -> length numInPositions
+ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =
+  printf "Adding %s at %s" name pos
+ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = newName}))
+  | oldName == newName = printf "Replacing %s with a different %s" oldName newName
+  | otherwise = printf "Replacing %s with %s" oldName newName
+ppProspectiveChange (Removals ps) = printf "Removing" $ printThingsWithAnd ps

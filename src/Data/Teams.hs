@@ -3,6 +3,8 @@
 -- All the teams
 module Data.Teams where
 
+import Data.List
+import Data.List.Split
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -271,3 +273,38 @@ preferences = [legends, titans, seahawks, eagles, raiders]
 -- | Quick function to add legends to a given list of teams
 withLegends :: [TeamOrMultiple] -> [TeamOrMultiple]
 withLegends ts = Team legends : ts
+
+-- | Some special designations for particular players for whom otherwise
+-- the JSON file would be interminably long
+specialTeamDesignations :: [(EncodedTeamOrMultiple, [TeamOrMultiple])]
+specialTeamDesignations =
+  [ ("all32Teams", all32Teams),
+    ("all32TeamsPlusLegends", all32TeamsPlusLegends),
+    ("gronkTeams", teamsForSlots 2 all32TeamsPlusLegends)
+  ]
+
+encodeTeamOrMultiples :: [TeamOrMultiple] -> [EncodedTeamOrMultiple]
+encodeTeamOrMultiples toms = case find ((== toms) . snd) specialTeamDesignations of
+  Just (enc, _) -> [enc]
+  Nothing -> map encodeTeamOrMultiple toms
+
+-- | TeamOrMultiple - a straightforward one of encoding as a simple string
+encodeTeamOrMultiple :: TeamOrMultiple -> EncodedTeamOrMultiple
+encodeTeamOrMultiple NoTeam = ""
+encodeTeamOrMultiple (Team t) = t
+encodeTeamOrMultiple (MultipleTeam t n) = t ++ "." ++ show n
+encodeTeamOrMultiple (Teams ts) = intercalate "|" . map encodeTeamOrMultiple $ ts
+
+decodeTeamOrMultiples :: [EncodedTeamOrMultiple] -> [TeamOrMultiple]
+decodeTeamOrMultiples etoms = case find ((== head etoms) . fst) specialTeamDesignations of
+  Just (_, toms) -> toms
+  Nothing -> map decodeTeamOrMultiple etoms
+
+-- | Converting a given Team to a TeamOrMultiple
+decodeTeamOrMultiple :: EncodedTeamOrMultiple -> TeamOrMultiple
+decodeTeamOrMultiple s
+  | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn "|" $ s
+  | '.' `elem` s =
+    let (teamName, '.' : num) = break (== '.') s
+     in MultipleTeam teamName (read num :: Int)
+  | otherwise = Team s

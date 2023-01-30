@@ -28,12 +28,15 @@ library
       Data.Calculated
       Data.Other
       Data.Positions
-      Data.Squad
       Data.Teams
       Functions.Application
-      Functions.Display
       Types.Basic
-      Types.JSON.Lineup
+      Types.BuildObject
+      Types.DisplayObject
+      Types.InitObject
+      Types.Lineup
+      Types.Player
+      Types.PositionGroup
       Types.ProspectiveChange
       Types.TeamOrMultiple
       Types.Variation
@@ -43,11 +46,11 @@ library
       src
   ghc-options: -Wall -Wpartial-fields -Wredundant-constraints
   build-depends:
-      aeson >=2 && <3
-    , base >=4.7 && <5
+      aeson ==2.*
+    , base ==4.*
     , bytestring ==0.10.*
     , split ==0.2.*
-    , time >=1.9 && <2
+    , time ==1.*
   default-language: Haskell2010
 
 executable mut-chems-exe
@@ -58,12 +61,12 @@ executable mut-chems-exe
       app
   ghc-options: -Wall -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:
-      aeson >=2 && <3
-    , base >=4.7 && <5
+      aeson ==2.*
+    , base ==4.*
     , bytestring ==0.10.*
     , mut-chems
     , split ==0.2.*
-    , time >=1.9 && <2
+    , time ==1.*
   default-language: Haskell2010
 
 test-suite mut-chems-test
@@ -76,10 +79,10 @@ test-suite mut-chems-test
   ghc-options: -Wall -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       HUnit ==1.6.*
-    , aeson >=2 && <3
-    , base >=4.7 && <5
+    , aeson ==2.*
+    , base ==4.*
     , bytestring ==0.10.*
     , mut-chems
     , split ==0.2.*
-    , time >=1.9 && <2
+    , time ==1.*
   default-language: Haskell2010
