@@ -4,12 +4,9 @@ module Types.Player where
 
 import Data.Aeson
 import Data.List
-import Data.List.Split
 import Data.Ord
 import Data.Teams
-import Functions.Application
 import GHC.Generics
-import Text.Printf
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -61,7 +58,6 @@ toNumerical cv
   | otherwise = (1, bestN)
   where
     (bestT, bestN) = maximumBy (comparing snd) cv
-
 
 reducePlayerTeams ::
   [Team] -> -- The list of banned TeamOrMultiples

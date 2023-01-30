@@ -1,11 +1,12 @@
 {-# LANGUAGE DeriveGeneric #-}
+
 module Types.InitObject where
 
 import Data.Aeson
-import Types.Lineup
 import qualified Data.ByteString.Lazy as BS
-import Types.ProspectiveChange
 import GHC.Generics
+import Types.Lineup
+import Types.ProspectiveChange
 
 data JSONInitObject = JSONInitObject
   { groupedLineup :: GroupedLineup,
@@ -23,4 +24,3 @@ decodeJSONInitObject s = do
   case eitherDecode teamJSON of
     Left err -> error err
     Right tj -> return tj
-

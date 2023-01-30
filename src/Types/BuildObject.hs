@@ -3,7 +3,6 @@ module Types.BuildObject where
 import Types.Lineup
 import Types.ProspectiveChange
 
-
 data BuildObject = BuildObject
   { buildObjectLineup :: FlatLineup,
     buildObjectProspectiveChange :: ProspectiveChange
@@ -25,4 +24,3 @@ iterativelyApplyProspectiveChanges' [] _ = []
 iterativelyApplyProspectiveChanges' (pc : pcs) fl =
   let newFL = applyProspectiveChange pc fl
    in BuildObject {buildObjectLineup = newFL, buildObjectProspectiveChange = pc} : iterativelyApplyProspectiveChanges' pcs newFL
-

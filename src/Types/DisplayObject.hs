@@ -1,14 +1,13 @@
 module Types.DisplayObject where
 
-import Types.Variation
-import Types.ProspectiveChange
-import Types.BuildObject
-import Types.Player
 import Data.List
 import Text.Printf
+import Types.BuildObject
 import Types.Lineup
+import Types.Player
+import Types.ProspectiveChange
 import Types.TeamOrMultiple
-
+import Types.Variation
 
 data DisplayObject = DisplayObject
   { displayObjectVariation :: Variation,
@@ -54,4 +53,3 @@ printDisplayObjectAsHtmlTable
           $ var,
         "</table>"
       ]
-

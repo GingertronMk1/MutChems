@@ -1,15 +1,16 @@
 {-# LANGUAGE DeriveGeneric #-}
+
 module Types.Lineup where
 
 import Data.Aeson
 import Data.List
-import Types.PositionGroup
-import Types.Player
-import GHC.Generics
-import Types.TeamOrMultiple
-import Types.Basic
 import Data.Teams
 import Functions.Application
+import GHC.Generics
+import Types.Basic
+import Types.Player
+import Types.PositionGroup
+import Types.TeamOrMultiple
 
 newtype GroupedLineup = GroupedLineup [PositionGroup]
   deriving (Eq, Show, Generic)
@@ -105,4 +106,3 @@ playerPositionInInitialLineup initialLineup pName =
   case findIndex ((== pName) . playerName) initialLineup of
     Just n -> n
     Nothing -> 1 + length initialLineup
-

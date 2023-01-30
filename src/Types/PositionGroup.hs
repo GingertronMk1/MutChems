@@ -1,10 +1,11 @@
 {-# LANGUAGE DeriveGeneric #-}
+
 module Types.PositionGroup where
 
 import Data.Aeson
+import GHC.Generics
 import Types.Basic
 import Types.Player
-import GHC.Generics
 
 data PositionGroup = PositionGroup
   { positionGroupPosition :: Position,
@@ -15,4 +16,3 @@ data PositionGroup = PositionGroup
 instance FromJSON PositionGroup
 
 instance ToJSON PositionGroup
-

@@ -91,4 +91,3 @@ filterListByNumber n =
     . filter (\toms' -> length toms' >= n)
     . group
     . sort
-

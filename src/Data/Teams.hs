@@ -4,7 +4,6 @@
 module Data.Teams where
 
 import Data.List
-import Data.Maybe
 import Data.List.Split
 import Types.Basic
 import Types.TeamOrMultiple
@@ -309,4 +308,3 @@ decodeTeamOrMultiple s
     let (teamName, '.' : num) = break (== '.') s
      in MultipleTeam teamName (read num :: Int)
   | otherwise = Team s
-

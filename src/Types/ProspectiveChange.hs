@@ -1,14 +1,14 @@
 {-# LANGUAGE DeriveGeneric #-}
+
 module Types.ProspectiveChange where
 
 import Data.Aeson
-import Types.Player
-import Types.Basic
-import GHC.Generics
-import Types.Lineup
-import Text.Printf
 import Functions.Application
-
+import GHC.Generics
+import Text.Printf
+import Types.Basic
+import Types.Lineup
+import Types.Player
 
 data ProspectiveChange
   = Addition GroupedPlayer Position
@@ -41,4 +41,3 @@ ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = new
   | oldName == newName = printf "Replacing %s with a different %s" oldName newName
   | otherwise = printf "Replacing %s with %s" oldName newName
 ppProspectiveChange (Removals ps) = printf "Removing" $ printThingsWithAnd ps
-

@@ -3,13 +3,12 @@
 module Main (main) where
 
 import Data.Calculated (squadFilterThreshold)
-import Types.DisplayObject
-import Types.Lineup
-import Types.InitObject
-import Types.ProspectiveChange
-import Types.BuildObject
 import Data.List
 import Text.Printf
+import Types.BuildObject
+import Types.DisplayObject
+import Types.InitObject
+import Types.Lineup
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()
