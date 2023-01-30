@@ -426,13 +426,11 @@ genHTML inFile outFile n = do
       prospectiveChanges = pcs
     } <-
     decodeJSONInitObject inFile
-  let buildObjects =
-        iterativelyApplyProspectiveChanges pcs
+  let displayObjects =
+          map (buildObjectToDisplayObject n)
+          . iterativelyApplyProspectiveChanges pcs
           . flattenGroupedLineup
           $ gl
-  -- print . head $ buildObjects
-  let displayObjects =
-        map (buildObjectToDisplayObject n) buildObjects
   let html =
         intercalate
           "\n"
