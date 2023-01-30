@@ -20,7 +20,24 @@
             "Rob Gronkowski",
             {
               "groupedPlayerName": "Rob Gronkowski",
-              "groupedPlayerTeams": ["gronkTeams"]
+              "groupedPlayerTeams": [
+                "gronkTeams"
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "Replacement",
+          "contents": [
+            "Steve Atwater",
+            {
+              "groupedPlayerName": "Ed Reed",
+              "groupedPlayerTeams": [
+                "Legends",
+                "Ravens",
+                "Texans",
+                "Jets"
+              ]
             }
           ]
         }
