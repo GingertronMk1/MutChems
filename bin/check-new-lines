@@ -3,9 +3,9 @@
 FILES=$(git status --porcelain)
 
 for line in $FILES; do
-  if [ "$line" != *.json && -e "$line" ]
+  if [[ "$line" != *.json && -e "$line" ]]
   then
-    if [ -s "$line" && -z "$(tail -c 1 "$line")" ]
+    if [[ -s "$line" && -z "$(tail -c 1 "$line")" ]]
     then
         continue
     else
