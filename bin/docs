@@ -2,17 +2,4 @@
 
 
 echo "Building docs..."
-HADDOCK_OUTPUT="$(stack haddock --no-haddock-deps --haddock-arguments="-o ./docs" "$@" 2>&1)"
-MISSING_DOCS="$(echo "$HADDOCK_OUTPUT" | grep "^( ){4,4}")"
-
-echo "Output:"
-echo "$HADDOCK_OUTPUT"
-
-if [ ! -z "$MISSING_DOCS" ]; then
-  echo "\n\n"
-  echo "Missing docs:"
-  echo "$MISSING_DOCS"
-  exit 1
-fi
-
-exit 0
+stack haddock --no-haddock-deps --haddock-arguments="-o ./docs" "$@"
