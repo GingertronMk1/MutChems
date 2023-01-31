@@ -1,605 +1,496 @@
+{
+  "groupedLineup": [
     {
-      "prospectiveChanges": [
+      "positionGroupPlayers": [
         {
-          "tag": "Replacement",
-          "contents": [
-            "Sean Taylor",
-            {
-              "groupedPlayerName": "Ed Reed",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Ravens",
-                "Texans",
-                "Jets"
-              ]
-            }
+          "groupedPlayerName": "Randall Cunningham",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Eagles",
+            "Vikings",
+            "Cowboys",
+            "Ravens"
           ]
         },
         {
-          "tag": "Replacement",
-          "contents": [
-            "Rob Gronkowski",
-            {
-              "groupedPlayerName": "Rob Gronkowski",
-              "groupedPlayerTeams": [
-                "gronkTeams"
-              ]
-            }
-          ]
-        },
-        {
-          "tag": "Replacement",
-          "contents": [
-            "Jim Taylor",
-            {
-              "groupedPlayerName": "Christian Okoye",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Chiefs"
-              ]
-            }
-          ]
-        },
-        {
-          "tag": "Addition",
-          "contents": [
-            {
-              "groupedPlayerName": "William Perry (FB)",
-              "groupedPlayerTeams": [
-                "Bears",
-                "Eagles",
-                "Legends"
-              ]
-            },
-            "Fullback"
+          "groupedPlayerName": "Tim Tebow",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Broncos",
+            "Jets"
           ]
         }
       ],
-      "groupedLineup": [
+      "positionGroupPosition": "Quarterback"
+    },
+    {
+      "positionGroupPlayers": [
         {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Randall Cunningham",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Eagles",
-                "Vikings",
-                "Cowboys",
-                "Ravens"
-              ]
-            },
-            {
-              "groupedPlayerName": "Tim Tebow",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Broncos",
-                "Jets"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Quarterback"
+          "groupedPlayerName": "Keith Byars",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Eagles.2",
+            "Dolphins",
+            "Patriots",
+            "Jets"
+          ]
         },
         {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Keith Byars",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Eagles.2",
-                "Dolphins",
-                "Patriots",
-                "Jets"
-              ]
-            },
-            {
-              "groupedPlayerName": "CJ2K",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Jets",
-                "Cardinals"
-              ]
-            },
-            {
-              "groupedPlayerName": "Rod Woodson (HB)",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Steelers",
-                "Ravens",
-                "49ers",
-                "Raiders"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Halfback"
+          "groupedPlayerName": "CJ2K",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Jets",
+            "Cardinals"
+          ]
         },
         {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Jim Taylor",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Packers",
-                "Saints"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Fullback"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Plaxico Burress",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Steelers",
-                "Giants",
-                "Jets"
-              ]
-            },
-            {
-              "groupedPlayerName": "Herman Moore",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Lions",
-                "Giants"
-              ]
-            },
-            {
-              "groupedPlayerName": "Fred Biletnikoff",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Deion Sanders (WR)",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Ravens",
-                "49ers",
-                "Falcons",
-                "Commanders",
-                "Cowboys"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Wide Receiver"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Delanie Walker",
-              "groupedPlayerTeams": [
-                "Legends",
-                "49ers",
-                "Titans"
-              ]
-            },
-            {
-              "groupedPlayerName": "Dave Casper",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bears",
-                "Lions",
-                "Packers",
-                "Vikings",
-                "Commanders",
-                "Cowboys",
-                "Eagles",
-                "Giants",
-                "Buccaneers",
-                "Falcons",
-                "Panthers",
-                "Saints",
-                "Cardinals",
-                "49ers",
-                "Rams",
-                "Seahawks",
-                "Bengals",
-                "Browns",
-                "Ravens",
-                "Steelers",
-                "Bills",
-                "Dolphins",
-                "Jets",
-                "Patriots",
-                "Colts",
-                "Jaguars",
-                "Texans",
-                "Titans",
-                "Broncos",
-                "Chargers",
-                "Chiefs",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Rob Gronkowski",
-              "groupedPlayerTeams": [
-                "Patriots",
-                "Buccaneers"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Tight End"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Jonathan Ogden",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Ravens"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Left Tackle"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Alan Faneca",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Steelers",
-                "Jets",
-                "Cardinals"
-              ]
-            },
-            {
-              "groupedPlayerName": "Bruce Matthews",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Titans"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Left Guard"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Jay Hilgenberg",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bears",
-                "Browns",
-                "Saints"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Center"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Marshal Yanda",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Ravens"
-              ]
-            },
-            {
-              "groupedPlayerName": "Will Shields",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Chiefs"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Right Guard"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Willie Anderson",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bengals",
-                "Ravens"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Right Tackle"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Sean Taylor",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Commanders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Steve Atwater",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Broncos",
-                "Jets"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Free Safety"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Derrick Brooks",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Buccaneers"
-              ]
-            },
-            {
-              "groupedPlayerName": "Jonathan Casillas",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Buccaneers",
-                "Giants",
-                "Patriots",
-                "Saints"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Right Outside Linebacker"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Ray Nitschke",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Packers"
-              ]
-            },
-            {
-              "groupedPlayerName": "Willie Lanier",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Chiefs"
-              ]
-            },
-            {
-              "groupedPlayerName": "Derrick Johnson",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Chiefs",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Kiko Alonso",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bills",
-                "Dolphins",
-                "Eagles",
-                "Saints"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Middle Linebacker"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Carl Banks",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Browns",
-                "Commanders",
-                "Giants"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Left Outside Linebacker"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Kam Chancellor",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Seahawks"
-              ]
-            },
-            {
-              "groupedPlayerName": "Ted Hendricks",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Raiders",
-                "Packers",
-                "Colts"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Strong Safety"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Calvin Johnson (CB)",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Lions"
-              ]
-            },
-            {
-              "groupedPlayerName": "Deion Sanders",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bears",
-                "Lions",
-                "Packers",
-                "Vikings",
-                "Commanders",
-                "Cowboys",
-                "Eagles",
-                "Giants",
-                "Buccaneers",
-                "Falcons",
-                "Panthers",
-                "Saints",
-                "Cardinals",
-                "49ers",
-                "Rams",
-                "Seahawks",
-                "Bengals",
-                "Browns",
-                "Ravens",
-                "Steelers",
-                "Bills",
-                "Dolphins",
-                "Jets",
-                "Patriots",
-                "Colts",
-                "Jaguars",
-                "Texans",
-                "Titans",
-                "Broncos",
-                "Chargers",
-                "Chiefs",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Rod Woodson",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Steelers",
-                "49ers",
-                "Ravens",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Champ Bailey",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Commanders",
-                "Broncos"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Cornerback"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Bruce Smith",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bills",
-                "Commanders"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Right Defensive End"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Sam Adams",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Bears",
-                "Lions",
-                "Packers",
-                "Vikings",
-                "Commanders",
-                "Cowboys",
-                "Eagles",
-                "Giants",
-                "Buccaneers",
-                "Falcons",
-                "Panthers",
-                "Saints",
-                "Cardinals",
-                "49ers",
-                "Rams",
-                "Seahawks",
-                "Bengals",
-                "Browns",
-                "Ravens",
-                "Steelers",
-                "Bills",
-                "Dolphins",
-                "Jets",
-                "Patriots",
-                "Colts",
-                "Jaguars",
-                "Texans",
-                "Titans",
-                "Broncos",
-                "Chargers",
-                "Chiefs",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Richard Seymour",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Patriots",
-                "Raiders"
-              ]
-            },
-            {
-              "groupedPlayerName": "Tony Siragusa",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Ravens",
-                "Colts"
-              ]
-            },
-            {
-              "groupedPlayerName": "Merlin Olsen",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Rams"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Defensive Tackle"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Jevon Kearse",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Titans",
-                "Eagles"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Left Defensive End"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Adam Vinatieri",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Colts",
-                "Patriots"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Kicker"
-        },
-        {
-          "positionGroupPlayers": [
-            {
-              "groupedPlayerName": "Ray Guy",
-              "groupedPlayerTeams": [
-                "Legends",
-                "Raiders"
-              ]
-            }
-          ],
-          "positionGroupPosition": "Punter"
+          "groupedPlayerName": "Rod Woodson (HB)",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Steelers",
+            "Ravens",
+            "49ers",
+            "Raiders"
+          ]
         }
-      ]
+      ],
+      "positionGroupPosition": "Halfback"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Jim Taylor",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Packers",
+            "Saints"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Fullback"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Plaxico Burress",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Steelers",
+            "Giants",
+            "Jets"
+          ]
+        },
+        {
+          "groupedPlayerName": "Herman Moore",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Lions",
+            "Giants"
+          ]
+        },
+        {
+          "groupedPlayerName": "Fred Biletnikoff",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Raiders"
+          ]
+        },
+        {
+          "groupedPlayerName": "Deion Sanders (WR)",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Ravens",
+            "49ers",
+            "Falcons",
+            "Commanders",
+            "Cowboys"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Wide Receiver"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Delanie Walker",
+          "groupedPlayerTeams": [
+            "Legends",
+            "49ers",
+            "Titans"
+          ]
+        },
+        {
+          "groupedPlayerName": "Dave Casper",
+          "groupedPlayerTeams": [
+            "all32TeamsPlusLegends"
+          ]
+        },
+        {
+          "groupedPlayerName": "Rob Gronkowski",
+          "groupedPlayerTeams": [
+            "Patriots",
+            "Buccaneers"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Tight End"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Jonathan Ogden",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Ravens"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Left Tackle"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Alan Faneca",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Steelers",
+            "Jets",
+            "Cardinals"
+          ]
+        },
+        {
+          "groupedPlayerName": "Bruce Matthews",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Titans"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Left Guard"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Jay Hilgenberg",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Bears",
+            "Browns",
+            "Saints"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Center"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Marshal Yanda",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Ravens"
+          ]
+        },
+        {
+          "groupedPlayerName": "Will Shields",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Chiefs"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Right Guard"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Willie Anderson",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Bengals",
+            "Ravens"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Right Tackle"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Steve Atwater",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Broncos",
+            "Jets"
+          ]
+        },
+        {
+          "groupedPlayerName": "Ed Reed",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Ravens",
+            "Texans",
+            "Jets"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Free Safety"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Derrick Brooks",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Buccaneers"
+          ]
+        },
+        {
+          "groupedPlayerName": "Jonathan Casillas",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Buccaneers",
+            "Giants",
+            "Patriots",
+            "Saints"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Right Outside Linebacker"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Ray Nitschke",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Packers"
+          ]
+        },
+        {
+          "groupedPlayerName": "Willie Lanier",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Chiefs"
+          ]
+        },
+        {
+          "groupedPlayerName": "Derrick Johnson",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Chiefs",
+            "Raiders"
+          ]
+        },
+        {
+          "groupedPlayerName": "Kiko Alonso",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Bills",
+            "Dolphins",
+            "Eagles",
+            "Saints"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Middle Linebacker"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Carl Banks",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Browns",
+            "Commanders",
+            "Giants"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Left Outside Linebacker"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Kam Chancellor",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Seahawks"
+          ]
+        },
+        {
+          "groupedPlayerName": "Ted Hendricks",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Raiders",
+            "Packers",
+            "Colts"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Strong Safety"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Calvin Johnson (CB)",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Lions"
+          ]
+        },
+        {
+          "groupedPlayerName": "Deion Sanders",
+          "groupedPlayerTeams": [
+            "all32TeamsPlusLegends"
+          ]
+        },
+        {
+          "groupedPlayerName": "Rod Woodson",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Steelers",
+            "49ers",
+            "Ravens",
+            "Raiders"
+          ]
+        },
+        {
+          "groupedPlayerName": "Champ Bailey",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Commanders",
+            "Broncos"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Cornerback"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Bruce Smith",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Bills",
+            "Commanders"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Right Defensive End"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Sam Adams",
+          "groupedPlayerTeams": [
+            "all32TeamsPlusLegends"
+          ]
+        },
+        {
+          "groupedPlayerName": "Richard Seymour",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Patriots",
+            "Raiders"
+          ]
+        },
+        {
+          "groupedPlayerName": "Tony Siragusa",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Ravens",
+            "Colts"
+          ]
+        },
+        {
+          "groupedPlayerName": "Merlin Olsen",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Rams"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Defensive Tackle"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Jevon Kearse",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Titans",
+            "Eagles"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Left Defensive End"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Adam Vinatieri",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Colts",
+            "Patriots"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Kicker"
+    },
+    {
+      "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Ray Guy",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Raiders"
+          ]
+        }
+      ],
+      "positionGroupPosition": "Punter"
     }
+  ],
+  "prospectiveChanges": [
+    {
+      "contents": [
+        "Rob Gronkowski",
+        {
+          "groupedPlayerName": "Rob Gronkowski",
+          "groupedPlayerTeams": [
+            "gronkTeams"
+          ]
+        }
+      ],
+      "tag": "Replacement"
+    },
+    {
+      "contents": [
+        "Jim Taylor",
+        {
+          "groupedPlayerName": "Christian Okoye",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Chiefs"
+          ]
+        }
+      ],
+      "tag": "Replacement"
+    },
+    {
+      "contents": [
+        {
+          "groupedPlayerName": "William Perry (FB)",
+          "groupedPlayerTeams": [
+            "Bears",
+            "Eagles",
+            "Legends"
+          ]
+        },
+        "Fullback"
+      ],
+      "tag": "Addition"
+    }
+  ]
+}
