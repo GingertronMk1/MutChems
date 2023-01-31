@@ -75,38 +75,39 @@ unBreakCharacters (c : cs) =
         Just s -> s ++ unBreakCharacters cs
         Nothing -> c : unBreakCharacters cs
 
+-- | Correctly print a list with the appropriate oxford comma
 printThingsWithAnd :: [String] -> String
+printThingsWithAnd [] = ""
 printThingsWithAnd [x] = x
 printThingsWithAnd [x, y] = printf "%s and %s" x y
 printThingsWithAnd xs = printf "%s, and %s" (intercalate ", " $ init xs) (last xs)
 
+-- | Filtering a list to only those items in the list with more than n instances
 filterListByNumber :: Ord a => Int -> [a] -> [a]
-filterListByNumber n =
-  concat
-    . filter (\toms' -> length toms' >= n)
-    . group
-    . sort
+filterListByNumber n xs = filter (\x -> length (filter (==x) xs) >= n) xs
 
-dropUntil :: (a -> Bool) -> [a] -> [a]
-dropUntil f = tail . dropWhile f
-
-splitOn :: (Char -> Bool) -> String -> [String]
+-- Splitting a list into sublists on a predicate
+splitOn :: (a -> Bool) -> [a] -> [[a]]
 splitOn f = filter (not . null) . splitOn' f
 
-splitOn' :: (Char -> Bool) -> String -> [String]
+-- Splitting a list into sublists on a predicate
+splitOn' :: (a -> Bool) -> [a] -> [[a]]
 splitOn' f s = case dropWhile f s of
-  "" -> []
+  [] -> []
   s' -> w : splitOn' f s''
     where
       (w, s'') = break f s'
 
+-- | Wrap a string in an HTML tag
 wrapInTag :: String -> String -> String
 wrapInTag tag content =
   printf "<%s> %s </%s>" tag content tag
 
+-- | Print an integer with comma separators
 ppInteger :: Int -> String
 ppInteger = reverse . ppInteger' . reverse . show
 
+-- | Heavy lifting for the above
 ppInteger' :: String -> String
 ppInteger' str =
   let (taken, theRest) = splitAt 3 str
@@ -114,5 +115,6 @@ ppInteger' str =
         then printf "%s,%s" taken (ppInteger' theRest)
         else taken
 
+-- | Like concatMap but for strings and it puts a newline between them
 newLineMap :: (a -> String) -> [a] -> String
 newLineMap f = intercalate "\n" . map f
