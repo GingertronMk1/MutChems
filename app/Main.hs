@@ -2,8 +2,6 @@
 -- Module: Main
 module Main (main) where
 
-import Data.Aeson
-import qualified Data.ByteString.Lazy as BS
 import Functions.Application
 import System.Environment
 import Types.ArgumentList

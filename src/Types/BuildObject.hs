@@ -15,8 +15,8 @@ iterativelyApplyProspectiveChanges ::
   [ProspectiveChange] ->
   FlatLineup ->
   [BuildObject]
-iterativelyApplyProspectiveChanges pcs fl =
-  BuildObject {buildObjectLineup = fl, buildObjectProspectiveChange = NoChange} : iterativelyApplyProspectiveChanges' pcs fl
+iterativelyApplyProspectiveChanges pcs =
+  iterativelyApplyProspectiveChanges' (NoChange : pcs)
 
 iterativelyApplyProspectiveChanges' ::
   [ProspectiveChange] ->
@@ -24,8 +24,15 @@ iterativelyApplyProspectiveChanges' ::
   [BuildObject]
 iterativelyApplyProspectiveChanges' [] _ = []
 iterativelyApplyProspectiveChanges' (pc : pcs) fl =
-  let newFL = applyProspectiveChange pc fl
-   in BuildObject {buildObjectLineup = newFL, buildObjectProspectiveChange = pc} : iterativelyApplyProspectiveChanges' pcs newFL
+  let bo = genBuildObject pc fl
+   in bo : (iterativelyApplyProspectiveChanges' pcs . buildObjectLineup $ bo)
+
+genBuildObject :: ProspectiveChange -> FlatLineup -> BuildObject
+genBuildObject pc fl =
+  BuildObject
+    { buildObjectLineup = applyProspectiveChange pc fl,
+      buildObjectProspectiveChange = pc
+    }
 
 filterOutTeams :: [Team] -> BuildObject -> BuildObject
 filterOutTeams ts bo@(BuildObject {buildObjectLineup = l}) =
