@@ -130,7 +130,7 @@ reduceFlatLineup' teamThreshold variationLimit lineup
   | otherwise = nextIfNotZero
   where
     nextIfNotZero = reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
-    newLineup = map (filterOutTeamsFromPlayer filteredTeams) lineup
+    newLineup = map (filterInTeamsFromPlayer filteredTeams) lineup
     filteredTeams = filterListByNumber teamThreshold allTeamOrMultiplesInCurrentLineup
     allTeamOrMultiplesInCurrentLineup = allTeamsInLineup lineup
     numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup

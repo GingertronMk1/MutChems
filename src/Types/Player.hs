@@ -15,7 +15,9 @@ import Types.TeamOrMultiple
 
 -- | A Grouped Player, i.e. one contained within a PositionGroup
 data GroupedPlayer = GroupedPlayer
-  { groupedPlayerName :: PlayerName,
+  { -- | The Player's name
+    groupedPlayerName :: PlayerName,
+    -- | The Player's list of TeamOrMultiples, encoded for JSON
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
   }
   deriving (Eq, Show, Generic)
@@ -64,16 +66,29 @@ toNumerical cv
   where
     (bestT, bestN) = maximumBy (comparing snd) cv
 
--- | Cut down the TeamOrMultiples a player has given a set of banned Teams
+-- | Filter a Player's TeamOrMultiples with a list of Teams that should not be included
 filterOutTeamsFromPlayer ::
   [Team] -> -- The list of banned Teams
   Player -> -- Initial Player
   Player -- Fixed Player
-filterOutTeamsFromPlayer toms p@(Player {playerTeams = ts}) =
-  let ts' = case filter (teamOrMultipleContainsTeams toms) ts of
+filterOutTeamsFromPlayer toms =
+  filterPlayersTeamOrMultiples (not . teamOrMultipleContainsTeams toms)
+
+-- | Filter a Player's TeamOrMultiples with a list of Teams that should be included
+filterInTeamsFromPlayer ::
+  [Team] -> -- The list of banned Teams
+  Player -> -- Initial Player
+  Player -- Fixed Player
+filterInTeamsFromPlayer toms =
+  filterPlayersTeamOrMultiples (teamOrMultipleContainsTeams toms)
+
+-- | Filter a Player's TeamOrMultiples based on some predicate
+filterPlayersTeamOrMultiples :: (TeamOrMultiple -> Bool) -> Player -> Player
+filterPlayersTeamOrMultiples f p@(Player {playerTeams = ts}) =
+  let ts' = case filter f ts of
         [] -> [NoTeam]
         ts'' -> ts''
-   in p {playerTeams = ts'}
+  in p { playerTeams = ts'}
 
 -- | Converting a Player to a list of VariationPlayers
 playerToVariationPlayers :: Player -> [VariationPlayer]
