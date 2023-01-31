@@ -84,13 +84,13 @@ printThingsWithAnd xs = printf "%s, and %s" (intercalate ", " $ init xs) (last x
 
 -- | Filtering a list to only those items in the list with more than n instances
 filterListByNumber :: Ord a => Int -> [a] -> [a]
-filterListByNumber n xs = filter (\x -> length (filter (==x) xs) >= n) xs
+filterListByNumber n xs = filter (\x -> length (filter (== x) xs) >= n) xs
 
--- Splitting a list into sublists on a predicate
+-- | Splitting a list into sublists on a predicate
 splitOn :: (a -> Bool) -> [a] -> [[a]]
 splitOn f = filter (not . null) . splitOn' f
 
--- Splitting a list into sublists on a predicate
+-- | Splitting a list into sublists on a predicate
 splitOn' :: (a -> Bool) -> [a] -> [[a]]
 splitOn' f s = case dropWhile f s of
   [] -> []

@@ -5,8 +5,7 @@ import Data.List
 import Text.Printf
 import Types.Basic
 
--- * A TeamOrMultiple - a means of displaying one or more Team Chemistries
-
+-- | A TeamOrMultiple - a means of displaying one or more Team Chemistries
 data TeamOrMultiple
   = -- | Null value.
     NoTeam
@@ -59,16 +58,18 @@ ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
 comboOfTeams = map Teams . sequence
 
--- | Given a list of TeamOrMultiples, generate all combinations for `n` slots
+-- | Given a list of TeamOrMultiples, generate all combinations for 'n' slots
 teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
 
+-- | Converting a TeamOrMultiple its constituent Team
 teamOrMultipleToTeams :: TeamOrMultiple -> [Team]
 teamOrMultipleToTeams NoTeam = []
 teamOrMultipleToTeams (Team t) = [t]
 teamOrMultipleToTeams (MultipleTeam t n) = replicate n t
 teamOrMultipleToTeams (Teams ts) = concatMap teamOrMultipleToTeams ts
 
+-- | Does a given TeamOrMultiple contain any of a given set of Teams
 teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
 teamOrMultipleContainsTeams ts tom =
   let teamOrMultipleTeams = teamOrMultipleToTeams tom

@@ -283,6 +283,22 @@ specialTeamDesignations =
     ("gronkTeams", teamsForSlots 2 all32TeamsPlusLegends)
   ]
 
+-- | Decode a given String into its TeamOrMultiple
+decodeTeamOrMultiples :: [EncodedTeamOrMultiple] -> [TeamOrMultiple]
+decodeTeamOrMultiples etoms = case lookup (head etoms) specialTeamDesignations of
+  Just toms -> toms
+  Nothing -> map decodeTeamOrMultiple etoms
+
+-- | Converting a given Team to a TeamOrMultiple
+decodeTeamOrMultiple :: EncodedTeamOrMultiple -> TeamOrMultiple
+decodeTeamOrMultiple s
+  | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn (== '|') $ s
+  | '.' `elem` s =
+    let (teamName, '.' : num) = break (== '.') s
+     in MultipleTeam teamName (read num :: Int)
+  | otherwise = Team s
+
+-- | Encode a list of TeamOrMultiples
 encodeTeamOrMultiples :: [TeamOrMultiple] -> [EncodedTeamOrMultiple]
 encodeTeamOrMultiples toms = case find ((== toms) . snd) specialTeamDesignations of
   Just (enc, _) -> [enc]
@@ -294,17 +310,3 @@ encodeTeamOrMultiple NoTeam = ""
 encodeTeamOrMultiple (Team t) = t
 encodeTeamOrMultiple (MultipleTeam t n) = t ++ "." ++ show n
 encodeTeamOrMultiple (Teams ts) = intercalate "|" . map encodeTeamOrMultiple $ ts
-
-decodeTeamOrMultiples :: [EncodedTeamOrMultiple] -> [TeamOrMultiple]
-decodeTeamOrMultiples etoms = case find ((== head etoms) . fst) specialTeamDesignations of
-  Just (_, toms) -> toms
-  Nothing -> map decodeTeamOrMultiple etoms
-
--- | Converting a given Team to a TeamOrMultiple
-decodeTeamOrMultiple :: EncodedTeamOrMultiple -> TeamOrMultiple
-decodeTeamOrMultiple s
-  | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn (== '|') $ s
-  | '.' `elem` s =
-    let (teamName, '.' : num) = break (== '.') s
-     in MultipleTeam teamName (read num :: Int)
-  | otherwise = Team s

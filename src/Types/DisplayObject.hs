@@ -1,3 +1,4 @@
+-- | Module: Types.DisplayObject
 module Types.DisplayObject where
 
 import Functions.Application
@@ -8,12 +9,14 @@ import Types.ProspectiveChange
 import Types.TeamOrMultiple
 import Types.Variation
 
+-- | The DisplayObject, something to print to HTML
 data DisplayObject = DisplayObject
   { displayObjectVariation :: Variation,
     displayObjectProspectiveChange :: ProspectiveChange
   }
   deriving (Show)
 
+-- | Converting a BuildObject to its best possible DisplayObject
 buildObjectToDisplayObject :: Int -> BuildObject -> DisplayObject
 buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
   let newFlatLineup = reduceFlatLineupRecursive n l
@@ -22,6 +25,7 @@ buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectPro
           displayObjectProspectiveChange = pc
         }
 
+-- | Print a given DisplayObject as an HTML Table
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
 printDisplayObjectAsHtmlTable
   ( DisplayObject
@@ -40,6 +44,7 @@ printDisplayObjectAsHtmlTable
       . variationToList
       $ var
 
+-- | Print a list of DisplayObjects to one large HTML table
 printDisplayObjectsAsHtmlTable :: [DisplayObject] -> String
 printDisplayObjectsAsHtmlTable dos =
   wrapInTag "table" $

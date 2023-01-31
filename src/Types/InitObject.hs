@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
+-- | Module: Types.InitObject
 module Types.InitObject where
 
 import Data.Aeson
@@ -12,6 +13,7 @@ import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange
 
+-- | The InitObject, what we get out of the JSON file
 data JSONInitObject = JSONInitObject
   { groupedLineup :: GroupedLineup,
     prospectiveChanges :: [ProspectiveChange]
@@ -22,6 +24,7 @@ instance FromJSON JSONInitObject
 
 instance ToJSON JSONInitObject
 
+-- | Decoding the InitObject from a JSON file
 decodeJSONInitObject :: String -> IO JSONInitObject
 decodeJSONInitObject s = do
   teamJSON <- BS.readFile s
@@ -29,6 +32,7 @@ decodeJSONInitObject s = do
     Left err -> error err
     Right tj -> return tj
 
+-- | If we step an InitObject, write it to a file and return it
 stepInitObject :: ArgumentList -> JSONInitObject -> IO JSONInitObject
 stepInitObject (ArgumentList {argInputFile = inputFile, argStepCount = stepCount}) jsio =
   do
@@ -39,6 +43,7 @@ stepInitObject (ArgumentList {argInputFile = inputFile, argStepCount = stepCount
         return steppedInitObject
       else return jsio
 
+-- | Step an InitObject, applying the first ProspectiveChange to the lineup
 stepInitObject' :: Int -> JSONInitObject -> JSONInitObject
 stepInitObject'
   n

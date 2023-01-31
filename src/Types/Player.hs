@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
+-- | Module: Types.Player
 module Types.Player where
 
 import Data.Aeson
@@ -12,6 +13,7 @@ import Types.TeamOrMultiple
 
 -- * Definitions for the types that go into JSON
 
+-- | A Grouped Player, i.e. one contained within a PositionGroup
 data GroupedPlayer = GroupedPlayer
   { groupedPlayerName :: PlayerName,
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
@@ -24,6 +26,7 @@ instance ToJSON GroupedPlayer
 
 -- * Definitions for the types that we use for regular analysis
 
+-- | A Player, i.e. one part of an ungrouped lineup
 data Player = Player
   { playerName :: PlayerName,
     playerTeams :: [TeamOrMultiple],
@@ -31,6 +34,7 @@ data Player = Player
   }
   deriving (Eq, Ord, Show)
 
+-- | A Variation Player, i.e. one assigned to a single TeamOrMultiple
 data VariationPlayer = VariationPlayer
   { variationPlayerName :: PlayerName,
     variationPlayerTeam :: TeamOrMultiple,
@@ -38,6 +42,7 @@ data VariationPlayer = VariationPlayer
   }
   deriving (Eq, Ord, Show)
 
+-- | Converting a GroupedPlayer to a regular Player
 groupedPlayerToPlayer :: GroupedPlayer -> Position -> Player
 groupedPlayerToPlayer (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) pos =
   Player
@@ -59,16 +64,18 @@ toNumerical cv
   where
     (bestT, bestN) = maximumBy (comparing snd) cv
 
-reducePlayerTeams ::
-  [Team] -> -- The list of banned TeamOrMultiples
+-- | Cut down the TeamOrMultiples a player has given a set of banned Teams
+filterOutTeamsFromPlayer ::
+  [Team] -> -- The list of banned Teams
   Player -> -- Initial Player
   Player -- Fixed Player
-reducePlayerTeams toms p@(Player {playerTeams = ts}) =
+filterOutTeamsFromPlayer toms p@(Player {playerTeams = ts}) =
   let ts' = case filter (teamOrMultipleContainsTeams toms) ts of
         [] -> [NoTeam]
         ts'' -> ts''
    in p {playerTeams = ts'}
 
+-- | Converting a Player to a list of VariationPlayers
 playerToVariationPlayers :: Player -> [VariationPlayer]
 playerToVariationPlayers
   ( Player
@@ -84,7 +91,3 @@ playerToVariationPlayers
         }
       | pTeam <- pTeams
     ]
-
-filterOutTeamsFromPlayer :: [Team] -> Player -> Player
-filterOutTeamsFromPlayer ts p@(Player {playerTeams = pts}) =
-  p {playerTeams = filter (not . teamOrMultipleContainsTeams ts) pts}

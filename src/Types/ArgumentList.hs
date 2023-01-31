@@ -1,3 +1,4 @@
+-- | Module: Types.ArgumentList
 module Types.ArgumentList where
 
 import Data.Calculated
@@ -5,15 +6,22 @@ import Functions.Application
 import Text.Printf
 import Types.Basic
 
+-- | The argument list
 data ArgumentList = ArgumentList
-  { argDisregardTeams :: [Team],
+  { -- | The list of Teams to disregard
+    argDisregardTeams :: [Team],
+    -- | The max number of Variations that should be allowed when filtering
     argFilterThreshold :: Int,
+    -- | The JSON file to read from
     argInputFile :: String,
+    -- | The markdown file to output to
     argOutputFile :: String,
+    -- | Should we "increment" the input file
     argStepCount :: Int
   }
   deriving (Show)
 
+-- | The base list of arguments
 emptyArgumentList :: ArgumentList
 emptyArgumentList =
   ArgumentList
@@ -24,6 +32,7 @@ emptyArgumentList =
       argStepCount = 0
     }
 
+-- | Generate the argument list and show us what they are
 compileArgumentListAndPrintResults :: [String] -> IO ArgumentList
 compileArgumentListAndPrintResults args = do
   let argumentList@( ArgumentList
@@ -45,14 +54,17 @@ compileArgumentListAndPrintResults args = do
   putStrLn $ printf "Variation limit: %s" (ppInteger filterThreshold)
   return argumentList
 
+-- | Converting a list of arguments to an ArgumentList
 argumentsToArgumentList :: [String] -> ArgumentList
 argumentsToArgumentList = argumentsToArgumentList' emptyArgumentList
 
+-- | Helper for the above
 argumentsToArgumentList' :: ArgumentList -> [String] -> ArgumentList
 argumentsToArgumentList' args [] = args
 argumentsToArgumentList' args ss =
   foldl argumentsToArgumentList'' args ss
 
+-- | Helper for the above above
 argumentsToArgumentList'' :: ArgumentList -> String -> ArgumentList
 argumentsToArgumentList'' args s =
   case break (== '=') s of

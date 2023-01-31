@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
+-- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
 import Data.Aeson
@@ -10,17 +11,23 @@ import Types.Basic
 import Types.Lineup
 import Types.Player
 
+-- | A Prospective Change to a FlatLineup
 data ProspectiveChange
-  = Addition GroupedPlayer Position
-  | Replacement PlayerName GroupedPlayer
-  | NoChange
-  | Removals [PlayerName]
+  = -- | An addition to the lineup
+    Addition GroupedPlayer Position
+  | -- | Replacing a given Player with another one
+    Replacement PlayerName GroupedPlayer
+  | -- | Remove players
+    Removals [PlayerName]
+  | -- | No change
+    NoChange
   deriving (Show, Generic)
 
 instance FromJSON ProspectiveChange
 
 instance ToJSON ProspectiveChange
 
+-- | Apply a given prospective change
 applyProspectiveChange :: ProspectiveChange -> FlatLineup -> FlatLineup
 applyProspectiveChange NoChange fl = fl
 applyProspectiveChange (Addition gp position) fl =
@@ -33,6 +40,7 @@ applyProspectiveChange (Replacement oldP newP) fl =
       befores ++ (groupedPlayerToPlayer newP oldPosition : afters)
 applyProspectiveChange (Removals ps) fl = filter ((`notElem` ps) . playerName) fl
 
+-- | Nicely print a given prospective change
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
 ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =

@@ -1,11 +1,13 @@
 module Types.Variation where
 
+-- Module: Types.Variation
 import Data.List
 import Functions.Application
 import Types.Basic
 import Types.Player
 import Types.TeamOrMultiple
 
+-- | The Variation, a list of Players with one TeamOrMultiple each
 newtype Variation = Variation [VariationPlayer]
   deriving (Eq, Show)
 
@@ -24,6 +26,7 @@ instance Ord Variation where
       (ord1, n1) = toNumerical converted1
       (ord2, n2) = toNumerical converted2
 
+-- | Convert a Variation into a simple list of VariationPlayers
 variationToList :: Variation -> [VariationPlayer]
 variationToList (Variation v) = v
 
@@ -43,6 +46,7 @@ variationToTeams (Variation v) =
       )
     $ v
 
+-- | Convert a FlatLineup into a list of its available Variations
 flatLineupToVariations :: [Player] -> [Variation]
 flatLineupToVariations =
   map Variation
