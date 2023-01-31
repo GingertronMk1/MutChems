@@ -1,8 +1,6 @@
 module Types.DisplayObject where
 
-import Data.List
 import Functions.Application
-import Text.Printf
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
@@ -15,16 +13,6 @@ data DisplayObject = DisplayObject
     displayObjectProspectiveChange :: ProspectiveChange
   }
   deriving (Show)
-
-ppDisplayObject :: DisplayObject -> String
-ppDisplayObject (DisplayObject {displayObjectVariation = var}) =
-  intercalate "\n"
-    . map
-      ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt, variationPlayerPosition = vpp}) ->
-          printf "%s | %s | %s" vpn (show vpt) vpp
-      )
-    . variationToList
-    $ var
 
 buildObjectToDisplayObject :: Int -> BuildObject -> DisplayObject
 buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
@@ -40,31 +28,28 @@ printDisplayObjectAsHtmlTable
       { displayObjectVariation = var
       }
     ) =
-    intercalate
-      "\n"
-      [ "<table>",
-        intercalate "\n"
-          . map
-            ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
-                printf "<tr><td>%s</td><td>%s</td></tr>" (unBreakCharacters vpn) (unBreakCharacters $ ppTeamOrMultiple vpt)
-            )
-          . variationToList
-          $ var,
-        "</table>"
-      ]
+    wrapInTag "table"
+      . newLineMap
+        ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
+            wrapInTag "tr"
+              . concatMap (wrapInTag "td" . unBreakCharacters)
+              $ [ vpn,
+                  ppTeamOrMultiple vpt
+                ]
+        )
+      . variationToList
+      $ var
 
 printDisplayObjectsAsHtmlTable :: [DisplayObject] -> String
 printDisplayObjectsAsHtmlTable dos =
   wrapInTag "table" $
     ( wrapInTag "thead"
         . wrapInTag "tr"
-        . intercalate "\n"
-        . map (wrapInTag "th" . ppProspectiveChange . displayObjectProspectiveChange)
+        . newLineMap (wrapInTag "th" . ppProspectiveChange . displayObjectProspectiveChange)
         $ dos
     )
       ++ ( wrapInTag "tbody"
-             . intercalate "\n"
-             . map
+             . newLineMap
                (wrapInTag "td" . printDisplayObjectAsHtmlTable)
              $ dos
          )

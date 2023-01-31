@@ -20,11 +20,15 @@ emptyArgumentList =
 
 compileArgumentListAndPrintResults :: [String] -> IO ArgumentList
 compileArgumentListAndPrintResults args = do
-  let argumentList = argumentsToArgumentList args
-  case argDisregardTeams argumentList of
+  let argumentList@( ArgumentList
+                       { argDisregardTeams = disregardTeams,
+                         argFilterThreshold = filterThreshold
+                       }
+                     ) = argumentsToArgumentList args
+  case disregardTeams of
     [] -> putStrLn "Not disregarding any teams"
     ts -> putStrLn $ printf "Disregarding %s" (printThingsWithAnd ts)
-  putStrLn $ printf "Variation limit: %d" (argFilterThreshold argumentList)
+  putStrLn $ printf "Variation limit: %s" (ppInteger filterThreshold)
   return argumentList
 
 argumentsToArgumentList :: [String] -> ArgumentList

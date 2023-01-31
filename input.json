@@ -1,17 +1,18 @@
     {
       "prospectiveChanges": [
         {
-          "tag": "Addition",
+          "tag": "Replacement",
           "contents": [
+            "Sean Taylor",
             {
-              "groupedPlayerName": "William Perry (FB)",
+              "groupedPlayerName": "Ed Reed",
               "groupedPlayerTeams": [
-                "Bears",
-                "Eagles",
-                "Legends"
+                "Legends",
+                "Ravens",
+                "Texans",
+                "Jets"
               ]
-            },
-            "Fullback"
+            }
           ]
         },
         {
@@ -29,16 +30,28 @@
         {
           "tag": "Replacement",
           "contents": [
-            "Steve Atwater",
+            "Jim Taylor",
             {
-              "groupedPlayerName": "Ed Reed",
+              "groupedPlayerName": "Christian Okoye",
               "groupedPlayerTeams": [
                 "Legends",
-                "Ravens",
-                "Texans",
-                "Jets"
+                "Chiefs"
               ]
             }
+          ]
+        },
+        {
+          "tag": "Addition",
+          "contents": [
+            {
+              "groupedPlayerName": "William Perry (FB)",
+              "groupedPlayerTeams": [
+                "Bears",
+                "Eagles",
+                "Legends"
+              ]
+            },
+            "Fullback"
           ]
         }
       ],
