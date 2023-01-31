@@ -15,23 +15,24 @@ main :: IO ()
 main = do
   args <- getArgs
   argumentList <- compileArgumentListAndPrintResults args
-  genHTML argumentList
+  initObject <- decodeJSONInitObject . argInputFile $ argumentList
+  processedInitObject <- stepInitObject argumentList initObject
+  genHTML processedInitObject argumentList
   putStrLn "Done"
 
-genHTML :: ArgumentList -> IO ()
+genHTML :: JSONInitObject -> ArgumentList -> IO ()
 genHTML
+  ( JSONInitObject
+      { groupedLineup = gl,
+        prospectiveChanges = pcs
+      }
+    )
   ( ArgumentList
       { argFilterThreshold = filterThreshold,
         argDisregardTeams = disregardTeams,
-        argInputFile = inputFile,
         argOutputFile = outputFile
       }
     ) = do
-    JSONInitObject
-      { groupedLineup = gl,
-        prospectiveChanges = pcs
-      } <-
-      decodeJSONInitObject inputFile
     let displayObjects =
           map (buildObjectToDisplayObject filterThreshold . filterOutTeams disregardTeams)
             . iterativelyApplyProspectiveChanges pcs

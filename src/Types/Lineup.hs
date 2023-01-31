@@ -4,6 +4,7 @@ module Types.Lineup where
 
 import Data.Aeson
 import Data.List
+import Data.Positions
 import Data.Teams
 import Functions.Application
 import GHC.Generics
@@ -86,23 +87,32 @@ groupFlatLineup fl =
           . sortOn playerPosition
           $ fl
    in GroupedLineup $
-        map
-          ( \ps ->
-              PositionGroup
-                { positionGroupPosition = playerPosition . head $ ps,
-                  positionGroupPlayers =
-                    [ GroupedPlayer
-                        { groupedPlayerName = pn,
-                          groupedPlayerTeams = encodeTeamOrMultiples pts
-                        }
-                      | (Player {playerName = pn, playerTeams = pts}) <- ps
-                    ]
-                }
-          )
-          groups
+        sortPositionGroups
+          . map
+            ( \ps ->
+                PositionGroup
+                  { positionGroupPosition = playerPosition . head $ ps,
+                    positionGroupPlayers =
+                      [ GroupedPlayer
+                          { groupedPlayerName = pn,
+                            groupedPlayerTeams = encodeTeamOrMultiples pts
+                          }
+                        | (Player {playerName = pn, playerTeams = pts}) <- ps
+                      ]
+                  }
+            )
+          $ groups
 
 playerPositionInInitialLineup :: FlatLineup -> PlayerName -> Int
 playerPositionInInitialLineup initialLineup pName =
   case findIndex ((== pName) . playerName) initialLineup of
     Just n -> n
     Nothing -> 1 + length initialLineup
+
+sortPositionGroups :: [PositionGroup] -> [PositionGroup]
+sortPositionGroups = sortOn (sortPositionGroups' . positionGroupPosition)
+
+sortPositionGroups' :: Position -> Int
+sortPositionGroups' p = case findIndex ((== p) . fst) numInPositions of
+  Just n -> n
+  Nothing -> 1 + length numInPositions
