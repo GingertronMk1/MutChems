@@ -35,7 +35,7 @@ reduceFlatLineupRecursive' n fl =
         (noTeams, fl') ->
           (fl' ++)
             . reduceFlatLineupRecursive' n
-            . filter (\p -> playerName p `elem` map playerName noTeams)
+            . filter (\(Player {playerName = pName}) -> pName `elem` map playerName noTeams)
             $ fl
 
 reduceFlatLineup :: Int -> FlatLineup -> (FlatLineup, Int)
@@ -113,6 +113,6 @@ sortPositionGroups :: [PositionGroup] -> [PositionGroup]
 sortPositionGroups = sortOn (sortPositionGroups' . positionGroupPosition)
 
 sortPositionGroups' :: Position -> Int
-sortPositionGroups' p = case findIndex ((== p) . fst) numInPositions of
+sortPositionGroups' pos = case findIndex ((== pos) . fst) numInPositions of
   Just n -> n
   Nothing -> 1 + length numInPositions
