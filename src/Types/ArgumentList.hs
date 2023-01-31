@@ -9,7 +9,8 @@ data ArgumentList = ArgumentList
   { argDisregardTeams :: [Team],
     argFilterThreshold :: Int,
     argInputFile :: String,
-    argOutputFile :: String
+    argOutputFile :: String,
+    argStepCount :: Int
   }
   deriving (Show)
 
@@ -19,7 +20,8 @@ emptyArgumentList =
     { argDisregardTeams = [],
       argFilterThreshold = squadFilterThreshold,
       argInputFile = "input.json",
-      argOutputFile = "output.md"
+      argOutputFile = "output.md",
+      argStepCount = 0
     }
 
 compileArgumentListAndPrintResults :: [String] -> IO ArgumentList
@@ -28,10 +30,14 @@ compileArgumentListAndPrintResults args = do
                        { argDisregardTeams = disregardTeams,
                          argFilterThreshold = filterThreshold,
                          argInputFile = inputFile,
-                         argOutputFile = outputFile
+                         argOutputFile = outputFile,
+                         argStepCount = stepCount
                        }
                      ) = argumentsToArgumentList args
   putStrLn $ printf "Taking input from %s" inputFile
+  if stepCount > 0
+    then putStrLn $ printf "Stepping %s %d times" inputFile stepCount
+    else putStrLn "Not stepping"
   putStrLn $ printf "Outputting to %s" outputFile
   case disregardTeams of
     [] -> putStrLn "Not disregarding any teams"
@@ -55,4 +61,5 @@ argumentsToArgumentList'' args s =
     ("--threshold", '=' : n) -> (args {argFilterThreshold = read n})
     ("--inputFile", '=' : f) -> (args {argInputFile = f})
     ("--outputFile", '=' : f) -> (args {argOutputFile = f})
+    ("--stepCount", '=' : n) -> (args {argStepCount = read n})
     _ -> args
