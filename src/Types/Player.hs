@@ -17,7 +17,7 @@ import Types.TeamOrMultiple
 data GroupedPlayer = GroupedPlayer
   { -- | The Player's name
     groupedPlayerName :: PlayerName,
-    -- | The Player's list of TeamOrMultiples, encoded for JSON
+    -- | All of their available team chemistries
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
   }
   deriving (Eq, Show, Generic)
@@ -30,16 +30,22 @@ instance ToJSON GroupedPlayer
 
 -- | A Player, i.e. one part of an ungrouped lineup
 data Player = Player
-  { playerName :: PlayerName,
+  { -- | The name of the player
+    playerName :: PlayerName,
+    -- | All of their available team chemistries
     playerTeams :: [TeamOrMultiple],
+    -- | The Player's Position
     playerPosition :: Position
   }
   deriving (Eq, Ord, Show)
 
 -- | A Variation Player, i.e. one assigned to a single TeamOrMultiple
 data VariationPlayer = VariationPlayer
-  { variationPlayerName :: PlayerName,
+  { -- | The name of the player
+    variationPlayerName :: PlayerName,
+    -- | One of their available TeamOrMultiples
     variationPlayerTeam :: TeamOrMultiple,
+    -- | Their position
     variationPlayerPosition :: Position
   }
   deriving (Eq, Ord, Show)
@@ -68,17 +74,23 @@ toNumerical cv
 
 -- | Filter a Player's TeamOrMultiples with a list of Teams that should not be included
 filterOutTeamsFromPlayer ::
-  [Team] -> -- The list of banned Teams
-  Player -> -- Initial Player
-  Player -- Fixed Player
+  -- | The list of banned Teams
+  [Team] ->
+  -- | Initial Player
+  Player ->
+  -- | Fixed Player
+  Player
 filterOutTeamsFromPlayer toms =
   filterPlayersTeamOrMultiples (not . teamOrMultipleContainsTeams toms)
 
 -- | Filter a Player's TeamOrMultiples with a list of Teams that should be included
 filterInTeamsFromPlayer ::
-  [Team] -> -- The list of banned Teams
-  Player -> -- Initial Player
-  Player -- Fixed Player
+  -- | The list of banned Teams
+  [Team] ->
+  -- | Initial Player
+  Player ->
+  -- Fixed Player
+  Player
 filterInTeamsFromPlayer toms =
   filterPlayersTeamOrMultiples (teamOrMultipleContainsTeams toms)
 
@@ -88,7 +100,7 @@ filterPlayersTeamOrMultiples f p@(Player {playerTeams = ts}) =
   let ts' = case filter f ts of
         [] -> [NoTeam]
         ts'' -> ts''
-  in p { playerTeams = ts'}
+   in p {playerTeams = ts'}
 
 -- | Converting a Player to a list of VariationPlayers
 playerToVariationPlayers :: Player -> [VariationPlayer]
