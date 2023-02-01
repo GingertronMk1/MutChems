@@ -2,7 +2,6 @@
 -- Module: Main
 module Main (main) where
 
-import Data.List
 import Functions.Application
 import System.Environment
 import Types.ArgumentList
@@ -10,7 +9,6 @@ import Types.BuildObject
 import Types.DisplayObject
 import Types.InitObject
 import Types.Lineup
-import Types.Player
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()

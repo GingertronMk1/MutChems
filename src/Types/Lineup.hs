@@ -133,8 +133,7 @@ reduceFlatLineup' teamThreshold variationLimit lineup
   where
     nextIfNotZero = reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
     newLineup = map (filterInTeamsFromPlayer filteredTeams) lineup
-    filteredTeams = filterListByNumber teamThreshold allTeamOrMultiplesInCurrentLineup
-    allTeamOrMultiplesInCurrentLineup = allTeamsInLineup lineup
+    filteredTeams = filterListByNumber teamThreshold . allTeamsInLineup $ lineup
     numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
 
 printPlayerTeamsInLineup :: FlatLineup -> [(Team, [Player], [Player])]
@@ -145,7 +144,7 @@ printPlayerTeamsInLineup fl =
 
 printPlayersBelongingToTeam :: [Player] -> Team -> (Team, [Player], [Player])
 printPlayersBelongingToTeam ps t =
-  let (ins, outs) = partition ((/= [NoTeam]) . playerTeams . filterInTeamsFromPlayer [t]) $ ps
+  let (ins, outs) = partition ((/= [NoTeam]) . playerTeams . filterInTeamsFromPlayer [t]) ps
    in ( t,
         ins,
         outs
