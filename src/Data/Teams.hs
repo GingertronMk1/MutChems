@@ -144,98 +144,68 @@ vikings = "Vikings"
 
 -- * Divisions
 
--- | All of the teams in the NFC North
-nfcNorth :: [TeamOrMultiple]
-nfcNorth =
-  map
-    Team
-    [ bears,
-      lions,
-      packers,
-      vikings
-    ]
+teamsToTeamOrMultiples :: [Team] -> [TeamOrMultiple]
+teamsToTeamOrMultiples = map Team
 
--- | All of the teams in the NFC East
-nfcEast :: [TeamOrMultiple]
-nfcEast =
-  map
-    Team
-    [ commanders,
-      cowboys,
-      eagles,
-      giants
-    ]
+-- | All of the teams in the NFCAsTeamOrMultiples North
+nfcNorth :: [Team]
+nfcNorth = [bears, lions, packers, vikings]
 
--- | All of the teams in the NFC South
-nfcSouth :: [TeamOrMultiple]
-nfcSouth =
-  map
-    Team
-    [ buccaneers,
-      falcons,
-      panthers,
-      saints
-    ]
+nfcNorthAsTeamOrMultiples :: [TeamOrMultiple]
+nfcNorthAsTeamOrMultiples = teamsToTeamOrMultiples nfcNorth
 
--- | All of the teams in the NFC West
-nfcWest :: [TeamOrMultiple]
-nfcWest =
-  map
-    Team
-    [ cardinals,
-      niners,
-      rams,
-      seahawks
-    ]
+-- | All of the teams in the NFCAsTeamOrMultiples East
+nfcEast :: [Team]
+nfcEast = [commanders, cowboys, giants, eagles]
 
--- | All of the teams in the AFC North
-afcNorth :: [TeamOrMultiple]
-afcNorth =
-  map
-    Team
-    [ bengals,
-      browns,
-      ravens,
-      steelers
-    ]
+nfcEastAsTeamOrMultiples :: [TeamOrMultiple]
+nfcEastAsTeamOrMultiples = teamsToTeamOrMultiples nfcEast
 
--- | All of the teams in the AFC East
-afcEast :: [TeamOrMultiple]
-afcEast =
-  map
-    Team
-    [ bills,
-      dolphins,
-      jets,
-      patriots
-    ]
+-- | All of the teams in the NFCAsTeamOrMultiples South
+nfcSouth :: [Team]
+nfcSouth = [buccaneers, falcons, panthers, saints]
 
--- | All of the teams in the AFC South
-afcSouth :: [TeamOrMultiple]
-afcSouth =
-  map
-    Team
-    [ colts,
-      jaguars,
-      texans,
-      titans
-    ]
+nfcSouthAsTeamOrMultiples :: [TeamOrMultiple]
+nfcSouthAsTeamOrMultiples = teamsToTeamOrMultiples nfcSouth
 
--- | All of the teams in the AFC West
-afcWest :: [TeamOrMultiple]
-afcWest =
-  map
-    Team
-    [ broncos,
-      chargers,
-      chiefs,
-      raiders
-    ]
+-- | All of the teams in the NFCAsTeamOrMultiples West
+nfcWest :: [Team]
+nfcWest = [cardinals, niners, rams, seahawks]
+
+nfcWestAsTeamOrMultiples :: [TeamOrMultiple]
+nfcWestAsTeamOrMultiples = teamsToTeamOrMultiples nfcWest
+
+-- | All of the teams in the AFCAsTeamOrMultiples North
+afcNorth :: [Team]
+afcNorth = [bengals, browns, ravens, steelers]
+
+afcNorthAsTeamOrMultiples :: [TeamOrMultiple]
+afcNorthAsTeamOrMultiples = teamsToTeamOrMultiples afcNorth
+
+-- | All of the teams in the AFCAsTeamOrMultiples East
+afcEast :: [Team]
+afcEast = [bills, dolphins, jets, patriots]
+
+afcEastAsTeamOrMultiples :: [TeamOrMultiple]
+afcEastAsTeamOrMultiples = teamsToTeamOrMultiples afcEast
+
+-- | All of the teams in the AFCAsTeamOrMultiples South
+afcSouth :: [Team]
+afcSouth = [colts, jaguars, texans, titans]
+
+afcSouthAsTeamOrMultiples :: [TeamOrMultiple]
+afcSouthAsTeamOrMultiples = teamsToTeamOrMultiples afcSouth
+
+-- | All of the teams in the AFCAsTeamOrMultiples West
+afcWest :: [Team]
+afcWest = [broncos, chargers, chiefs, raiders]
+
+afcWestAsTeamOrMultiples :: [TeamOrMultiple]
+afcWestAsTeamOrMultiples = teamsToTeamOrMultiples afcWest
 
 -- * Conferences
 
--- | All of the teams in the NFC
-nfc :: [TeamOrMultiple]
+nfc :: [Team]
 nfc =
   concat
     [ nfcNorth,
@@ -244,8 +214,11 @@ nfc =
       nfcWest
     ]
 
--- | All of the teams in the AFC
-afc :: [TeamOrMultiple]
+-- | All of the teams in the NFCAsTeamOrMultiples
+nfcAsTeamOrMultiples :: [TeamOrMultiple]
+nfcAsTeamOrMultiples = teamsToTeamOrMultiples nfc
+
+afc :: [Team]
 afc =
   concat
     [ afcNorth,
@@ -254,33 +227,35 @@ afc =
       afcWest
     ]
 
+-- | All of the teams in the AFCAsTeamOrMultiples
+afcAsTeamOrMultiples :: [TeamOrMultiple]
+afcAsTeamOrMultiples = teamsToTeamOrMultiples afc
+
 -- * League
 
--- | All of the teams in the NFL
-all32Teams :: [TeamOrMultiple]
+all32Teams :: [Team]
 all32Teams = nfc ++ afc
 
+-- | All of the teams in the NFL
+all32TeamsAsTeamOrMultiples :: [TeamOrMultiple]
+all32TeamsAsTeamOrMultiples = teamsToTeamOrMultiples all32Teams
+
+all32TeamsPlusLegends :: [Team]
+all32TeamsPlusLegends = legends : all32Teams
+
 -- | All of the teams in the NFL plus retired teams
-all32TeamsPlusLegends :: [TeamOrMultiple]
-all32TeamsPlusLegends = withLegends all32Teams
+all32TeamsPlusLegendsAsTeamOrMultiples :: [TeamOrMultiple]
+all32TeamsPlusLegendsAsTeamOrMultiples = teamsToTeamOrMultiples all32TeamsPlusLegends
 
 -- * Other bits
-
--- | The theme teams I would rather make
-preferences :: [Team]
-preferences = [legends, titans, seahawks, eagles, raiders]
-
--- | Quick function to add legends to a given list of teams
-withLegends :: [TeamOrMultiple] -> [TeamOrMultiple]
-withLegends ts = Team legends : ts
 
 -- | Some special designations for particular players for whom otherwise
 -- the JSON file would be interminably long
 specialTeamDesignations :: [(EncodedTeamOrMultiple, [TeamOrMultiple])]
 specialTeamDesignations =
-  [ ("all32Teams", all32Teams),
-    ("all32TeamsPlusLegends", all32TeamsPlusLegends),
-    ("gronkTeams", teamsForSlots 2 all32TeamsPlusLegends)
+  [ ("all32Teams", all32TeamsAsTeamOrMultiples),
+    ("all32TeamsPlusLegends", all32TeamsPlusLegendsAsTeamOrMultiples),
+    ("gronkTeams", teamsForSlots 2 all32TeamsPlusLegendsAsTeamOrMultiples)
   ]
 
 -- | Decode a given String into its TeamOrMultiple

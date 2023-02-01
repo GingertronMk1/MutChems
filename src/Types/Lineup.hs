@@ -5,10 +5,12 @@ module Types.Lineup where
 
 import Data.Aeson
 import Data.List
+import Data.Ord
 import Data.Positions
 import Data.Teams
 import Functions.Application
 import GHC.Generics
+import Text.Printf
 import Types.Basic
 import Types.Player
 import Types.PositionGroup
@@ -134,3 +136,51 @@ reduceFlatLineup' teamThreshold variationLimit lineup
     filteredTeams = filterListByNumber teamThreshold allTeamOrMultiplesInCurrentLineup
     allTeamOrMultiplesInCurrentLineup = allTeamsInLineup lineup
     numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
+
+printPlayerTeamsInLineup :: FlatLineup -> [(Team, [Player], [Player])]
+printPlayerTeamsInLineup fl =
+  sortOn (\(_, ps, _) -> Down . length $ ps)
+    . map (printPlayersBelongingToTeam fl)
+    $ all32TeamsPlusLegends
+
+printPlayersBelongingToTeam :: [Player] -> Team -> (Team, [Player], [Player])
+printPlayersBelongingToTeam ps t =
+  let (ins, outs) = partition ((/= [NoTeam]) . playerTeams . filterInTeamsFromPlayer [t]) $ ps
+   in ( t,
+        ins,
+        outs
+      )
+
+printPlayersBelongingToTeamsToMarkdown :: FlatLineup -> String
+printPlayersBelongingToTeamsToMarkdown fl =
+  let playersInTeams = printPlayerTeamsInLineup fl
+   in intercalate "\n\n"
+        . map printPlayersAsMarkDownSection
+        $ playersInTeams
+
+printPlayersAsMarkDownSection :: (Team, [Player], [Player]) -> String
+printPlayersAsMarkDownSection (t, ins, outs) =
+  intercalate
+    "\n"
+    [ wrapInTag "h2" $ printf "<a id=\"%s\">%s (%d/%d)</a>" t t (length ins) (length (ins ++ outs)),
+      "\n",
+      wrapInTag "h4" $ printf "Has %s chemistry" t,
+      "\n",
+      "| Player | Position |",
+      "|:---|---|",
+      intercalate "\n"
+        . map printPlayerAsMarkDownRow
+        $ ins,
+      "\n",
+      wrapInTag "h4" $ printf "Does not have %s chemistry" t,
+      "\n",
+      "| Player | Position |",
+      "|:---|---|",
+      intercalate "\n"
+        . map printPlayerAsMarkDownRow
+        $ outs
+    ]
+
+printPlayerAsMarkDownRow :: Player -> String
+printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition}) =
+  printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters pPosition)

@@ -118,3 +118,10 @@ playerToVariationPlayers
         }
       | pTeam <- pTeams
     ]
+
+doesPlayerBelongToTeam :: Team -> Player -> Bool
+doesPlayerBelongToTeam t =
+  not
+    . null
+    . playerTeams
+    . filterInTeamsFromPlayer [t]
