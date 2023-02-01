@@ -20,26 +20,22 @@ iterativelyApplyProspectiveChanges ::
   [ProspectiveChange] ->
   FlatLineup ->
   [BuildObject]
-iterativelyApplyProspectiveChanges pcs =
-  iterativelyApplyProspectiveChanges' (NoChange : pcs)
+iterativelyApplyProspectiveChanges pcs fl =
+  scanl
+    stepBuildObject
+    ( BuildObject
+        { buildObjectLineup = fl,
+          buildObjectProspectiveChange = NoChange
+        }
+    )
+    pcs
 
--- | Apply the list of Prospective Changes to an initial FlatLineup and return the
--- resultant list of BuildObjects
-iterativelyApplyProspectiveChanges' ::
-  [ProspectiveChange] ->
-  FlatLineup ->
-  [BuildObject]
-iterativelyApplyProspectiveChanges' [] _ = []
-iterativelyApplyProspectiveChanges' (pc : pcs) fl =
-  let bo = genBuildObject pc fl
-   in bo : (iterativelyApplyProspectiveChanges' pcs . buildObjectLineup $ bo)
-
--- | Take a ProspectiveChange and a FlatLineup and create a BuildObject from the
--- result
-genBuildObject :: ProspectiveChange -> FlatLineup -> BuildObject
-genBuildObject pc fl =
+-- | "Stepping" a BuildObject - applying a ProspectiveChange to the FlatLineup
+-- contained within
+stepBuildObject :: BuildObject -> ProspectiveChange -> BuildObject
+stepBuildObject (BuildObject {buildObjectLineup = currLineup}) pc =
   BuildObject
-    { buildObjectLineup = applyProspectiveChange pc fl,
+    { buildObjectLineup = applyProspectiveChange pc currLineup,
       buildObjectProspectiveChange = pc
     }
 
