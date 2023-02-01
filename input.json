@@ -59,11 +59,18 @@
     {
       "positionGroupPlayers": [
         {
-          "groupedPlayerName": "Jim Taylor",
+          "groupedPlayerName": "William Perry (FB)",
+          "groupedPlayerTeams": [
+            "Bears",
+            "Eagles",
+            "Legends"
+          ]
+        },
+        {
+          "groupedPlayerName": "Christian Okoye",
           "groupedPlayerTeams": [
             "Legends",
-            "Packers",
-            "Saints"
+            "Chiefs"
           ]
         }
       ],
@@ -346,21 +353,20 @@
           ]
         },
         {
-          "groupedPlayerName": "Rod Woodson",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Steelers",
-            "49ers",
-            "Ravens",
-            "Raiders"
-          ]
-        },
-        {
           "groupedPlayerName": "Champ Bailey",
           "groupedPlayerTeams": [
             "Legends",
             "Commanders",
             "Broncos"
+          ]
+        },
+        {
+          "groupedPlayerName": "Richard Sherman",
+          "groupedPlayerTeams": [
+            "Seahawks",
+            "49ers",
+            "Buccaneers",
+            "Legends"
           ]
         }
       ],
@@ -464,33 +470,6 @@
         }
       ],
       "tag": "Replacement"
-    },
-    {
-      "contents": [
-        "Jim Taylor",
-        {
-          "groupedPlayerName": "Christian Okoye",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Chiefs"
-          ]
-        }
-      ],
-      "tag": "Replacement"
-    },
-    {
-      "contents": [
-        {
-          "groupedPlayerName": "William Perry (FB)",
-          "groupedPlayerTeams": [
-            "Bears",
-            "Eagles",
-            "Legends"
-          ]
-        },
-        "Fullback"
-      ],
-      "tag": "Addition"
     }
   ]
 }
