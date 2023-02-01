@@ -18,12 +18,17 @@ data DisplayObject = DisplayObject
 
 -- | Converting a BuildObject to its best possible DisplayObject
 buildObjectToDisplayObject :: Int -> BuildObject -> DisplayObject
-buildObjectToDisplayObject n (BuildObject {buildObjectLineup = l, buildObjectProspectiveChange = pc}) =
-  let newFlatLineup = reduceFlatLineupRecursive n l
-   in DisplayObject
-        { displayObjectVariation = maximum . flatLineupToVariations $ newFlatLineup,
-          displayObjectProspectiveChange = pc
-        }
+buildObjectToDisplayObject
+  n
+  ( BuildObject
+      { buildObjectLineup = l,
+        buildObjectProspectiveChange = pc
+      }
+    ) =
+    DisplayObject
+      { displayObjectVariation = maximum . flatLineupToVariations . reduceFlatLineupRecursive n $ l,
+        displayObjectProspectiveChange = pc
+      }
 
 -- | Print a given DisplayObject as an HTML Table
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
