@@ -68,10 +68,9 @@ argumentsToArgumentList' args ss =
 argumentsToArgumentList'' :: ArgumentList -> String -> ArgumentList
 argumentsToArgumentList'' args s =
   case break (== '=') s of
-    ("--disregardTeams", '=' : ts) ->
-      (args {argDisregardTeams = splitOn (== ',') ts})
-    ("--threshold", '=' : n) -> (args {argFilterThreshold = read n})
-    ("--inputFile", '=' : f) -> (args {argInputFile = f})
-    ("--outputFile", '=' : f) -> (args {argOutputFile = f})
-    ("--stepCount", '=' : n) -> (args {argStepCount = read n})
+    ("--disregardTeams", '=' : ts) -> args {argDisregardTeams = splitOn (== ',') ts}
+    ("--threshold", '=' : n) -> args {argFilterThreshold = read n}
+    ("--inputFile", '=' : f) -> args {argInputFile = f}
+    ("--outputFile", '=' : f) -> args {argOutputFile = f}
+    ("--stepCount", '=' : n) -> args {argStepCount = read n}
     _ -> args
