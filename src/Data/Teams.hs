@@ -247,6 +247,10 @@ all32TeamsPlusLegends = legends : all32Teams
 all32TeamsPlusLegendsAsTeamOrMultiples :: [TeamOrMultiple]
 all32TeamsPlusLegendsAsTeamOrMultiples = teamsToTeamOrMultiples all32TeamsPlusLegends
 
+-- | The teams available for Rob Gronkowski's special S3 card
+gronkTeams :: [TeamOrMultiple]
+gronkTeams = teamsForSlots 2 all32TeamsPlusLegendsAsTeamOrMultiples
+
 -- * Other bits
 
 -- | Some special designations for particular players for whom otherwise
@@ -255,7 +259,7 @@ specialTeamDesignations :: [(EncodedTeamOrMultiple, [TeamOrMultiple])]
 specialTeamDesignations =
   [ ("all32Teams", all32TeamsAsTeamOrMultiples),
     ("all32TeamsPlusLegends", all32TeamsPlusLegendsAsTeamOrMultiples),
-    ("gronkTeams", teamsForSlots 2 all32TeamsPlusLegendsAsTeamOrMultiples)
+    ("gronkTeams", gronkTeams)
   ]
 
 -- | Decode a given String into its TeamOrMultiple

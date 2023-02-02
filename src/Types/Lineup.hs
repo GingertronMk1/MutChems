@@ -33,7 +33,7 @@ allTeamOrMultiplesInLineup = concatMap playerTeams
 
 -- | Getting all of the Teams represented in a given FlatLineup
 allTeamsInLineup :: FlatLineup -> [Team]
-allTeamsInLineup = concatMap teamOrMultipleToTeams . allTeamOrMultiplesInLineup
+allTeamsInLineup = concatMap (nub . teamOrMultipleToTeams) . allTeamOrMultiplesInLineup
 
 -- * Lineup definitions
 
@@ -182,3 +182,10 @@ printPlayersAsMarkDownSection (t, ins, outs) =
 printPlayerAsMarkDownRow :: Player -> String
 printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition}) =
   printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters pPosition)
+
+ppLineup :: FlatLineup -> String
+ppLineup = intercalate "\n" . map ppPlayer
+
+ppPlayer :: Player -> String
+ppPlayer (Player {playerName = pName, playerTeams = pTeams, playerPosition = pPosition}) =
+  printf "%s|%s, %s" pName pPosition (printThingsWithAnd . map ppTeamOrMultiple $ pTeams)

@@ -64,3 +64,7 @@ stepInitObject'
                 $ initialFlatLineup,
             prospectiveChanges = remainingChanges
           }
+
+initObjectToBuildObjects :: JSONInitObject -> [BuildObject]
+initObjectToBuildObjects (JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
+  iterativelyApplyProspectiveChanges pcs . flattenGroupedLineup $ gl

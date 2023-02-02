@@ -9,6 +9,13 @@ import Types.ProspectiveChange
 import Types.TeamOrMultiple
 import Types.Variation
 
+-- | An intermediate Object, containing a list of Variations and the ProspectiveChange
+data IntermediateObject = IntermediateObject
+  { iObjVariations :: [Variation],
+    iObjProspectiveChange :: ProspectiveChange
+  }
+  deriving (Show)
+
 -- | The DisplayObject, something to print to HTML
 data DisplayObject = DisplayObject
   { displayObjectVariation :: Variation,
@@ -16,19 +23,27 @@ data DisplayObject = DisplayObject
   }
   deriving (Show)
 
--- | Converting a BuildObject to its best possible DisplayObject
-buildObjectToDisplayObject :: Int -> BuildObject -> DisplayObject
-buildObjectToDisplayObject
+buildObjectToIntermediateObject :: Int -> BuildObject -> IntermediateObject
+buildObjectToIntermediateObject
   n
   ( BuildObject
       { buildObjectLineup = l,
         buildObjectProspectiveChange = pc
       }
     ) =
-    DisplayObject
-      { displayObjectVariation = maximum . flatLineupToVariations . reduceFlatLineupRecursive n $ l,
-        displayObjectProspectiveChange = pc
+    IntermediateObject
+      { iObjVariations = flatLineupToVariations . reduceFlatLineupRecursive n $ l,
+        iObjProspectiveChange = pc
       }
+
+-- | Converting a BuildObject to its best possible DisplayObject
+intermediateObjectToDisplayObject :: IntermediateObject -> DisplayObject
+intermediateObjectToDisplayObject
+  ( IntermediateObject
+      { iObjVariations = vars,
+        iObjProspectiveChange = pc
+      }
+    ) = DisplayObject {displayObjectVariation = maximum vars, displayObjectProspectiveChange = pc}
 
 -- | Print a given DisplayObject as an HTML Table
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
