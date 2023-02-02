@@ -3,13 +3,11 @@
     {
       "positionGroupPlayers": [
         {
-          "groupedPlayerName": "Randall Cunningham",
+          "groupedPlayerName": "Steve Young",
           "groupedPlayerTeams": [
             "Legends",
-            "Eagles",
-            "Vikings",
-            "Cowboys",
-            "Ravens"
+            "49ers",
+            "Buccaneers"
           ]
         },
         {
@@ -57,15 +55,8 @@
       "positionGroupPosition": "Halfback"
     },
     {
+      "positionGroupPosition": "Fullback",
       "positionGroupPlayers": [
-        {
-          "groupedPlayerName": "William Perry (FB)",
-          "groupedPlayerTeams": [
-            "Bears",
-            "Eagles",
-            "Legends"
-          ]
-        },
         {
           "groupedPlayerName": "Christian Okoye",
           "groupedPlayerTeams": [
@@ -73,8 +64,7 @@
             "Chiefs"
           ]
         }
-      ],
-      "positionGroupPosition": "Fullback"
+      ]
     },
     {
       "positionGroupPlayers": [
@@ -164,13 +154,6 @@
             "Jets",
             "Cardinals"
           ]
-        },
-        {
-          "groupedPlayerName": "Bruce Matthews",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Titans"
-          ]
         }
       ],
       "positionGroupPosition": "Left Guard"
@@ -196,13 +179,6 @@
           "groupedPlayerTeams": [
             "Legends",
             "Ravens"
-          ]
-        },
-        {
-          "groupedPlayerName": "Will Shields",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Chiefs"
           ]
         }
       ],
@@ -459,6 +435,19 @@
     }
   ],
   "prospectiveChanges": [
+    {
+      "tag": "Replacement",
+      "contents": [
+        "Plaxico Burress",
+        {
+          "groupedPlayerName": "Julian Edelman",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Patriots"
+          ]
+        }
+      ]
+    },
     {
       "contents": [
         "Rob Gronkowski",
