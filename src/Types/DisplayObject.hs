@@ -1,7 +1,11 @@
 -- | Module: Types.DisplayObject
 module Types.DisplayObject where
 
+import Data.List
+import Data.Ord
 import Functions.Application
+import Text.Printf
+import Types.Basic
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
@@ -49,7 +53,7 @@ intermediateObjectToDisplayObject
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
 printDisplayObjectAsHtmlTable
   ( DisplayObject
-      { displayObjectVariation = var
+      { displayObjectVariation = (Variation var)
       }
     ) =
     wrapInTag "table"
@@ -61,20 +65,59 @@ printDisplayObjectAsHtmlTable
                   ppTeamOrMultiple vpt
                 ]
         )
-      . variationToList
       $ var
 
 -- | Print a list of DisplayObjects to one large HTML table
 printDisplayObjectsAsHtmlTable :: [DisplayObject] -> String
-printDisplayObjectsAsHtmlTable dos =
-  wrapInTag "table" $
-    ( wrapInTag "thead"
-        . wrapInTag "tr"
-        . newLineMap (wrapInTag "th" . ppProspectiveChange . displayObjectProspectiveChange)
-        $ dos
-    )
-      ++ ( wrapInTag "tbody"
-             . newLineMap
-               (wrapInTag "td" . printDisplayObjectAsHtmlTable)
-             $ dos
-         )
+printDisplayObjectsAsHtmlTable =
+  wrapInTag "table" . concat
+    . reverseMap
+      [ printDisplayObjectsAsTableHead,
+        printDisplayObjectsAsTableBody,
+        printDisplayObjectsAsTableFoot
+      ]
+
+printDisplayObjectsAsTableBody :: [DisplayObject] -> String
+printDisplayObjectsAsTableBody =
+  wrapInTag "tbody"
+    . newLineMap
+      ( wrapInTag "td"
+          . printDisplayObjectAsHtmlTable
+      )
+
+printDisplayObjectsAsTableHead :: [DisplayObject] -> String
+printDisplayObjectsAsTableHead =
+  wrapInTag "thead"
+    . wrapInTag "tr"
+    . newLineMap
+      ( wrapInTag "th"
+          . ppProspectiveChange
+          . displayObjectProspectiveChange
+      )
+
+printDisplayObjectsAsTableFoot :: [DisplayObject] -> String
+printDisplayObjectsAsTableFoot =
+  wrapInTag "tfoot"
+    . wrapInTag "tr"
+    . newLineMap
+      ( wrapInTag "td"
+          . wrapInTag "ul"
+          . concatMap
+            ( wrapInTag "li"
+                . unBreakCharacters
+                . uncurry (printf "%s: %d")
+            )
+          . getTeamCountsFromDisplayObject
+      )
+
+getTeamCountsFromDisplayObject :: DisplayObject -> [(Team, Int)]
+getTeamCountsFromDisplayObject (DisplayObject {displayObjectVariation = (Variation var)}) =
+  sortOn
+    (Down . snd)
+    [ (head ts, length ts)
+      | ts <-
+          group
+            . sort
+            . concatMap (teamOrMultipleToTeams . variationPlayerTeam)
+            $ var
+    ]

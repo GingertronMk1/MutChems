@@ -26,10 +26,6 @@ instance Ord Variation where
       (ord1, n1) = toNumerical converted1
       (ord2, n2) = toNumerical converted2
 
--- | Convert a Variation into a simple list of VariationPlayers
-variationToList :: Variation -> [VariationPlayer]
-variationToList (Variation v) = v
-
 -- | Get a list of all represented teams and how many there are in a given Variation
 teamsInVariation :: Variation -> [(Team, Int)]
 teamsInVariation =

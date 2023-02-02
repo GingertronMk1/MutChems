@@ -118,3 +118,6 @@ ppInteger' str =
 -- | Like concatMap but for strings and it puts a newline between them
 newLineMap :: (a -> String) -> [a] -> String
 newLineMap f = intercalate "\n" . map f
+
+reverseMap :: [a -> b] -> a -> [b]
+reverseMap fs v = map (\f -> f v) fs
