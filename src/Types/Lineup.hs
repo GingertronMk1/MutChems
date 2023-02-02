@@ -109,12 +109,12 @@ reduceFlatLineupRecursive n fl =
 -- | Reduce the number of TeamOrMultiples in a FlatLineup,
 -- ensuring all Players have at least one TeamOrMultiple assigned to them
 reduceFlatLineupRecursive' :: Int -> FlatLineup -> FlatLineup
-reduceFlatLineupRecursive' n fl =
-  case partition ((== [NoTeam]) . playerTeams) . fst . reduceFlatLineup n $ fl of
+reduceFlatLineupRecursive' threshold fl =
+  case partition ((== [NoTeam]) . playerTeams) . fst . reduceFlatLineup threshold $ fl of
     ([], fl') -> fl'
     (noTeams, fl') ->
       (fl' ++)
-        . reduceFlatLineupRecursive' n
+        . reduceFlatLineupRecursive' (threshold `div` 2)
         . filter (\(Player {playerName = pName}) -> pName `elem` map playerName noTeams)
         $ fl
 
