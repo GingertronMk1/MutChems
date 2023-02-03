@@ -48,4 +48,4 @@ ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =
 ppProspectiveChange (Replacement oldName (GroupedPlayer {groupedPlayerName = newName}))
   | oldName == newName = printf "Replacing %s with a different %s" (unBreakCharacters oldName) (unBreakCharacters newName)
   | otherwise = printf "Replacing %s with %s" (unBreakCharacters oldName) (unBreakCharacters newName)
-ppProspectiveChange (Removals ps) = printf "Removing" $ printThingsWithAnd . map unBreakCharacters $ ps
+ppProspectiveChange (Removals ps) = "Removing " ++ (printThingsWithAnd . map unBreakCharacters $ ps)
