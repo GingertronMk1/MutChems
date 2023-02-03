@@ -189,3 +189,4 @@ ppLineup = intercalate "\n" . map ppPlayer
 ppPlayer :: Player -> String
 ppPlayer (Player {playerName = pName, playerTeams = pTeams, playerPosition = pPosition}) =
   printf "%s|%s, %s" pName pPosition (printThingsWithAnd . map ppTeamOrMultiple $ pTeams)
+

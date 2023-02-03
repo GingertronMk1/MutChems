@@ -53,18 +53,11 @@ intermediateObjectToDisplayObject
 printDisplayObjectAsHtmlTable :: DisplayObject -> String
 printDisplayObjectAsHtmlTable
   ( DisplayObject
-      { displayObjectVariation = (Variation var)
+      { displayObjectVariation = var
       }
     ) =
     wrapInTag "table"
-      . newLineMap
-        ( \(VariationPlayer {variationPlayerName = vpn, variationPlayerTeam = vpt}) ->
-            wrapInTag "tr"
-              . concatMap (wrapInTag "td" . unBreakCharacters)
-              $ [ vpn,
-                  ppTeamOrMultiple vpt
-                ]
-        )
+      . printVariationAsHtmlTable
       $ var
 
 -- | Print a list of DisplayObjects to one large HTML table

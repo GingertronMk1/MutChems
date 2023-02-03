@@ -100,8 +100,10 @@ splitOn' f s = case dropWhile f s of
 
 -- | Wrap a string in an HTML tag
 wrapInTag :: String -> String -> String
-wrapInTag tag content =
-  printf "<%s> %s </%s>" tag content tag
+wrapInTag input content =
+  let (tag : theRest) = words input
+      tagAttrs = concatMap (' ':) theRest
+  in printf "<%s%s> %s </%s>" tag tagAttrs content tag
 
 -- | Print an integer with comma separators
 ppInteger :: Int -> String
