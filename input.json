@@ -70,6 +70,13 @@
     {
       "positionGroupPlayers": [
         {
+          "groupedPlayerName": "Julian Edelman",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Patriots"
+          ]
+        },
+        {
           "groupedPlayerName": "Herman Moore",
           "groupedPlayerTeams": [
             "Legends",
@@ -94,19 +101,19 @@
             "Commanders",
             "Cowboys"
           ]
-        },
-        {
-          "groupedPlayerName": "Julian Edelman",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Patriots"
-          ]
         }
       ],
       "positionGroupPosition": "Wide Receiver"
     },
     {
       "positionGroupPlayers": [
+        {
+          "groupedPlayerName": "Rob Gronkowski",
+          "groupedPlayerTeams": [
+            "Patriots",
+            "Buccaneers"
+          ]
+        },
         {
           "groupedPlayerName": "Delanie Walker",
           "groupedPlayerTeams": [
@@ -119,13 +126,6 @@
           "groupedPlayerName": "Dave Casper",
           "groupedPlayerTeams": [
             "all32TeamsPlusLegends"
-          ]
-        },
-        {
-          "groupedPlayerName": "Rob Gronkowski",
-          "groupedPlayerTeams": [
-            "Patriots",
-            "Buccaneers"
           ]
         }
       ],
