@@ -16,9 +16,11 @@ for line in $FILES; do
   fi
 done
 
-if [[ $(jq input.json) != $(cat input.json)]]
-then
-  exec 1&>2
-  echo "input.json is incorrectly formatted"
-  exit 1
+if [[ -x "$(command -v jq)" ]]; then
+  if [[ $(jq input.json) != $(cat input.json) ]]
+  then
+    exec 1&>2
+    echo "input.json is incorrectly formatted"
+    exit 1
+  fi
 fi
