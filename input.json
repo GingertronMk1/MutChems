@@ -57,10 +57,11 @@
     {
       "positionGroupPlayers": [
         {
-          "groupedPlayerName": "Christian Okoye",
+          "groupedPlayerName": "Jim Taylor",
           "groupedPlayerTeams": [
             "Legends",
-            "Chiefs"
+            "Packers",
+            "Saints"
           ]
         }
       ],
@@ -335,6 +336,13 @@
             "Buccaneers",
             "Legends"
           ]
+        },
+        {
+          "groupedPlayerName": "Lester Hayes",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Patriots"
+          ]
         }
       ],
       "positionGroupPosition": "Cornerback"
@@ -361,11 +369,10 @@
           ]
         },
         {
-          "groupedPlayerName": "Richard Seymour",
+          "groupedPlayerName": "Darnell Dockett",
           "groupedPlayerTeams": [
             "Legends",
-            "Patriots",
-            "Raiders"
+            "Cardinals.2"
           ]
         },
         {
@@ -433,19 +440,6 @@
           "groupedPlayerName": "Rob Gronkowski",
           "groupedPlayerTeams": [
             "gronkTeams"
-          ]
-        }
-      ],
-      "tag": "Replacement"
-    },
-    {
-      "contents": [
-        "Richard Seymour",
-        {
-          "groupedPlayerName": "Darnell Dockett",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Cardinals.2"
           ]
         }
       ],
