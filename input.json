@@ -3,17 +3,18 @@
     {
       "positionGroupPlayers": [
         {
-          "groupedPlayerName": "Steve Young",
-          "groupedPlayerTeams": [
-            "Legends",
-            "49ers",
-            "Buccaneers"
-          ]
-        },
-        {
           "groupedPlayerName": "Tim Tebow",
           "groupedPlayerTeams": [
             "Legends",
+            "Broncos",
+            "Jets"
+          ]
+        },
+        {
+          "groupedPlayerName": "Joe Flacco",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Ravens",
             "Broncos",
             "Jets"
           ]
@@ -433,20 +434,6 @@
     }
   ],
   "prospectiveChanges": [
-    {
-      "contents": [
-        "Steve Young",
-        {
-          "groupedPlayerName": "Tom Brady",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Buccaneers",
-            "Patriots"
-          ]
-        }
-      ],
-      "tag":"Replacement"
-    },
     {
       "contents": [
         "Rob Gronkowski",
