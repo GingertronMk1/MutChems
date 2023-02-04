@@ -56,7 +56,12 @@ ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 
 -- | Generate Teams instances for combinations of teams
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
-comboOfTeams = nub . map (Teams . sort) . sequence
+comboOfTeams = nub . map comboOfTeams' . sequence
+
+comboOfTeams' :: [TeamOrMultiple] -> TeamOrMultiple
+comboOfTeams' toms = case (group . sort) toms of
+  [toms'@((Team t):_)] -> MultipleTeam t $ length toms'
+  toms' -> Teams $ concat toms'
 
 -- | Given a list of TeamOrMultiples, generate all combinations for 'n' slots
 teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
