@@ -435,6 +435,20 @@
   "prospectiveChanges": [
     {
       "contents": [
+        "Steve Young",
+        {
+          "groupedPlayerName": "Tom Brady",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Buccaneers",
+            "Patriots"
+          ]
+        }
+      ],
+      "tag":"Replacement"
+    },
+    {
+      "contents": [
         "Rob Gronkowski",
         {
           "groupedPlayerName": "Rob Gronkowski",
