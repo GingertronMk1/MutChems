@@ -59,7 +59,12 @@ compileArgumentListAndPrintResults args = do
 argumentsToArgumentList :: [String] -> ArgumentList
 argumentsToArgumentList =
   foldl
-    (\args' s -> foldl (argumentsToArgumentList' s) args' processedArgumentPrefixesAndFunctions)
+    ( \args' s ->
+        foldl
+          (argumentsToArgumentList' s)
+          args'
+          processedArgumentPrefixesAndFunctions
+    )
     emptyArgumentList
 
 argumentsToArgumentList' ::
