@@ -57,25 +57,17 @@ compileArgumentListAndPrintResults args = do
 
 -- | Converting a list of arguments to an ArgumentList
 argumentsToArgumentList :: [String] -> ArgumentList
-argumentsToArgumentList = argumentsToArgumentList' emptyArgumentList
-
--- | Helper for the above
-argumentsToArgumentList' :: ArgumentList -> [String] -> ArgumentList
-argumentsToArgumentList' args [] = args
-argumentsToArgumentList' args ss =
+argumentsToArgumentList =
   foldl
-    (\args' s -> foldl (argumentsToArgumentList'' s) args' processedArgumentPrefixesAndFunctions)
-    args
-    ss
+    (\args' s -> foldl (argumentsToArgumentList' s) args' processedArgumentPrefixesAndFunctions)
+    emptyArgumentList
 
-argumentsToArgumentList'' ::
+argumentsToArgumentList' ::
   String ->
   ArgumentList ->
   (String, ArgumentList -> String -> ArgumentList) ->
   ArgumentList
-argumentsToArgumentList'' s args (s', f) = case stripPrefix s' s of
-  Just s'' -> f args s''
-  Nothing -> args
+argumentsToArgumentList' s args (prefix, f) = maybe args (f args) (stripPrefix prefix s)
 
 processedArgumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
 processedArgumentPrefixesAndFunctions =
