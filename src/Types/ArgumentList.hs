@@ -2,6 +2,7 @@
 module Types.ArgumentList where
 
 import Data.Calculated
+import Data.List
 import Functions.Application
 import Text.Printf
 import Types.Basic
@@ -62,15 +63,31 @@ argumentsToArgumentList = argumentsToArgumentList' emptyArgumentList
 argumentsToArgumentList' :: ArgumentList -> [String] -> ArgumentList
 argumentsToArgumentList' args [] = args
 argumentsToArgumentList' args ss =
-  foldl argumentsToArgumentList'' args ss
+  foldl
+    (\args' s -> foldl (argumentsToArgumentList'' s) args' processedArgumentPrefixesAndFunctions)
+    args
+    ss
 
--- | Helper for the above above
-argumentsToArgumentList'' :: ArgumentList -> String -> ArgumentList
-argumentsToArgumentList'' args s =
-  case break (== '=') s of
-    ("--disregardTeams", '=' : ts) -> args {argDisregardTeams = splitOn (== ',') ts}
-    ("--threshold", '=' : n) -> args {argFilterThreshold = read n}
-    ("--inputFile", '=' : f) -> args {argInputFile = f}
-    ("--outputFile", '=' : f) -> args {argOutputFile = f}
-    ("--stepCount", '=' : n) -> args {argStepCount = read n}
-    _ -> args
+argumentsToArgumentList'' ::
+  String ->
+  ArgumentList ->
+  (String, ArgumentList -> String -> ArgumentList) ->
+  ArgumentList
+argumentsToArgumentList'' s args (s', f) = case stripPrefix s' s of
+  Just s'' -> f args s''
+  Nothing -> args
+
+processedArgumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
+processedArgumentPrefixesAndFunctions =
+  map
+    (\(s, f) -> ("--" ++ s ++ "=", f))
+    argumentPrefixesAndFunctions
+
+argumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
+argumentPrefixesAndFunctions =
+  [ ("disregardTeams", \args s -> args {argDisregardTeams = splitOn (== ',') s}),
+    ("threshold", \args n -> args {argFilterThreshold = read n}),
+    ("inputFile", \args f -> args {argInputFile = f}),
+    ("outputFile", \args f -> args {argOutputFile = f}),
+    ("stepCount", \args n -> args {argStepCount = read n})
+  ]

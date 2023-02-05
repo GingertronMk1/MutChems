@@ -60,7 +60,7 @@ comboOfTeams = nub . map comboOfTeams' . sequence
 
 comboOfTeams' :: [TeamOrMultiple] -> TeamOrMultiple
 comboOfTeams' toms = case (group . sort) toms of
-  [toms'@((Team t):_)] -> MultipleTeam t $ length toms'
+  [toms'@((Team t) : _)] -> MultipleTeam t $ length toms'
   toms' -> Teams $ concat toms'
 
 -- | Given a list of TeamOrMultiples, generate all combinations for 'n' slots

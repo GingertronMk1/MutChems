@@ -56,18 +56,21 @@ printVariationAsHtmlTable' :: Position -> [VariationPlayer] -> [String]
 printVariationAsHtmlTable' _ [] = []
 printVariationAsHtmlTable'
   pos
-  (VariationPlayer {
-    variationPlayerName = pName,
-    variationPlayerTeam = pTeam,
-    variationPlayerPosition = pPos
-  } : ps) =
-  let thisRow = wrapInTag "tr"
-              . concatMap (wrapInTag "td")
-              $ [
-                unBreakCharacters pName,
+  ( VariationPlayer
+      { variationPlayerName = pName,
+        variationPlayerTeam = pTeam,
+        variationPlayerPosition = pPos
+      }
+      : ps
+    ) =
+    let thisRow =
+          wrapInTag "tr"
+            . concatMap (wrapInTag "td")
+            $ [ unBreakCharacters pName,
                 unBreakCharacters . ppTeamOrMultiple $ pTeam
               ]
-      nextRow = printVariationAsHtmlTable' pPos ps
-      posRow = wrapInTag "tr" . wrapInTag "th colspan=2" $ pPos
-  in if pPos == pos then thisRow : nextRow
-                    else posRow : thisRow : nextRow
+        nextRow = printVariationAsHtmlTable' pPos ps
+        posRow = wrapInTag "tr" . wrapInTag "th colspan=2" $ pPos
+     in if pPos == pos
+          then thisRow : nextRow
+          else posRow : thisRow : nextRow
