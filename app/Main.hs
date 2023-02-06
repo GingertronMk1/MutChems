@@ -44,3 +44,11 @@ genHTML
             . head
             $ buildObjects
     writeFile outputFile $ html ++ "\n" ++ markdownTables
+
+
+
+customSquadData :: IO ()
+customSquadData = do
+  initObject <- decodeJSONInitObject "input.json"
+  let l = groupedLineup initObject
+  writeFile "output.data" (show l)

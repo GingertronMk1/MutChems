@@ -20,7 +20,7 @@ data GroupedPlayer = GroupedPlayer
     -- | All of their available team chemistries
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
   }
-  deriving (Eq, Show, Generic)
+  deriving (Eq, Show, Generic, Read)
 
 instance FromJSON GroupedPlayer
 

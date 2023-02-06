@@ -15,7 +15,7 @@ data PositionGroup = PositionGroup
     -- | The Players in that Position
     positionGroupPlayers :: [GroupedPlayer]
   }
-  deriving (Eq, Show, Generic)
+  deriving (Eq, Show, Generic, Read)
 
 instance FromJSON PositionGroup
 

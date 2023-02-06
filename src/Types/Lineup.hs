@@ -3,6 +3,7 @@
 -- | Module: Types.Lineup
 module Types.Lineup where
 
+import Classes.Data
 import Data.Aeson
 import Data.List
 import Data.Ord
@@ -18,11 +19,15 @@ import Types.TeamOrMultiple
 
 -- | A list of position groups
 newtype GroupedLineup = GroupedLineup [PositionGroup]
-  deriving (Eq, Show, Generic)
+  deriving (Eq, Show, Generic, Read)
 
 instance FromJSON GroupedLineup
 
 instance ToJSON GroupedLineup
+
+instance Data GroupedLineup where
+  toData = show
+  fromData = read
 
 -- | A flattened lineup
 type FlatLineup = [Player]
@@ -189,3 +194,4 @@ ppLineup = intercalate "\n" . map ppPlayer
 ppPlayer :: Player -> String
 ppPlayer (Player {playerName = pName, playerTeams = pTeams, playerPosition = pPosition}) =
   printf "%s|%s, %s" pName pPosition (printThingsWithAnd . map ppTeamOrMultiple $ pTeams)
+
