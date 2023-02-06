@@ -281,6 +281,15 @@
             "Commanders",
             "Giants"
           ]
+        },
+        {
+          "groupedPlayerName": "Ted Hendricks",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Colts",
+            "Packers",
+            "Raiders"
+          ]
         }
       ],
       "positionGroupPosition": "Left Outside Linebacker"
@@ -288,19 +297,18 @@
     {
       "positionGroupPlayers": [
         {
-          "groupedPlayerName": "Ted Hendricks",
-          "groupedPlayerTeams": [
-            "Legends",
-            "Raiders",
-            "Packers",
-            "Colts"
-          ]
-        },
-        {
           "groupedPlayerName": "Kam Chancellor",
           "groupedPlayerTeams": [
             "Legends",
             "Seahawks"
+          ]
+        },
+        {
+          "groupedPlayerName": "Rodney Harrison",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Patriots",
+            "Chargers"
           ]
         }
       ],
