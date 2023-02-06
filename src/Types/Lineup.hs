@@ -171,7 +171,7 @@ printPlayersAsMarkDownSection (t, ins, outs) =
       "\n",
       "| Player | Position |",
       "|:---|---|",
-      intercalate "\n"
+      unlines
         . map printPlayerAsMarkDownRow
         $ ins,
       "\n",
@@ -179,7 +179,7 @@ printPlayersAsMarkDownSection (t, ins, outs) =
       "\n",
       "| Player | Position |",
       "|:---|---|",
-      intercalate "\n"
+      unlines
         . map printPlayerAsMarkDownRow
         $ outs
     ]
@@ -189,7 +189,7 @@ printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition
   printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters pPosition)
 
 ppLineup :: FlatLineup -> String
-ppLineup = intercalate "\n" . map ppPlayer
+ppLineup = unlines . map ppPlayer
 
 ppPlayer :: Player -> String
 ppPlayer (Player {playerName = pName, playerTeams = pTeams, playerPosition = pPosition}) =

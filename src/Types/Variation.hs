@@ -50,7 +50,7 @@ flatLineupToVariations =
 
 printVariationAsHtmlTable :: Variation -> String
 printVariationAsHtmlTable (Variation v) =
-  intercalate "\n" $ printVariationAsHtmlTable' "" v
+  unlines $ printVariationAsHtmlTable' "" v
 
 printVariationAsHtmlTable' :: Position -> [VariationPlayer] -> [String]
 printVariationAsHtmlTable' _ [] = []
