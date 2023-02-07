@@ -4,12 +4,11 @@ module Types.InitObject where
 import Classes.Data
 import Data.List
 import Functions.Application
-import Types.ArgumentList
+import System.IO
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange
-import System.IO
 
 -- | The InitObject, what we get out of the JSON file
 data InitObject = InitObject
@@ -36,6 +35,7 @@ instance Data InitObject where
                 . splitOnInfix "\n\n"
                 $ pcs
           }
+
 openAndStepInitObject :: String -> Int -> IO InitObject
 openAndStepInitObject s n = do
   fileContents <- readFile' s
