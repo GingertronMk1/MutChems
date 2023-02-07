@@ -25,8 +25,16 @@ main = do
     compileArgumentListAndPrintResults args
   initObject <- openAndStepInitObject inputFile stepCount
   let buildObjects = initObjectToBuildObjects initObject
-  let intermediateObjects = map (buildObjectToIntermediateObject filterThreshold . filterOutTeams disregardTeams) buildObjects
-  putStrLn $ printf "Filtered all lineups and converted to a total of %d Variations" (sum . map (length . iObjVariations) $ intermediateObjects)
+  let intermediateObjects =
+        map
+          ( buildObjectToIntermediateObject filterThreshold
+              . filterOutTeams disregardTeams
+          )
+          buildObjects
+  putStrLn $
+    printf
+      "Filtered all lineups and converted to a total of %d Variations"
+      (length . concatMap iObjVariations $ intermediateObjects)
   let displayObjects = map intermediateObjectToDisplayObject intermediateObjects
   let html =
         wrapInTag "table"
