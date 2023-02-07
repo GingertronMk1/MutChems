@@ -60,7 +60,7 @@ stepInitObject (ArgumentList {argInputFile = inputFile, argStepCount = stepCount
     if stepCount > 0
       then do
         let steppedInitObject = stepInitObject' stepCount jsio
-        BS.writeFile inputFile . encode $ steppedInitObject
+        writeToFile inputFile steppedInitObject
         return steppedInitObject
       else return jsio
 

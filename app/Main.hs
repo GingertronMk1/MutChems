@@ -17,7 +17,7 @@ main :: IO ()
 main = do
   args <- getArgs
   argumentList <- compileArgumentListAndPrintResults args
-  initObject <- readFromFile "output.data" --decodeJSONInitObject . argInputFile $ argumentList
+  initObject <- readFromFile . argInputFile $ argumentList
   processedInitObject <- stepInitObject argumentList initObject
   genHTML processedInitObject argumentList
   putStrLn "Done"
