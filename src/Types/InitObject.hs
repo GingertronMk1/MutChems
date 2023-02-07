@@ -9,6 +9,7 @@ import Types.BuildObject
 import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange
+import System.IO
 
 -- | The InitObject, what we get out of the JSON file
 data JSONInitObject = JSONInitObject
@@ -35,21 +36,17 @@ instance Data JSONInitObject where
                 . splitOnInfix "\n\n"
                 $ pcs
           }
-
--- | If we step an InitObject, write it to a file and return it
-stepInitObject :: ArgumentList -> JSONInitObject -> IO JSONInitObject
-stepInitObject (ArgumentList {argInputFile = inputFile, argStepCount = stepCount}) jsio =
-  do
-    if stepCount > 0
-      then do
-        let steppedInitObject = stepInitObject' stepCount jsio
-        writeToFile inputFile steppedInitObject
-        return steppedInitObject
-      else return jsio
+openAndStepInitObject :: String -> Int -> IO JSONInitObject
+openAndStepInitObject s n = do
+  fileContents <- readFile' s
+  let firstInitObject = fromData fileContents
+  let resultantInitObject = stepInitObject n firstInitObject
+  writeFile s (toData resultantInitObject)
+  return resultantInitObject
 
 -- | Step an InitObject, applying the first ProspectiveChange to the lineup
-stepInitObject' :: Int -> JSONInitObject -> JSONInitObject
-stepInitObject'
+stepInitObject :: Int -> JSONInitObject -> JSONInitObject
+stepInitObject
   n
   ( JSONInitObject
       { groupedLineup = gl,
