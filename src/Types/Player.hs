@@ -1,14 +1,10 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.Player
 module Types.Player where
 
 import Classes.Data
-import Data.Aeson
 import Data.List
 import Data.Ord
 import Data.Teams
-import GHC.Generics
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -21,11 +17,7 @@ data GroupedPlayer = GroupedPlayer
     -- | All of their available team chemistries
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
   }
-  deriving (Eq, Show, Generic, Read)
-
-instance FromJSON GroupedPlayer
-
-instance ToJSON GroupedPlayer
+  deriving (Eq, Show, Read)
 
 instance Data GroupedPlayer where
   toData (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) =

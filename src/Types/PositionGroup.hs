@@ -1,13 +1,9 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.PositionGroup
 module Types.PositionGroup where
 
 import Classes.Data
-import Data.Aeson
 import Data.List
 import Functions.Application
-import GHC.Generics
 import Types.Basic
 import Types.Player
 
@@ -18,11 +14,7 @@ data PositionGroup = PositionGroup
     -- | The Players in that Position
     positionGroupPlayers :: [GroupedPlayer]
   }
-  deriving (Eq, Show, Generic, Read)
-
-instance FromJSON PositionGroup
-
-instance ToJSON PositionGroup
+  deriving (Eq, Show, Read)
 
 instance Data PositionGroup where
   toData (PositionGroup {positionGroupPosition = pos, positionGroupPlayers = pla}) =

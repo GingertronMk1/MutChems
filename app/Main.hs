@@ -45,14 +45,3 @@ genHTML
             . head
             $ buildObjects
     writeFile outputFile $ html ++ "\n" ++ markdownTables
-
-testWrite :: IO ()
-testWrite = do
-  initObject <- decodeJSONInitObject "input.json"
-  print initObject
-  writeToFile "output.data" initObject
-
-testRead :: IO ()
-testRead = do
-  inputData <- readFromFile "output.data" :: IO JSONInitObject
-  print inputData

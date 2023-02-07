@@ -1,14 +1,9 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.InitObject
 module Types.InitObject where
 
 import Classes.Data
-import Data.Aeson
-import qualified Data.ByteString.Lazy as BS
 import Data.List
 import Functions.Application
-import GHC.Generics
 import Types.ArgumentList
 import Types.BuildObject
 import Types.Lineup
@@ -20,11 +15,7 @@ data JSONInitObject = JSONInitObject
   { groupedLineup :: GroupedLineup,
     prospectiveChanges :: [ProspectiveChange]
   }
-  deriving (Show, Generic)
-
-instance FromJSON JSONInitObject
-
-instance ToJSON JSONInitObject
+  deriving (Show)
 
 instance Data JSONInitObject where
   toData (JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
@@ -44,14 +35,6 @@ instance Data JSONInitObject where
                 . splitOnInfix "\n\n"
                 $ pcs
           }
-
--- | Decoding the InitObject from a JSON file
-decodeJSONInitObject :: String -> IO JSONInitObject
-decodeJSONInitObject s = do
-  teamJSON <- BS.readFile s
-  case eitherDecode teamJSON of
-    Left err -> error err
-    Right tj -> return tj
 
 -- | If we step an InitObject, write it to a file and return it
 stepInitObject :: ArgumentList -> JSONInitObject -> IO JSONInitObject

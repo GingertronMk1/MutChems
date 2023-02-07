@@ -1,16 +1,12 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.Lineup
 module Types.Lineup where
 
 import Classes.Data
-import Data.Aeson
 import Data.List
 import Data.Ord
 import Data.Positions
 import Data.Teams
 import Functions.Application
-import GHC.Generics
 import Text.Printf
 import Types.Basic
 import Types.Player
@@ -19,11 +15,7 @@ import Types.TeamOrMultiple
 
 -- | A list of position groups
 newtype GroupedLineup = GroupedLineup [PositionGroup]
-  deriving (Eq, Show, Generic, Read)
-
-instance FromJSON GroupedLineup
-
-instance ToJSON GroupedLineup
+  deriving (Eq, Show, Read)
 
 instance Data GroupedLineup where
   toData (GroupedLineup gl) = intercalate "\n\n" . map toData $ gl

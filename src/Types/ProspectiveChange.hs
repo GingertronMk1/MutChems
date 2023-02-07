@@ -1,13 +1,9 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
 import Classes.Data
-import Data.Aeson
 import Data.List
 import Functions.Application
-import GHC.Generics
 import Text.Printf
 import Types.Basic
 import Types.Lineup
@@ -23,27 +19,26 @@ data ProspectiveChange
     Removals [PlayerName]
   | -- | No change
     NoChange
-  deriving (Show, Generic)
-
-instance FromJSON ProspectiveChange
-
-instance ToJSON ProspectiveChange
+  deriving (Show)
 
 instance Data ProspectiveChange where
   toData (Addition gp pos) =
-    intercalate "\n"
+    intercalate
+      "\n"
       [ "# Addition",
         toData gp,
         "    " ++ pos
       ]
   toData (Replacement pn gp) =
-    intercalate "\n"
+    intercalate
+      "\n"
       [ "# Replacement",
         "    " ++ pn,
         toData gp
       ]
   toData (Removals ps) =
-    intercalate "\n"
+    intercalate
+      "\n"
       [ "# Removals",
         "    " ++ intercalate "," ps
       ]
@@ -52,14 +47,14 @@ instance Data ProspectiveChange where
     s'@("# Addition" : playerName : playerTeams : position : _) ->
       Addition
         (fromData . intercalate "\n" $ [playerName, playerTeams])
-        (dropWhile (==' ') position)
+        (dropWhile (== ' ') position)
     s'@("# Replacement" : replacementName : player) ->
       Replacement
-        (dropWhile (==' ') replacementName)
+        (dropWhile (== ' ') replacementName)
         (fromData . intercalate "\n" $ player)
     s'@("# Removals" : ls) ->
       let players = head ls
-       in Removals $ splitOnInfix "," . dropWhile (==' ') $ players
+       in Removals $ splitOnInfix "," . dropWhile (== ' ') $ players
     s'@("# NoChange" : _) -> NoChange
     s' -> error . show $ (s, s')
 
