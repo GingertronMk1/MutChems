@@ -26,7 +26,13 @@ instance Data InitObject where
           intercalate "\n\n" . map toData $ pcs
         ]
   fromData s =
-    let [gl, pcs] = take 2 . splitOnInfix "\n===\n" . dropFromEndWhile (== '\n') $ s
+    let [gl, pcs] = take 2
+                  . splitOnInfix "\n===\n"
+                  . dropFromEndWhile (== '\n')
+                  . unlines
+                  . removeWhitespaceLines
+                  . lines
+                  $ s
      in InitObject
           { groupedLineup = fromData gl,
             prospectiveChanges =

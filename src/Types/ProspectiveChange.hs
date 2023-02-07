@@ -44,18 +44,18 @@ instance Data ProspectiveChange where
       ]
   toData NoChange = "# NoChange"
   fromData s = case filter (not . null) . lines $ s of
-    s'@("# Addition" : playerName : playerTeams : position : _) ->
+    ("# Addition" : playersName : playersTeams : position : _) ->
       Addition
-        (fromData . intercalate "\n" $ [playerName, playerTeams])
+        (fromData . intercalate "\n" $ [playersName, playersTeams])
         (dropWhile (== ' ') position)
-    s'@("# Replacement" : replacementName : player) ->
+    ("# Replacement" : replacementName : player) ->
       Replacement
         (dropWhile (== ' ') replacementName)
         (fromData . intercalate "\n" $ player)
-    s'@("# Removals" : ls) ->
+    ("# Removals" : ls) ->
       let players = head ls
        in Removals $ splitOnInfix "," . dropWhile (== ' ') $ players
-    s'@("# NoChange" : _) -> NoChange
+    ("# NoChange" : _) -> NoChange
     s' -> error . show $ (s, s')
 
 -- | Apply a given prospective change

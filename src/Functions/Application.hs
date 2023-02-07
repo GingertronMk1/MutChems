@@ -150,3 +150,6 @@ dropFromEndWhile f xs =
   if f . last $ xs
     then dropFromEndWhile f $ init xs
     else xs
+
+removeWhitespaceLines :: [String] -> [String]
+removeWhitespaceLines = map (\l -> if all (==' ') l then "" else l)
