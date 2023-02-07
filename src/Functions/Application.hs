@@ -119,16 +119,34 @@ ppInteger' str =
 
 -- | Like concatMap but for strings and it puts a newline between them
 newLineMap :: (a -> String) -> [a] -> String
-newLineMap f = unlines . map f
+newLineMap f = intercalate "\n" . map f
 
 reverseMap :: [a -> b] -> a -> [b]
 reverseMap fs v = map (\f -> f v) fs
 
-splitOnDoubleLines :: String -> [String]
-splitOnDoubleLines [] = []
-splitOnDoubleLines s = case break (=='\n') s of
-  (l, []) -> [l]
-  (l, ['\n']) -> [l]
-  (l, '\n':s') -> [l] : splitOnDoubleLines s'
-  -- (l, s') =
+splitOnInfix ::
+  (Eq a) =>
+  -- | Must be equatable
+  [a] ->
+  -- | Search term
+  [a] ->
+  -- | Searched list
+  [[a]]
+splitOnInfix = splitOnInfix' [] []
 
+splitOnInfix' :: (Eq a) => [[a]] -> [a] -> [a] -> [a] -> [[a]]
+splitOnInfix' output acc _ [] = reverse (reverse acc : output)
+splitOnInfix' output acc needle haystack@(s : ss) =
+  case stripPrefix needle haystack of
+    Just ss' -> splitOnInfix' (reverse acc : output) [] needle ss'
+    Nothing -> splitOnInfix' output (s : acc) needle ss
+
+splitOnDoubleLines :: String -> [String]
+splitOnDoubleLines = splitOnInfix "\n\n"
+
+dropFromEndWhile :: (a -> Bool) -> [a] -> [a]
+dropFromEndWhile _ [] = []
+dropFromEndWhile f xs =
+  if f . last $ xs
+    then dropFromEndWhile f $ init xs
+    else xs

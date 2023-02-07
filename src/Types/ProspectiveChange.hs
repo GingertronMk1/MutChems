@@ -3,7 +3,9 @@
 -- | Module: Types.ProspectiveChange
 module Types.ProspectiveChange where
 
+import Classes.Data
 import Data.Aeson
+import Data.List
 import Functions.Application
 import GHC.Generics
 import Text.Printf
@@ -26,6 +28,40 @@ data ProspectiveChange
 instance FromJSON ProspectiveChange
 
 instance ToJSON ProspectiveChange
+
+instance Data ProspectiveChange where
+  toData (Addition gp pos) =
+    intercalate "\n"
+      [ "# Addition",
+        toData gp,
+        "    " ++ pos
+      ]
+  toData (Replacement pn gp) =
+    intercalate "\n"
+      [ "# Replacement",
+        "    " ++ pn,
+        toData gp
+      ]
+  toData (Removals ps) =
+    intercalate "\n"
+      [ "# Removals",
+        "    " ++ intercalate "," ps
+      ]
+  toData NoChange = "# NoChange"
+  fromData s = case filter (not . null) . lines $ s of
+    s'@("# Addition" : playerName : playerTeams : position : _) ->
+      Addition
+        (fromData . intercalate "\n" $ [playerName, playerTeams])
+        (dropWhile (==' ') position)
+    s'@("# Replacement" : replacementName : player) ->
+      Replacement
+        (dropWhile (==' ') replacementName)
+        (fromData . intercalate "\n" $ player)
+    s'@("# Removals" : ls) ->
+      let players = head ls
+       in Removals $ splitOnInfix "," . dropWhile (==' ') $ players
+    s'@("# NoChange" : _) -> NoChange
+    s' -> error . show $ (s, s')
 
 -- | Apply a given prospective change
 applyProspectiveChange :: ProspectiveChange -> FlatLineup -> FlatLineup

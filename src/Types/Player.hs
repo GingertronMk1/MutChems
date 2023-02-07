@@ -3,6 +3,7 @@
 -- | Module: Types.Player
 module Types.Player where
 
+import Classes.Data
 import Data.Aeson
 import Data.List
 import Data.Ord
@@ -10,7 +11,6 @@ import Data.Teams
 import GHC.Generics
 import Types.Basic
 import Types.TeamOrMultiple
-import Classes.Data
 
 -- * Definitions for the types that go into JSON
 
@@ -28,16 +28,18 @@ instance FromJSON GroupedPlayer
 instance ToJSON GroupedPlayer
 
 instance Data GroupedPlayer where
-  toData (GroupedPlayer {groupedPlayerName=name, groupedPlayerTeams=teams}) =
-    unlines . map ("    "++) $ [
-      name,
-      unwords teams
-    ]
-  fromData s = let [name, teams] = lines s
-    in GroupedPlayer {
-      groupedPlayerName=dropWhile (==' ') name,
-      groupedPlayerTeams= words . dropWhile (==' ') $ teams
-    }
+  toData (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) =
+    intercalate "\n" . map ("    " ++) $
+      [ name,
+        unwords teams
+      ]
+  fromData s = case take 2 . filter (not . null) . lines $ s of
+    [name, teams] ->
+      GroupedPlayer
+        { groupedPlayerName = dropWhile (== ' ') name,
+          groupedPlayerTeams = words . dropWhile (== ' ') $ teams
+        }
+    _ -> error . show $ s
 
 -- * Definitions for the types that we use for regular analysis
 

@@ -2,6 +2,7 @@
 -- Module: Main
 module Main (main) where
 
+import Classes.Data
 import Functions.Application
 import System.Environment
 import Text.Printf
@@ -10,14 +11,13 @@ import Types.BuildObject
 import Types.DisplayObject
 import Types.InitObject
 import Types.Lineup
-import Classes.Data
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()
 main = do
   args <- getArgs
   argumentList <- compileArgumentListAndPrintResults args
-  initObject <- decodeJSONInitObject . argInputFile $ argumentList
+  initObject <- readFromFile "output.data" --decodeJSONInitObject . argInputFile $ argumentList
   processedInitObject <- stepInitObject argumentList initObject
   genHTML processedInitObject argumentList
   putStrLn "Done"
@@ -46,10 +46,13 @@ genHTML
             $ buildObjects
     writeFile outputFile $ html ++ "\n" ++ markdownTables
 
-
-
-customSquadData :: IO ()
-customSquadData = do
+testWrite :: IO ()
+testWrite = do
   initObject <- decodeJSONInitObject "input.json"
-  let gl = groupedLineup initObject
-  writeToFile "output.data" gl
+  print initObject
+  writeToFile "output.data" initObject
+
+testRead :: IO ()
+testRead = do
+  inputData <- readFromFile "output.data" :: IO JSONInitObject
+  print inputData

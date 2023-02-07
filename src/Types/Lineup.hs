@@ -21,14 +21,15 @@ import Types.TeamOrMultiple
 newtype GroupedLineup = GroupedLineup [PositionGroup]
   deriving (Eq, Show, Generic, Read)
 
-instance FromJSON GroupedLineup 
+instance FromJSON GroupedLineup
 
 instance ToJSON GroupedLineup
 
 instance Data GroupedLineup where
-  toData (GroupedLineup gl) = unlines . map toData $ gl
-  fromData s = let posGroups = splitOnDoubleLines s
-    in GroupedLineup $ map fromData posGroups
+  toData (GroupedLineup gl) = intercalate "\n\n" . map toData $ gl
+  fromData s =
+    let posGroups = filter (not . null) . splitOnDoubleLines $ s
+     in GroupedLineup $ map fromData posGroups
 
 -- | A flattened lineup
 type FlatLineup = [Player]
@@ -172,7 +173,7 @@ printPlayersAsMarkDownSection (t, ins, outs) =
       "\n",
       "| Player | Position |",
       "|:---|---|",
-      unlines
+      intercalate "\n"
         . map printPlayerAsMarkDownRow
         $ ins,
       "\n",
@@ -180,7 +181,7 @@ printPlayersAsMarkDownSection (t, ins, outs) =
       "\n",
       "| Player | Position |",
       "|:---|---|",
-      unlines
+      intercalate "\n"
         . map printPlayerAsMarkDownRow
         $ outs
     ]
@@ -190,9 +191,8 @@ printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition
   printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters pPosition)
 
 ppLineup :: FlatLineup -> String
-ppLineup = unlines . map ppPlayer
+ppLineup = intercalate "\n" . map ppPlayer
 
 ppPlayer :: Player -> String
 ppPlayer (Player {playerName = pName, playerTeams = pTeams, playerPosition = pPosition}) =
   printf "%s|%s, %s" pName pPosition (printThingsWithAnd . map ppTeamOrMultiple $ pTeams)
-

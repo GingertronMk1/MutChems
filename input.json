@@ -446,6 +446,20 @@
         }
       ],
       "tag": "Replacement"
+    },
+    {
+      "contents": [
+        {
+          "groupedPlayerName": "Jim Taylor",
+          "groupedPlayerTeams": [
+            "Legends",
+            "Saints",
+            "Packers"
+          ]
+        },
+        "Fullback"
+      ],
+      "tag": "Addition"
     }
   ]
 }

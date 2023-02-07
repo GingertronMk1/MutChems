@@ -3,9 +3,11 @@
 -- | Module: Types.InitObject
 module Types.InitObject where
 
+import Classes.Data
 import Data.Aeson
 import qualified Data.ByteString.Lazy as BS
 import Data.List
+import Functions.Application
 import GHC.Generics
 import Types.ArgumentList
 import Types.BuildObject
@@ -23,6 +25,25 @@ data JSONInitObject = JSONInitObject
 instance FromJSON JSONInitObject
 
 instance ToJSON JSONInitObject
+
+instance Data JSONInitObject where
+  toData (JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
+    dropFromEndWhile (== '\n')
+      . intercalate "\n"
+      $ [ toData gl,
+          "===",
+          intercalate "\n\n" . map toData $ pcs
+        ]
+  fromData s =
+    let [gl, pcs] = take 2 . splitOnInfix "\n===\n" . dropFromEndWhile (== '\n') $ s
+     in JSONInitObject
+          { groupedLineup = fromData gl,
+            prospectiveChanges =
+              map fromData
+                . filter (not . null . lines)
+                . splitOnInfix "\n\n"
+                $ pcs
+          }
 
 -- | Decoding the InitObject from a JSON file
 decodeJSONInitObject :: String -> IO JSONInitObject
