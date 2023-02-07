@@ -12,14 +12,14 @@ import Types.ProspectiveChange
 import System.IO
 
 -- | The InitObject, what we get out of the JSON file
-data JSONInitObject = JSONInitObject
+data InitObject = InitObject
   { groupedLineup :: GroupedLineup,
     prospectiveChanges :: [ProspectiveChange]
   }
   deriving (Show)
 
-instance Data JSONInitObject where
-  toData (JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
+instance Data InitObject where
+  toData (InitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
     dropFromEndWhile (== '\n')
       . intercalate "\n"
       $ [ toData gl,
@@ -28,7 +28,7 @@ instance Data JSONInitObject where
         ]
   fromData s =
     let [gl, pcs] = take 2 . splitOnInfix "\n===\n" . dropFromEndWhile (== '\n') $ s
-     in JSONInitObject
+     in InitObject
           { groupedLineup = fromData gl,
             prospectiveChanges =
               map fromData
@@ -36,7 +36,7 @@ instance Data JSONInitObject where
                 . splitOnInfix "\n\n"
                 $ pcs
           }
-openAndStepInitObject :: String -> Int -> IO JSONInitObject
+openAndStepInitObject :: String -> Int -> IO InitObject
 openAndStepInitObject s n = do
   fileContents <- readFile' s
   let firstInitObject = fromData fileContents
@@ -45,17 +45,17 @@ openAndStepInitObject s n = do
   return resultantInitObject
 
 -- | Step an InitObject, applying the first ProspectiveChange to the lineup
-stepInitObject :: Int -> JSONInitObject -> JSONInitObject
+stepInitObject :: Int -> InitObject -> InitObject
 stepInitObject
   n
-  ( JSONInitObject
+  ( InitObject
       { groupedLineup = gl,
         prospectiveChanges = pcs
       }
     ) =
     let initialFlatLineup = flattenGroupedLineup gl
         (changesToApply, remainingChanges) = splitAt n pcs
-     in JSONInitObject
+     in InitObject
           { groupedLineup =
               groupFlatLineup
                 . sortOn (playerPositionInInitialLineup initialFlatLineup . playerName)
@@ -66,6 +66,6 @@ stepInitObject
             prospectiveChanges = remainingChanges
           }
 
-initObjectToBuildObjects :: JSONInitObject -> [BuildObject]
-initObjectToBuildObjects (JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
+initObjectToBuildObjects :: InitObject -> [BuildObject]
+initObjectToBuildObjects (InitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
   iterativelyApplyProspectiveChanges pcs . flattenGroupedLineup $ gl

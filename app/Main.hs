@@ -23,7 +23,7 @@ main = do
   genHTML initObject argumentList
   putStrLn "Done"
 
-genHTML :: JSONInitObject -> ArgumentList -> IO ()
+genHTML :: InitObject -> ArgumentList -> IO ()
 genHTML
   initObject
   ( ArgumentList
