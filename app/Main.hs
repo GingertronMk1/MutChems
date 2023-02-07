@@ -2,6 +2,7 @@
 -- Module: Main
 module Main (main) where
 
+import Classes.Data
 import Functions.Application
 import System.Environment
 import Text.Printf
@@ -16,9 +17,10 @@ main :: IO ()
 main = do
   args <- getArgs
   argumentList <- compileArgumentListAndPrintResults args
-  initObject <- decodeJSONInitObject . argInputFile $ argumentList
-  processedInitObject <- stepInitObject argumentList initObject
-  genHTML processedInitObject argumentList
+  let inputFileName = argInputFile argumentList
+  let stepCount = argStepCount argumentList
+  initObject <- openAndStepInitObject inputFileName stepCount
+  genHTML initObject argumentList
   putStrLn "Done"
 
 genHTML :: JSONInitObject -> ArgumentList -> IO ()

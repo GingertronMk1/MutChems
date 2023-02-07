@@ -1,51 +1,52 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.InitObject
 module Types.InitObject where
 
-import Data.Aeson
-import qualified Data.ByteString.Lazy as BS
+import Classes.Data
 import Data.List
-import GHC.Generics
+import Functions.Application
 import Types.ArgumentList
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange
+import System.IO
 
 -- | The InitObject, what we get out of the JSON file
 data JSONInitObject = JSONInitObject
   { groupedLineup :: GroupedLineup,
     prospectiveChanges :: [ProspectiveChange]
   }
-  deriving (Show, Generic)
+  deriving (Show)
 
-instance FromJSON JSONInitObject
-
-instance ToJSON JSONInitObject
-
--- | Decoding the InitObject from a JSON file
-decodeJSONInitObject :: String -> IO JSONInitObject
-decodeJSONInitObject s = do
-  teamJSON <- BS.readFile s
-  case eitherDecode teamJSON of
-    Left err -> error err
-    Right tj -> return tj
-
--- | If we step an InitObject, write it to a file and return it
-stepInitObject :: ArgumentList -> JSONInitObject -> IO JSONInitObject
-stepInitObject (ArgumentList {argInputFile = inputFile, argStepCount = stepCount}) jsio =
-  do
-    if stepCount > 0
-      then do
-        let steppedInitObject = stepInitObject' stepCount jsio
-        BS.writeFile inputFile . encode $ steppedInitObject
-        return steppedInitObject
-      else return jsio
+instance Data JSONInitObject where
+  toData (JSONInitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
+    dropFromEndWhile (== '\n')
+      . intercalate "\n"
+      $ [ toData gl,
+          "===",
+          intercalate "\n\n" . map toData $ pcs
+        ]
+  fromData s =
+    let [gl, pcs] = take 2 . splitOnInfix "\n===\n" . dropFromEndWhile (== '\n') $ s
+     in JSONInitObject
+          { groupedLineup = fromData gl,
+            prospectiveChanges =
+              map fromData
+                . filter (not . null . lines)
+                . splitOnInfix "\n\n"
+                $ pcs
+          }
+openAndStepInitObject :: String -> Int -> IO JSONInitObject
+openAndStepInitObject s n = do
+  fileContents <- readFile' s
+  let firstInitObject = fromData fileContents
+  let resultantInitObject = stepInitObject n firstInitObject
+  writeFile s (toData resultantInitObject)
+  return resultantInitObject
 
 -- | Step an InitObject, applying the first ProspectiveChange to the lineup
-stepInitObject' :: Int -> JSONInitObject -> JSONInitObject
-stepInitObject'
+stepInitObject :: Int -> JSONInitObject -> JSONInitObject
+stepInitObject
   n
   ( JSONInitObject
       { groupedLineup = gl,

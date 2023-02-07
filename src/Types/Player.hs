@@ -1,13 +1,10 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.Player
 module Types.Player where
 
-import Data.Aeson
+import Classes.Data
 import Data.List
 import Data.Ord
 import Data.Teams
-import GHC.Generics
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -20,11 +17,21 @@ data GroupedPlayer = GroupedPlayer
     -- | All of their available team chemistries
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
   }
-  deriving (Eq, Show, Generic)
+  deriving (Eq, Show, Read)
 
-instance FromJSON GroupedPlayer
-
-instance ToJSON GroupedPlayer
+instance Data GroupedPlayer where
+  toData (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) =
+    intercalate "\n" . map ("    " ++) $
+      [ name,
+        unwords teams
+      ]
+  fromData s = case take 2 . filter (not . null) . lines $ s of
+    [name, teams] ->
+      GroupedPlayer
+        { groupedPlayerName = dropWhile (== ' ') name,
+          groupedPlayerTeams = words . dropWhile (== ' ') $ teams
+        }
+    _ -> error . show $ s
 
 -- * Definitions for the types that we use for regular analysis
 

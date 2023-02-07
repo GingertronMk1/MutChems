@@ -1,15 +1,12 @@
-{-# LANGUAGE DeriveGeneric #-}
-
 -- | Module: Types.Lineup
 module Types.Lineup where
 
-import Data.Aeson
+import Classes.Data
 import Data.List
 import Data.Ord
 import Data.Positions
 import Data.Teams
 import Functions.Application
-import GHC.Generics
 import Text.Printf
 import Types.Basic
 import Types.Player
@@ -18,11 +15,13 @@ import Types.TeamOrMultiple
 
 -- | A list of position groups
 newtype GroupedLineup = GroupedLineup [PositionGroup]
-  deriving (Eq, Show, Generic)
+  deriving (Eq, Show, Read)
 
-instance FromJSON GroupedLineup
-
-instance ToJSON GroupedLineup
+instance Data GroupedLineup where
+  toData (GroupedLineup gl) = intercalate "\n\n" . map toData $ gl
+  fromData s =
+    let posGroups = filter (not . null) . splitOnDoubleLines $ s
+     in GroupedLineup $ map fromData posGroups
 
 -- | A flattened lineup
 type FlatLineup = [Player]

@@ -28,7 +28,7 @@ emptyArgumentList =
   ArgumentList
     { argDisregardTeams = [],
       argFilterThreshold = squadFilterThreshold,
-      argInputFile = "input.json",
+      argInputFile = "input.data",
       argOutputFile = "output.md",
       argStepCount = 0
     }
