@@ -10,6 +10,7 @@ import Data.Teams
 import GHC.Generics
 import Types.Basic
 import Types.TeamOrMultiple
+import Classes.Data
 
 -- * Definitions for the types that go into JSON
 
@@ -25,6 +26,18 @@ data GroupedPlayer = GroupedPlayer
 instance FromJSON GroupedPlayer
 
 instance ToJSON GroupedPlayer
+
+instance Data GroupedPlayer where
+  toData (GroupedPlayer {groupedPlayerName=name, groupedPlayerTeams=teams}) =
+    unlines . map ("    "++) $ [
+      name,
+      unwords teams
+    ]
+  fromData s = let [name, teams] = lines s
+    in GroupedPlayer {
+      groupedPlayerName=dropWhile (==' ') name,
+      groupedPlayerTeams= words . dropWhile (==' ') $ teams
+    }
 
 -- * Definitions for the types that we use for regular analysis
 

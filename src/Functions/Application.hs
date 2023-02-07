@@ -123,3 +123,12 @@ newLineMap f = unlines . map f
 
 reverseMap :: [a -> b] -> a -> [b]
 reverseMap fs v = map (\f -> f v) fs
+
+splitOnDoubleLines :: String -> [String]
+splitOnDoubleLines [] = []
+splitOnDoubleLines s = case break (=='\n') s of
+  (l, []) -> [l]
+  (l, ['\n']) -> [l]
+  (l, '\n':s') -> [l] : splitOnDoubleLines s'
+  -- (l, s') =
+

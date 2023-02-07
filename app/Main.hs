@@ -10,6 +10,7 @@ import Types.BuildObject
 import Types.DisplayObject
 import Types.InitObject
 import Types.Lineup
+import Classes.Data
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()
@@ -50,5 +51,5 @@ genHTML
 customSquadData :: IO ()
 customSquadData = do
   initObject <- decodeJSONInitObject "input.json"
-  let l = groupedLineup initObject
-  writeFile "output.data" (show l)
+  let gl = groupedLineup initObject
+  writeToFile "output.data" gl

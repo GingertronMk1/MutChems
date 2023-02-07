@@ -21,13 +21,14 @@ import Types.TeamOrMultiple
 newtype GroupedLineup = GroupedLineup [PositionGroup]
   deriving (Eq, Show, Generic, Read)
 
-instance FromJSON GroupedLineup
+instance FromJSON GroupedLineup 
 
 instance ToJSON GroupedLineup
 
 instance Data GroupedLineup where
-  toData = show
-  fromData = read
+  toData (GroupedLineup gl) = unlines . map toData $ gl
+  fromData s = let posGroups = splitOnDoubleLines s
+    in GroupedLineup $ map fromData posGroups
 
 -- | A flattened lineup
 type FlatLineup = [Player]
