@@ -1,5 +1,6 @@
 import Functions.Application
 import Test.HUnit
+import Text.Printf
 
 main :: IO ()
 main = do
@@ -10,8 +11,18 @@ testList :: Test
 testList =
   TestList
     [ testunBreakCharacters,
-      testDistanceFrom5
+      testDistanceFrom5,
+      testMean
     ]
+
+meanTestCases :: [(Float, [Int])]
+meanTestCases = [
+    (1.0, replicate 5 1),
+    (3.0, [1..5])
+  ]
+
+testMean :: Test
+testMean = TestList $ map (\(n, ns) -> TestCase $ assertEqual (printf "Mean of %s should equal %d" (show ns) n) n (mean ns)) meanTestCases
 
 testunBreakCharacters :: Test
 testunBreakCharacters =
