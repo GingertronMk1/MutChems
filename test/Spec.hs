@@ -18,7 +18,8 @@ testList =
 testMeanCases :: [([Int], Float)]
 testMeanCases =
   [ (replicate 5 1, 1.0),
-    ([1 .. 5], 3.0)
+    ([1 .. 5], 3.0),
+    ([1 .. 10], 5.5)
   ]
 
 testMean :: Test
