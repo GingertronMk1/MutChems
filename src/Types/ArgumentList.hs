@@ -67,6 +67,7 @@ argumentsToArgumentList =
     )
     emptyArgumentList
 
+-- | Taking one string and applying it as an argument
 argumentsToArgumentList' ::
   String ->
   ArgumentList ->

@@ -121,9 +121,11 @@ ppInteger' str =
 newLineMap :: (a -> String) -> [a] -> String
 newLineMap f = intercalate "\n" . map f
 
+-- | Map multiple functions over one input value
 reverseMap :: [a -> b] -> a -> [b]
 reverseMap fs v = map (\f -> f v) fs
 
+-- | Split a list on some kind of infix value
 splitOnInfix ::
   (Eq a) =>
   -- | Must be equatable
@@ -134,6 +136,7 @@ splitOnInfix ::
   [[a]]
 splitOnInfix = splitOnInfix' [] []
 
+-- | Using 2 accumulators, help the above
 splitOnInfix' :: (Eq a) => [[a]] -> [a] -> [a] -> [a] -> [[a]]
 splitOnInfix' output acc _ [] = reverse (reverse acc : output)
 splitOnInfix' output acc needle haystack@(s : ss) =
@@ -141,9 +144,11 @@ splitOnInfix' output acc needle haystack@(s : ss) =
     Just ss' -> splitOnInfix' (reverse acc : output) [] needle ss'
     Nothing -> splitOnInfix' output (s : acc) needle ss
 
+-- | Split a string on double newline characters
 splitOnDoubleLines :: String -> [String]
 splitOnDoubleLines = splitOnInfix "\n\n"
 
+-- | Remove trailing whatever from a list
 dropFromEndWhile :: (a -> Bool) -> [a] -> [a]
 dropFromEndWhile _ [] = []
 dropFromEndWhile f xs =
@@ -151,5 +156,6 @@ dropFromEndWhile f xs =
     then dropFromEndWhile f $ init xs
     else xs
 
+-- | Remove whitespace from empty lines
 removeWhitespaceLines :: [String] -> [String]
 removeWhitespaceLines = map (\l -> if all (==' ') l then "" else l)
