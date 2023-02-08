@@ -16,13 +16,23 @@ testList =
     ]
 
 meanTestCases :: [(Float, [Int])]
-meanTestCases = [
-    (1.0, replicate 5 1),
-    (3.0, [1..5])
+meanTestCases =
+  [ (1.0, replicate 5 1),
+    (3.0, [1 .. 5])
   ]
 
 testMean :: Test
-testMean = TestList $ map (\(n, ns) -> TestCase $ assertEqual (printf "Mean of %s should equal %d" (show ns) n) n (mean ns)) meanTestCases
+testMean =
+  TestList $
+    map
+      ( \(n, ns) ->
+          TestCase $
+            assertEqual
+              (printf "Mean of %s should equal %d" (show ns) n)
+              n
+              (mean ns)
+      )
+      meanTestCases
 
 testunBreakCharacters :: Test
 testunBreakCharacters =
