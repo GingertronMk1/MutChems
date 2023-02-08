@@ -158,4 +158,4 @@ dropFromEndWhile f xs =
 
 -- | Remove whitespace from empty lines
 removeWhitespaceLines :: [String] -> [String]
-removeWhitespaceLines = map (\l -> if all (==' ') l then "" else l)
+removeWhitespaceLines = map (\l -> if all (== ' ') l then "" else l)
