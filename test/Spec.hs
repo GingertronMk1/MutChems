@@ -2,10 +2,8 @@ import Functions.Application
 import Test.HUnit
 import Text.Printf
 
-main :: IO ()
-main = do
-  testCounts <- runTestTT testList
-  print testCounts
+main :: IO Counts
+main = runTestTT testList
 
 testList :: Test
 testList =
