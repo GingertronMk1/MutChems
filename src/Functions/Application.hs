@@ -10,7 +10,7 @@ import Text.Printf
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float
-mean ls = fromIntegral (length ls) / realToFrac (sum ls)
+mean ls = realToFrac (sum ls) / realToFrac (length ls)
 
 -- | Take the minimum distance from a multiple of 5 that a number is.
 distanceFrom5 :: Int -> Int
