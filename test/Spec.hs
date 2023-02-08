@@ -15,8 +15,8 @@ testList =
       testMean
     ]
 
-meanTestCases :: [(Float, [Int])]
-meanTestCases =
+testMeanCases :: [(Float, [Int])]
+testMeanCases =
   [ (1.0, replicate 5 1),
     (3.0, [1 .. 5])
   ]
@@ -32,7 +32,7 @@ testMean =
               n
               (mean ns)
       )
-      meanTestCases
+      testMeanCases
 
 testunBreakCharacters :: Test
 testunBreakCharacters =
@@ -42,10 +42,25 @@ testunBreakCharacters =
       "Hello,&nbsp;World!"
       (unBreakCharacters "Hello, World!")
 
+-- (Result, testCase)
+testDistanceFrom5Cases :: [(Int, Int)]
+testDistanceFrom5Cases =
+  [ (5, 0),
+    (4, 1),
+    (3, 2),
+    (2, 2),
+    (1, 1)
+  ]
+
 testDistanceFrom5 :: Test
-testDistanceFrom5 = TestCase $ do
-  assertEqual "distanceFrom5 should return 0 for multiples of 5" 0 (distanceFrom5 5)
-  assertEqual "distanceFrom5 should return 1 for numbers one less than a multiple of 5" 1 (distanceFrom5 4)
-  assertEqual "distanceFrom5 should return 2 for numbers two less than a multiple of 5" 2 (distanceFrom5 3)
-  assertEqual "distanceFrom5 should return 2 for numbers three less than a multiple of 5" 2 (distanceFrom5 2)
-  assertEqual "distanceFrom5 should return 1 for numbers four less than a multiple of 5" 1 (distanceFrom5 1)
+testDistanceFrom5 =
+  TestList $
+    map
+      ( \(testCase, result) ->
+          TestCase $
+            assertEqual
+              (printf "distanceFrom5 should return %d for multiples of %d" result testCase)
+              result
+              (distanceFrom5 testCase)
+      )
+      testDistanceFrom5Cases
