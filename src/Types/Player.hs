@@ -5,6 +5,7 @@ import Classes.Data
 import Data.List
 import Data.Ord
 import Data.Teams
+import Functions.Application (standardIndent)
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -21,10 +22,11 @@ data GroupedPlayer = GroupedPlayer
 
 instance Data GroupedPlayer where
   toData (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) =
-    intercalate "\n" . map ("    " ++) $
-      [ name,
-        unwords teams
-      ]
+    intercalate "\n"
+      . map standardIndent
+      $ [ name,
+          unwords teams
+        ]
   fromData s = case take 2 . filter (not . null) . lines $ s of
     [name, teams] ->
       GroupedPlayer

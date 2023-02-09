@@ -68,18 +68,19 @@ testDistanceFrom5 =
       testDistanceFrom5Cases
 
 testMaximumValuesCases :: [TestInput [Int] [Int]]
-testMaximumValuesCases = [
-    ([1,1,5,3,4,5], [5,5])
+testMaximumValuesCases =
+  [ ([1, 1, 5, 3, 4, 5], [5, 5])
   ]
 
 testMaximumValues :: Test
-testMaximumValues = TestList $
-  map
-    ( \(testCase, result) ->
-      TestCase $
-        assertEqual
-          (printf "maximumValues should return %s for %s" (show result) (show testCase))
-          result
-          (maximumValues testCase)
-    )
-    testMaximumValuesCases
+testMaximumValues =
+  TestList $
+    map
+      ( \(testCase, result) ->
+          TestCase $
+            assertEqual
+              (printf "maximumValues should return %s for %s" (show result) (show testCase))
+              result
+              (maximumValues testCase)
+      )
+      testMaximumValuesCases

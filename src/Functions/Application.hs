@@ -159,3 +159,7 @@ dropFromEndWhile f xs =
 -- | Remove whitespace from empty lines
 removeWhitespaceLines :: [String] -> [String]
 removeWhitespaceLines = map (\l -> if all (== ' ') l then "" else l)
+
+-- | The standard indentation level
+standardIndent :: String -> String
+standardIndent = (replicate 2 ' ' ++)

@@ -27,20 +27,20 @@ instance Data ProspectiveChange where
       "\n"
       [ "# Addition",
         toData gp,
-        "    " ++ pos
+        standardIndent pos
       ]
   toData (Replacement pn gp) =
     intercalate
       "\n"
       [ "# Replacement",
-        "    " ++ pn,
+        standardIndent pn,
         toData gp
       ]
   toData (Removals ps) =
     intercalate
       "\n"
       [ "# Removals",
-        "    " ++ intercalate "," ps
+        standardIndent $ intercalate "," ps
       ]
   toData NoChange = "# NoChange"
   fromData s = case filter (not . null) . lines $ s of

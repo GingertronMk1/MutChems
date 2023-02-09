@@ -22,7 +22,7 @@ instance Data InitObject where
     dropFromEndWhile (== '\n')
       . intercalate "\n"
       $ [ toData gl,
-          "===",
+          "\n===\n",
           intercalate "\n\n" . map toData $ pcs
         ]
   fromData s =
