@@ -5,15 +5,18 @@ import Text.Printf
 main :: IO Counts
 main = runTestTT testList
 
+type TestInput a b = (a, b)
+
 testList :: Test
 testList =
   TestList
     [ testunBreakCharacters,
       testDistanceFrom5,
-      testMean
+      testMean,
+      testMaximumValues
     ]
 
-testMeanCases :: [([Int], Float)]
+testMeanCases :: [TestInput [Int] Float]
 testMeanCases =
   [ (replicate 5 1, 1.0),
     ([1 .. 5], 3.0),
@@ -42,7 +45,7 @@ testunBreakCharacters =
       (unBreakCharacters "Hello, World!")
 
 -- (Result, testCase)
-testDistanceFrom5Cases :: [(Int, Int)]
+testDistanceFrom5Cases :: [TestInput Int Int]
 testDistanceFrom5Cases =
   [ (5, 0),
     (4, 1),
@@ -63,3 +66,20 @@ testDistanceFrom5 =
               (distanceFrom5 testCase)
       )
       testDistanceFrom5Cases
+
+testMaximumValuesCases :: [TestInput [Int] [Int]]
+testMaximumValuesCases = [
+    ([1,1,5,3,4,5], [5,5])
+  ]
+
+testMaximumValues :: Test
+testMaximumValues = TestList $
+  map
+    ( \(testCase, result) ->
+      TestCase $
+        assertEqual
+          (printf "maximumValues should return %s for %s" (show result) (show testCase))
+          result
+          (maximumValues testCase)
+    )
+    testMaximumValuesCases
