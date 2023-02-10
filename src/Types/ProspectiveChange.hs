@@ -47,14 +47,14 @@ instance Data ProspectiveChange where
     ("# Addition" : playersName : playersTeams : position : _) ->
       Addition
         (fromData . intercalate "\n" $ [playersName, playersTeams])
-        (dropWhile (== ' ') position)
+        (dropSpaces position)
     ("# Replacement" : replacementName : player) ->
       Replacement
-        (dropWhile (== ' ') replacementName)
+        (dropSpaces replacementName)
         (fromData . intercalate "\n" $ player)
     ("# Removals" : ls) ->
       let players = head ls
-       in Removals $ splitOnInfix "," . dropWhile (== ' ') $ players
+       in Removals $ splitOnInfix "," . dropSpaces $ players
     ("# NoChange" : _) -> NoChange
     s' -> error . show $ (s, s')
 

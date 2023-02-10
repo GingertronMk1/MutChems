@@ -5,7 +5,7 @@ import Classes.Data
 import Data.List
 import Data.Ord
 import Data.Teams
-import Functions.Application (standardIndent)
+import Functions.Application
 import Types.Basic
 import Types.TeamOrMultiple
 
@@ -18,7 +18,7 @@ data GroupedPlayer = GroupedPlayer
     -- | All of their available team chemistries
     groupedPlayerTeams :: [EncodedTeamOrMultiple]
   }
-  deriving (Eq, Show, Read)
+  deriving (Eq, Show)
 
 instance Data GroupedPlayer where
   toData (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) =
@@ -27,11 +27,11 @@ instance Data GroupedPlayer where
       $ [ name,
           unwords teams
         ]
-  fromData s = case take 2 . filter (not . null) . lines $ s of
-    [name, teams] ->
+  fromData s = case filter (not . null) . lines $ s of
+    (name : teams : _) ->
       GroupedPlayer
-        { groupedPlayerName = dropWhile (== ' ') name,
-          groupedPlayerTeams = words . dropWhile (== ' ') $ teams
+        { groupedPlayerName = dropSpaces name,
+          groupedPlayerTeams = words . dropSpaces $ teams
         }
     _ -> error . show $ s
 
@@ -61,12 +61,18 @@ data VariationPlayer = VariationPlayer
 
 -- | Converting a GroupedPlayer to a regular Player
 groupedPlayerToPlayer :: GroupedPlayer -> Position -> Player
-groupedPlayerToPlayer (GroupedPlayer {groupedPlayerName = name, groupedPlayerTeams = teams}) pos =
-  Player
-    { playerName = name,
-      playerTeams = decodeTeamOrMultiples teams,
-      playerPosition = pos
-    }
+groupedPlayerToPlayer
+  ( GroupedPlayer
+      { groupedPlayerName = name,
+        groupedPlayerTeams = teams
+      }
+    )
+  pos =
+    Player
+      { playerName = name,
+        playerTeams = decodeTeamOrMultiples teams,
+        playerPosition = pos
+      }
 
 -- * The Variation
 
@@ -128,6 +134,7 @@ playerToVariationPlayers
       | pTeam <- pTeams
     ]
 
+-- | Does a Player belong to a given Team
 doesPlayerBelongToTeam :: Team -> Player -> Bool
 doesPlayerBelongToTeam t =
   not

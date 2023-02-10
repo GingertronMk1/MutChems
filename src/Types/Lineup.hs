@@ -15,7 +15,7 @@ import Types.TeamOrMultiple
 
 -- | A list of position groups
 newtype GroupedLineup = GroupedLineup [PositionGroup]
-  deriving (Eq, Show, Read)
+  deriving (Eq, Show)
 
 instance Data GroupedLineup where
   toData (GroupedLineup gl) = intercalate "\n\n" . map toData $ gl

@@ -144,62 +144,71 @@ vikings = "Vikings"
 
 -- * Divisions
 
+-- | Convert a list of Teams to a list of TeamOrMultiples
 teamsToTeamOrMultiples :: [Team] -> [TeamOrMultiple]
 teamsToTeamOrMultiples = map Team
 
--- | All of the teams in the NFCAsTeamOrMultiples North
+-- | All of the teams in the NFC North
 nfcNorth :: [Team]
 nfcNorth = [bears, lions, packers, vikings]
 
+-- | All of the teams in the nNorth as TeamOrMultiples
 nfcNorthAsTeamOrMultiples :: [TeamOrMultiple]
 nfcNorthAsTeamOrMultiples = teamsToTeamOrMultiples nfcNorth
 
--- | All of the teams in the NFCAsTeamOrMultiples East
+-- | All of the teams in the NFC East
 nfcEast :: [Team]
 nfcEast = [commanders, cowboys, giants, eagles]
 
+-- | All of the teams in the nEast as TeamOrMultiples
 nfcEastAsTeamOrMultiples :: [TeamOrMultiple]
 nfcEastAsTeamOrMultiples = teamsToTeamOrMultiples nfcEast
 
--- | All of the teams in the NFCAsTeamOrMultiples South
+-- | All of the teams in the NFC South
 nfcSouth :: [Team]
 nfcSouth = [buccaneers, falcons, panthers, saints]
 
+-- | All of the teams in the nSouth as TeamOrMultiples
 nfcSouthAsTeamOrMultiples :: [TeamOrMultiple]
 nfcSouthAsTeamOrMultiples = teamsToTeamOrMultiples nfcSouth
 
--- | All of the teams in the NFCAsTeamOrMultiples West
+-- | All of the teams in the NFC West
 nfcWest :: [Team]
 nfcWest = [cardinals, niners, rams, seahawks]
 
+-- | All of the teams in the nWest as TeamOrMultiples
 nfcWestAsTeamOrMultiples :: [TeamOrMultiple]
 nfcWestAsTeamOrMultiples = teamsToTeamOrMultiples nfcWest
 
--- | All of the teams in the AFCAsTeamOrMultiples North
+-- | All of the teams in the AFC North
 afcNorth :: [Team]
 afcNorth = [bengals, browns, ravens, steelers]
 
+-- | All of the teams in the aNorth as TeamOrMultiples
 afcNorthAsTeamOrMultiples :: [TeamOrMultiple]
 afcNorthAsTeamOrMultiples = teamsToTeamOrMultiples afcNorth
 
--- | All of the teams in the AFCAsTeamOrMultiples East
+-- | All of the teams in the AFC East
 afcEast :: [Team]
 afcEast = [bills, dolphins, jets, patriots]
 
+-- | All of the teams in the aEast as TeamOrMultiples
 afcEastAsTeamOrMultiples :: [TeamOrMultiple]
 afcEastAsTeamOrMultiples = teamsToTeamOrMultiples afcEast
 
--- | All of the teams in the AFCAsTeamOrMultiples South
+-- | All of the teams in the AFC South
 afcSouth :: [Team]
 afcSouth = [colts, jaguars, texans, titans]
 
+-- | All of the teams in the aSouth as TeamOrMultiples
 afcSouthAsTeamOrMultiples :: [TeamOrMultiple]
 afcSouthAsTeamOrMultiples = teamsToTeamOrMultiples afcSouth
 
--- | All of the teams in the AFCAsTeamOrMultiples West
+-- | All of the teams in the AFC West
 afcWest :: [Team]
 afcWest = [broncos, chargers, chiefs, raiders]
 
+-- | All of the teams in the aWest as TeamOrMultiples
 afcWestAsTeamOrMultiples :: [TeamOrMultiple]
 afcWestAsTeamOrMultiples = teamsToTeamOrMultiples afcWest
 
@@ -214,7 +223,7 @@ nfc =
       nfcWest
     ]
 
--- | All of the teams in the NFCAsTeamOrMultiples
+-- | All of the teams in the NFC
 nfcAsTeamOrMultiples :: [TeamOrMultiple]
 nfcAsTeamOrMultiples = teamsToTeamOrMultiples nfc
 
@@ -227,7 +236,7 @@ afc =
       afcWest
     ]
 
--- | All of the teams in the AFCAsTeamOrMultiples
+-- | All of the teams in the AFC
 afcAsTeamOrMultiples :: [TeamOrMultiple]
 afcAsTeamOrMultiples = teamsToTeamOrMultiples afc
 

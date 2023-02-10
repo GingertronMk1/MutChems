@@ -58,6 +58,7 @@ ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 comboOfTeams :: [[TeamOrMultiple]] -> [TeamOrMultiple]
 comboOfTeams = nub . map comboOfTeams' . sequence
 
+-- | Process the team combos with appropriate Teams' and MultipleTeams
 comboOfTeams' :: [TeamOrMultiple] -> TeamOrMultiple
 comboOfTeams' toms = case (group . sort) toms of
   [toms'@((Team t) : _)] -> MultipleTeam t $ length toms'

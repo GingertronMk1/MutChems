@@ -14,7 +14,7 @@ data PositionGroup = PositionGroup
     -- | The Players in that Position
     positionGroupPlayers :: [GroupedPlayer]
   }
-  deriving (Eq, Show, Read)
+  deriving (Eq, Show)
 
 instance Data PositionGroup where
   toData (PositionGroup {positionGroupPosition = pos, positionGroupPlayers = pla}) =

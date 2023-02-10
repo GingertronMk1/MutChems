@@ -163,3 +163,7 @@ removeWhitespaceLines = map (\l -> if all (== ' ') l then "" else l)
 -- | The standard indentation level
 standardIndent :: String -> String
 standardIndent = (replicate 2 ' ' ++)
+
+-- | Trim leading and trailing whitespace
+dropSpaces :: String -> String
+dropSpaces = dropFromEndWhile (== ' ') . dropWhile (== ' ')

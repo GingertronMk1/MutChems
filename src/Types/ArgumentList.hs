@@ -75,12 +75,15 @@ argumentsToArgumentList' ::
   ArgumentList
 argumentsToArgumentList' s args (prefix, f) = maybe args (f args) (stripPrefix prefix s)
 
+-- | A mapped list of argument prefixes and functions, setup with the equals sign
+-- and hyphens
 processedArgumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
 processedArgumentPrefixesAndFunctions =
   map
     (\(s, f) -> ("--" ++ s ++ "=", f))
     argumentPrefixesAndFunctions
 
+-- | The list of argument prefixes and the functions to perform on the string
 argumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
 argumentPrefixesAndFunctions =
   [ ("disregardTeams", \args s -> args {argDisregardTeams = splitOn (== ',') s}),
