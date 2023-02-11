@@ -5,7 +5,9 @@ import Text.Printf
 main :: IO Counts
 main = runTestTT testList
 
-type TestInput a b = (a, b)
+type TestInputs a b = [(a, b)]
+
+type TestCases a b = (String, a -> b, TestInputs a b) 
 
 testList :: Test
 testList =
@@ -13,28 +15,32 @@ testList =
     [ testunBreakCharacters,
       testDistanceFrom5,
       testMean,
-      testMaximumValues
+      testMaximumValues,
+      testPrintThingsWithAnd
     ]
 
-testMeanCases :: [TestInput [Int] Float]
+testTestCases :: (Eq b, Show a, Show b) => TestCases a b -> Test
+testTestCases (str, fn, testCases) =
+  TestList $
+    map (\(testCase, result) ->
+      TestCase $
+        assertEqual
+          (printf str (show testCase) (show result))
+          result
+          (fn testCase)
+    ) testCases
+
+testMeanCases :: TestCases [Int] Float
 testMeanCases =
+  ("Mean of %s should equal %d",
+    mean,
   [ (replicate 5 1, 1.0),
     ([1 .. 5], 3.0),
     ([1 .. 10], 5.5)
-  ]
+  ])
 
 testMean :: Test
-testMean =
-  TestList $
-    map
-      ( \(testCase, result) ->
-          TestCase $
-            assertEqual
-              (printf "Mean of %s should equal %d" (show testCase) result)
-              result
-              (mean testCase)
-      )
-      testMeanCases
+testMean = testTestCases testMeanCases
 
 testunBreakCharacters :: Test
 testunBreakCharacters =
@@ -45,42 +51,39 @@ testunBreakCharacters =
       (unBreakCharacters "Hello, World!")
 
 -- (Result, testCase)
-testDistanceFrom5Cases :: [TestInput Int Int]
+testDistanceFrom5Cases :: TestCases Int Int
 testDistanceFrom5Cases =
-  [ (5, 0),
+  ( "distanceFrom5 should return %d for multiples of %d",
+    distanceFrom5,
+    [ (5, 0),
     (4, 1),
     (3, 2),
     (2, 2),
     (1, 1)
-  ]
+  ])
 
 testDistanceFrom5 :: Test
-testDistanceFrom5 =
-  TestList $
-    map
-      ( \(testCase, result) ->
-          TestCase $
-            assertEqual
-              (printf "distanceFrom5 should return %d for multiples of %d" result testCase)
-              result
-              (distanceFrom5 testCase)
-      )
-      testDistanceFrom5Cases
+testDistanceFrom5 = testTestCases testDistanceFrom5Cases
 
-testMaximumValuesCases :: [TestInput [Int] [Int]]
+testMaximumValuesCases :: TestCases [Int] [Int]
 testMaximumValuesCases =
-  [ ([1, 1, 5, 3, 4, 5], [5, 5])
-  ]
+  ( "maximumValues should return %s for %s",
+    maximumValues,
+    [ ([1, 1, 5, 3, 4, 5], [5, 5])
+    ])
 
 testMaximumValues :: Test
-testMaximumValues =
-  TestList $
-    map
-      ( \(testCase, result) ->
-          TestCase $
-            assertEqual
-              (printf "maximumValues should return %s for %s" (show result) (show testCase))
-              result
-              (maximumValues testCase)
-      )
-      testMaximumValuesCases
+testMaximumValues = testTestCases testMaximumValuesCases
+
+testPrintThingsWithAndCases :: TestCases [String] String
+testPrintThingsWithAndCases = (
+  "printThingsWithAnd should return %s for %s",
+  printThingsWithAnd,
+  [
+    (map show ([1] :: [Int]), "1"),
+    (map show ([1,2] :: [Int]), "1 and 2"),
+    (map show ([1..3] :: [Int]), "1, 2, and 3")
+  ])
+
+testPrintThingsWithAnd :: Test
+testPrintThingsWithAnd = testTestCases testPrintThingsWithAndCases
