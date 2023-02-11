@@ -3,7 +3,6 @@
 -- List of positions
 module Data.Positions where
 
-import Text.Printf
 import Types.Basic
 
 -- | Quarterback
@@ -121,76 +120,3 @@ numInPositions =
     (strategyCard, 1)
   ]
 
-data PositionData
-  = Quarterback
-  | Halfback
-  | Fullback
-  | WideReceiver
-  | TightEnd
-  | LeftTackle
-  | LeftGuard
-  | Center
-  | RightGuard
-  | RightTackle
-  | FreeSafety
-  | StrongSafety
-  | Cornerback
-  | RightOutsideLinebacker
-  | MiddleLinebacker
-  | LeftOutsideLinebacker
-  | RightDefensiveEnd
-  | DefensiveTackle
-  | LeftDefensiveEnd
-  | Kicker
-  | Punter
-  | NoPosition
-  deriving (Enum)
-
-instance Show PositionData where
-  show Quarterback = "Quarterback"
-  show Halfback = "Halfback"
-  show Fullback = "Fullback"
-  show WideReceiver = "Wide Receiver"
-  show TightEnd = "Tight End"
-  show LeftTackle = "Left Tackle"
-  show LeftGuard = "Left Guard"
-  show Center = "Center"
-  show RightGuard = "Right Guard"
-  show RightTackle = "Right Tackle"
-  show FreeSafety = "Free Safety"
-  show StrongSafety = "Strong Safety"
-  show Cornerback = "Cornerback"
-  show RightOutsideLinebacker = "Right Outside Linebacker"
-  show MiddleLinebacker = "Middle Linebacker"
-  show LeftOutsideLinebacker = "Left Outside Linebacker"
-  show RightDefensiveEnd = "Right Defensive End"
-  show DefensiveTackle = "Defensive Tackle"
-  show LeftDefensiveEnd = "Left Defensive End"
-  show Kicker = "Kicker"
-  show Punter = "Punter"
-  show NoPosition = ""
-
-readToPositionData :: String -> PositionData
-readToPositionData s = case filter (/= ' ') s of
-  "Quarterback" -> Quarterback
-  "Halfback" -> Halfback
-  "Fullback" -> Fullback
-  "WideReceiver" -> WideReceiver
-  "TightEnd" -> TightEnd
-  "LeftTackle" -> LeftTackle
-  "LeftGuard" -> LeftGuard
-  "Center" -> Center
-  "RightGuard" -> RightGuard
-  "RightTackle" -> RightTackle
-  "FreeSafety" -> FreeSafety
-  "StrongSafety" -> StrongSafety
-  "Cornerback" -> Cornerback
-  "RightOutsideLinebacker" -> RightOutsideLinebacker
-  "MiddleLinebacker" -> MiddleLinebacker
-  "LeftOutsideLinebacker" -> LeftOutsideLinebacker
-  "RightDefensiveEnd" -> RightDefensiveEnd
-  "DefensiveTackle" -> DefensiveTackle
-  "LeftDefensiveEnd" -> LeftDefensiveEnd
-  "Kicker" -> Kicker
-  "Punter" -> Punter
-  _ -> error $ printf "Could not read %s as PositionData" s

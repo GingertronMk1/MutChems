@@ -42,7 +42,7 @@ flattenPositionGroup (PositionGroup {positionGroupPosition = pos, positionGroupP
   [ Player
       { playerName = pName,
         playerTeams = decodeTeamOrMultiples pTeams,
-        playerPosition = pos
+        playerPosition = readToPositionData pos
       }
     | ( GroupedPlayer
           { groupedPlayerName = pName,
@@ -68,7 +68,7 @@ groupFlatLineup fl =
           . map
             ( \ps ->
                 PositionGroup
-                  { positionGroupPosition = playerPosition . head $ ps,
+                  { positionGroupPosition = show . playerPosition . head $ ps,
                     positionGroupPlayers =
                       [ GroupedPlayer
                           { groupedPlayerName = pn,
@@ -186,7 +186,7 @@ printPlayersAsMarkDownSection (t, ins, outs) =
 -- | Print a player and their position as a markdown table row
 printPlayerAsMarkDownRow :: Player -> String
 printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition}) =
-  printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters pPosition)
+  printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters . show $ pPosition)
 
 -- | Get a list of all teams represented in a lineup
 getAllTeamsFromLineup :: FlatLineup -> [Team]

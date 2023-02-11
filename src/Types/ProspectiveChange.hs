@@ -62,8 +62,8 @@ instance Data ProspectiveChange where
 applyProspectiveChange :: ProspectiveChange -> FlatLineup -> FlatLineup
 applyProspectiveChange NoChange fl = fl
 applyProspectiveChange (Addition gp position) fl =
-  let (befores, afters) = break ((== position) . playerPosition) fl
-   in befores ++ (groupedPlayerToPlayer gp position : afters)
+  let (befores, afters) = break ((== readToPositionData position) . playerPosition) fl
+   in befores ++ (groupedPlayerToPlayer gp (readToPositionData position) : afters)
 applyProspectiveChange (Replacement oldP newP) fl =
   case break ((== oldP) . playerName) fl of
     (_, []) -> error $ printf "No player called %s" oldP

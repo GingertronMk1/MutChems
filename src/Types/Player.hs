@@ -44,7 +44,7 @@ data Player = Player
     -- | All of their available team chemistries
     playerTeams :: [TeamOrMultiple],
     -- | The Player's Position
-    playerPosition :: Position
+    playerPosition :: PositionData
   }
   deriving (Eq, Ord, Show)
 
@@ -55,12 +55,12 @@ data VariationPlayer = VariationPlayer
     -- | One of their available TeamOrMultiples
     variationPlayerTeam :: TeamOrMultiple,
     -- | Their position
-    variationPlayerPosition :: Position
+    variationPlayerPosition :: PositionData
   }
   deriving (Eq, Ord, Show)
 
 -- | Converting a GroupedPlayer to a regular Player
-groupedPlayerToPlayer :: GroupedPlayer -> Position -> Player
+groupedPlayerToPlayer :: GroupedPlayer -> PositionData -> Player
 groupedPlayerToPlayer
   ( GroupedPlayer
       { groupedPlayerName = name,

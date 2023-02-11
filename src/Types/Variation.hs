@@ -51,11 +51,11 @@ flatLineupToVariations =
 -- | Print a variation as an HTML table
 printVariationAsHtmlTable :: Variation -> String
 printVariationAsHtmlTable (Variation v) =
-  intercalate "\n" $ printVariationAsHtmlTable' "" v
+  intercalate "\n" $ printVariationAsHtmlTable' NoPosition v
 
 -- | Print each player in a variation as a row in an HTML table, with new rows
 -- for each position change
-printVariationAsHtmlTable' :: Position -> [VariationPlayer] -> [String]
+printVariationAsHtmlTable' :: PositionData -> [VariationPlayer] -> [String]
 printVariationAsHtmlTable' _ [] = []
 printVariationAsHtmlTable'
   pos
@@ -73,7 +73,7 @@ printVariationAsHtmlTable'
                 unBreakCharacters . ppTeamOrMultiple $ pTeam
               ]
         nextRow = printVariationAsHtmlTable' pPos ps
-        posRow = wrapInTag "tr" . wrapInTag "th colspan=2" $ pPos
+        posRow = wrapInTag "tr" . wrapInTag "th colspan=2" . show $ pPos
      in if pPos == pos
           then thisRow : nextRow
           else posRow : thisRow : nextRow
