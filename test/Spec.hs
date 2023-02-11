@@ -80,9 +80,9 @@ testPrintThingsWithAndCases = (
   "printThingsWithAnd should return %s for %s",
   printThingsWithAnd,
   [
-    (map show ([1] :: [Int]), "1"),
-    (map show ([1,2] :: [Int]), "1 and 2"),
-    (map show ([1..3] :: [Int]), "1, 2, and 3")
+    (map show ['a'], "'a'"),
+    (map show ['a','b'], "'a' and 'b'"),
+    (map show ['a'..'c'], "'a', 'b', and 'c'")
   ])
 
 testPrintThingsWithAnd :: Test
