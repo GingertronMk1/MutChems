@@ -123,16 +123,14 @@ reduceFlatLineup = reduceFlatLineup' 0
 
 -- | Effectively limit the number of possible Variations in a FlatLineup to a target
 reduceFlatLineup' :: Int -> Int -> FlatLineup -> (FlatLineup, Int)
-reduceFlatLineup' teamThreshold variationLimit lineup
-  | numberOfNewLineupOptions < 0 = nextIfNotZero
-  | numberOfNewLineupOptions == 0 = (newLineup, teamThreshold)
-  | numberOfNewLineupOptions <= variationLimit = (newLineup, teamThreshold)
-  | otherwise = nextIfNotZero
-  where
-    nextIfNotZero = reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
-    newLineup = map (filterInTeamsFromPlayer filteredTeams) lineup
-    filteredTeams = filterListByNumber teamThreshold . allTeamsInLineup $ lineup
-    numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
+reduceFlatLineup' teamThreshold variationLimit lineup =
+  let newLineup = map (filterInTeamsFromPlayer filteredTeams) lineup
+      filteredTeams = filterListByNumber teamThreshold . allTeamsInLineup $ lineup
+      numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
+   in if 0 <= numberOfNewLineupOptions
+        && numberOfNewLineupOptions <= variationLimit
+        then (newLineup, teamThreshold)
+        else reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
 
 -- | Get a list of all the players that do and do not belong to every Team represented in a lineup
 printPlayerTeamsInLineup :: FlatLineup -> [(Team, [Player], [Player])]
