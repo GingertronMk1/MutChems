@@ -7,7 +7,7 @@ main = runTestTT testList
 
 type TestInputs a b = [(a, b)]
 
-type TestCases a b = (String, a -> b, TestInputs a b) 
+type TestCases a b = (String, a -> b, TestInputs a b)
 
 testList :: Test
 testList =
@@ -22,22 +22,25 @@ testList =
 testTestCases :: (Eq b, Show a, Show b) => TestCases a b -> Test
 testTestCases (str, fn, testCases) =
   TestList $
-    map (\(testCase, result) ->
-      TestCase $
-        assertEqual
-          (printf str (show testCase) (show result))
-          result
-          (fn testCase)
-    ) testCases
+    map
+      ( \(testCase, result) ->
+          TestCase $
+            assertEqual
+              (printf str (show testCase) (show result))
+              result
+              (fn testCase)
+      )
+      testCases
 
 testMeanCases :: TestCases [Int] Float
 testMeanCases =
-  ("Mean of %s should equal %d",
+  ( "Mean of %s should equal %d",
     mean,
-  [ (replicate 5 1, 1.0),
-    ([1 .. 5], 3.0),
-    ([1 .. 10], 5.5)
-  ])
+    [ (replicate 5 1, 1.0),
+      ([1 .. 5], 3.0),
+      ([1 .. 10], 5.5)
+    ]
+  )
 
 testMean :: Test
 testMean = testTestCases testMeanCases
@@ -56,11 +59,12 @@ testDistanceFrom5Cases =
   ( "distanceFrom5 should return %d for multiples of %d",
     distanceFrom5,
     [ (5, 0),
-    (4, 1),
-    (3, 2),
-    (2, 2),
-    (1, 1)
-  ])
+      (4, 1),
+      (3, 2),
+      (2, 2),
+      (1, 1)
+    ]
+  )
 
 testDistanceFrom5 :: Test
 testDistanceFrom5 = testTestCases testDistanceFrom5Cases
@@ -70,20 +74,21 @@ testMaximumValuesCases =
   ( "maximumValues should return %s for %s",
     maximumValues,
     [ ([1, 1, 5, 3, 4, 5], [5, 5])
-    ])
+    ]
+  )
 
 testMaximumValues :: Test
 testMaximumValues = testTestCases testMaximumValuesCases
 
 testPrintThingsWithAndCases :: TestCases [String] String
-testPrintThingsWithAndCases = (
-  "printThingsWithAnd should return %s for %s",
-  printThingsWithAnd,
-  [
-    (map show ['a'], "'a'"),
-    (map show ['a','b'], "'a' and 'b'"),
-    (map show ['a'..'c'], "'a', 'b', and 'c'")
-  ])
+testPrintThingsWithAndCases =
+  ( "printThingsWithAnd should return %s for %s",
+    printThingsWithAnd,
+    [ (map show ['a'], "'a'"),
+      (map show ['a', 'b'], "'a' and 'b'"),
+      (map show ['a' .. 'c'], "'a', 'b', and 'c'")
+    ]
+  )
 
 testPrintThingsWithAnd :: Test
 testPrintThingsWithAnd = testTestCases testPrintThingsWithAndCases
