@@ -168,24 +168,21 @@ printPlayersAsMarkDownSection :: (Team, [Player], [Player]) -> String
 printPlayersAsMarkDownSection (t, ins, outs) =
   intercalate
     "\n"
-    [ wrapInTag "h2" $ printf "<a id=\"%s\">%s (%d/%d)</a>" t t (length ins) (length (ins ++ outs)),
-      "\n",
-      wrapInTag "h4" $ printf "Has %s chemistry" t,
-      "\n",
-      "| Player | Position |",
-      "|:---|---|",
-      intercalate "\n"
-        . map printPlayerAsMarkDownRow
-        $ ins,
-      "\n",
-      wrapInTag "h4" $ printf "Does not have %s chemistry" t,
-      "\n",
-      "| Player | Position |",
-      "|:---|---|",
-      intercalate "\n"
-        . map printPlayerAsMarkDownRow
-        $ outs
-    ]
+    $ [ wrapInTag "h2" $ printf "<a id=\"%s\">%s (%d/%d)</a>" t t (length ins) (length (ins ++ outs)),
+        "\n",
+        wrapInTag "h4" $ printf "Has %s chemistry" t,
+        "\n",
+        "| Player | Position |",
+        "|:---|---|"
+      ]
+      ++ map printPlayerAsMarkDownRow ins
+      ++ [ "\n",
+           wrapInTag "h4" $ printf "Does not have %s chemistry" t,
+           "\n",
+           "| Player | Position |",
+           "|:---|---|"
+         ]
+      ++ map printPlayerAsMarkDownRow outs
 
 -- | Print a player and their position as a markdown table row
 printPlayerAsMarkDownRow :: Player -> String
