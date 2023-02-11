@@ -119,4 +119,3 @@ numInPositions =
     (p, 1),
     (strategyCard, 1)
   ]
-

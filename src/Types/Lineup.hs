@@ -145,7 +145,13 @@ printPlayerTeamsInLineup fl =
 -- | Get lists of players that do and do not belong to a given Team
 printPlayersBelongingToTeam :: [Player] -> Team -> (Team, [Player], [Player])
 printPlayersBelongingToTeam ps t =
-  let (ins, outs) = partition ((/= [NoTeam]) . playerTeams . filterInTeamsFromPlayer [t]) ps
+  let (ins, outs) =
+        partition
+          ( (/= [NoTeam])
+              . playerTeams
+              . filterInTeamsFromPlayer [t]
+          )
+          ps
    in ( t,
         ins,
         outs
