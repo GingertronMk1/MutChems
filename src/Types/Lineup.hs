@@ -134,12 +134,15 @@ reduceFlatLineup' teamThreshold variationLimit lineup
     filteredTeams = filterListByNumber teamThreshold . allTeamsInLineup $ lineup
     numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
 
+-- | Get a list of all the players that do and do not belong to every Team represented in a lineup
 printPlayerTeamsInLineup :: FlatLineup -> [(Team, [Player], [Player])]
 printPlayerTeamsInLineup fl =
   sortOn (\(_, ps, _) -> Down . length $ ps)
     . map (printPlayersBelongingToTeam fl)
-    $ all32TeamsPlusLegends
+    . getAllTeamsFromLineup
+    $ fl
 
+-- | Get lists of players that do and do not belong to a given Team
 printPlayersBelongingToTeam :: [Player] -> Team -> (Team, [Player], [Player])
 printPlayersBelongingToTeam ps t =
   let (ins, outs) = partition ((/= [NoTeam]) . playerTeams . filterInTeamsFromPlayer [t]) ps
@@ -148,6 +151,7 @@ printPlayersBelongingToTeam ps t =
         outs
       )
 
+-- | Print tables consisting of the players that do and do not belong to each Team in a Lineup
 printPlayersBelongingToTeamsToMarkdown :: FlatLineup -> String
 printPlayersBelongingToTeamsToMarkdown fl =
   let playersInTeams = printPlayerTeamsInLineup fl
@@ -155,6 +159,7 @@ printPlayersBelongingToTeamsToMarkdown fl =
         . map printPlayersAsMarkDownSection
         $ playersInTeams
 
+-- | Print a table consisting of the players that do and do not belong to a given Team
 printPlayersAsMarkDownSection :: (Team, [Player], [Player]) -> String
 printPlayersAsMarkDownSection (t, ins, outs) =
   intercalate
@@ -178,13 +183,15 @@ printPlayersAsMarkDownSection (t, ins, outs) =
         $ outs
     ]
 
+-- | Print a player and their position as a markdown table row
 printPlayerAsMarkDownRow :: Player -> String
 printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition}) =
   printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters pPosition)
 
-ppLineup :: FlatLineup -> String
-ppLineup = intercalate "\n" . map ppPlayer
+-- | Get a list of all teams represented in a lineup
+getAllTeamsFromLineup :: FlatLineup -> [Team]
+getAllTeamsFromLineup = nub . concatMap getAllTeamsFromPlayer
 
-ppPlayer :: Player -> String
-ppPlayer (Player {playerName = pName, playerTeams = pTeams, playerPosition = pPosition}) =
-  printf "%s|%s, %s" pName pPosition (printThingsWithAnd . map ppTeamOrMultiple $ pTeams)
+-- | Get a list of all teams to which a player belongs
+getAllTeamsFromPlayer :: Player -> [Team]
+getAllTeamsFromPlayer = nub . concatMap expandTeamOrMultiple . playerTeams

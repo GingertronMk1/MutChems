@@ -48,10 +48,13 @@ flatLineupToVariations =
   map Variation
     . mapM playerToVariationPlayers
 
+-- | Print a variation as an HTML table
 printVariationAsHtmlTable :: Variation -> String
 printVariationAsHtmlTable (Variation v) =
   intercalate "\n" $ printVariationAsHtmlTable' "" v
 
+-- | Print each player in a variation as a row in an HTML table, with new rows
+-- for each position change
 printVariationAsHtmlTable' :: Position -> [VariationPlayer] -> [String]
 printVariationAsHtmlTable' _ [] = []
 printVariationAsHtmlTable'

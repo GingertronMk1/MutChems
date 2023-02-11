@@ -27,6 +27,8 @@ data DisplayObject = DisplayObject
   }
   deriving (Show)
 
+-- | Converting a build object to an intermediate object, being passed in a threshold
+-- for the filtering
 buildObjectToIntermediateObject :: Int -> BuildObject -> IntermediateObject
 buildObjectToIntermediateObject
   n
@@ -70,6 +72,7 @@ printDisplayObjectsAsHtmlTable =
         printDisplayObjectsAsTableFoot
       ]
 
+-- | Printing the table body of a display object
 printDisplayObjectsAsTableBody :: [DisplayObject] -> String
 printDisplayObjectsAsTableBody =
   wrapInTag "tbody"
@@ -78,6 +81,7 @@ printDisplayObjectsAsTableBody =
           . printDisplayObjectAsHtmlTable
       )
 
+-- | Printing the prospective change involved in a display object as a table head
 printDisplayObjectsAsTableHead :: [DisplayObject] -> String
 printDisplayObjectsAsTableHead =
   wrapInTag "thead"
@@ -88,6 +92,7 @@ printDisplayObjectsAsTableHead =
           . displayObjectProspectiveChange
       )
 
+-- | Printing the list of team chemistries as a table foot
 printDisplayObjectsAsTableFoot :: [DisplayObject] -> String
 printDisplayObjectsAsTableFoot =
   wrapInTag "tfoot"
@@ -103,6 +108,7 @@ printDisplayObjectsAsTableFoot =
           . getTeamCountsFromDisplayObject
       )
 
+-- | Getting the number of each Team represented in a DisplayObject
 getTeamCountsFromDisplayObject :: DisplayObject -> [(Team, Int)]
 getTeamCountsFromDisplayObject (DisplayObject {displayObjectVariation = (Variation var)}) =
   sortOn

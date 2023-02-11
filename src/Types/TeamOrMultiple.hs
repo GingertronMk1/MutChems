@@ -64,7 +64,7 @@ comboOfTeams' toms = case (group . sort) toms of
   [toms'@((Team t) : _)] -> MultipleTeam t $ length toms'
   toms' -> Teams $ concat toms'
 
--- | Given a list of TeamOrMultiples, generate all combinations for 'n' slots
+-- | Given a list of TeamOrMultiples, generate all combinations for some number of slots
 teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
 

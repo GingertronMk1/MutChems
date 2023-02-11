@@ -214,6 +214,7 @@ afcWestAsTeamOrMultiples = teamsToTeamOrMultiples afcWest
 
 -- * Conferences
 
+-- | All of the teams in the NFC
 nfc :: [Team]
 nfc =
   concat
@@ -223,10 +224,11 @@ nfc =
       nfcWest
     ]
 
--- | All of the teams in the NFC
+-- | All of the teams in the NFC as TeamOrMultiples
 nfcAsTeamOrMultiples :: [TeamOrMultiple]
 nfcAsTeamOrMultiples = teamsToTeamOrMultiples nfc
 
+-- | All of the teams in the AFC
 afc :: [Team]
 afc =
   concat
@@ -236,23 +238,25 @@ afc =
       afcWest
     ]
 
--- | All of the teams in the AFC
+-- | All of the teams in the AFC as TeamOrMultiples
 afcAsTeamOrMultiples :: [TeamOrMultiple]
 afcAsTeamOrMultiples = teamsToTeamOrMultiples afc
 
 -- * League
 
+-- | All of the teams in the NFL
 all32Teams :: [Team]
 all32Teams = nfc ++ afc
 
--- | All of the teams in the NFL
+-- | All of the teams in the NFL as TeamOrMultiples
 all32TeamsAsTeamOrMultiples :: [TeamOrMultiple]
 all32TeamsAsTeamOrMultiples = teamsToTeamOrMultiples all32Teams
 
+-- | All of the teams in the NFL plus retired teams
 all32TeamsPlusLegends :: [Team]
 all32TeamsPlusLegends = legends : all32Teams
 
--- | All of the teams in the NFL plus retired teams
+-- | All of the teams in the NFL plus retired teams as TeamOrMultiples
 all32TeamsPlusLegendsAsTeamOrMultiples :: [TeamOrMultiple]
 all32TeamsPlusLegendsAsTeamOrMultiples = teamsToTeamOrMultiples all32TeamsPlusLegends
 

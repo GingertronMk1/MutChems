@@ -45,6 +45,8 @@ instance Data InitObject where
       [gl] -> InitObject {groupedLineup = fromData gl, prospectiveChanges = []}
       _ -> error s
 
+-- | A function to first open a data file and then step and return an InitObject,
+-- also writing the stepped object back to the file
 openAndStepInitObject :: String -> Int -> IO InitObject
 openAndStepInitObject s n = do
   fileContents <- readFile' s
@@ -75,6 +77,7 @@ stepInitObject
             prospectiveChanges = remainingChanges
           }
 
+-- | Covert an initObject to a list of buildObjects
 initObjectToBuildObjects :: InitObject -> [BuildObject]
 initObjectToBuildObjects (InitObject {groupedLineup = gl, prospectiveChanges = pcs}) =
   iterativelyApplyProspectiveChanges pcs . flattenGroupedLineup $ gl
