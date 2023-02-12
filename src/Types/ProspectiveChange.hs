@@ -51,7 +51,7 @@ instance Data ProspectiveChange where
              in Addition
                   (fromData . intercalate "\n" $ [playersName, playersTeams])
                   (dropSpaces position)
-          "Replcament" ->
+          "Replacement" ->
             let (replacementName : player) = details
              in Replacement
                   (dropSpaces replacementName)
