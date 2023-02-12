@@ -4,7 +4,6 @@ module Types.Lineup where
 import Classes.Data
 import Data.List
 import Data.Ord
-import Data.Positions
 import Data.Teams
 import Functions.Application
 import Text.Printf
@@ -64,7 +63,7 @@ groupFlatLineup fl =
           . sortOn playerPosition
           $ fl
    in GroupedLineup $
-        sortPositionGroups
+        sortOn (readToPositionData . positionGroupPosition)
           . map
             ( \ps ->
                 PositionGroup
@@ -86,16 +85,6 @@ playerPositionInInitialLineup initialLineup pName =
   case findIndex ((== pName) . playerName) initialLineup of
     Just n -> n
     Nothing -> 1 + length initialLineup
-
--- | Sort a list of PositionGroups according to their position in the list
-sortPositionGroups :: [PositionGroup] -> [PositionGroup]
-sortPositionGroups = sortOn (sortPositionGroups' . positionGroupPosition)
-
--- | Helper for the above
-sortPositionGroups' :: Position -> Int
-sortPositionGroups' pos = case findIndex ((== pos) . fst) numInPositions of
-  Just n -> n
-  Nothing -> 1 + length numInPositions
 
 -- * Filtering a Lineup
 

@@ -3,7 +3,8 @@
 -- Alias types
 module Types.Basic where
 
-import Text.Printf
+import Data.List
+import Data.Maybe
 
 -- | Team is shorthand for a String - it is just the name of a team.
 type Team = String
@@ -41,55 +42,50 @@ data PositionData
   | Punter
   | StrategyCard
   | NoPosition
-  deriving (Eq, Ord, Enum)
+  deriving (Eq, Enum)
+
+positionDatas :: [(PositionData, String)]
+positionDatas =
+  [ (Quarterback, "Quarterback"),
+    (Halfback, "Halfback"),
+    (Fullback, "Fullback"),
+    (WideReceiver, "Wide Receiver"),
+    (TightEnd, "Tight End"),
+    (LeftTackle, "Left Tackle"),
+    (LeftGuard, "Left Guard"),
+    (Center, "Center"),
+    (RightGuard, "Right Guard"),
+    (RightTackle, "Right Tackle"),
+    (FreeSafety, "Free Safety"),
+    (StrongSafety, "Strong Safety"),
+    (Cornerback, "Cornerback"),
+    (RightOutsideLinebacker, "Right Outside Linebacker"),
+    (MiddleLinebacker, "Middle Linebacker"),
+    (LeftOutsideLinebacker, "Left Outside Linebacker"),
+    (RightDefensiveEnd, "Right Defensive End"),
+    (DefensiveTackle, "Defensive Tackle"),
+    (LeftDefensiveEnd, "Left Defensive End"),
+    (Kicker, "Kicker"),
+    (Punter, "Punter"),
+    (StrategyCard, "Strategy Card"),
+    (NoPosition, "")
+  ]
 
 instance Show PositionData where
-  show Quarterback = "Quarterback"
-  show Halfback = "Halfback"
-  show Fullback = "Fullback"
-  show WideReceiver = "Wide Receiver"
-  show TightEnd = "Tight End"
-  show LeftTackle = "Left Tackle"
-  show LeftGuard = "Left Guard"
-  show Center = "Center"
-  show RightGuard = "Right Guard"
-  show RightTackle = "Right Tackle"
-  show FreeSafety = "Free Safety"
-  show StrongSafety = "Strong Safety"
-  show Cornerback = "Cornerback"
-  show RightOutsideLinebacker = "Right Outside Linebacker"
-  show MiddleLinebacker = "Middle Linebacker"
-  show LeftOutsideLinebacker = "Left Outside Linebacker"
-  show RightDefensiveEnd = "Right Defensive End"
-  show DefensiveTackle = "Defensive Tackle"
-  show LeftDefensiveEnd = "Left Defensive End"
-  show Kicker = "Kicker"
-  show Punter = "Punter"
-  show StrategyCard = "Strategy Card"
-  show NoPosition = ""
+  show p = fromMaybe (error "No show found for PositionData") (lookup p positionDatas)
+
+instance Ord PositionData where
+  compare pos1 pos2 =
+    let poses = map fst positionDatas
+     in case elemIndex pos1 poses of
+          Just n1 -> case elemIndex pos2 poses of
+            Just n2 -> compare n1 n2
+            Nothing -> error $ "Could not find comparison data for " ++ show pos2
+          Nothing -> error $ "Could not find comparison data for " ++ show pos1
 
 readToPositionData :: String -> PositionData
-readToPositionData s = case filter (/= ' ') s of
-  "Quarterback" -> Quarterback
-  "Halfback" -> Halfback
-  "Fullback" -> Fullback
-  "WideReceiver" -> WideReceiver
-  "TightEnd" -> TightEnd
-  "LeftTackle" -> LeftTackle
-  "LeftGuard" -> LeftGuard
-  "Center" -> Center
-  "RightGuard" -> RightGuard
-  "RightTackle" -> RightTackle
-  "FreeSafety" -> FreeSafety
-  "StrongSafety" -> StrongSafety
-  "Cornerback" -> Cornerback
-  "RightOutsideLinebacker" -> RightOutsideLinebacker
-  "MiddleLinebacker" -> MiddleLinebacker
-  "LeftOutsideLinebacker" -> LeftOutsideLinebacker
-  "RightDefensiveEnd" -> RightDefensiveEnd
-  "DefensiveTackle" -> DefensiveTackle
-  "LeftDefensiveEnd" -> LeftDefensiveEnd
-  "Kicker" -> Kicker
-  "Punter" -> Punter
-  "StrategyCard" -> StrategyCard
-  _ -> error $ printf "Could not read %s as PositionData" s
+readToPositionData s =
+  fst $
+    fromMaybe
+      (error $ "No read instance for " ++ s)
+      (find ((== s) . snd) positionDatas)
