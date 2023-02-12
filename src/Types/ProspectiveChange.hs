@@ -44,20 +44,21 @@ instance Data ProspectiveChange where
       ]
   toData NoChange = "# NoChange"
   fromData s =
-    let (kind:details) = filter (not . null) . lines $ s
-    in
-      case dropWhile (==' ') . tail $ kind of
-      "Addition" -> let (playersName:playersTeams:position:_) = details
-        in Addition
-        (fromData . intercalate "\n" $ [playersName, playersTeams])
-        (dropSpaces position)
-      "Replcament" -> let (replacementName:player) = details
-        in Replacement
-        (dropSpaces replacementName)
-        (fromData . intercalate "\n" $ player)
-      "Removals" -> Removals $ splitOnInfix "," . dropSpaces . head $ details
-      "NoChange" -> NoChange
-      s' -> error . show $ (s, s')
+    let (kind : details) = filter (not . null) . lines $ s
+     in case dropWhile (== ' ') . tail $ kind of
+          "Addition" ->
+            let (playersName : playersTeams : position : _) = details
+             in Addition
+                  (fromData . intercalate "\n" $ [playersName, playersTeams])
+                  (dropSpaces position)
+          "Replcament" ->
+            let (replacementName : player) = details
+             in Replacement
+                  (dropSpaces replacementName)
+                  (fromData . intercalate "\n" $ player)
+          "Removals" -> Removals $ splitOnInfix "," . dropSpaces . head $ details
+          "NoChange" -> NoChange
+          s' -> error . show $ (s, s')
 
 -- | Apply a given prospective change
 applyProspectiveChange :: ProspectiveChange -> FlatLineup -> FlatLineup
