@@ -56,7 +56,12 @@ instance Data ProspectiveChange where
              in Replacement
                   (dropSpaces replacementName)
                   (fromData . intercalate "\n" $ player)
-          "Removals" -> Removals $ splitOnInfix "," . dropSpaces . head $ details
+          "Removals" ->
+            Removals
+              . splitOnInfix ","
+              . dropSpaces
+              . head
+              $ details
           "NoChange" -> NoChange
           s' -> error . show $ (s, s')
 
