@@ -127,8 +127,7 @@ reduceFlatLineup' teamThreshold variationLimit lineup =
   let newLineup = map (filterInTeamsFromPlayer filteredTeams) lineup
       filteredTeams = filterListByNumber teamThreshold . allTeamsInLineup $ lineup
       numberOfNewLineupOptions = product . map (length . playerTeams) $ lineup
-   in if 0 <= numberOfNewLineupOptions
-        && numberOfNewLineupOptions <= variationLimit
+   in if (0 < numberOfNewLineupOptions) && (numberOfNewLineupOptions < variationLimit)
         then (newLineup, teamThreshold)
         else reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
 
@@ -168,7 +167,13 @@ printPlayersAsMarkDownSection :: (Team, [Player], [Player]) -> String
 printPlayersAsMarkDownSection (t, ins, outs) =
   intercalate
     "\n"
-    $ [ wrapInTag "h2" $ printf "<a id=\"%s\">%s (%d/%d)</a>" t t (length ins) (length (ins ++ outs)),
+    $ [ wrapInTag "h2"
+          . wrapInTag ("a id=\"" ++ t ++ "\"")
+          $ printf
+            "%s (%d/%d)"
+            t
+            (length ins)
+            (length ins + length outs),
         "\n",
         wrapInTag "h4" $ printf "Has %s chemistry" t,
         "\n",
