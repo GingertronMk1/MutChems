@@ -39,6 +39,7 @@ data PositionData
   | LeftDefensiveEnd
   | Kicker
   | Punter
+  | StrategyCard
   | NoPosition
   deriving (Eq, Ord, Enum)
 
@@ -64,6 +65,7 @@ instance Show PositionData where
   show LeftDefensiveEnd = "Left Defensive End"
   show Kicker = "Kicker"
   show Punter = "Punter"
+  show StrategyCard = "Strategy Card"
   show NoPosition = ""
 
 readToPositionData :: String -> PositionData
@@ -89,4 +91,5 @@ readToPositionData s = case filter (/= ' ') s of
   "LeftDefensiveEnd" -> LeftDefensiveEnd
   "Kicker" -> Kicker
   "Punter" -> Punter
+  "StrategyCard" -> StrategyCard
   _ -> error $ printf "Could not read %s as PositionData" s
