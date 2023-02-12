@@ -53,7 +53,7 @@ flattenPositionGroup (PositionGroup {positionGroupPosition = pos, positionGroupP
 
 -- | Flattening a GroupedLineup into a regular Lineup
 flattenGroupedLineup :: GroupedLineup -> FlatLineup
-flattenGroupedLineup = concatMap flattenPositionGroup . (\(GroupedLineup gl) -> gl)
+flattenGroupedLineup (GroupedLineup gl) = concatMap flattenPositionGroup gl
 
 -- | Take a FlatLineup and group it by Position
 groupFlatLineup :: FlatLineup -> GroupedLineup
