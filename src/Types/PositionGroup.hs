@@ -4,6 +4,7 @@ module Types.PositionGroup where
 import Classes.Data
 import Data.List
 import Functions.Application
+import Text.Printf (printf)
 import Types.Basic
 import Types.Player
 
@@ -18,15 +19,22 @@ data PositionGroup = PositionGroup
 
 instance Data PositionGroup where
   toData (PositionGroup {positionGroupPosition = pos, positionGroupPlayers = pla}) =
-    let playerDatas = intercalate "\n    ---\n" . map toData $ pla
-        positionData = "# " ++ pos
-     in positionData ++ "\n" ++ playerDatas
+    printf
+      "# %s\n%s"
+      pos
+      ( intercalate ("\n" ++ standardIndent "---" ++ "\n")
+          . map toData
+          $ pla
+      )
   fromData s =
     let (pos, playerList) = break (== '\n') s
      in case splitAt 2 pos of
           ("# ", pos') ->
             PositionGroup
               { positionGroupPosition = pos',
-                positionGroupPlayers = map fromData . splitOnInfix "    ---" $ playerList
+                positionGroupPlayers =
+                  map fromData
+                    . splitOnInfix (standardIndent "---")
+                    $ playerList
               }
           _ -> error pos
