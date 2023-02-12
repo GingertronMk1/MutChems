@@ -42,7 +42,7 @@ data PositionData
   | Punter
   | StrategyCard
   | NoPosition
-  deriving (Eq, Enum)
+  deriving (Eq)
 
 positionDatas :: [(PositionData, String)]
 positionDatas =
@@ -70,6 +70,13 @@ positionDatas =
     (StrategyCard, "Strategy Card"),
     (NoPosition, "")
   ]
+
+instance Enum PositionData where
+  fromEnum p =
+    fromMaybe
+      (error $ "No position found for " ++ show p)
+      (findIndex ((== p) . fst) positionDatas)
+  toEnum = fst . (positionDatas !!)
 
 instance Show PositionData where
   show p = fromMaybe (error "No show found for PositionData") (lookup p positionDatas)
