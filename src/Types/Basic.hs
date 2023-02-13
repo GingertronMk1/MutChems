@@ -82,13 +82,7 @@ instance Show PositionData where
   show p = fromMaybe (error "No show found for PositionData") (lookup p positionDatas)
 
 instance Ord PositionData where
-  compare pos1 pos2 =
-    let poses = map fst positionDatas
-     in case elemIndex pos1 poses of
-          Just n1 -> case elemIndex pos2 poses of
-            Just n2 -> compare n1 n2
-            Nothing -> error $ "Could not find comparison data for " ++ show pos2
-          Nothing -> error $ "Could not find comparison data for " ++ show pos1
+  compare pos1 pos2 = compare (fromEnum pos1) (fromEnum pos2)
 
 readToPositionData :: String -> PositionData
 readToPositionData s =
