@@ -79,10 +79,16 @@ instance Enum PositionData where
   toEnum = fst . (positionDatas !!)
 
 instance Show PositionData where
-  show p = fromMaybe (error "No show found for PositionData") (lookup p positionDatas)
+  show p =
+    fromMaybe
+      (error "No show found for PositionData")
+      (lookup p positionDatas)
 
 instance Ord PositionData where
-  compare pos1 pos2 = compare (fromEnum pos1) (fromEnum pos2)
+  compare pos1 pos2 =
+    compare
+      (fromEnum pos1)
+      (fromEnum pos2)
 
 readToPositionData :: String -> PositionData
 readToPositionData s =
