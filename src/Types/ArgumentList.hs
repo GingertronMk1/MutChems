@@ -79,9 +79,14 @@ argumentsToArgumentList' s args (prefix, f) = maybe args (f args) (stripPrefix p
 -- and hyphens
 processedArgumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
 processedArgumentPrefixesAndFunctions =
-  map
-    (\(s, f) -> ("--" ++ s ++ "=", f))
-    argumentPrefixesAndFunctions
+  map processedArgumentPrefixesAndFunctions' argumentPrefixesAndFunctions
+
+-- | Adding the correct prefix and end to an argument
+processedArgumentPrefixesAndFunctions' ::
+  (String, ArgumentList -> String -> ArgumentList) ->
+  (String, ArgumentList -> String -> ArgumentList)
+processedArgumentPrefixesAndFunctions' (s, f) = ("--" ++ s ++ "=", f)
+
 
 -- | The list of argument prefixes and the functions to perform on the string
 argumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]

@@ -103,7 +103,7 @@ reduceFlatLineupRecursive' threshold fl =
     (noTeams, fl') ->
       (fl' ++)
         . reduceFlatLineupRecursive' (threshold `div` 2)
-        . filter (\(Player {playerName = pName}) -> pName `elem` map playerName noTeams)
+        . filter ((`elem` map playerName noTeams) . playerName)
         $ fl
 
 -- | One round of reducing a FlatLineup
