@@ -1,6 +1,7 @@
 import Functions.Application
 import Test.HUnit
 import Text.Printf
+import Types.Basic 
 
 main :: IO Counts
 main = runTestTT testList
@@ -16,7 +17,8 @@ testList =
       testDistanceFrom5,
       testMean,
       testMaximumValues,
-      testPrintThingsWithAnd
+      testPrintThingsWithAnd,
+      testEnumPositionData
     ]
 
 testTestCases :: (Eq b, Show a, Show b) => TestCases a b -> Test
@@ -92,3 +94,14 @@ testPrintThingsWithAndCases =
 
 testPrintThingsWithAnd :: Test
 testPrintThingsWithAnd = testTestCases testPrintThingsWithAndCases
+
+testEnumPositionData :: Test
+testEnumPositionData = TestList $ map (testEnumPositionData' . (+ (-1))) [1..(length positionDatas)]
+
+testEnumPositionData' :: Int -> Test
+testEnumPositionData' n =
+  let toPositionData = toEnum n :: PositionData
+  in TestCase $ assertEqual
+      (printf "%s remains the same when taken to and from PositionData" n)
+      n
+      (fromEnum toPositionData)
