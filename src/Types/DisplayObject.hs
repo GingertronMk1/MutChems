@@ -12,6 +12,7 @@ import Types.Player
 import Types.ProspectiveChange
 import Types.TeamOrMultiple
 import Types.Variation
+import Types.Team
 
 -- | An intermediate Object, containing a list of Variations and the ProspectiveChange
 data IntermediateObject = IntermediateObject
@@ -103,13 +104,13 @@ printDisplayObjectsAsTableFoot =
           . concatMap
             ( wrapInTag "li"
                 . unBreakCharacters
-                . uncurry (printf "%s: %d")
+                . (\(t, n) -> printf "%s: %d" (show t) n)
             )
           . getTeamCountsFromDisplayObject
       )
 
 -- | Getting the number of each Team represented in a DisplayObject
-getTeamCountsFromDisplayObject :: DisplayObject -> [(Team, Int)]
+getTeamCountsFromDisplayObject :: DisplayObject -> [(TeamData, Int)]
 getTeamCountsFromDisplayObject (DisplayObject {displayObjectVariation = (Variation var)}) =
   sortOn
     (Down . snd)

@@ -9,6 +9,7 @@ import Functions.Application
 import Types.Basic
 import Types.Position
 import Types.TeamOrMultiple
+import Types.Team
 
 -- * Definitions for the types that go into JSON
 
@@ -79,11 +80,11 @@ groupedPlayerToPlayer
 
 -- | Take a Team and how many there are and convert it into an integer so we can
 -- more easily compare it to others - ordering them in priority
-toNumerical :: [(Team, Int)] -> (Int, Int)
+toNumerical :: [(TeamData, Int)] -> (Int, Int)
 toNumerical cv
-  | bestT /= legends && bestN >= 50 = (4, bestN)
-  | bestT /= legends && bestN >= 40 = (3, bestN)
-  | bestT == legends && bestN >= 40 = (2, bestN)
+  | bestT /= Legends && bestN >= 50 = (4, bestN)
+  | bestT /= Legends && bestN >= 40 = (3, bestN)
+  | bestT == Legends && bestN >= 40 = (2, bestN)
   | otherwise = (1, bestN)
   where
     (bestT, bestN) = maximumBy (comparing snd) cv
@@ -91,7 +92,7 @@ toNumerical cv
 -- | Filter a Player's TeamOrMultiples with a list of Teams that should not be included
 filterOutTeamsFromPlayer ::
   -- | The list of banned Teams
-  [Team] ->
+  [TeamData] ->
   -- | Initial Player
   Player ->
   -- | Fixed Player
@@ -102,7 +103,7 @@ filterOutTeamsFromPlayer toms =
 -- | Filter a Player's TeamOrMultiples with a list of Teams that should be included
 filterInTeamsFromPlayer ::
   -- | The list of banned Teams
-  [Team] ->
+  [TeamData] ->
   -- | Initial Player
   Player ->
   -- Fixed Player
@@ -136,7 +137,7 @@ playerToVariationPlayers
     ]
 
 -- | Does a Player belong to a given Team
-doesPlayerBelongToTeam :: Team -> Player -> Bool
+doesPlayerBelongToTeam :: TeamData -> Player -> Bool
 doesPlayerBelongToTeam t =
   not
     . null

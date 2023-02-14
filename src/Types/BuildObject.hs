@@ -5,6 +5,7 @@ import Types.Basic
 import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange
+import Types.Team
 
 -- | The Build Object, containing a Lineup and a Prospective Change
 data BuildObject = BuildObject
@@ -40,6 +41,6 @@ stepBuildObject (BuildObject {buildObjectLineup = currLineup}) pc =
     }
 
 -- | Filter out some Teams from a BuildObject
-filterOutTeams :: [Team] -> BuildObject -> BuildObject
+filterOutTeams :: [TeamData] -> BuildObject -> BuildObject
 filterOutTeams ts bo@(BuildObject {buildObjectLineup = l}) =
   bo {buildObjectLineup = map (filterOutTeamsFromPlayer ts) l}

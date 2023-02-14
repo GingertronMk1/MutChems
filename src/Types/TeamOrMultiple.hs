@@ -38,7 +38,7 @@ instance Ord TeamOrMultiple where
 
 -- | Options for one or more Teams.
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis.
-expandTeamOrMultiple :: TeamOrMultiple -> [Team]
+expandTeamOrMultiple :: TeamOrMultiple -> [TeamData]
 expandTeamOrMultiple NoTeam = []
 expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
@@ -49,8 +49,8 @@ expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 -- | Pretty print a TeamOrMultiple - basically `show` but a bit nicer.
 ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam = "-"
-ppTeamOrMultiple (Team t) = t
-ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%d" t i
+ppTeamOrMultiple (Team t) = show t
+ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%d" (show t) i
 ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 
 -- * Validity checking a given Lineup
@@ -77,7 +77,7 @@ teamOrMultipleToTeams (MultipleTeam t n) = replicate n t
 teamOrMultipleToTeams (Teams ts) = concatMap teamOrMultipleToTeams ts
 
 -- | Does a given TeamOrMultiple contain any of a given set of Teams
-teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
+teamOrMultipleContainsTeams :: [TeamData] -> TeamOrMultiple -> Bool
 teamOrMultipleContainsTeams ts tom =
   let teamOrMultipleTeams = teamOrMultipleToTeams tom
    in not . null $ teamOrMultipleTeams `intersect` ts

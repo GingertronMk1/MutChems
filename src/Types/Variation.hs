@@ -7,6 +7,7 @@ import Types.Basic
 import Types.Player
 import Types.Position
 import Types.TeamOrMultiple
+import Types.Team
 
 -- | The Variation, a list of Players with one TeamOrMultiple each
 newtype Variation = Variation [VariationPlayer]
@@ -28,13 +29,13 @@ instance Ord Variation where
       (ord2, n2) = toNumerical converted2
 
 -- | Get a list of all represented teams and how many there are in a given Variation
-teamsInVariation :: Variation -> [(Team, Int)]
+teamsInVariation :: Variation -> [(TeamData, Int)]
 teamsInVariation =
   firstAndLength
     . variationToTeams
 
 -- | Taking a Variation and reducing it to just the list of Teams it contains
-variationToTeams :: Variation -> [Team]
+variationToTeams :: Variation -> [TeamData]
 variationToTeams (Variation v) =
   sort
     . concatMap
