@@ -6,207 +6,74 @@ module Data.Teams where
 import Data.List
 import Functions.Application
 import Types.Basic
+import Types.Team
 import Types.TeamOrMultiple
-
--- * Individual teams
-
--- | The Chicago Bears
-bears :: Team
-bears = "Bears"
-
--- | The Cincinnati Bengals
-bengals :: Team
-bengals = "Bengals"
-
--- | The Buffalo Bills
-bills :: Team
-bills = "Bills"
-
--- | The Denver Broncos
-broncos :: Team
-broncos = "Broncos"
-
--- | The Cleveland Browns
-browns :: Team
-browns = "Browns"
-
--- | The Tampa Bay Buccaneers
-buccaneers :: Team
-buccaneers = "Buccaneers"
-
--- | The Arizona Cardinals
-cardinals :: Team
-cardinals = "Cardinals"
-
--- | The LA Chargers
-chargers :: Team
-chargers = "Chargers"
-
--- | The Kansas City Chiefs
-chiefs :: Team
-chiefs = "Chiefs"
-
--- | The Indianapolis Colts
-colts :: Team
-colts = "Colts"
-
--- | The Washington Commanders
-commanders :: Team
-commanders = "Commanders"
-
--- | The Dallas Cowboys
-cowboys :: Team
-cowboys = "Cowboys"
-
--- | The Miami Dolphins
-dolphins :: Team
-dolphins = "Dolphins"
-
--- | The Philadelphia Eagles
-eagles :: Team
-eagles = "Eagles"
-
--- | The Atlanta Falcons
-falcons :: Team
-falcons = "Falcons"
-
--- | The New York Giants
-giants :: Team
-giants = "Giants"
-
--- | The Jacksonville Jaguars
-jaguars :: Team
-jaguars = "Jaguars"
-
--- | The New York Jets
-jets :: Team
-jets = "Jets"
-
--- | Legends
-legends :: Team
-legends = "Legends"
-
--- | The Detroit Lions
-lions :: Team
-lions = "Lions"
-
--- | The San Francisco 49ers
-niners :: Team
-niners = "49ers"
-
--- | The Green Bay Packers
-packers :: Team
-packers = "Packers"
-
--- | The Carolina Panthers
-panthers :: Team
-panthers = "Panthers"
-
--- | The New England Patriots
-patriots :: Team
-patriots = "Patriots"
-
--- | The Las Vegas Raiders
-raiders :: Team
-raiders = "Raiders"
-
--- | The LA Rams
-rams :: Team
-rams = "Rams"
-
--- | The Baltimore Ravens
-ravens :: Team
-ravens = "Ravens"
-
--- | The New Orleans Saints
-saints :: Team
-saints = "Saints"
-
--- | The Seattle Seahawks
-seahawks :: Team
-seahawks = "Seahawks"
-
--- | The Pittsburgh Steelers
-steelers :: Team
-steelers = "Steelers"
-
--- | The Houston Texans
-texans :: Team
-texans = "Texans"
-
--- | The Tennessee Titans
-titans :: Team
-titans = "Titans"
-
--- | The Minnesota Vikings
-vikings :: Team
-vikings = "Vikings"
 
 -- * Divisions
 
 -- | Convert a list of Teams to a list of TeamOrMultiples
-teamsToTeamOrMultiples :: [Team] -> [TeamOrMultiple]
+teamsToTeamOrMultiples :: [TeamData] -> [TeamOrMultiple]
 teamsToTeamOrMultiples = map Team
 
 -- | All of the teams in the NFC North
-nfcNorth :: [Team]
-nfcNorth = [bears, lions, packers, vikings]
+nfcNorth :: [TeamData]
+nfcNorth = [Bears, Lions, Packers, Vikings]
 
 -- | All of the teams in the nNorth as TeamOrMultiples
 nfcNorthAsTeamOrMultiples :: [TeamOrMultiple]
 nfcNorthAsTeamOrMultiples = teamsToTeamOrMultiples nfcNorth
 
 -- | All of the teams in the NFC East
-nfcEast :: [Team]
-nfcEast = [commanders, cowboys, giants, eagles]
+nfcEast :: [TeamData]
+nfcEast = [Commanders, Cowboys, Giants, Eagles]
 
 -- | All of the teams in the nEast as TeamOrMultiples
 nfcEastAsTeamOrMultiples :: [TeamOrMultiple]
 nfcEastAsTeamOrMultiples = teamsToTeamOrMultiples nfcEast
 
 -- | All of the teams in the NFC South
-nfcSouth :: [Team]
-nfcSouth = [buccaneers, falcons, panthers, saints]
+nfcSouth :: [TeamData]
+nfcSouth = [Buccaneers, Falcons, Panthers, Saints]
 
 -- | All of the teams in the nSouth as TeamOrMultiples
 nfcSouthAsTeamOrMultiples :: [TeamOrMultiple]
 nfcSouthAsTeamOrMultiples = teamsToTeamOrMultiples nfcSouth
 
 -- | All of the teams in the NFC West
-nfcWest :: [Team]
-nfcWest = [cardinals, niners, rams, seahawks]
+nfcWest :: [TeamData]
+nfcWest = [Cardinals, Niners, Rams, Seahawks]
 
 -- | All of the teams in the nWest as TeamOrMultiples
 nfcWestAsTeamOrMultiples :: [TeamOrMultiple]
 nfcWestAsTeamOrMultiples = teamsToTeamOrMultiples nfcWest
 
 -- | All of the teams in the AFC North
-afcNorth :: [Team]
-afcNorth = [bengals, browns, ravens, steelers]
+afcNorth :: [TeamData]
+afcNorth = [Bengals, Browns, Ravens, Steelers]
 
 -- | All of the teams in the aNorth as TeamOrMultiples
 afcNorthAsTeamOrMultiples :: [TeamOrMultiple]
 afcNorthAsTeamOrMultiples = teamsToTeamOrMultiples afcNorth
 
 -- | All of the teams in the AFC East
-afcEast :: [Team]
-afcEast = [bills, dolphins, jets, patriots]
+afcEast :: [TeamData]
+afcEast = [Bills, Dolphins, Jets, Patriots]
 
 -- | All of the teams in the aEast as TeamOrMultiples
 afcEastAsTeamOrMultiples :: [TeamOrMultiple]
 afcEastAsTeamOrMultiples = teamsToTeamOrMultiples afcEast
 
 -- | All of the teams in the AFC South
-afcSouth :: [Team]
-afcSouth = [colts, jaguars, texans, titans]
+afcSouth :: [TeamData]
+afcSouth = [Colts, Jaguars, Texans, Titans]
 
 -- | All of the teams in the aSouth as TeamOrMultiples
 afcSouthAsTeamOrMultiples :: [TeamOrMultiple]
 afcSouthAsTeamOrMultiples = teamsToTeamOrMultiples afcSouth
 
 -- | All of the teams in the AFC West
-afcWest :: [Team]
-afcWest = [broncos, chargers, chiefs, raiders]
+afcWest :: [TeamData]
+afcWest = [Broncos, Chargers, Chiefs, Raiders]
 
 -- | All of the teams in the aWest as TeamOrMultiples
 afcWestAsTeamOrMultiples :: [TeamOrMultiple]
@@ -215,7 +82,7 @@ afcWestAsTeamOrMultiples = teamsToTeamOrMultiples afcWest
 -- * Conferences
 
 -- | All of the teams in the NFC
-nfc :: [Team]
+nfc :: [TeamData]
 nfc =
   concat
     [ nfcNorth,
@@ -229,7 +96,7 @@ nfcAsTeamOrMultiples :: [TeamOrMultiple]
 nfcAsTeamOrMultiples = teamsToTeamOrMultiples nfc
 
 -- | All of the teams in the AFC
-afc :: [Team]
+afc :: [TeamData]
 afc =
   concat
     [ afcNorth,
@@ -245,7 +112,7 @@ afcAsTeamOrMultiples = teamsToTeamOrMultiples afc
 -- * League
 
 -- | All of the teams in the NFL
-all32Teams :: [Team]
+all32Teams :: [TeamData]
 all32Teams = nfc ++ afc
 
 -- | All of the teams in the NFL as TeamOrMultiples
@@ -253,8 +120,8 @@ all32TeamsAsTeamOrMultiples :: [TeamOrMultiple]
 all32TeamsAsTeamOrMultiples = teamsToTeamOrMultiples all32Teams
 
 -- | All of the teams in the NFL plus retired teams
-all32TeamsPlusLegends :: [Team]
-all32TeamsPlusLegends = legends : all32Teams
+all32TeamsPlusLegends :: [TeamData]
+all32TeamsPlusLegends = Legends : all32Teams
 
 -- | All of the teams in the NFL plus retired teams as TeamOrMultiples
 all32TeamsPlusLegendsAsTeamOrMultiples :: [TeamOrMultiple]
@@ -287,8 +154,8 @@ decodeTeamOrMultiple s
   | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn (== '|') $ s
   | '.' `elem` s =
     let (teamName, '.' : num) = break (== '.') s
-     in MultipleTeam teamName (read num :: Int)
-  | otherwise = Team s
+     in MultipleTeam (read teamName :: TeamData) (read num :: Int)
+  | otherwise = Team (read s :: TeamData)
 
 -- | Encode a list of TeamOrMultiples
 encodeTeamOrMultiples :: [TeamOrMultiple] -> [EncodedTeamOrMultiple]
@@ -299,6 +166,6 @@ encodeTeamOrMultiples toms = case find ((== toms) . snd) specialTeamDesignations
 -- | TeamOrMultiple - a straightforward one of encoding as a simple string
 encodeTeamOrMultiple :: TeamOrMultiple -> EncodedTeamOrMultiple
 encodeTeamOrMultiple NoTeam = ""
-encodeTeamOrMultiple (Team t) = t
-encodeTeamOrMultiple (MultipleTeam t n) = t ++ "." ++ show n
+encodeTeamOrMultiple (Team t) = show t
+encodeTeamOrMultiple (MultipleTeam t n) = show t ++ "." ++ show n
 encodeTeamOrMultiple (Teams ts) = intercalate "|" . map encodeTeamOrMultiple $ ts

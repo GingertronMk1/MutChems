@@ -6,11 +6,12 @@ import Data.List
 import Functions.Application
 import Text.Printf
 import Types.Basic
+import Types.Team
 
 -- | The argument list
 data ArgumentList = ArgumentList
   { -- | The list of Teams to disregard
-    argDisregardTeams :: [Team],
+    argDisregardTeams :: [TeamData],
     -- | The max number of Variations that should be allowed when filtering
     argFilterThreshold :: Int,
     -- | The JSON file to read from
@@ -51,7 +52,7 @@ compileArgumentListAndPrintResults args = do
   putStrLn $ printf "Outputting to %s" outputFile
   case disregardTeams of
     [] -> putStrLn "Not disregarding any teams"
-    ts -> putStrLn $ printf "Disregarding %s" (printThingsWithAnd ts)
+    ts -> putStrLn $ printf "Disregarding %s" (printThingsWithAnd . map show $ ts)
   putStrLn $ printf "Variation limit: %s" (ppInteger filterThreshold)
   return argumentList
 
@@ -90,7 +91,7 @@ processedArgumentPrefixesAndFunctions' (s, f) = ("--" ++ s ++ "=", f)
 -- | The list of argument prefixes and the functions to perform on the string
 argumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
 argumentPrefixesAndFunctions =
-  [ ("disregardTeams", \args s -> args {argDisregardTeams = splitOn (== ',') s}),
+  [ ("disregardTeams", \args s -> args {argDisregardTeams = map read . splitOn (== ',') $ s}),
     ("threshold", \args n -> args {argFilterThreshold = read n}),
     ("inputFile", \args f -> args {argInputFile = f}),
     ("outputFile", \args f -> args {argOutputFile = f}),

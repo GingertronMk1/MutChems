@@ -1,7 +1,7 @@
 import Functions.Application
 import Test.HUnit
 import Text.Printf
-import Types.Basic
+import Types.Position
 
 main :: IO Counts
 main = runTestTT testList
