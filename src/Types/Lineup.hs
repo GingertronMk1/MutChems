@@ -9,6 +9,7 @@ import Functions.Application
 import Text.Printf
 import Types.Basic
 import Types.Player
+import Types.Position
 import Types.PositionGroup
 import Types.TeamOrMultiple
 

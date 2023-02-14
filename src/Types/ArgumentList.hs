@@ -87,7 +87,6 @@ processedArgumentPrefixesAndFunctions' ::
   (String, ArgumentList -> String -> ArgumentList)
 processedArgumentPrefixesAndFunctions' (s, f) = ("--" ++ s ++ "=", f)
 
-
 -- | The list of argument prefixes and the functions to perform on the string
 argumentPrefixesAndFunctions :: [(String, ArgumentList -> String -> ArgumentList)]
 argumentPrefixesAndFunctions =

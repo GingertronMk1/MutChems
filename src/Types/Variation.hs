@@ -5,6 +5,7 @@ import Data.List
 import Functions.Application
 import Types.Basic
 import Types.Player
+import Types.Position
 import Types.TeamOrMultiple
 
 -- | The Variation, a list of Players with one TeamOrMultiple each
@@ -55,7 +56,7 @@ printVariationAsHtmlTable (Variation v) =
 
 -- | Print each player in a variation as a row in an HTML table, with new rows
 -- for each position change
-printVariationAsHtmlTable' :: PositionData -> [VariationPlayer] -> [String]
+printVariationAsHtmlTable' :: Position -> [VariationPlayer] -> [String]
 printVariationAsHtmlTable' _ [] = []
 printVariationAsHtmlTable'
   pos

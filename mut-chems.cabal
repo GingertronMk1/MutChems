@@ -28,7 +28,6 @@ library
       Classes.Data
       Data.Calculated
       Data.Other
-      Data.Positions
       Data.Teams
       Functions.Application
       Types.ArgumentList
@@ -38,8 +37,10 @@ library
       Types.InitObject
       Types.Lineup
       Types.Player
+      Types.Position
       Types.PositionGroup
       Types.ProspectiveChange
+      Types.Team
       Types.TeamOrMultiple
       Types.Variation
   other-modules:

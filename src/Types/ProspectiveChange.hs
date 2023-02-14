@@ -8,11 +8,12 @@ import Text.Printf
 import Types.Basic
 import Types.Lineup
 import Types.Player
+import Types.Position
 
 -- | A Prospective Change to a FlatLineup
 data ProspectiveChange
   = -- | An addition to the lineup
-    Addition GroupedPlayer Position
+    Addition GroupedPlayer EncodedPosition
   | -- | Replacing a given Player with another one
     Replacement PlayerName GroupedPlayer
   | -- | Remove players

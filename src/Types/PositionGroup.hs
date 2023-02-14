@@ -4,14 +4,14 @@ module Types.PositionGroup where
 import Classes.Data
 import Data.List
 import Functions.Application
-import Text.Printf (printf)
-import Types.Basic
+import Text.Printf
 import Types.Player
+import Types.Position
 
 -- | The Position Group, with a Position and a list of Players
 data PositionGroup = PositionGroup
   { -- | The Players' Position
-    positionGroupPosition :: Position,
+    positionGroupPosition :: EncodedPosition,
     -- | The Players in that Position
     positionGroupPlayers :: [GroupedPlayer]
   }

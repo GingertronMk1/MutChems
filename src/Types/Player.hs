@@ -7,6 +7,7 @@ import Data.Ord
 import Data.Teams
 import Functions.Application
 import Types.Basic
+import Types.Position
 import Types.TeamOrMultiple
 
 -- * Definitions for the types that go into JSON
@@ -44,7 +45,7 @@ data Player = Player
     -- | All of their available team chemistries
     playerTeams :: [TeamOrMultiple],
     -- | The Player's Position
-    playerPosition :: PositionData
+    playerPosition :: Position
   }
   deriving (Eq, Ord, Show)
 
@@ -55,12 +56,12 @@ data VariationPlayer = VariationPlayer
     -- | One of their available TeamOrMultiples
     variationPlayerTeam :: TeamOrMultiple,
     -- | Their position
-    variationPlayerPosition :: PositionData
+    variationPlayerPosition :: Position
   }
   deriving (Eq, Ord, Show)
 
 -- | Converting a GroupedPlayer to a regular Player
-groupedPlayerToPlayer :: GroupedPlayer -> PositionData -> Player
+groupedPlayerToPlayer :: GroupedPlayer -> Position -> Player
 groupedPlayerToPlayer
   ( GroupedPlayer
       { groupedPlayerName = name,
