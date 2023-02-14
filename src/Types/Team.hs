@@ -34,3 +34,4 @@ data TeamData
   | Texans
   | Titans
   | Vikings
+  deriving (Eq, Ord, Show, Read)

@@ -7,6 +7,7 @@ import Data.List
 import Functions.Application
 import Types.Basic
 import Types.TeamOrMultiple
+import Types.Team
 
 -- * Individual teams
 
@@ -287,8 +288,8 @@ decodeTeamOrMultiple s
   | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn (== '|') $ s
   | '.' `elem` s =
     let (teamName, '.' : num) = break (== '.') s
-     in MultipleTeam teamName (read num :: Int)
-  | otherwise = Team s
+     in MultipleTeam (read teamName :: TeamData) (read num :: Int)
+  | otherwise = Team (read s :: TeamData)
 
 -- | Encode a list of TeamOrMultiples
 encodeTeamOrMultiples :: [TeamOrMultiple] -> [EncodedTeamOrMultiple]

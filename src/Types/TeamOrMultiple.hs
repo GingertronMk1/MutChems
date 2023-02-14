@@ -4,15 +4,16 @@ module Types.TeamOrMultiple where
 import Data.List
 import Text.Printf
 import Types.Basic
+import Types.Team
 
 -- | A TeamOrMultiple - a means of displaying one or more Team Chemistries
 data TeamOrMultiple
   = -- | Null value.
     NoTeam
   | -- | A single Team.
-    Team Team
+    Team TeamData
   | -- | A single Team with a multiplier, e.g. Raiders x3.
-    MultipleTeam Team Int
+    MultipleTeam TeamData Int
   | -- | Multiple Teams, e.g. Broncos + Seahawks.
     Teams [TeamOrMultiple]
   deriving (Eq, Show)
@@ -69,7 +70,7 @@ teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
 
 -- | Converting a TeamOrMultiple its constituent Team
-teamOrMultipleToTeams :: TeamOrMultiple -> [Team]
+teamOrMultipleToTeams :: TeamOrMultiple -> [TeamData]
 teamOrMultipleToTeams NoTeam = []
 teamOrMultipleToTeams (Team t) = [t]
 teamOrMultipleToTeams (MultipleTeam t n) = replicate n t
