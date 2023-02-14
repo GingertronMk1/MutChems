@@ -2,13 +2,13 @@ module Types.Variation where
 
 -- Module: Types.Variation
 import Data.List
+import Data.Ord
 import Functions.Application
 import Types.Basic
 import Types.Player
 import Types.Position
 import Types.Team
 import Types.TeamOrMultiple
-import Data.Ord
 
 -- | The Variation, a list of Players with one TeamOrMultiple each
 newtype Variation = Variation [VariationPlayer]
@@ -16,24 +16,27 @@ newtype Variation = Variation [VariationPlayer]
 
 instance Ord Variation where
   compare v1 v2
-    | team1 == Legends
-      && team2 == Legends
-      && teamN1 >= 40
-      && teamN2 >= 40 = compare
-        (removeTeamFromVariation Legends v1)
-        (removeTeamFromVariation Legends v2)
-    | team1 /= Legends
-      && team2 /= Legends
-      && teamN1 >= 50
-      && teamN2 >= 50 = compare
-        (removeTeamFromVariation team1 v1)
-        (removeTeamFromVariation team2 v2)
-    | team1 /= Legends
-      && team2 /= Legends
-      && teamN1 >= 40
-      && teamN2 >= 40 = compare
-        (removeTeamFromVariation team1 v1)
-        (removeTeamFromVariation team1 v2)
+    | any
+        [ all
+            [ team1 == Legends,
+              team2 == Legends,
+              teamN1 >= 40,
+              teamN2 >= 40
+            ],
+          all
+            [ team1 /= Legends,
+              team2 /= Legends,
+              teamN1 >= 50,
+              teamN2 >= 50
+            ],
+          all
+            [ team1 /= Legends,
+              team2 /= Legends,
+              teamN1 >= 40,
+              teamN2 >= 40
+            ]
+        ] =
+      compare nextV1 nextV2
     | ord1 /= ord2 = compare ord1 ord2
     | n1 /= n2 = compare n1 n2
     | otherwise =
@@ -42,6 +45,8 @@ instance Ord Variation where
           (map snd converted1)
           (map snd converted2)
     where
+      nextV1 = removeTeamFromVariation team1 v1
+      nextV2 = removeTeamFromVariation team2 v2
       converted1 = teamsInVariation v1
       converted2 = teamsInVariation v2
       (team1, teamN1) = head converted1
