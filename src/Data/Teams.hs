@@ -6,8 +6,8 @@ module Data.Teams where
 import Data.List
 import Functions.Application
 import Types.Basic
-import Types.TeamOrMultiple
 import Types.Team
+import Types.TeamOrMultiple
 
 -- * Divisions
 

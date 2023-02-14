@@ -11,8 +11,8 @@ import Types.Basic
 import Types.Player
 import Types.Position
 import Types.PositionGroup
-import Types.TeamOrMultiple
 import Types.Team
+import Types.TeamOrMultiple
 
 -- | A list of position groups
 newtype GroupedLineup = GroupedLineup [PositionGroup]

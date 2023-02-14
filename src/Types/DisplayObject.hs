@@ -10,9 +10,9 @@ import Types.BuildObject
 import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange
+import Types.Team
 import Types.TeamOrMultiple
 import Types.Variation
-import Types.Team
 
 -- | An intermediate Object, containing a list of Variations and the ProspectiveChange
 data IntermediateObject = IntermediateObject

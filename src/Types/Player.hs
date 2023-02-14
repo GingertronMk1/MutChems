@@ -8,8 +8,8 @@ import Data.Teams
 import Functions.Application
 import Types.Basic
 import Types.Position
-import Types.TeamOrMultiple
 import Types.Team
+import Types.TeamOrMultiple
 
 -- * Definitions for the types that go into JSON
 
