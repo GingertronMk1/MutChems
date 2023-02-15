@@ -4,7 +4,6 @@ module Types.Variation where
 import Data.List
 import Data.Ord
 import Functions.Application
-import Types.Basic
 import Types.Player
 import Types.Position
 import Types.Team
@@ -35,9 +34,14 @@ instance Ord Variation where
             teamN2 >= 40
           ] =
       compare nextV1 nextV2
-    | ord1 /= ord2 = compare ord1 ord2
-    | n1 /= n2 = compare n1 n2
-    | playersPerTeam1 /= playersPerTeam2 = compare playersPerTeam2 playersPerTeam1
+    | ord1 /= ord2 =
+      compare ord1 ord2
+    | n1 /= n2 =
+      compare n1 n2
+    | playersPerTeam1 /= playersPerTeam2 =
+      compare
+        playersPerTeam2
+        playersPerTeam1
     | otherwise =
       fst $
         orderListOfInts
@@ -58,14 +62,17 @@ instance Ord Variation where
 removeTeamFromVariation :: TeamData -> Variation -> Variation
 removeTeamFromVariation td (Variation v) =
   Variation $ filter (\VariationPlayer {variationPlayerTeam = vpt} -> (nub . expandTeamOrMultiple $ vpt) /= [td]) v
-  
+
 meanPlayersPerTeam :: Variation -> Float
 meanPlayersPerTeam = mean . map snd . playersPerTeam
 
 playersPerTeam :: Variation -> [(TeamData, Int)]
 playersPerTeam v =
   let allTeams = variationToTeams v
-  in map (\t -> (t, length (playersBelongingToTeam t v))) allTeams
+   in map (`playersInAGivenTeam` v) allTeams
+
+playersInAGivenTeam :: TeamData -> Variation -> (TeamData, Int)
+playersInAGivenTeam t v = (t, length (playersBelongingToTeam t v))
 
 playersBelongingToTeam :: TeamData -> Variation -> [VariationPlayer]
 playersBelongingToTeam t (Variation v) =
