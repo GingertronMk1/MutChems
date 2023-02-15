@@ -10,7 +10,7 @@ import Types.Team
 -- | The argument list
 data ArgumentList = ArgumentList
   { -- | The list of Teams to disregard
-    argDisregardTeams :: [TeamData],
+    argDisregardTeams :: [Team],
     -- | The max number of Variations that should be allowed when filtering
     argFilterThreshold :: Int,
     -- | The JSON file to read from

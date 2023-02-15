@@ -59,34 +59,34 @@ instance Ord Variation where
       playersPerTeam1 = meanPlayersPerTeam v1
       playersPerTeam2 = meanPlayersPerTeam v2
 
-removeTeamFromVariation :: TeamData -> Variation -> Variation
+removeTeamFromVariation :: Team -> Variation -> Variation
 removeTeamFromVariation td (Variation v) =
   Variation $ filter (\VariationPlayer {variationPlayerTeam = vpt} -> (nub . expandTeamOrMultiple $ vpt) /= [td]) v
 
 meanPlayersPerTeam :: Variation -> Float
 meanPlayersPerTeam = mean . map snd . playersPerTeam
 
-playersPerTeam :: Variation -> [(TeamData, Int)]
+playersPerTeam :: Variation -> [(Team, Int)]
 playersPerTeam v =
   let allTeams = variationToTeams v
    in map (playersInAGivenTeam v) allTeams
 
-playersInAGivenTeam :: Variation -> TeamData -> (TeamData, Int)
+playersInAGivenTeam :: Variation -> Team -> (Team, Int)
 playersInAGivenTeam v t = (t, length (playersBelongingToTeam v t))
 
-playersBelongingToTeam :: Variation -> TeamData -> [VariationPlayer]
+playersBelongingToTeam :: Variation -> Team -> [VariationPlayer]
 playersBelongingToTeam (Variation v) t =
   filter (\(VariationPlayer {variationPlayerTeam = vpt}) -> t `elem` expandTeamOrMultiple vpt) v
 
 -- | Get a list of all represented teams and how many there are in a given Variation
-teamsInVariation :: Variation -> [(TeamData, Int)]
+teamsInVariation :: Variation -> [(Team, Int)]
 teamsInVariation =
   sortOn (Down . snd)
     . firstAndLength
     . variationToTeams
 
 -- | Taking a Variation and reducing it to just the list of Teams it contains
-variationToTeams :: Variation -> [TeamData]
+variationToTeams :: Variation -> [Team]
 variationToTeams (Variation v) =
   sort
     . concatMap

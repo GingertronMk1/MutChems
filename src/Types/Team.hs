@@ -1,6 +1,6 @@
 module Types.Team where
 
-data TeamData
+data Team
   = Legends
   | Bears
   | Bengals

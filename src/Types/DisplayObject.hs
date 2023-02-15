@@ -109,7 +109,7 @@ printDisplayObjectsAsTableFoot =
       )
 
 -- | Getting the number of each Team represented in a DisplayObject
-getTeamCountsFromDisplayObject :: DisplayObject -> [(TeamData, Int)]
+getTeamCountsFromDisplayObject :: DisplayObject -> [(Team, Int)]
 getTeamCountsFromDisplayObject (DisplayObject {displayObjectVariation = (Variation var)}) =
   sortOn
     (Down . snd)

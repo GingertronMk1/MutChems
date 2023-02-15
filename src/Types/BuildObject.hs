@@ -40,6 +40,6 @@ stepBuildObject (BuildObject {buildObjectLineup = currLineup}) pc =
     }
 
 -- | Filter out some Teams from a BuildObject
-filterOutTeams :: [TeamData] -> BuildObject -> BuildObject
+filterOutTeams :: [Team] -> BuildObject -> BuildObject
 filterOutTeams ts bo@(BuildObject {buildObjectLineup = l}) =
   bo {buildObjectLineup = map (filterOutTeamsFromPlayer ts) l}

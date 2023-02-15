@@ -12,11 +12,11 @@ import Types.TeamOrMultiple
 -- * Divisions
 
 -- | Convert a list of Teams to a list of TeamOrMultiples
-teamsToTeamOrMultiples :: [TeamData] -> [TeamOrMultiple]
+teamsToTeamOrMultiples :: [Team] -> [TeamOrMultiple]
 teamsToTeamOrMultiples = map Team
 
 -- | All of the teams in the NFC North
-nfcNorth :: [TeamData]
+nfcNorth :: [Team]
 nfcNorth = [Bears, Lions, Packers, Vikings]
 
 -- | All of the teams in the nNorth as TeamOrMultiples
@@ -24,7 +24,7 @@ nfcNorthAsTeamOrMultiples :: [TeamOrMultiple]
 nfcNorthAsTeamOrMultiples = teamsToTeamOrMultiples nfcNorth
 
 -- | All of the teams in the NFC East
-nfcEast :: [TeamData]
+nfcEast :: [Team]
 nfcEast = [Commanders, Cowboys, Giants, Eagles]
 
 -- | All of the teams in the nEast as TeamOrMultiples
@@ -32,7 +32,7 @@ nfcEastAsTeamOrMultiples :: [TeamOrMultiple]
 nfcEastAsTeamOrMultiples = teamsToTeamOrMultiples nfcEast
 
 -- | All of the teams in the NFC South
-nfcSouth :: [TeamData]
+nfcSouth :: [Team]
 nfcSouth = [Buccaneers, Falcons, Panthers, Saints]
 
 -- | All of the teams in the nSouth as TeamOrMultiples
@@ -40,7 +40,7 @@ nfcSouthAsTeamOrMultiples :: [TeamOrMultiple]
 nfcSouthAsTeamOrMultiples = teamsToTeamOrMultiples nfcSouth
 
 -- | All of the teams in the NFC West
-nfcWest :: [TeamData]
+nfcWest :: [Team]
 nfcWest = [Cardinals, Niners, Rams, Seahawks]
 
 -- | All of the teams in the nWest as TeamOrMultiples
@@ -48,7 +48,7 @@ nfcWestAsTeamOrMultiples :: [TeamOrMultiple]
 nfcWestAsTeamOrMultiples = teamsToTeamOrMultiples nfcWest
 
 -- | All of the teams in the AFC North
-afcNorth :: [TeamData]
+afcNorth :: [Team]
 afcNorth = [Bengals, Browns, Ravens, Steelers]
 
 -- | All of the teams in the aNorth as TeamOrMultiples
@@ -56,7 +56,7 @@ afcNorthAsTeamOrMultiples :: [TeamOrMultiple]
 afcNorthAsTeamOrMultiples = teamsToTeamOrMultiples afcNorth
 
 -- | All of the teams in the AFC East
-afcEast :: [TeamData]
+afcEast :: [Team]
 afcEast = [Bills, Dolphins, Jets, Patriots]
 
 -- | All of the teams in the aEast as TeamOrMultiples
@@ -64,7 +64,7 @@ afcEastAsTeamOrMultiples :: [TeamOrMultiple]
 afcEastAsTeamOrMultiples = teamsToTeamOrMultiples afcEast
 
 -- | All of the teams in the AFC South
-afcSouth :: [TeamData]
+afcSouth :: [Team]
 afcSouth = [Colts, Jaguars, Texans, Titans]
 
 -- | All of the teams in the aSouth as TeamOrMultiples
@@ -72,7 +72,7 @@ afcSouthAsTeamOrMultiples :: [TeamOrMultiple]
 afcSouthAsTeamOrMultiples = teamsToTeamOrMultiples afcSouth
 
 -- | All of the teams in the AFC West
-afcWest :: [TeamData]
+afcWest :: [Team]
 afcWest = [Broncos, Chargers, Chiefs, Raiders]
 
 -- | All of the teams in the aWest as TeamOrMultiples
@@ -82,7 +82,7 @@ afcWestAsTeamOrMultiples = teamsToTeamOrMultiples afcWest
 -- * Conferences
 
 -- | All of the teams in the NFC
-nfc :: [TeamData]
+nfc :: [Team]
 nfc =
   concat
     [ nfcNorth,
@@ -96,7 +96,7 @@ nfcAsTeamOrMultiples :: [TeamOrMultiple]
 nfcAsTeamOrMultiples = teamsToTeamOrMultiples nfc
 
 -- | All of the teams in the AFC
-afc :: [TeamData]
+afc :: [Team]
 afc =
   concat
     [ afcNorth,
@@ -112,7 +112,7 @@ afcAsTeamOrMultiples = teamsToTeamOrMultiples afc
 -- * League
 
 -- | All of the teams in the NFL
-all32Teams :: [TeamData]
+all32Teams :: [Team]
 all32Teams = nfc ++ afc
 
 -- | All of the teams in the NFL as TeamOrMultiples
@@ -120,7 +120,7 @@ all32TeamsAsTeamOrMultiples :: [TeamOrMultiple]
 all32TeamsAsTeamOrMultiples = teamsToTeamOrMultiples all32Teams
 
 -- | All of the teams in the NFL plus retired teams
-all32TeamsPlusLegends :: [TeamData]
+all32TeamsPlusLegends :: [Team]
 all32TeamsPlusLegends = Legends : all32Teams
 
 -- | All of the teams in the NFL plus retired teams as TeamOrMultiples
@@ -154,8 +154,8 @@ decodeTeamOrMultiple s
   | '|' `elem` s = Teams $ map decodeTeamOrMultiple . splitOn (== '|') $ s
   | '.' `elem` s =
     let (teamName, '.' : num) = break (== '.') s
-     in MultipleTeam (read teamName :: TeamData) (read num :: Int)
-  | otherwise = Team (read s :: TeamData)
+     in MultipleTeam (read teamName :: Team) (read num :: Int)
+  | otherwise = Team (read s :: Team)
 
 -- | Encode a list of TeamOrMultiples
 encodeTeamOrMultiples :: [TeamOrMultiple] -> [EncodedTeamOrMultiple]

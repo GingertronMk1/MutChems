@@ -80,7 +80,7 @@ groupedPlayerToPlayer
 
 -- | Take a Team and how many there are and convert it into an integer so we can
 -- more easily compare it to others - ordering them in priority
-toNumerical :: [(TeamData, Int)] -> (Int, Int)
+toNumerical :: [(Team, Int)] -> (Int, Int)
 toNumerical cv
   | bestT /= Legends && bestN >= 50 = (4, bestN)
   | bestT /= Legends && bestN >= 40 = (3, bestN)
@@ -92,7 +92,7 @@ toNumerical cv
 -- | Filter a Player's TeamOrMultiples with a list of Teams that should not be included
 filterOutTeamsFromPlayer ::
   -- | The list of banned Teams
-  [TeamData] ->
+  [Team] ->
   -- | Initial Player
   Player ->
   -- | Fixed Player
@@ -103,7 +103,7 @@ filterOutTeamsFromPlayer toms =
 -- | Filter a Player's TeamOrMultiples with a list of Teams that should be included
 filterInTeamsFromPlayer ::
   -- | The list of banned Teams
-  [TeamData] ->
+  [Team] ->
   -- | Initial Player
   Player ->
   -- Fixed Player
@@ -137,7 +137,7 @@ playerToVariationPlayers
     ]
 
 -- | Does a Player belong to a given Team
-doesPlayerBelongToTeam :: TeamData -> Player -> Bool
+doesPlayerBelongToTeam :: Team -> Player -> Bool
 doesPlayerBelongToTeam t =
   not
     . null

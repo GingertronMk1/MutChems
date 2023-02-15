@@ -5,8 +5,8 @@ import Classes.Data
 import Data.List
 import Functions.Application
 import Text.Printf
+import Types.Basic
 import Types.Player
-import Types.Position
 
 -- | The Position Group, with a Position and a list of Players
 data PositionGroup = PositionGroup

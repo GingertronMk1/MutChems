@@ -32,7 +32,7 @@ allTeamOrMultiplesInLineup :: FlatLineup -> [TeamOrMultiple]
 allTeamOrMultiplesInLineup = concatMap playerTeams
 
 -- | Getting all of the Teams represented in a given FlatLineup
-allTeamsInLineup :: FlatLineup -> [TeamData]
+allTeamsInLineup :: FlatLineup -> [Team]
 allTeamsInLineup = concatMap (nub . teamOrMultipleToTeams) . allTeamOrMultiplesInLineup
 
 -- * Lineup definitions
@@ -123,7 +123,7 @@ reduceFlatLineup' teamThreshold variationLimit lineup =
         else reduceFlatLineup' (teamThreshold + 1) variationLimit newLineup
 
 -- | Get a list of all the players that do and do not belong to every Team represented in a lineup
-printPlayerTeamsInLineup :: FlatLineup -> [(TeamData, [Player], [Player])]
+printPlayerTeamsInLineup :: FlatLineup -> [(Team, [Player], [Player])]
 printPlayerTeamsInLineup fl =
   sortOn (\(_, ps, _) -> Down . length $ ps)
     . map (printPlayersBelongingToTeam fl)
@@ -131,7 +131,7 @@ printPlayerTeamsInLineup fl =
     $ fl
 
 -- | Get lists of players that do and do not belong to a given Team
-printPlayersBelongingToTeam :: [Player] -> TeamData -> (TeamData, [Player], [Player])
+printPlayersBelongingToTeam :: [Player] -> Team -> (Team, [Player], [Player])
 printPlayersBelongingToTeam ps t =
   let (ins, outs) =
         partition
@@ -154,7 +154,7 @@ printPlayersBelongingToTeamsToMarkdown fl =
         $ playersInTeams
 
 -- | Print a table consisting of the players that do and do not belong to a given Team
-printPlayersAsMarkDownSection :: (TeamData, [Player], [Player]) -> String
+printPlayersAsMarkDownSection :: (Team, [Player], [Player]) -> String
 printPlayersAsMarkDownSection (t, ins, outs) =
   intercalate
     "\n"
@@ -186,9 +186,9 @@ printPlayerAsMarkDownRow (Player {playerName = pName, playerPosition = pPosition
   printf "| %s | %s |" (unBreakCharacters pName) (unBreakCharacters . show $ pPosition)
 
 -- | Get a list of all teams represented in a lineup
-getAllTeamsFromLineup :: FlatLineup -> [TeamData]
+getAllTeamsFromLineup :: FlatLineup -> [Team]
 getAllTeamsFromLineup = nub . concatMap getAllTeamsFromPlayer
 
 -- | Get a list of all teams to which a player belongs
-getAllTeamsFromPlayer :: Player -> [TeamData]
+getAllTeamsFromPlayer :: Player -> [Team]
 getAllTeamsFromPlayer = nub . concatMap expandTeamOrMultiple . playerTeams

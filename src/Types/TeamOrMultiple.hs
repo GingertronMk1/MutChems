@@ -10,9 +10,9 @@ data TeamOrMultiple
   = -- | Null value.
     NoTeam
   | -- | A single Team.
-    Team TeamData
+    Team Team
   | -- | A single Team with a multiplier, e.g. Raiders x3.
-    MultipleTeam TeamData Int
+    MultipleTeam Team Int
   | -- | Multiple Teams, e.g. Broncos + Seahawks.
     Teams [TeamOrMultiple]
   deriving (Eq, Show)
@@ -37,7 +37,7 @@ instance Ord TeamOrMultiple where
 
 -- | Options for one or more Teams.
 -- | Expanding a TeamOrMultiple into a list of Teams - used for analysis.
-expandTeamOrMultiple :: TeamOrMultiple -> [TeamData]
+expandTeamOrMultiple :: TeamOrMultiple -> [Team]
 expandTeamOrMultiple NoTeam = []
 expandTeamOrMultiple (Team t) = [t]
 expandTeamOrMultiple (MultipleTeam t i) = replicate i t
@@ -69,14 +69,14 @@ teamsForSlots :: Int -> [TeamOrMultiple] -> [TeamOrMultiple]
 teamsForSlots n = comboOfTeams . replicate n
 
 -- | Converting a TeamOrMultiple its constituent Team
-teamOrMultipleToTeams :: TeamOrMultiple -> [TeamData]
+teamOrMultipleToTeams :: TeamOrMultiple -> [Team]
 teamOrMultipleToTeams NoTeam = []
 teamOrMultipleToTeams (Team t) = [t]
 teamOrMultipleToTeams (MultipleTeam t n) = replicate n t
 teamOrMultipleToTeams (Teams ts) = concatMap teamOrMultipleToTeams ts
 
 -- | Does a given TeamOrMultiple contain any of a given set of Teams
-teamOrMultipleContainsTeams :: [TeamData] -> TeamOrMultiple -> Bool
+teamOrMultipleContainsTeams :: [Team] -> TeamOrMultiple -> Bool
 teamOrMultipleContainsTeams ts tom =
   let teamOrMultipleTeams = teamOrMultipleToTeams tom
    in not . null $ teamOrMultipleTeams `intersect` ts
