@@ -69,13 +69,13 @@ meanPlayersPerTeam = mean . map snd . playersPerTeam
 playersPerTeam :: Variation -> [(TeamData, Int)]
 playersPerTeam v =
   let allTeams = variationToTeams v
-   in map (`playersInAGivenTeam` v) allTeams
+   in map (playersInAGivenTeam v) allTeams
 
-playersInAGivenTeam :: TeamData -> Variation -> (TeamData, Int)
-playersInAGivenTeam t v = (t, length (playersBelongingToTeam t v))
+playersInAGivenTeam :: Variation -> TeamData -> (TeamData, Int)
+playersInAGivenTeam v t = (t, length (playersBelongingToTeam v t))
 
-playersBelongingToTeam :: TeamData -> Variation -> [VariationPlayer]
-playersBelongingToTeam t (Variation v) =
+playersBelongingToTeam :: Variation -> TeamData -> [VariationPlayer]
+playersBelongingToTeam (Variation v) t =
   filter (\(VariationPlayer {variationPlayerTeam = vpt}) -> t `elem` expandTeamOrMultiple vpt) v
 
 -- | Get a list of all represented teams and how many there are in a given Variation
