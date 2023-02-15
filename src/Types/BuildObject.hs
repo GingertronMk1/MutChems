@@ -1,7 +1,6 @@
 -- | Module: Types.BuildObject
 module Types.BuildObject where
 
-import Types.Basic
 import Types.Lineup
 import Types.Player
 import Types.ProspectiveChange

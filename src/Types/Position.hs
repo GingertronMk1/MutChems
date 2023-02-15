@@ -2,10 +2,9 @@ module Types.Position where
 
 import Data.List
 import Data.Maybe
+import Types.Basic
 
 -- | A position
-type EncodedPosition = String
-
 data Position
   = Quarterback
   | Halfback

@@ -3,7 +3,6 @@ module Types.TeamOrMultiple where
 
 import Data.List
 import Text.Printf
-import Types.Basic
 import Types.Team
 
 -- | A TeamOrMultiple - a means of displaying one or more Team Chemistries

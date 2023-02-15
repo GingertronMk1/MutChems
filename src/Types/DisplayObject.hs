@@ -5,7 +5,6 @@ import Data.List
 import Data.Ord
 import Functions.Application
 import Text.Printf
-import Types.Basic
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
