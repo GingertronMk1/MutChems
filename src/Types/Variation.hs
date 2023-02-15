@@ -37,6 +37,7 @@ instance Ord Variation where
       compare nextV1 nextV2
     | ord1 /= ord2 = compare ord1 ord2
     | n1 /= n2 = compare n1 n2
+    | playersPerTeam1 /= playersPerTeam2 = compare playersPerTeam2 playersPerTeam1
     | otherwise =
       fst $
         orderListOfInts
@@ -51,10 +52,24 @@ instance Ord Variation where
       (team2, teamN2) = head converted2
       (ord1, n1) = toNumerical converted1
       (ord2, n2) = toNumerical converted2
+      playersPerTeam1 = meanPlayersPerTeam v1
+      playersPerTeam2 = meanPlayersPerTeam v2
 
 removeTeamFromVariation :: TeamData -> Variation -> Variation
 removeTeamFromVariation td (Variation v) =
   Variation $ filter (\VariationPlayer {variationPlayerTeam = vpt} -> (nub . expandTeamOrMultiple $ vpt) /= [td]) v
+  
+meanPlayersPerTeam :: Variation -> Float
+meanPlayersPerTeam = mean . map snd . playersPerTeam
+
+playersPerTeam :: Variation -> [(TeamData, Int)]
+playersPerTeam v =
+  let allTeams = variationToTeams v
+  in map (\t -> (t, length (playersBelongingToTeam t v))) allTeams
+
+playersBelongingToTeam :: TeamData -> Variation -> [VariationPlayer]
+playersBelongingToTeam t (Variation v) =
+  filter (\(VariationPlayer {variationPlayerTeam = vpt}) -> t `elem` expandTeamOrMultiple vpt) v
 
 -- | Get a list of all represented teams and how many there are in a given Variation
 teamsInVariation :: Variation -> [(TeamData, Int)]
