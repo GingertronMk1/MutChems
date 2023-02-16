@@ -1,5 +1,7 @@
+-- | Module: Types.Team
 module Types.Team where
 
+-- | An enumerable type containing every team in the league plus legends
 data Team
   = Legends
   | Bears

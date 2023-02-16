@@ -1,3 +1,4 @@
+-- | Module: Types.Position
 module Types.Position where
 
 import Data.List
@@ -31,6 +32,7 @@ data Position
   | NoPosition
   deriving (Eq)
 
+-- | Positions and the strings to which they map
 positionDatas :: [(Position, EncodedPosition)]
 positionDatas =
   [ (Quarterback, "Quarterback"),
@@ -77,6 +79,7 @@ instance Ord Position where
       (fromEnum pos1)
       (fromEnum pos2)
 
+-- | Converting a string to a Position
 readToPositionData :: EncodedPosition -> Position
 readToPositionData s =
   fst $
