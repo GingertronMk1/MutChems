@@ -4,7 +4,7 @@ module Types.ProspectiveChange where
 import Classes.Data
 import Data.List
 import Functions.Application
-import Text.Printf
+import Types.Printable
 import Types.Basic
 import Types.Lineup
 import Types.Player

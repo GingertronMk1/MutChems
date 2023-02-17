@@ -4,7 +4,7 @@ module Types.DisplayObject where
 import Data.List
 import Data.Ord
 import Functions.Application
-import Text.Printf
+import Types.Printable
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
@@ -103,7 +103,7 @@ printDisplayObjectsAsTableFoot =
           . concatMap
             ( wrapInTag "li"
                 . unBreakCharacters
-                . (\(t, n) -> printf "%s: %d" (show t) n)
+                . (\(t, n) -> printf "%s: %s" (show t) n)
             )
           . getTeamCountsFromDisplayObject
       )

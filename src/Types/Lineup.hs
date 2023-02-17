@@ -6,7 +6,7 @@ import Data.List
 import Data.Ord
 import Data.Teams
 import Functions.Application
-import Text.Printf
+import Types.Printable
 import Types.Basic
 import Types.Player
 import Types.Position
@@ -161,7 +161,7 @@ printPlayersAsMarkDownSection (t, ins, outs) =
     $ [ wrapInTag "h2"
           . wrapInTag ("a id=\"" ++ show t ++ "\"")
           $ printf
-            "%s (%d/%d)"
+            "%s (%s/%s)"
             (show t)
             (length ins)
             (length ins + length outs),

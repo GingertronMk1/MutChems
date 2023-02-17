@@ -6,7 +6,7 @@
 module Functions.Application where
 
 import Data.List
-import Text.Printf
+import Types.Printable
 
 -- | Take the mean of a list of Integral values.
 mean :: (Real a) => [a] -> Float

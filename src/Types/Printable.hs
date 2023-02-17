@@ -2,24 +2,24 @@
 
 module Types.Printable where
 
-myPrintF :: Printable a => String -> a
-myPrintF = myPrintF' ""
+printf :: Printable a => String -> a
+printf = printf' ""
 
 class Printable a where
-    myPrintF' :: String -> String -> a
+    printf' :: String -> String -> a
 
 instance Printable String where
-    myPrintF' s _ = reverse s
+    printf' s x = reverse s ++ x
 
 instance {-# OVERLAPPING #-} (Printable r) => Printable (String -> r) where
-    myPrintF' acc "" _ = myPrintF' "" acc
-    myPrintF' acc ('%':'s':ss) x = myPrintF' (reverse x ++ acc) ss
-    myPrintF' acc (s:ss) x = myPrintF' (s:acc) ss x
+    printf' acc "" _ = printf' "" acc
+    printf' acc ('%':'s':ss) x = printf' (reverse x ++ acc) ss
+    printf' acc (s:ss) x = printf' (s:acc) ss x
 
 instance {-# OVERLAPPING #-} (Show x, Printable r) => Printable (x -> r) where
-    myPrintF' acc ('%':'s':ss) x = myPrintF' (reverse (show x) ++ acc) ss
-    myPrintF' acc (s:ss) x = myPrintF' (s:acc) ss x
-    myPrintF' acc "" _ = myPrintF' acc ""
+    printf' acc ('%':'s':ss) x = printf' (reverse (show x) ++ acc) ss
+    printf' acc (s:ss) x = printf' (s:acc) ss x
+    printf' acc "" _ = printf' acc ""
 
 pfTest :: IO ()
-pfTest = putStrLn $ myPrintF "Test %s" "testington"
+pfTest = putStrLn $ printf "Test %s" "testington"

@@ -4,7 +4,7 @@ module Types.ArgumentList where
 import Data.Calculated
 import Data.List
 import Functions.Application
-import Text.Printf
+import Types.Printable
 import Types.Team
 
 -- | The argument list
@@ -46,7 +46,7 @@ compileArgumentListAndPrintResults args = do
                      ) = argumentsToArgumentList args
   putStrLn $ printf "Taking input from %s" inputFile
   if stepCount > 0
-    then putStrLn $ printf "Stepping %s %d times" inputFile stepCount
+    then putStrLn $ printf "Stepping %s %s times" inputFile stepCount
     else putStrLn "Not stepping"
   putStrLn $ printf "Outputting to %s" outputFile
   case disregardTeams of

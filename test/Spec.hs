@@ -1,6 +1,6 @@
 import Functions.Application
 import Test.HUnit
-import Text.Printf
+import Types.Printable
 import Types.Position
 
 main :: IO Counts
@@ -36,7 +36,7 @@ testTestCases (str, fn, testCases) =
 
 testMeanCases :: TestCases [Int] Float
 testMeanCases =
-  ( "Mean of %s should equal %d",
+  ( "Mean of %s should equal %s",
     mean,
     [ (replicate 5 1, 1.0),
       ([1 .. 5], 3.0),
@@ -58,7 +58,7 @@ testunBreakCharacters =
 -- (Result, testCase)
 testDistanceFrom5Cases :: TestCases Int Int
 testDistanceFrom5Cases =
-  ( "distanceFrom5 should return %d for multiples of %d",
+  ( "distanceFrom5 should return %s for multiples of %s",
     distanceFrom5,
     [ (5, 0),
       (4, 1),

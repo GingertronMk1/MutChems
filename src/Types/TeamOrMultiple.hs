@@ -2,7 +2,7 @@
 module Types.TeamOrMultiple where
 
 import Data.List
-import Text.Printf
+import Types.Printable
 import Types.Team
 
 -- | A TeamOrMultiple - a means of displaying one or more Team Chemistries
@@ -49,7 +49,7 @@ expandTeamOrMultiple (Teams ts) = concatMap expandTeamOrMultiple ts
 ppTeamOrMultiple :: TeamOrMultiple -> String
 ppTeamOrMultiple NoTeam = "-"
 ppTeamOrMultiple (Team t) = show t
-ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%d" (show t) i
+ppTeamOrMultiple (MultipleTeam t i) = printf "%s x%s" (show t) i
 ppTeamOrMultiple (Teams ts) = intercalate " | " $ map ppTeamOrMultiple ts
 
 -- * Validity checking a given Lineup

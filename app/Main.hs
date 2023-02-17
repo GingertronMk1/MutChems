@@ -4,7 +4,6 @@ module Main (main) where
 
 import Functions.Application
 import System.Environment
-import Text.Printf
 import Types.ArgumentList
 import Types.BuildObject
 import Types.DisplayObject
@@ -35,7 +34,7 @@ main = do
           buildObjects
   putStrLn $
     printf
-      "Filtered all lineups and converted to a total of %d Variations"
+      "Filtered all lineups and converted to a total of %s Variations"
       (length . concatMap iObjVariations $ intermediateObjects)
   let displayObjects = map intermediateObjectToDisplayObject intermediateObjects
   let html =
