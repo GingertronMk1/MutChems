@@ -9,7 +9,6 @@ import Types.BuildObject
 import Types.DisplayObject
 import Types.InitObject
 import Types.Lineup
-
 import Types.Printable
 
 -- | Give me the best Variations given a Lineup.

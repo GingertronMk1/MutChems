@@ -4,10 +4,10 @@ module Types.DisplayObject where
 import Data.List
 import Data.Ord
 import Functions.Application
-import Types.Printable
 import Types.BuildObject
 import Types.Lineup
 import Types.Player
+import Types.Printable
 import Types.ProspectiveChange
 import Types.Team
 import Types.TeamOrMultiple

@@ -4,11 +4,11 @@ module Types.ProspectiveChange where
 import Classes.Data
 import Data.List
 import Functions.Application
-import Types.Printable
 import Types.Basic
 import Types.Lineup
 import Types.Player
 import Types.Position
+import Types.Printable
 
 -- | A Prospective Change to a FlatLineup
 data ProspectiveChange

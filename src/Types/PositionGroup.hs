@@ -4,9 +4,9 @@ module Types.PositionGroup where
 import Classes.Data
 import Data.List
 import Functions.Application
-import Types.Printable
 import Types.Basic
 import Types.Player
+import Types.Printable
 
 -- | The Position Group, with a Position and a list of Players
 data PositionGroup = PositionGroup

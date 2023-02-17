@@ -1,7 +1,7 @@
 import Functions.Application
 import Test.HUnit
-import Types.Printable
 import Types.Position
+import Types.Printable
 
 main :: IO Counts
 main = runTestTT testList
@@ -109,9 +109,10 @@ testEnumPositionData' n =
           (fromEnum toPositionData)
 
 testPrintF :: Test
-testPrintF = TestList . map TestCase $ [
-    assertEqual
-      "printf outputs correctly"
-      "Hello Jack how are you 1"
-      (printf "Hello %s how are you %s" "Jack" (1 :: Int))
-  ]
+testPrintF =
+  TestList . map TestCase $
+    [ assertEqual
+        "printf outputs correctly"
+        "Hello Jack how are you 1"
+        (printf "Hello %s how are you %s" "Jack" (1 :: Int))
+    ]

@@ -6,11 +6,11 @@ import Data.List
 import Data.Ord
 import Data.Teams
 import Functions.Application
-import Types.Printable
 import Types.Basic
 import Types.Player
 import Types.Position
 import Types.PositionGroup
+import Types.Printable
 import Types.Team
 import Types.TeamOrMultiple
 
