@@ -131,12 +131,16 @@ printVariationAsHtmlTable'
     ) =
     let thisRow =
           wrapInTag "tr"
-            . concatMap (wrapInTag "td")
-            $ [ unBreakCharacters pName,
-                unBreakCharacters . ppTeamOrMultiple $ pTeam
+            . concatMap (wrapInTag "td" . unBreakCharacters)
+            $ [ pName,
+                ppTeamOrMultiple pTeam
               ]
         nextRow = printVariationAsHtmlTable' pPos ps
-        posRow = wrapInTag "tr" . wrapInTag "th colspan=2" . show $ pPos
+        posRow = wrapInTag "tr"
+               . wrapInTag "th colspan=2"
+               . unBreakCharacters
+               . show
+               $ pPos
      in if pPos == pos
           then thisRow : nextRow
           else posRow : thisRow : nextRow
