@@ -2,22 +2,24 @@
 
 module Types.Printable where
 
-foo :: FooType a => String -> a
-foo = bar  ""
+myPrintF :: Printable a => String -> a
+myPrintF = myPrintF' ""
 
-class FooType a where
-    bar :: String -> String -> a
+class Printable a where
+    myPrintF' :: String -> String -> a
 
-instance FooType String where
-    bar s acc = reverse s
+instance Printable String where
+    myPrintF' s _ = reverse s
 
-instance {-# OVERLAPPING #-} (FooType r) => FooType (String -> r) where
-    bar acc "" _ = bar "" acc
-    bar acc ('%':'s':ss) x = bar (reverse x ++ acc) ss
-    bar acc (s:ss) x = bar (s:acc) ss x
+instance {-# OVERLAPPING #-} (Printable r) => Printable (String -> r) where
+    myPrintF' acc "" _ = myPrintF' "" acc
+    myPrintF' acc ('%':'s':ss) x = myPrintF' (reverse x ++ acc) ss
+    myPrintF' acc (s:ss) x = myPrintF' (s:acc) ss x
 
-instance {-# OVERLAPPING #-} (Show x, FooType r) => FooType (x -> r) where
-    bar acc ('%':'s':ss) x = bar (reverse (show x) ++ acc) ss
+instance {-# OVERLAPPING #-} (Show x, Printable r) => Printable (x -> r) where
+    myPrintF' acc ('%':'s':ss) x = myPrintF' (reverse (show x) ++ acc) ss
+    myPrintF' acc (s:ss) x = myPrintF' (s:acc) ss x
+    myPrintF' acc "" _ = myPrintF' acc ""
 
-fooTest :: IO ()
-fooTest = putStrLn $ foo "Test %s" "testington"
+pfTest :: IO ()
+pfTest = putStrLn $ myPrintF "Test %s" "testington"
