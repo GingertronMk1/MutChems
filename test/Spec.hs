@@ -87,7 +87,7 @@ testPrintThingsWithAndCases :: TestCases [String] String
 testPrintThingsWithAndCases =
   ( "printThingsWithAnd should return %s for %s",
     printThingsWithAnd,
-    [ (map show ['a'], "'a'"),
+    [ ([show 'a'], "'a'"),
       (map show ['a', 'b'], "'a' and 'b'"),
       (map show ['a' .. 'c'], "'a', 'b', and 'c'")
     ]
@@ -114,5 +114,9 @@ testPrintF =
     [ assertEqual
         "printf outputs correctly"
         "Hello Jack how are you 1"
-        (printf "Hello %s how are you %s" "Jack" (1 :: Int))
+        (printf "Hello %s how are you %s" "Jack" (1 :: Int)),
+      assertEqual
+        "printf outputs correctly"
+        "This is another test"
+        (printf "This is another test")
     ]
