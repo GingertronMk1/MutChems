@@ -2,17 +2,22 @@
 
 module Types.Printable where
 
-foo :: FooType a => a
-foo = bar "what"
+foo :: FooType a => String -> a
+foo = bar  ""
 
 class FooType a where
-    bar :: String -> a
+    bar :: String -> String -> a
 
 instance FooType String where
-    bar = id
+    bar s acc = reverse s
 
 instance {-# OVERLAPPING #-} (FooType r) => FooType (String -> r) where
-    bar s x = bar (s ++ x)
+    bar acc "" _ = bar "" acc
+    bar acc ('%':'s':ss) x = bar (reverse x ++ acc) ss
+    bar acc (s:ss) x = bar (s:acc) ss x
 
 instance {-# OVERLAPPING #-} (Show x, FooType r) => FooType (x -> r) where
-    bar s x = bar (s ++ show x)
+    bar acc ('%':'s':ss) x = bar (reverse (show x) ++ acc) ss
+
+fooTest :: IO ()
+fooTest = putStrLn $ foo "Test %s" "testington"
