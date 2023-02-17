@@ -39,6 +39,7 @@ library
       Types.Player
       Types.Position
       Types.PositionGroup
+      Types.Printable
       Types.ProspectiveChange
       Types.Team
       Types.TeamOrMultiple
