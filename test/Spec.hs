@@ -1,6 +1,6 @@
 import Functions.Application
 import Test.HUnit
-import Text.Printf
+import Types.Printable
 import Types.Position
 
 main :: IO Counts
@@ -18,7 +18,8 @@ testList =
       testMean,
       testMaximumValues,
       testPrintThingsWithAnd,
-      testEnumPositionData
+      testEnumPositionData,
+      testPrintF
     ]
 
 testTestCases :: (Eq b, Show a, Show b) => TestCases a b -> Test
@@ -36,7 +37,7 @@ testTestCases (str, fn, testCases) =
 
 testMeanCases :: TestCases [Int] Float
 testMeanCases =
-  ( "Mean of %s should equal %d",
+  ( "Mean of %s should equal %s",
     mean,
     [ (replicate 5 1, 1.0),
       ([1 .. 5], 3.0),
@@ -58,7 +59,7 @@ testunBreakCharacters =
 -- (Result, testCase)
 testDistanceFrom5Cases :: TestCases Int Int
 testDistanceFrom5Cases =
-  ( "distanceFrom5 should return %d for multiples of %d",
+  ( "distanceFrom5 should return %s for multiples of %s",
     distanceFrom5,
     [ (5, 0),
       (4, 1),
@@ -106,3 +107,11 @@ testEnumPositionData' n =
           (printf "%s remains the same when taken to and from Position" n)
           n
           (fromEnum toPositionData)
+
+testPrintF :: Test
+testPrintF = TestList . map TestCase $ [
+    assertEqual
+      "printf outputs correctly"
+      "Hello Jack how are you 1"
+      (printf "Hello %s how are you %s" "Jack" (1 :: Int))
+  ]

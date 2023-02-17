@@ -4,12 +4,13 @@ module Main (main) where
 
 import Functions.Application
 import System.Environment
-import Text.Printf
 import Types.ArgumentList
 import Types.BuildObject
 import Types.DisplayObject
 import Types.InitObject
 import Types.Lineup
+
+import Types.Printable
 
 -- | Give me the best Variations given a Lineup.
 main :: IO ()
@@ -33,7 +34,7 @@ main = do
           buildObjects
   putStrLn $
     printf
-      "Filtered all lineups and converted to a total of %d Variations"
+      "Filtered all lineups and converted to a total of %s Variations"
       (length . concatMap iObjVariations $ intermediateObjects)
   let displayObjects = map intermediateObjectToDisplayObject intermediateObjects
   let html =
