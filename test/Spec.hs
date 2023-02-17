@@ -18,7 +18,8 @@ testList =
       testMean,
       testMaximumValues,
       testPrintThingsWithAnd,
-      testEnumPositionData
+      testEnumPositionData,
+      testPrintF
     ]
 
 testTestCases :: (Eq b, Show a, Show b) => TestCases a b -> Test
@@ -106,3 +107,11 @@ testEnumPositionData' n =
           (printf "%s remains the same when taken to and from Position" n)
           n
           (fromEnum toPositionData)
+
+testPrintF :: Test
+testPrintF = TestList . map TestCase $ [
+    assertEqual
+      "printf outputs correctly"
+      "Hello Jack how are you 1"
+      (printf "Hello %s how are you %s" "Jack" (1 :: Int))
+  ]
