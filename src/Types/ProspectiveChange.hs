@@ -77,7 +77,7 @@ applyProspectiveChange (Addition gp position) fl =
            )
 applyProspectiveChange (Replacement oldP newP) fl =
   case break ((== oldP) . playerName) fl of
-    (_, []) -> error $ printf "No player called %s" oldP
+    (_, []) -> error $ printf "No player called %s" (show oldP)
     (befores, (Player {playerPosition = oldPosition}) : afters) ->
       befores ++ (groupedPlayerToPlayer newP oldPosition : afters)
 applyProspectiveChange (Removals ps) fl =
