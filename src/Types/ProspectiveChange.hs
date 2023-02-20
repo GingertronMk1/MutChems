@@ -16,9 +16,7 @@ data ProspectiveChange
   = -- | An addition to the lineup
     Addition GroupedPlayer EncodedPosition
   | -- | Replacing a given Player with another one
-    Replacement PlayerName GroupedPlayer
-  | -- | Remove players
-    Removals [PlayerName]
+    Replacement [PlayerName] GroupedPlayer
   | -- | No change
     NoChange
   deriving (Show)
@@ -35,14 +33,8 @@ instance Data ProspectiveChange where
     intercalate
       "\n"
       [ "# Replacement",
-        standardIndent pn,
+        standardIndent (intercalate "," pn),
         toData gp
-      ]
-  toData (Removals ps) =
-    intercalate
-      "\n"
-      [ "# Removals",
-        standardIndent $ intercalate "," ps
       ]
   toData NoChange = "# NoChange"
   fromData s =
@@ -56,14 +48,8 @@ instance Data ProspectiveChange where
           "Replacement" ->
             let (replacementName : player) = details
              in Replacement
-                  (dropSpaces replacementName)
+                  (splitOnInfix "," . dropSpaces $ replacementName)
                   (fromData . intercalate "\n" $ player)
-          "Removals" ->
-            Removals
-              . splitOnInfix ","
-              . dropSpaces
-              . head
-              $ details
           "NoChange" -> NoChange
           s' -> error . show $ (s, s')
 
@@ -76,40 +62,34 @@ applyProspectiveChange (Addition gp position) fl =
         ++ ( groupedPlayerToPlayer gp (readToPositionData position) :
              afters
            )
-applyProspectiveChange (Replacement oldP newP) fl =
+applyProspectiveChange (Replacement [] _) fl = fl
+applyProspectiveChange (Replacement oldPs@(oldP : _) newP) fl =
   case break ((== oldP) . playerName) fl of
     (_, []) -> error $ printf "No player called %s" (show oldP)
     (befores, (Player {playerPosition = oldPosition}) : afters) ->
-      befores ++ (groupedPlayerToPlayer newP oldPosition : afters)
-applyProspectiveChange (Removals ps) fl =
-  filter ((`notElem` ps) . playerName) fl
+      let filterOldPs = filter ((`notElem` oldPs) . playerName)
+       in filterOldPs befores
+            ++ (groupedPlayerToPlayer newP oldPosition : filterOldPs afters)
 
 -- | Nicely print a given prospective change
 ppProspectiveChange :: ProspectiveChange -> String
 ppProspectiveChange NoChange = "No change"
 ppProspectiveChange (Addition (GroupedPlayer {groupedPlayerName = name}) pos) =
   printf "Adding %s at %s" (unBreakCharacters name) pos
+ppProspectiveChange (Replacement [] _) = "Not actually changing anything"
 ppProspectiveChange
   ( Replacement
-      oldName
+      oldNames@(oldName : _)
       ( GroupedPlayer
           { groupedPlayerName = newName
           }
         )
     ) =
-    if oldName == newName
-      then
-        printf
-          "Replacing %s with a different %s"
-          (unBreakCharacters oldName)
+    let formatString =
+          if oldName == newName
+            then "Replacing %s with a different %s"
+            else "Replacing %s with %s"
+     in printf
+          formatString
+          (printThingsWithAnd . map unBreakCharacters $ oldNames)
           (unBreakCharacters newName)
-      else
-        printf
-          "Replacing %s with %s"
-          (unBreakCharacters oldName)
-          (unBreakCharacters newName)
-ppProspectiveChange (Removals ps) =
-  ("Removing " ++)
-    . printThingsWithAnd
-    . map unBreakCharacters
-    $ ps
