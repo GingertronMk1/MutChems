@@ -5,6 +5,7 @@
 -- Application functions, i.e. those which do not care about any types I've created
 module Functions.Application where
 
+import Data.Char
 import Data.List
 import Types.Printable
 
@@ -150,15 +151,14 @@ splitOnDoubleLines = splitOnInfix "\n\n"
 
 -- | Remove trailing whatever from a list
 dropFromEndWhile :: (a -> Bool) -> [a] -> [a]
-dropFromEndWhile _ [] = []
-dropFromEndWhile f xs =
-  if f . last $ xs
-    then dropFromEndWhile f $ init xs
-    else xs
+dropFromEndWhile f =
+  reverse
+    . dropWhile f
+    . reverse
 
 -- | Remove whitespace from empty lines
 removeWhitespaceLines :: [String] -> [String]
-removeWhitespaceLines = map (\l -> if all (== ' ') l then "" else l)
+removeWhitespaceLines = map (\l -> if all isSpace l then "" else l)
 
 -- | The standard indentation level
 standardIndent :: String -> String
@@ -166,4 +166,4 @@ standardIndent = (replicate 2 ' ' ++)
 
 -- | Trim leading and trailing whitespace
 dropSpaces :: String -> String
-dropSpaces = dropFromEndWhile (== ' ') . dropWhile (== ' ')
+dropSpaces = dropFromEndWhile isSpace . dropWhile isSpace

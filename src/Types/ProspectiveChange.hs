@@ -2,6 +2,7 @@
 module Types.ProspectiveChange where
 
 import Classes.Data
+import Data.Char
 import Data.List
 import Functions.Application
 import Types.Basic
@@ -46,7 +47,7 @@ instance Data ProspectiveChange where
   toData NoChange = "# NoChange"
   fromData s =
     let (kind : details) = filter (not . null) . lines $ s
-     in case dropWhile (== ' ') . tail $ kind of
+     in case dropWhile isSpace . tail $ kind of
           "Addition" ->
             let (playersName : playersTeams : position : _) = details
              in Addition
