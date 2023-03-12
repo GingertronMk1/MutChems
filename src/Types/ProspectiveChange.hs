@@ -26,8 +26,8 @@ instance Data ProspectiveChange where
     intercalate
       "\n"
       [ "# Addition",
-        toData gp,
-        standardIndent pos
+        standardIndent pos,
+        toData gp
       ]
   toData (Replacement pn gp) =
     intercalate
@@ -41,7 +41,7 @@ instance Data ProspectiveChange where
     let (kind : details) = filter (not . null) . lines $ s
      in case dropWhile isSpace . tail $ kind of
           "Addition" ->
-            let (playersName : playersTeams : position : _) = details
+            let (position : playersName : playersTeams : _) = details
              in Addition
                   (fromData . intercalate "\n" $ [playersName, playersTeams])
                   (dropSpaces position)
