@@ -1,88 +1,85 @@
 # Quarterback
-  Ken Stabler
-  Legends Raiders Titans Saints
+  Patrick Mahomes
+  Chiefs.2
   ---
-  Tim Tebow
-  Legends Broncos Jets
+  Ken Stabler
+  Legends Raiders Titans Saints Chiefs
 
 # Halfback
-  Keith Byars
-  Legends Eagles.2 Dolphins Patriots Jets
+  Jamaal Charles
+  Legends Chiefs.2
   ---
   Warrick Dunn
   all32TeamsPlusLegends
-  ---
-  CJ2K
-  Legends Jets Cardinals
 
 # Fullback
   Joe Perry
   Legends Niners
 
 # Wide Receiver
-  Julian Edelman
-  Legends Patriots
+  Marquez Valdes-Scantling
+  Chiefs Packers
   ---
-  Roddy White
-  Legends Falcons
+  Kadarius Toney
+  Chiefs Giants
   ---
   Anquan Boldin
   all32TeamsPlusLegends
   ---
   Calvin Johnson
-  Legends Lions
-  ---
-  Gary Zimmerman (WR)
-  Legends Broncos Vikings
+  Legends Lions Chiefs
 
 # Tight End
   Rob Gronkowski
   gronkTeams
+  ---
+  Travis Kelce
+  Chiefs Eagles
   ---
   Dave Casper
   all32TeamsPlusLegends
 
 # Left Tackle
   John Madden (LT)
-  Legends Eagles
+  Legends Eagles Chiefs
   ---
   Terron Armstead "The Terror"
   Saints Dolphins
 
 # Left Guard
-  Russ Grimm
-  Legends Commanders
-
-# Center
-  Maurkice Pouncey
-  Legends Steelers
+  Ed Budde
+  Legends Chiefs.2
   ---
   Ryan Jensen "Red Tornado"
   Buccaneers Ravens
 
+# Center
+  Jason Kelce
+  Eagles Chiefs
+
 # Right Guard
-  Marshal Yanda
-  Legends Ravens
+  Will Shields
+  Legends Chiefs
 
 # Right Tackle
-  Willie Anderson
-  Legends Bengals Ravens
+  Andrew Wylie
+  Chiefs
 
 # Free Safety
+  Eric Berry
+  Legends Chiefs.2
+  ---
   Ed Reed
   Legends Ravens Texans Jets
-  ---
-  Steve Atwater
-  Legends Broncos Jets
 
 # Strong Safety
   Ted Hendricks
   Legends Colts Packers Raiders
-  ---
-  Kam Chancellor
-  Legends Seahawks
 
 # Cornerback
+  Jaylen Watson
+  Chiefs
+  ---
   Richard Sherman
   Seahawks Niners Buccaneers Legends
   ---
@@ -92,17 +89,14 @@
   Deion Sanders
   all32TeamsPlusLegends
   ---
-  Champ Bailey
-  Legends Commanders Broncos
+  Marcus Peters
+  Ravens Chiefs Rams
 
 # Right Outside Linebacker
   Jonathan Casillas
   Legends Buccaneers Giants Patriots Saints
 
 # Middle Linebacker
-  Ray Lewis
-  Legends Ravens
-  ---
   Mike Singletary
   Legends Bears
   ---
@@ -117,24 +111,21 @@
   Legends Browns Commanders Giants
   ---
   Shaquille Leonard
-  Colts Ravens Buccaneers
+  Colts Ravens Buccaneers Chiefs
 
 # Right Defensive End
   Bruce Smith
   Legends Bills Commanders
   ---
   William Gholston
-  Buccaneers Ravens
+  Buccaneers Ravens Chiefs
 
 # Defensive Tackle
-  Darnell Dockett
-  Legends Cardinals.2
-  ---
   Sam Adams
   all32TeamsPlusLegends
   ---
   John Madden (DT)
-  Legends Eagles
+  Legends Eagles Chiefs
   ---
   Tony Siragusa
   Legends Ravens Colts
@@ -144,7 +135,7 @@
   Legends Texans Cardinals
   ---
   Cameron Jordan
-  Saints Buccaneers Ravens
+  Saints Buccaneers Ravens Chiefs
 
 # Kicker
   Justin Tucker
@@ -155,3 +146,8 @@
   Legends Raiders
 
 ===
+
+# Replacement
+  Bruce Smith
+  Frank Clark
+  Chiefs Seahawks
