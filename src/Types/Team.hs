@@ -36,4 +36,5 @@ data Team
   | Texans
   | Titans
   | Vikings
+  | ULOline
   deriving (Eq, Ord, Show, Read)
