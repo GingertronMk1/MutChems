@@ -15,25 +15,7 @@ newtype Variation = Variation [VariationPlayer]
 
 instance Ord Variation where
   compare v1 v2
-    | and
-        [ team1 == Legends,
-          team2 == Legends,
-          teamN1 >= 40,
-          teamN2 >= 40
-        ]
-        || and
-          [ team1 /= Legends,
-            team2 /= Legends,
-            teamN1 >= 50,
-            teamN2 >= 50
-          ]
-        || and
-          [ team1 /= Legends,
-            team2 /= Legends,
-            teamN1 >= 40,
-            teamN2 >= 40
-          ] =
-      compare nextV1 nextV2
+    | overAThreshold team1 team2 teamN1 teamN2 = compare nextV1 nextV2
     | ord1 /= ord2 =
       compare ord1 ord2
     | n1 /= n2 =
