@@ -1,7 +1,6 @@
 -- | Module: Types.Variation
 module Types.Variation where
 
-import Data.Either
 import Data.List
 import Data.Ord
 import Functions.Application
@@ -16,7 +15,7 @@ newtype Variation = Variation [VariationPlayer]
 
 instance Ord Variation where
   compare v1 v2
-    | isRight comparedThresholds = fromRight EQ comparedThresholds
+    | comparedThresholds /= EQ = comparedThresholds
     | overAThreshold team1 team2 teamN1 teamN2 = compare nextV1 nextV2
     | ord1 /= ord2 =
       compare ord1 ord2

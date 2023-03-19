@@ -71,7 +71,7 @@ compareThresholds ::
   Team ->
   Int ->
   Int ->
-  Either Bool Ordering
+  Ordering
 compareThresholds = compareThresholds' thresholds
 
 compareThresholds' :: 
@@ -80,10 +80,10 @@ compareThresholds' ::
   Team ->
   Int ->
   Int ->
-  Either Bool Ordering
-compareThresholds' [] _ _ _ _ = Left False
+  Ordering
+compareThresholds' [] _ _ _ _ = EQ
 compareThresholds' ((f, n):fns) t1 t2 i1 i2 =
   case (f t1 && i1 >= n, f t2 && i2 >= n) of
-    (True, False) -> Right GT
-    (False, True) -> Right LT
+    (True, False) -> GT
+    (False, True) -> LT
     _ -> compareThresholds' fns t1 t2 i1 i2
