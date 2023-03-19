@@ -5,5 +5,5 @@ module Data.Other where
 
 -- | The threshold as a string
 squadFilterThresholdString :: String
-squadFilterThresholdString = "10 000 000"
+squadFilterThresholdString = "1 000 000"
 
