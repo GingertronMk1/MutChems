@@ -12,12 +12,14 @@ class PossibleLineup:
     def __str__(self) -> str:
         return "\n".join(map(str, self.data))
 
-    def allValues(self) -> dict:
+    def allValues(self) -> dict[str, int]:
         val: dict = {}
         for player in self.data:
             for tom in player.team:
                 val[tom.name] = val.get(tom.name, 0) + int(tom.number)
-        return val
+        l = [(k, v) for k, v in val.items()]
+        l.sort(reverse=True, key=lambda x: x[1])
+        return dict(l)
 
     def value(self) -> tuple[str, int]:
         val = self.allValues()

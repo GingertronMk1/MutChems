@@ -23,3 +23,36 @@ class Position(Enum):
     LEFT_DEFENSIVE_END = "Left Defensive End"
     KICKER = "Kicker"
     PUNTER = "Punter"
+
+    @staticmethod
+    def offense() -> list["__class__"]:
+        return [
+            Position.QUARTERBACK,
+            Position.HALFBACK,
+            Position.FULLBACK,
+            Position.WIDE_RECEIVER,
+            Position.TIGHT_END,
+            Position.LEFT_TACKLE,
+            Position.LEFT_GUARD,
+            Position.CENTER,
+            Position.RIGHT_GUARD,
+            Position.RIGHT_TACKLE,
+        ]
+
+    @staticmethod
+    def defense() -> list["__class__"]:
+        return [
+            Position.FREE_SAFETY,
+            Position.STRONG_SAFETY,
+            Position.CORNERBACK,
+            Position.RIGHT_OUTSIDE_LINEBACKER,
+            Position.MIDDLE_LINEBACKER,
+            Position.LEFT_OUTSIDE_LINEBACKER,
+            Position.RIGHT_DEFENSIVE_END,
+            Position.DEFENSIVE_TACKLE,
+            Position.LEFT_DEFENSIVE_END,
+        ]
+
+    @staticmethod
+    def specialTeams() -> list["__class__"]:
+        return [Position.KICKER, Position.PUNTER]

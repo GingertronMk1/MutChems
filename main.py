@@ -42,3 +42,7 @@ with open("output.csv", "w") as csvfile:
                 "{team}".format(team=" | ".join(map(str, player.team))),
             ]
         )
+    writer.writerow([None, None, None])
+    bestValues = bestPossible.allValues()
+    for key in bestValues.keys():
+        writer.writerow([key.value, bestValues[key]])
