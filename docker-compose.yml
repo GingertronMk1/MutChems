@@ -3,7 +3,8 @@ version: '3.8'
 services:
     app:
         platform: linux/x86_64
-        image: python:3.11.4-bullseye
+        build:
+          context: .
+          dockerfile: ./Dockerfile
         volumes:
             - "./:/app"
-        working_dir: /app
