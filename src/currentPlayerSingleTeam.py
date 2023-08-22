@@ -1,12 +1,14 @@
 from src.teamOrMultiple import TeamOrMultiple
 from src.currentPlayer import CurrentPlayer
+from src.position import Position
+
 
 class CurrentPlayerSingleTeam:
     name: str = ""
     team: TeamOrMultiple
-    position: str = ""
+    position: Position
 
-    def __init__(self, name: str, team: TeamOrMultiple, position: str) -> None:
+    def __init__(self, name: str, team: TeamOrMultiple, position: Position) -> None:
         self.name = name
         self.team = team
         self.position = position
@@ -21,4 +23,3 @@ class CurrentPlayerSingleTeam:
         return "{name} | {team} | {position}".format(
             name=self.name, team=self.team, position=self.position
         )
-

@@ -2,6 +2,7 @@ from src.currentPlayerSingleTeam import CurrentPlayerSingleTeam
 import functools
 import math
 
+
 class PossibleLineup:
     data: list[CurrentPlayerSingleTeam] = []
 
@@ -15,7 +16,7 @@ class PossibleLineup:
         val: dict = {}
         for player in self.data:
             for tom in player.team:
-              val[tom.name] = val.get(tom.name, 0) + int(tom.number)
+                val[tom.name] = val.get(tom.name, 0) + int(tom.number)
         return val
 
     def value(self) -> tuple[str, int]:
@@ -36,5 +37,3 @@ class PossibleLineup:
     @staticmethod
     def sort(ls: list["__class__"]) -> list["__class__"]:
         return sorted(ls, key=functools.cmp_to_key(PossibleLineup.compare))
-
-
