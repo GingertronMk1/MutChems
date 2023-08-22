@@ -3,7 +3,7 @@ version: '3.8'
 services:
     app:
         platform: linux/x86_64
-        image: haskell:9.6.2-buster
+        image: python:3.11.4-bullseye
         volumes:
             - "./:/app"
         working_dir: /app
