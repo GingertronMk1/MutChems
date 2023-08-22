@@ -1,3 +1,0 @@
-#!/bin/sh
-
-jq . input.json > input.json.tmp && mv input.json.tmp input.json
