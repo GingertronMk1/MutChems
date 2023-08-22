@@ -2,6 +2,42 @@ import json
 import itertools
 import functools
 import math
+from enum import Enum
+import csv
+
+class Team(Enum):
+  BEARS = 'Bears'
+  BENGALS = 'Bengals'
+  BILLS = 'Bills'
+  BRONCOS = 'Broncos'
+  BROWNS = 'Browns'
+  BUCCANEERS = 'Buccaneers'
+  CARDINALS = 'Cardinals'
+  CHARGERS = 'Chargers'
+  CHIEFS = 'Chiefs'
+  COLTS = 'Colts'
+  COMMANDERS = 'Commanders'
+  COWBOYS = 'Cowboys'
+  DOLPHINS = 'Dolphins'
+  EAGLES = 'Eagles'
+  FALCONS = 'Falcons'
+  GIANTS = 'Giants'
+  JAGUARS = 'Jaguars'
+  JETS = 'Jets'
+  LIONS = 'Lions'
+  NINERS = '49ers'
+  PACKERS = 'Packers'
+  PANTHERS = 'Panthers'
+  PATRIOTS = 'Patriots'
+  RAIDERS = 'Raiders'
+  RAMS = 'Rams'
+  RAVENS = 'Ravens'
+  SAINTS = 'Saints'
+  SEAHAWKS = 'Seahawks'
+  STEELERS = 'Steelers'
+  TEXANS = 'Texans'
+  TITANS = 'Titans'
+  VIKINGS = 'Vikings'
 
 
 class CurrentPlayer:
@@ -20,6 +56,21 @@ class CurrentPlayer:
             name=self.name, position=self.position, teams=", ".join(self.teams)
         )
 
+class TeamOrMultiple:
+    name: Team
+    number: int = 1
+    def __init__(self, name: Team, number: int = 1) -> None:
+        self.name = name
+        self.number = number
+
+    @staticmethod
+    def fromString(string: str) -> list['__class__']:
+      if '|' in string:
+          return [tom for row in (TeamOrMultiple.fromString, string.split("|")) for tom in row]
+      if '.' in string:
+          tokens = string.split(".")
+          return [TeamOrMultiple(Team(tokens[0]), tokens[1])]
+      return [TeamOrMultiple(Team(string))]
 
 class CurrentPlayerSingleTeam:
     name: str = ""
@@ -55,30 +106,27 @@ class PossibleLineup:
     def allValues(self) -> dict:
         val: dict = {}
         for player in self.data:
-            tokens = player.team.split(".")
-            currentTeamVal = val.get(tokens[0], 0)
-            if len(tokens) == 2:
-                val[tokens[0]] = currentTeamVal + int(tokens[1])
-            else:
-                val[tokens[0]] = currentTeamVal + 1
+            for tom in TeamOrMultiple.fromString(player.team):
+              val[tom.name] = val.get(tom.name, 0) + int(tom.number)
         return val
-
 
     def value(self) -> tuple[str, int]:
         val = self.allValues()
-        return (max(val), max(val.values()))
-    
+        maxKey = max(val, key=val.get)
+        maxValue = max(val.values())
+        return (maxKey, maxValue)
+
     @staticmethod
-    def compare(l1: '__class__', l2: '__class__') -> int:
+    def compare(l1: "__class__", l2: "__class__") -> int:
         l1Val = l1.value()
         l2Val = l2.value()
         if l1Val[1] != l2Val[1]:
-          return math.copysign(l1Val[1], l2Val[1])
+            return math.copysign(l1Val[1], l2Val[1])
         else:
-          return math.copysign(len(l1.allValues()), len(l2.allValues()))
+            return math.copysign(len(l1.allValues()), len(l2.allValues()))
 
     @staticmethod
-    def sort(ls: list['__class__']) -> list['__class__']:
+    def sort(ls: list["__class__"]) -> list["__class__"]:
         return sorted(ls, key=functools.cmp_to_key(PossibleLineup.compare))
 
 
@@ -102,7 +150,15 @@ allPossibles = []
 for potential in allPotentials:
     allPossibles.append(PossibleLineup(list(potential)))
 
-PossibleLineup.sort(allPossibles)
+allPossibles = PossibleLineup.sort(allPossibles)
 
-for possible in allPossibles:
-    print("{value}".format(value=possible.value()))
+bestPossible = allPossibles[-1]
+
+with open('output.csv', 'w') as csvfile:
+    writer = csv.writer(csvfile, delimiter=",")
+    writer.writerow(['Name', 'Position', 'Team'])
+    [
+        writer.writerow(
+          [player.name, player.position, player.team]
+        ) for player in bestPossible.data
+    ]
