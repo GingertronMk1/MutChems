@@ -6,3 +6,4 @@ docs/**/*
 *.prof
 scratch.txt
 src/Data/Other.hs
+*__pycache__*
