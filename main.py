@@ -4,7 +4,6 @@ import csv
 from src.currentPlayer import CurrentPlayer
 from src.currentPlayerSingleTeam import CurrentPlayerSingleTeam
 from src.possibleLineup import PossibleLineup
-from enum import Enum
 
 with open("./data/team.json", "r") as f:
     data = json.load(f)
@@ -20,7 +19,7 @@ allPotentials = []
 for player in allPlayers:
     allPotentials.append(CurrentPlayerSingleTeam.fromCurrentPlayer(player))
 
-allPotentials = itertools.product(*allPotentials)
+allPotentials: list[list[CurrentPlayerSingleTeam]] = itertools.product(*allPotentials)
 
 allPossibles = []
 for potential in allPotentials:
@@ -29,8 +28,6 @@ for potential in allPotentials:
 allPossibles: list[PossibleLineup] = PossibleLineup.sort(allPossibles)
 
 bestPossible = allPossibles[-1]
-
-print(type(bestPossible))
 
 with open("output.csv", "w") as csvfile:
     writer = csv.writer(csvfile, delimiter=",")
