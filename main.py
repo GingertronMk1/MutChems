@@ -39,23 +39,6 @@ class Team(Enum):
   TITANS = 'Titans'
   VIKINGS = 'Vikings'
 
-
-class CurrentPlayer:
-    name: str = ""
-    teams: list[str] = []
-    position: str = ""
-
-    def __init__(self, dict, position) -> None:
-        self.name = dict["name"]
-        self.teams = dict["teams"]
-        self.position = position
-
-    def __str__(self) -> str:
-        txt = "Player: {name}\n  Position: {position}\n  Teams: {teams}"
-        return txt.format(
-            name=self.name, position=self.position, teams=", ".join(self.teams)
-        )
-
 class TeamOrMultiple:
     name: Team
     number: int = 1
@@ -66,24 +49,44 @@ class TeamOrMultiple:
     @staticmethod
     def fromString(string: str) -> list['__class__']:
       if '|' in string:
-          return [tom for row in (TeamOrMultiple.fromString, string.split("|")) for tom in row]
+          return [tom for row in map(TeamOrMultiple.fromString, string.split("|")) for tom in row]
       if '.' in string:
           tokens = string.split(".")
           return [TeamOrMultiple(Team(tokens[0]), tokens[1])]
       return [TeamOrMultiple(Team(string))]
 
-class CurrentPlayerSingleTeam:
+    def __str__(self) -> str:
+        return "{team}.{number}".format(team=self.name, number=self.number)
+
+
+class CurrentPlayer:
     name: str = ""
-    team: str = ""
+    teams: list[TeamOrMultiple] = []
     position: str = ""
 
-    def __init__(self, name: str, team: str, position: str) -> None:
+    def __init__(self, dict: dict, position: str) -> None:
+        self.name = dict["name"]
+        self.teams = map(TeamOrMultiple.fromString, dict["teams"])
+        self.position = position
+
+    def __str__(self) -> str:
+        txt = "Player: {name}\n  Position: {position}\n  Teams: {teams}"
+        return txt.format(
+            name=self.name, position=self.position, teams=", ".join(self.teams)
+        )
+
+class CurrentPlayerSingleTeam:
+    name: str = ""
+    team: TeamOrMultiple
+    position: str = ""
+
+    def __init__(self, name: str, team: TeamOrMultiple, position: str) -> None:
         self.name = name
         self.team = team
         self.position = position
 
     @staticmethod
-    def fromCurrentPlayer(cp) -> list["__class__"]:
+    def fromCurrentPlayer(cp: CurrentPlayer) -> list["__class__"]:
         return [
             CurrentPlayerSingleTeam(cp.name, team, cp.position) for team in cp.teams
         ]
@@ -106,7 +109,7 @@ class PossibleLineup:
     def allValues(self) -> dict:
         val: dict = {}
         for player in self.data:
-            for tom in TeamOrMultiple.fromString(player.team):
+            for tom in player.team:
               val[tom.name] = val.get(tom.name, 0) + int(tom.number)
         return val
 
@@ -150,15 +153,18 @@ allPossibles = []
 for potential in allPotentials:
     allPossibles.append(PossibleLineup(list(potential)))
 
-allPossibles = PossibleLineup.sort(allPossibles)
+allPossibles: list[PossibleLineup] = PossibleLineup.sort(allPossibles)
 
 bestPossible = allPossibles[-1]
+
+print(type(bestPossible))
 
 with open('output.csv', 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter=",")
     writer.writerow(['Name', 'Position', 'Team'])
-    [
-        writer.writerow(
-          [player.name, player.position, player.team]
-        ) for player in bestPossible.data
-    ]
+    for player in bestPossible.data:
+      print("Player is a {type}".format(type=type(player)))
+      print("Player team is a {type}".format(type=type(player.team)))
+      writer.writerow(
+        [player.name, player.position, "{team}".format(team=' | '.join(map(str, player.team)))]
+      )
