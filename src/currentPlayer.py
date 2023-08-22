@@ -1,5 +1,6 @@
 from src.teamOrMultiple import TeamOrMultiple
 from src.position import Position
+from src.team import Team
 
 
 class CurrentPlayer:
@@ -9,7 +10,10 @@ class CurrentPlayer:
 
     def __init__(self, dict: dict, position: str) -> None:
         self.name = dict["name"]
-        self.teams = map(TeamOrMultiple.fromString, dict["teams"])
+        if dict["teams"] == [Team.ALL32.value]:
+          self.teams = [[TeamOrMultiple(t)] for t in Team if t != Team.ALL32]
+        else:
+            self.teams = map(TeamOrMultiple.fromString, dict["teams"])
         self.position = Position(position)
 
     def __str__(self) -> str:

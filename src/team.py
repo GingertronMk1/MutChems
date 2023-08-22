@@ -34,3 +34,4 @@ class Team(Enum):
     TEXANS = "Texans"
     TITANS = "Titans"
     VIKINGS = "Vikings"
+    ALL32 = "All32Teams"
