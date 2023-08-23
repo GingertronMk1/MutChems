@@ -356,8 +356,11 @@
   ],
   "changes": [
     {
-      "type": "removal",
-      "playerName": "Dean Lowry"
+      "type": "removals",
+      "removals": [
+        "Dean Lowry",
+        "Tuli Tuipulotu"
+      ]
     }
   ]
 }

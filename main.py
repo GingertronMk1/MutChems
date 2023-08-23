@@ -6,6 +6,7 @@ from src.player.currentPlayer import CurrentPlayer
 from src.player.currentPlayerSingleTeam import CurrentPlayerSingleTeam
 from src.lineup.possibleLineup import PossibleLineup
 from src.lineup.positionGroup import PositionGroup
+from src.change.change import Change
 import sys
 
 with open("./data/team.json", "r") as f:
@@ -21,42 +22,56 @@ allPlayers: list[CurrentPlayer] = [
     for player in CurrentPlayer.fromPositionGroup(positionGroup)
 ]
 
-print("Converted position groups into individual players")
-
-allPotentials = [
-    CurrentPlayerSingleTeam.fromCurrentPlayer(player) for player in allPlayers
+changes: list[Change] = [
+    Change.fromDict(change) for change in data["changes"]
 ]
 
-print("Generated single-team players")
+allLineups: list[list[CurrentPlayer]] = [allPlayers]
 
-allPotentials: list[list[CurrentPlayerSingleTeam]] = itertools.product(*allPotentials)
+for change in changes:
+    allLineups.append(change.apply(allLineups[-1]))
 
-allPossibles: list[PossibleLineup] = [PossibleLineup(list(potential)) for potential in allPotentials]
+for lineup in allLineups:
+  for player in lineup:
+    print(player)
 
-print(
-    "Generated all possible lineups, total of {total}".format(total=len(allPossibles))
-)
+for key, allPlayers in enumerate(allLineups):
+  print("Converted position groups into individual players")
 
-bestPossible = max(allPossibles, key=functools.cmp_to_key(PossibleLineup.compare))
+  allPotentials = [
+      CurrentPlayerSingleTeam.fromCurrentPlayer(player) for player in allPlayers
+  ]
 
-print("Determined best possible lineup")
+  print("Generated single-team players")
 
-with open("output.csv", "w") as csvfile:
-    writer = csv.writer(csvfile, delimiter=",")
-    writer.writerow(["Name", "Position", "Team"])
-    for player in bestPossible.data:
-        # print("Player is a {type}".format(type=type(player)))
-        # print("Player team is a {type}".format(type=type(player.team)))
-        writer.writerow(
-            [
-                player.name,
-                player.position.value,
-                "{team}".format(team=" | ".join([str(team) for team in player.team])),
-            ]
-        )
-    writer.writerow([None, None, None])
-    bestValues = bestPossible.allValues()
-    for key in bestValues.keys():
-        writer.writerow([key.value, bestValues[key]])
+  allPotentials: list[list[CurrentPlayerSingleTeam]] = itertools.product(*allPotentials)
+
+  allPossibles: list[PossibleLineup] = [PossibleLineup(list(potential)) for potential in allPotentials]
+
+  print(
+      "Generated all possible lineups, total of {total}".format(total=len(allPossibles))
+  )
+
+  bestPossible = max(allPossibles, key=functools.cmp_to_key(PossibleLineup.compare))
+
+  print("Determined best possible lineup")
+
+  with open("output-{n}.csv".format(n=key), "w") as csvfile:
+      writer = csv.writer(csvfile, delimiter=",")
+      writer.writerow(["Name", "Position", "Team"])
+      for player in bestPossible.data:
+          # print("Player is a {type}".format(type=type(player)))
+          # print("Player team is a {type}".format(type=type(player.team)))
+          writer.writerow(
+              [
+                  player.name,
+                  player.position.value,
+                  "{team}".format(team=" | ".join([str(team) for team in player.team])),
+              ]
+          )
+      writer.writerow([None, None, None])
+      bestValues = bestPossible.allValues()
+      for key in bestValues.keys():
+          writer.writerow([key.value, bestValues[key]])
 
 print("Done!")

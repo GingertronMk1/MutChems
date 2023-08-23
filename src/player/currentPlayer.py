@@ -31,5 +31,7 @@ class CurrentPlayer:
     def __str__(self) -> str:
         txt = "Player: {name}\n  Position: {position}\n  Teams: {teams}"
         return txt.format(
-            name=self.name, position=self.position, teams=", ".join(self.teams)
+            name=self.name,
+            position=self.position,
+            teams=", ".join([str(team) for teams in self.teams for team in teams]),
         )
