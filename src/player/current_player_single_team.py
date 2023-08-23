@@ -1,5 +1,5 @@
-from src.teamOrMultiple import TeamOrMultiple
-from src.player.currentPlayer import CurrentPlayer
+from src.team_or_multiple import TeamOrMultiple
+from src.player.current_player import CurrentPlayer
 from src.position import Position
 
 

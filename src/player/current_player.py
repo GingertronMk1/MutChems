@@ -1,8 +1,8 @@
-from src.teamOrMultiple import TeamOrMultiple
+from src.team_or_multiple import TeamOrMultiple
 from src.position import Position
 from src.team import Team
-from src.player.positionGroupPlayer import PositionGroupPlayer
-from src.lineup.positionGroup import PositionGroup
+from src.player.position_group_player import PositionGroupPlayer
+from src.lineup.position_group import PositionGroup
 
 
 class CurrentPlayer:
@@ -19,7 +19,6 @@ class CurrentPlayer:
 
     @staticmethod
     def fromDict(dict: dict) -> "__class__":
-        print(dict)
         return CurrentPlayer(
             name=dict["name"],
             teams=[TeamOrMultiple.fromString(s) for s in dict["teams"]],

@@ -1,6 +1,5 @@
-from src.change.changeType import ChangeType
-from src.player.currentPlayer import CurrentPlayer
-import itertools
+from src.change.change_type import ChangeType
+from src.player.current_player import CurrentPlayer
 
 
 class Change:

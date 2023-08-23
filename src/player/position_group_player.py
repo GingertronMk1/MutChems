@@ -1,4 +1,4 @@
-from src.teamOrMultiple import TeamOrMultiple
+from src.team_or_multiple import TeamOrMultiple
 from src.team import Team
 
 

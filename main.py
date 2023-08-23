@@ -1,11 +1,11 @@
-import json
-from src.player.currentPlayer import CurrentPlayer
-from src.lineup.possibleLineup import PossibleLineup
-from src.lineup.positionGroup import PositionGroup
-from src.change.change import Change
 import functools
+import json
+from src.player.current_player import CurrentPlayer
+from src.lineup.possible_lineup import PossibleLineup
+from src.lineup.position_group import PositionGroup
+from src.change.change import Change
 
-with open("./data/team.json", "r") as f:
+with open("./data/team.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 print("Loaded data")
@@ -32,16 +32,12 @@ for key, allPlayers in enumerate(allLineups):
 
     allPossibles = PossibleLineup.fromRegularLineup(allPlayers)
 
-    print(
-        "Generated all possible lineups, total of {total}".format(
-            total=len(allPossibles)
-        )
-    )
+    print(F"Generated all possible lineups, total of {len(allPossibles)}")
 
     bestPossible = max(allPossibles, key=functools.cmp_to_key(PossibleLineup.compare))
 
     print("Determined best possible lineup")
 
-    with open("outputs/{n}-change.csv".format(n=key), "w") as csvfile:
+    with open(F"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
         bestPossible.writeToCsv(csvfile)
 print("Done!")

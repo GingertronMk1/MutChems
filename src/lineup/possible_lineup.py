@@ -1,5 +1,5 @@
-from src.player.currentPlayerSingleTeam import CurrentPlayerSingleTeam
-from src.player.currentPlayer import CurrentPlayer
+from src.player.current_player_single_team import CurrentPlayerSingleTeam
+from src.player.current_player import CurrentPlayer
 from io import TextIOWrapper
 import csv
 from itertools import product

@@ -104,7 +104,7 @@ testEnumPositionData' n =
   let toPositionData = toEnum n :: Position
    in TestCase $
         assertEqual
-          (printf "%s remains the same when taken to and from Position" n)
+          (printf "%s remains the same when taken to and from src.Position" n)
           n
           (fromEnum toPositionData)
 

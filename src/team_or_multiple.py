@@ -1,6 +1,5 @@
 from src.team import Team
 
-
 class TeamOrMultiple:
     name: Team
     number: int = 1
@@ -24,4 +23,4 @@ class TeamOrMultiple:
         return [TeamOrMultiple(Team(string))]
 
     def __str__(self) -> str:
-        return "{team}.{number}".format(team=self.name.value, number=self.number)
+        return F"{self.name.value}.{self.number}"

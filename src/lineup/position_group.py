@@ -1,5 +1,5 @@
 from src.position import Position
-from src.player.positionGroupPlayer import PositionGroupPlayer
+from src.player.position_group_player import PositionGroupPlayer
 
 
 class PositionGroup:
