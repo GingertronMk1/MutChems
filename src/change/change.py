@@ -32,10 +32,12 @@ class Change:
                     if currentPlayer.name not in self.removals
                 ]
             case ChangeType.ADDITIONS:
-                playerPositions = [player.position.value for player in currentLineup]
+                playerPositions = [player.position for player in currentLineup]
                 for player in self.additions:
-                    positionIndex = playerPositions.index(player.get("position"))
-                    currentLineup.insert(positionIndex, player)
+                    currentPlayer = CurrentPlayer.fromDict(player)
+                    positionIndex = playerPositions.index(currentPlayer.position)
+                    currentLineup.insert(positionIndex, currentPlayer)
+                return currentLineup
             case ChangeType.REPLACEMENT:
                 removed = Change(ChangeType.REMOVALS, removals=self.removals).apply(
                     currentLineup

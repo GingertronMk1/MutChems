@@ -18,6 +18,15 @@ class CurrentPlayer:
         self.position = position
 
     @staticmethod
+    def fromDict(dict: dict) -> "__class__":
+        print(dict)
+        return CurrentPlayer(
+            name=dict["name"],
+            teams=[TeamOrMultiple.fromString(s) for s in dict["teams"]],
+            position=Position(dict["position"]),
+        )
+
+    @staticmethod
     def fromPositionGroupPlayer(pgp: PositionGroupPlayer, pos: Position) -> "__class__":
         return CurrentPlayer(pgp.name, pgp.teams, pos)
 

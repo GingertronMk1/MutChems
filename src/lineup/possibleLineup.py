@@ -44,15 +44,10 @@ class PossibleLineup:
     @staticmethod
     def fromRegularLineup(lineup: list[CurrentPlayer]) -> list["__class__"]:
         allPlayers = [
-                    CurrentPlayerSingleTeam.fromCurrentPlayer(player)
-                    for player in lineup
-                ]
-            
-        return [
-            PossibleLineup(potential)
-            for potential in product(
-                *allPlayers)
+            CurrentPlayerSingleTeam.fromCurrentPlayer(player) for player in lineup
         ]
+
+        return [PossibleLineup(potential) for potential in product(*allPlayers)]
 
     def writeToCsv(self, outfile: TextIOWrapper) -> None:
         writer = csv.writer(outfile, delimiter=",")
