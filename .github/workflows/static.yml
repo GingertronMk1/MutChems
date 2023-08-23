@@ -21,4 +21,4 @@ jobs:
       - name: Run
         run: ./bin/run
       - name: Output
-        run: cat output.csv
+        run: ./bin/view-output
