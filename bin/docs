@@ -1,5 +1,0 @@
-#!/bin/sh
-
-
-echo "Building docs..."
-stack haddock --no-haddock-deps --haddock-arguments="-o ./docs" "$@"

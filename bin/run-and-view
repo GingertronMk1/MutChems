@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+./bin/run
+./bin/view-output

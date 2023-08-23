@@ -1,0 +1,366 @@
+{
+  "current": [
+    {
+      "position": "Quarterback",
+      "players": [
+        {
+          "name": "CJ Stroud",
+          "teams": [
+            "Texans.2"
+          ]
+        },
+        {
+          "name": "Bryce Young",
+          "teams": [
+            "Panthers"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Halfback",
+      "players": [
+        {
+          "name": "Jahmyr Gibbs",
+          "teams": [
+            "Lions.2"
+          ]
+        },
+        {
+          "name": "Bijan Robinson",
+          "teams": [
+            "Falcons.2"
+          ]
+        },
+        {
+          "name": "Frank Gore",
+          "teams": [
+            "49ers",
+            "Colts",
+            "Dolphins",
+            "Bills",
+            "Jets"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Fullback",
+      "players": [
+        {
+          "name": "Franco Harris",
+          "teams": [
+            "Steelers",
+            "Seahawks"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Wide Receiver",
+      "players": [
+        {
+          "name": "JJettas",
+          "teams": [
+            "Vikings"
+          ]
+        },
+        {
+          "name": "Zay Flowers",
+          "teams": [
+            "Ravens.2"
+          ]
+        },
+        {
+          "name": "Kadarius Toney",
+          "teams": [
+            "Chiefs",
+            "Giants"
+          ]
+        },
+        {
+          "name": "Marvin Mims",
+          "teams": [
+            "Broncos.2"
+          ]
+        },
+        {
+          "name": "Odell Beckham Jr",
+          "teams": [
+            "Giants",
+            "Browns",
+            "Rams",
+            "Ravens"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Tight End",
+      "players": [
+        {
+          "name": "Darnell Washington",
+          "teams": [
+            "Steelers.2"
+          ]
+        },
+        {
+          "name": "Brenton Strange",
+          "teams": [
+            "Jaguars.2"
+          ]
+        },
+        {
+          "name": "Chris Mannhertz",
+          "teams": [
+            "Broncos"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Left Tackle",
+      "players": [
+        {
+          "name": "Paris Johnson Jr",
+          "teams": [
+            "Cardinals.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Left Guard",
+      "players": [
+        {
+          "name": "Kevin Mawae",
+          "teams": [
+            "Seahawks",
+            "Jets",
+            "Titans"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Center",
+      "players": [
+        {
+          "name": "John Michael Schmitz",
+          "teams": [
+            "Giants.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Right Guard",
+      "players": [
+        {
+          "name": "Anthony Bradford",
+          "teams": [
+            "Seahawks.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Right Tackle",
+      "players": [
+        {
+          "name": "Dawand Jones",
+          "teams": [
+            "Browns.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Free Safety",
+      "players": [
+        {
+          "name": "Jay Ward",
+          "teams": [
+            "Vikings.2"
+          ]
+        },
+        {
+          "name": "Reed Blankenship",
+          "teams": [
+            "Eagles"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Strong Safety",
+      "players": [
+        {
+          "name": "Ji'Ayir Brown",
+          "teams": [
+            "49ers.2"
+          ]
+        },
+        {
+          "name": "Eric Berry",
+          "teams": [
+            "Chiefs"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Cornerback",
+      "players": [
+        {
+          "name": "Jalen Ramsey",
+          "teams": [
+            "Jaguars",
+            "Rams",
+            "Dolphins"
+          ]
+        },
+        {
+          "name": "Ronde Barber",
+          "teams": [
+            "All32Teams"
+          ]
+        },
+        {
+          "name": "Cam Smith",
+          "teams": [
+            "Dolphins.2"
+          ]
+        },
+        {
+          "name": "DJ Turner",
+          "teams": [
+            "Bengals.2"
+          ]
+        },
+        {
+          "name": "Julius Brents",
+          "teams": [
+            "Colts.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Right Outside Linebacker",
+      "players": [
+        {
+          "name": "Tyree Wilson",
+          "teams": [
+            "Raiders.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Middle Linebacker",
+      "players": [
+        {
+          "name": "Dorian Williams",
+          "teams": [
+            "Bills.2"
+          ]
+        },
+        {
+          "name": "Junior Seau",
+          "teams": [
+            "Chargers"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Left Outside Linebacker",
+      "players": [
+        {
+          "name": "Tuli Tuipulotu",
+          "teams": [
+            "Chargers.2"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Right Defensive End",
+      "players": [
+        {
+          "name": "Harrison Philips",
+          "teams": [
+            "Vikings"
+          ]
+        },
+        {
+          "name": "Dean Lowry",
+          "teams": [
+            "Packers"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Defensive Tackle",
+      "players": [
+        {
+          "name": "Bryan Bresee",
+          "teams": [
+            "Saints.2"
+          ]
+        },
+        {
+          "name": "Joe Klecko",
+          "teams": [
+            "Jets"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Left Defensive End",
+      "players": [
+        {
+          "name": "Ogbonna Okoronkwo",
+          "teams": [
+            "Browns",
+            "Texans"
+          ]
+        },
+        {
+          "name": "Jevon Kearse",
+          "teams": [
+            "Titans"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Kicker",
+      "players": [
+        {
+          "name": "Zane Gonzalez",
+          "teams": [
+            "49ers"
+          ]
+        }
+      ]
+    },
+    {
+      "position": "Punter",
+      "players": [
+        {
+          "name": "Bradley Pinion",
+          "teams": [
+            "Falcons"
+          ]
+        }
+      ]
+    }
+  ],
+  "changes": [
+
+  ]
+}
