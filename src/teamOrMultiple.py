@@ -14,8 +14,8 @@ class TeamOrMultiple:
         if "|" in string:
             return [
                 tom
-                for row in map(TeamOrMultiple.fromString, string.split("|"))
-                for tom in row
+                for subString in string.split("|")
+                for tom in TeamOrMultiple.fromString(subString)
             ]
         if "." in string:
             tokens = string.split(".")

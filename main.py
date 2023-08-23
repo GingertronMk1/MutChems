@@ -12,9 +12,8 @@ with open("./data/team.json", "r") as f:
     data = json.load(f)
 
 print("Loaded data")
-print(data)
 
-allPositionGroups = map(PositionGroup, data["current"])
+allPositionGroups = [PositionGroup(posGroup) for posGroup in data["current"]]
 
 allPlayers = [
     player
@@ -32,9 +31,7 @@ print("Generated single-team players")
 
 allPotentials: list[list[CurrentPlayerSingleTeam]] = itertools.product(*allPotentials)
 
-allPossibles = []
-for potential in allPotentials:
-    allPossibles.append(PossibleLineup(list(potential)))
+allPossibles = [PossibleLineup(list(potential)) for potential in allPotentials]
 
 print(
     "Generated all possible lineups, total of {total}".format(total=len(allPossibles))
@@ -54,7 +51,7 @@ with open("output.csv", "w") as csvfile:
             [
                 player.name,
                 player.position.value,
-                "{team}".format(team=" | ".join(map(str, player.team))),
+                "{team}".format(team=" | ".join([str(team) for team in player.team])),
             ]
         )
     writer.writerow([None, None, None])

@@ -10,7 +10,7 @@ class PossibleLineup:
         self.data = data
 
     def __str__(self) -> str:
-        return "\n".join(map(str, self.data))
+        return "\n".join([str(player) for player in self.data])
 
     def allValues(self) -> dict[str, int]:
         val: dict = {}

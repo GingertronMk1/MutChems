@@ -8,4 +8,4 @@ class PositionGroup:
 
     def __init__(self, dict: dict) -> None:
         self.position = Position(dict["position"])
-        self.players = map(PositionGroupPlayer, dict["players"])
+        self.players = [PositionGroupPlayer(player) for player in dict["players"]]
