@@ -3,43 +3,52 @@ from src.player.current_player import CurrentPlayer
 
 
 class Change:
-    type: ChangeType
+    change_type: ChangeType
     additions: list[CurrentPlayer]
     removals: list[str]
 
     def __init__(
-        self, type: str, additions: list[CurrentPlayer] = [], removals: list[str] = []
+        self,
+        change_type: str,
+        additions: list[CurrentPlayer] = None,
+        removals: list[str] = None,
     ) -> None:
-        self.type = ChangeType(type)
-        self.additions = additions
-        self.removals = removals
+        self.change_type = ChangeType(change_type)
+        if additions is None:
+            self.additions = []
+        else:
+            self.additions = additions
+        if removals is None:
+            self.removals = []
+        else:
+            self.removals = removals
 
     @staticmethod
-    def fromDict(dict: dict) -> "__class__":
+    def from_dict(change_dict: dict) -> "__class__":
         return Change(
-            type=dict["type"],
-            additions=dict.get("additions", []),
-            removals=dict.get("removals", []),
+            change_type=change_dict["type"],
+            additions=change_dict.get("additions", []),
+            removals=change_dict.get("removals", []),
         )
 
-    def apply(self, currentLineup: list[CurrentPlayer]) -> CurrentPlayer:
-        match self.type:
+    def apply(self, current_lineup: list[CurrentPlayer]) -> CurrentPlayer:
+        match self.change_type:
             case ChangeType.REMOVALS:
                 return [
-                    currentPlayer
-                    for currentPlayer in currentLineup
-                    if currentPlayer.name not in self.removals
+                    current_player
+                    for current_player in current_lineup
+                    if current_player.name not in self.removals
                 ]
             case ChangeType.ADDITIONS:
-                playerPositions = [player.position for player in currentLineup]
+                player_positions = [player.position for player in current_lineup]
                 for player in self.additions:
-                    currentPlayer = CurrentPlayer.fromDict(player)
-                    positionIndex = playerPositions.index(currentPlayer.position)
-                    currentLineup.insert(positionIndex, currentPlayer)
-                return currentLineup
+                    current_player = CurrentPlayer.from_dict(player)
+                    position_index = player_positions.index(current_player.position)
+                    current_lineup.insert(position_index, current_player)
+                return current_lineup
             case ChangeType.REPLACEMENT:
                 removed = Change(ChangeType.REMOVALS, removals=self.removals).apply(
-                    currentLineup
+                    current_lineup
                 )
                 return Change(ChangeType.ADDITIONS, additions=self.additions).apply(
                     removed

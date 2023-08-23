@@ -1,6 +1,10 @@
+"""A team or multiple teams for chemistries"""
 from src.team import Team
 
+
 class TeamOrMultiple:
+    """A team or multiple teams for chemistries"""
+
     name: Team
     number: int = 1
     children: list["__class__"]
@@ -10,12 +14,13 @@ class TeamOrMultiple:
         self.number = number
 
     @staticmethod
-    def fromString(string: str) -> list["__class__"]:
+    def from_string(string: str) -> list["__class__"]:
+        """Creating one from an encoded string"""
         if "|" in string:
             return [
                 tom
                 for subString in string.split("|")
-                for tom in TeamOrMultiple.fromString(subString)
+                for tom in TeamOrMultiple.from_string(subString)
             ]
         if "." in string:
             tokens = string.split(".")
@@ -23,4 +28,4 @@ class TeamOrMultiple:
         return [TeamOrMultiple(Team(string))]
 
     def __str__(self) -> str:
-        return F"{self.name.value}.{self.number}"
+        return f"{self.name.value}.{self.number}"

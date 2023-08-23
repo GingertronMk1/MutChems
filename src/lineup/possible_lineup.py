@@ -1,8 +1,8 @@
-from src.player.current_player_single_team import CurrentPlayerSingleTeam
-from src.player.current_player import CurrentPlayer
 from io import TextIOWrapper
-import csv
 from itertools import product
+import csv
+from src.player.current_player import CurrentPlayer
+from src.player.current_player_single_team import CurrentPlayerSingleTeam
 
 
 class PossibleLineup:
@@ -17,39 +17,36 @@ class PossibleLineup:
     def __str__(self) -> str:
         return "\n".join([str(player) for player in self.data])
 
-    def allValues(self) -> dict[str, int]:
+    def all_values(self) -> dict[str, int]:
         val: dict = {}
         for player in self.data:
             for tom in player.team:
                 val[tom.name] = val.get(tom.name, 0) + int(tom.number)
-        l = [(k, v) for k, v in val.items()]
-        l.sort(reverse=True, key=lambda x: x[1])
-        return dict(l)
+        lineup = list(val.items())
+        lineup.sort(reverse=True, key=lambda x: x[1])
+        return dict(lineup)
 
     def value(self) -> tuple[str, int]:
-        val = self.allValues()
-        maxKey = max(val, key=val.get)
-        maxValue = max(val.values())
-        return (maxKey, maxValue)
+        val = self.all_values()
+        return (max(val, key=val.get), max(val.values()))
 
     @staticmethod
-    def compare(l1: "__class__", l2: "__class__") -> int:
-        l1Val = l1.value()
-        l2Val = l2.value()
-        if l1Val[1] != l2Val[1]:
-            return l1Val[1] - l2Val[1]
-        else:
-            return len(l2.allValues()) - len(l1.allValues())
+    def compare(lineup_1: "__class__", lineup_2: "__class__") -> int:
+        lineup_1_val = lineup_1.value()
+        lineup_2_val = lineup_2.value()
+        if lineup_1_val[1] != lineup_2_val[1]:
+            return lineup_1_val[1] - lineup_2_val[1]
+        return len(lineup_2.all_values()) - len(lineup_1.all_values())
 
     @staticmethod
-    def fromRegularLineup(lineup: list[CurrentPlayer]) -> list["__class__"]:
-        allPlayers = [
-            CurrentPlayerSingleTeam.fromCurrentPlayer(player) for player in lineup
+    def from_regular_lineup(lineup: list[CurrentPlayer]) -> list["__class__"]:
+        all_players = [
+            CurrentPlayerSingleTeam.from_current_player(player) for player in lineup
         ]
 
-        return [PossibleLineup(potential) for potential in product(*allPlayers)]
+        return [PossibleLineup(potential) for potential in product(*all_players)]
 
-    def writeToCsv(self, outfile: TextIOWrapper) -> None:
+    def write_to_csv(self, outfile: TextIOWrapper) -> None:
         writer = csv.writer(outfile, delimiter=",")
         writer.writerow(["Name", "Position", "Team"])
         for player in self.data:
@@ -57,12 +54,10 @@ class PossibleLineup:
                 [
                     player.name,
                     player.position.value,
-                    "{team}".format(
-                        team=" | ".join([str(team) for team in player.team])
-                    ),
+                    " | ".join([str(team) for team in player.team]),
                 ]
             )
         writer.writerow([None, None, None])
-        bestValues = self.allValues()
-        for key in bestValues.keys():
-            writer.writerow([key.value, bestValues[key], None])
+        best_values = self.all_values()
+        for key, value in best_values.items():
+            writer.writerow([key.value, value, None])

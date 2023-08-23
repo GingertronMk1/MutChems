@@ -1,9 +1,12 @@
+"""One player with a single TeamOrMultiple option"""
 from src.team_or_multiple import TeamOrMultiple
 from src.player.current_player import CurrentPlayer
 from src.position import Position
 
 
 class CurrentPlayerSingleTeam:
+    """One player with a single TeamOrMultiple option"""
+
     name: str = ""
     team: TeamOrMultiple
     position: Position
@@ -14,12 +17,12 @@ class CurrentPlayerSingleTeam:
         self.position = position
 
     @staticmethod
-    def fromCurrentPlayer(cp: CurrentPlayer) -> list["__class__"]:
+    def from_current_player(current_player: CurrentPlayer) -> list["__class__"]:
+        """Generating a list of these from a player with many teams"""
         return [
-            CurrentPlayerSingleTeam(cp.name, team, cp.position) for team in cp.teams
+            CurrentPlayerSingleTeam(current_player.name, team, current_player.position)
+            for team in current_player.teams
         ]
 
     def __repr__(self) -> str:
-        return "{name} | {team} | {position}".format(
-            name=self.name, team=self.team, position=self.position
-        )
+        return f"{self.name} | {self.team} | {self.position}"

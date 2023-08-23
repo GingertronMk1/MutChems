@@ -14,30 +14,30 @@ allPositionGroups: list[PositionGroup] = [
     PositionGroup(posGroup) for posGroup in data["current"]
 ]
 
-allPlayers: list[CurrentPlayer] = [
+all_players: list[CurrentPlayer] = [
     player
     for positionGroup in allPositionGroups
-    for player in CurrentPlayer.fromPositionGroup(positionGroup)
+    for player in CurrentPlayer.from_position_group(positionGroup)
 ]
 
-changes: list[Change] = [Change.fromDict(change) for change in data["changes"]]
+changes: list[Change] = [Change.from_dict(change) for change in data["changes"]]
 
-allLineups: list[list[CurrentPlayer]] = [allPlayers]
+allLineups: list[list[CurrentPlayer]] = [all_players]
 
 for change in changes:
     allLineups.append(change.apply(allLineups[-1]))
 
-for key, allPlayers in enumerate(allLineups):
+for key, all_players in enumerate(allLineups):
     print("Converted position groups into individual players")
 
-    allPossibles = PossibleLineup.fromRegularLineup(allPlayers)
+    allPossibles = PossibleLineup.from_regular_lineup(all_players)
 
-    print(F"Generated all possible lineups, total of {len(allPossibles)}")
+    print(f"Generated all possible lineups, total of {len(allPossibles)}")
 
     bestPossible = max(allPossibles, key=functools.cmp_to_key(PossibleLineup.compare))
 
     print("Determined best possible lineup")
 
-    with open(F"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
-        bestPossible.writeToCsv(csvfile)
+    with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
+        bestPossible.write_to_csv(csvfile)
 print("Done!")
