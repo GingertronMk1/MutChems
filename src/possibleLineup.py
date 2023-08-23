@@ -1,4 +1,4 @@
-from src.currentPlayerSingleTeam import CurrentPlayerSingleTeam
+from src.player.currentPlayerSingleTeam import CurrentPlayerSingleTeam
 import functools
 import math
 
@@ -34,8 +34,4 @@ class PossibleLineup:
         if l1Val[1] != l2Val[1]:
             return math.copysign(l1Val[1], l2Val[1])
         else:
-            return math.copysign(len(l1.allValues()), len(l2.allValues()))
-
-    @staticmethod
-    def sort(ls: list["__class__"]) -> list["__class__"]:
-        return sorted(ls, key=functools.cmp_to_key(PossibleLineup.compare))
+            return math.copysign(len(l2.allValues()), len(l1.allValues()))
