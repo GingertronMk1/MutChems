@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages (or just build if not pushing to `main`)
+name: Just run it
 
 on:
   # Runs on pushes targeting the default branch
@@ -11,15 +11,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  OUTPUT_BRANCH: output/built
-
-# Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
   # Single deploy job since we're just deploying
   build:
@@ -27,113 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install
-        run: ./bin/install
-      - name: Test the thing
-        run: stack test
-      - name: Run the thing
-        run: stack run
-      - id: buildstep
-        name: Build docs
-        run: ./bin/docs
-      - name: Upload docs for next step
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ github.sha }}-docs
-          path: ./docs
-      - name: Upload output file for next step
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ github.sha }}-output
-          path: ./output.md
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: ${{ github.sha }}-docs
-          path: ./built-docs
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./built-docs
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-
-  ensure_branch_exists:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    permissions: write-all
-    steps:
-      - uses: actions/checkout@v3
-      - name: Check branches
-        run: |
-          git fetch origin
-          echo "Checking for existence of $OUTPUT_BRANCH..."
-          ORIGIN_BRANCH="origin/$OUTPUT_BRANCH"
-          if [ -z "$(git branch -r | grep "$ORIGIN_BRANCH")" ]
-          then
-            CURRENT_BRANCH="$(git branch --show-current)"
-            echo "No branch called $OUTPUT_BRANCH, creating..."
-            git checkout -b $OUTPUT_BRANCH
-            git push -u origin $OUTPUT_BRANCH
-            echo "Checking back out to $CURRENT_BRANCH"
-            git checkout $CURRENT_BRANCH
-          else
-            echo "Branch $OUTPUT_BRANCH exists, doing nothing..."
-          fi
-
-  put_file_in_branch:
-    runs-on: ubuntu-latest
-    needs: [build, ensure_branch_exists]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    permissions: write-all
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v2
-        with:
-          name: ${{ github.sha }}-output
-          path: ./output
-      - name: Rename output file
-        run: mv ./output/output.md ./output/README.md
-      - name: Configure git
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-      - name: Add the file
-        run: git add output/* -f
-      - name: Commit and push
-        run: |
-          git commit -m "\"Deploy\" built file"
-          git push origin `git subtree split --prefix output main`:$OUTPUT_BRANCH --force
-
-  add_pr_comment:
-    runs-on: ubuntu-latest
-    needs: [build]
-    if: ${{ github.event_name == 'pull_request' }}
-    steps:
-      - name: Download the output file
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ github.sha }}-output
-          path: ./output
-      - name: Add commit comment if PR
-        run: |
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            /repos/${{ github.event.pull_request.head.repo.owner.login }}/${{ github.event.pull_request.head.repo.name }}/issues/${{ github.event.pull_request.number }}/comments \
-            -f body="$(cat ./output/output.md)"
+      - name: Run
+        run: ./bin/run
+      - name: Output
+        run: cat output.csv
