@@ -1,6 +1,8 @@
 from src.player.currentPlayerSingleTeam import CurrentPlayerSingleTeam
-import functools
-import math
+from src.player.currentPlayer import CurrentPlayer
+from io import TextIOWrapper
+import csv
+from itertools import product
 
 
 class PossibleLineup:
@@ -38,3 +40,34 @@ class PossibleLineup:
             return l1Val[1] - l2Val[1]
         else:
             return len(l2.allValues()) - len(l1.allValues())
+
+    @staticmethod
+    def fromRegularLineup(lineup: list[CurrentPlayer]) -> list["__class__"]:
+        allPlayers = [
+                    CurrentPlayerSingleTeam.fromCurrentPlayer(player)
+                    for player in lineup
+                ]
+            
+        return [
+            PossibleLineup(potential)
+            for potential in product(
+                *allPlayers)
+        ]
+
+    def writeToCsv(self, outfile: TextIOWrapper) -> None:
+        writer = csv.writer(outfile, delimiter=",")
+        writer.writerow(["Name", "Position", "Team"])
+        for player in self.data:
+            writer.writerow(
+                [
+                    player.name,
+                    player.position.value,
+                    "{team}".format(
+                        team=" | ".join([str(team) for team in player.team])
+                    ),
+                ]
+            )
+        writer.writerow([None, None, None])
+        bestValues = self.allValues()
+        for key in bestValues.keys():
+            writer.writerow([key.value, bestValues[key], None])

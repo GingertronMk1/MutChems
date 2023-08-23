@@ -366,6 +366,26 @@
       "removals": [
         "Dean Lowry"
       ]
+    },
+    {
+      "type": "replacement",
+      "additions": [
+        {
+          "name": "Cordarrelle Patterson",
+          "position": "Halfback",
+          "teams": [
+            "Vikings",
+            "Raiders",
+            "Patriots",
+            "Bears",
+            "Falcons"
+          ]
+        }
+      ],
+      "removals": [
+        "Jahmyr Gibbs",
+        "Bijan Robinson"
+      ]
     }
   ]
 }
