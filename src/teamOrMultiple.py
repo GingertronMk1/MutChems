@@ -4,6 +4,7 @@ from src.team import Team
 class TeamOrMultiple:
     name: Team
     number: int = 1
+    children: list["__class__"]
 
     def __init__(self, name: Team, number: int = 1) -> None:
         self.name = name

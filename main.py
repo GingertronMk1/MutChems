@@ -56,7 +56,7 @@ for key, allPlayers in enumerate(allLineups):
 
   print("Determined best possible lineup")
 
-  with open("output-{n}-{change}.csv".format(n=key, change="change" if key == 1 else "changes"), "w") as csvfile:
+  with open("outputs/{n}-{change}.csv".format(n=key, change="change" if key == 1 else "changes"), "w") as csvfile:
       writer = csv.writer(csvfile, delimiter=",")
       writer.writerow(["Name", "Position", "Team"])
       for player in bestPossible.data:
