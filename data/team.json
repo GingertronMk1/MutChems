@@ -254,6 +254,12 @@
           "teams": [
             "Raiders.2"
           ]
+        },
+        {
+          "name": "Travon Walker",
+          "teams": [
+            "Jaguars"
+          ]
         }
       ]
     },
@@ -358,8 +364,7 @@
     {
       "type": "removals",
       "removals": [
-        "Dean Lowry",
-        "Tuli Tuipulotu"
+        "Dean Lowry"
       ]
     }
   ]
