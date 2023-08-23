@@ -328,12 +328,6 @@
             "Browns",
             "Texans"
           ]
-        },
-        {
-          "name": "Jevon Kearse",
-          "teams": [
-            "Titans"
-          ]
         }
       ]
     },
@@ -361,6 +355,9 @@
     }
   ],
   "changes": [
-
+    {
+      "type": "removal",
+      "playerName": "Dean Lowry"
+    }
   ]
 }
