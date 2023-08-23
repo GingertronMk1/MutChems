@@ -2,7 +2,7 @@ from src.teamOrMultiple import TeamOrMultiple
 from src.position import Position
 from src.team import Team
 from src.player.positionGroupPlayer import PositionGroupPlayer
-from src.player.positionGroup import PositionGroup
+from src.lineup.positionGroup import PositionGroup
 
 
 class CurrentPlayer:

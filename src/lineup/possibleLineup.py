@@ -4,6 +4,9 @@ import math
 
 
 class PossibleLineup:
+    THRESHOLD_FULL = 50
+    THRESHOLD_HALF = 25
+
     data: list[CurrentPlayerSingleTeam] = []
 
     def __init__(self, data: list[CurrentPlayerSingleTeam]) -> None:
@@ -32,6 +35,6 @@ class PossibleLineup:
         l1Val = l1.value()
         l2Val = l2.value()
         if l1Val[1] != l2Val[1]:
-            return math.copysign(l1Val[1], l2Val[1])
+            return l1Val[1] - l2Val[1]
         else:
-            return math.copysign(len(l2.allValues()), len(l1.allValues()))
+            return len(l2.allValues()) - len(l1.allValues())

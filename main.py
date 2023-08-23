@@ -4,8 +4,8 @@ import csv
 import functools
 from src.player.currentPlayer import CurrentPlayer
 from src.player.currentPlayerSingleTeam import CurrentPlayerSingleTeam
-from src.possibleLineup import PossibleLineup
-from src.player.positionGroup import PositionGroup
+from src.lineup.possibleLineup import PossibleLineup
+from src.lineup.positionGroup import PositionGroup
 import sys
 
 with open("./data/team.json", "r") as f:
@@ -13,9 +13,9 @@ with open("./data/team.json", "r") as f:
 
 print("Loaded data")
 
-allPositionGroups = [PositionGroup(posGroup) for posGroup in data["current"]]
+allPositionGroups: list[PositionGroup] = [PositionGroup(posGroup) for posGroup in data["current"]]
 
-allPlayers = [
+allPlayers: list[CurrentPlayer] = [
     player
     for positionGroup in allPositionGroups
     for player in CurrentPlayer.fromPositionGroup(positionGroup)
@@ -31,7 +31,7 @@ print("Generated single-team players")
 
 allPotentials: list[list[CurrentPlayerSingleTeam]] = itertools.product(*allPotentials)
 
-allPossibles = [PossibleLineup(list(potential)) for potential in allPotentials]
+allPossibles: list[PossibleLineup] = [PossibleLineup(list(potential)) for potential in allPotentials]
 
 print(
     "Generated all possible lineups, total of {total}".format(total=len(allPossibles))
