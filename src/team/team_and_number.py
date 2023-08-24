@@ -25,4 +25,4 @@ class TeamAndNumber:
         return repeat(self.team, self.number)
 
     def __str__(self) -> str:
-        return f"{self.team}.{self.number}"
+        return f"{self.team.value}.{self.number}"
