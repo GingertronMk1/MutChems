@@ -11,9 +11,4 @@ class PositionGroupPlayer:
 
     def __init__(self, initial_dict: dict) -> None:
         self.name = initial_dict["name"]
-        if initial_dict["teams"] == [Team.ALL32.value]:
-            self.teams = [[TeamOrMultiple(t)] for t in Team if t != Team.ALL32]
-        else:
-            self.teams = [
-                TeamOrMultiple.from_string(team) for team in initial_dict["teams"]
-            ]
+        self.teams = TeamOrMultiple.from_strings(initial_dict["teams"])

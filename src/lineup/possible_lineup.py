@@ -18,9 +18,6 @@ class PossibleLineup:
         return "\n".join([str(player) for player in self.data])
 
     def all_values(self) -> dict[str, int]:
-        for player in self.data:
-            print(f"{player.name}, {player.team.expand()}")
-
         all_toms = [
             team
             for player in self.data
@@ -28,7 +25,7 @@ class PossibleLineup:
         ]
         individuals = set(all_toms)
         compressed_toms = [
-            (t, len(filter(lambda x: x == t, all_toms))) for t in individuals
+            (t, len([x for x in all_toms if x == t])) for t in individuals
         ]
         compressed_toms.sort(key=lambda x: x[1])
             
@@ -62,7 +59,7 @@ class PossibleLineup:
                 [
                     player.name,
                     player.position.value,
-                    " | ".join([str(team) for team in player.team]),
+                    " | ".join([str(team) for team in player.team.children]),
                 ]
             )
         writer.writerow([None, None, None])

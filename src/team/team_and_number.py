@@ -12,14 +12,17 @@ class TeamAndNumber:
     @staticmethod
     def from_string(init_string: str) -> list["__class__"]:
         tokens = init_string.split(".")
+        # print(tokens[0])
         if tokens[0] == Team.ALL32.value:
-            n = 1
-            if len(tokens) == 2:
-                n = int(tokens[1])
-            return [TeamAndNumber(t, n) for t in list(Team) if t != Team.ALL32]
+            raise Exception("All32 team values shouldn't make it here")
+
+        team = Team(tokens[0])
         if len(tokens) == 2:
-            return [TeamAndNumber(tokens[0], int(tokens[1]))]
-        return [TeamAndNumber(tokens[0])]
+            return [TeamAndNumber(team, int(tokens[1]))]
+        return [TeamAndNumber(team)]
 
     def expand(self) -> list[Team]:
         return repeat(self.team, self.number)
+
+    def __str__(self) -> str:
+        return f"{self.team}.{self.number}"
