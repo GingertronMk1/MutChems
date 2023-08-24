@@ -1,5 +1,5 @@
 from io import TextIOWrapper
-from itertools import product
+from itertools import product, groupby
 import csv
 from src.player.current_player import CurrentPlayer
 from src.player.current_player_single_team import CurrentPlayerSingleTeam
@@ -18,13 +18,21 @@ class PossibleLineup:
         return "\n".join([str(player) for player in self.data])
 
     def all_values(self) -> dict[str, int]:
-        val: dict = {}
         for player in self.data:
-            for tom in player.team:
-                val[tom.name] = val.get(tom.name, 0) + int(tom.number)
-        lineup = list(val.items())
-        lineup.sort(reverse=True, key=lambda x: x[1])
-        return dict(lineup)
+            print(f"{player.name}, {player.team.expand()}")
+
+        all_toms = [
+            team
+            for player in self.data
+            for team in player.team.expand()
+        ]
+        individuals = set(all_toms)
+        compressed_toms = [
+            (t, len(filter(lambda x: x == t, all_toms))) for t in individuals
+        ]
+        compressed_toms.sort(key=lambda x: x[1])
+            
+        return dict(compressed_toms)
 
     def value(self) -> tuple[str, int]:
         val = self.all_values()

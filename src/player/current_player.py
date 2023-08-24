@@ -1,6 +1,6 @@
 """A base player object"""
-from src.team_or_multiple import TeamOrMultiple
-from src.position import Position
+from src.team.team_or_multiple import TeamOrMultiple
+from src.lineup.position import Position
 from src.player.position_group_player import PositionGroupPlayer
 from src.lineup.position_group import PositionGroup
 
@@ -24,7 +24,7 @@ class CurrentPlayer:
         """Creating from a dict"""
         return CurrentPlayer(
             name=initial_dict["name"],
-            teams=[TeamOrMultiple.from_string(s) for s in initial_dict["teams"]],
+            teams=TeamOrMultiple.from_strings(initial_dict["teams"]),
             position=Position(initial_dict["position"]),
         )
 

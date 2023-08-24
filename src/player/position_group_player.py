@@ -1,6 +1,6 @@
 """A player in a position group"""
-from src.team_or_multiple import TeamOrMultiple
-from src.team import Team
+from src.team.team_or_multiple import TeamOrMultiple
+from src.team.team import Team
 
 
 class PositionGroupPlayer:

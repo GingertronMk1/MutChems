@@ -1,7 +1,7 @@
 """One player with a single TeamOrMultiple option"""
-from src.team_or_multiple import TeamOrMultiple
+from src.team.team_or_multiple import TeamOrMultiple
 from src.player.current_player import CurrentPlayer
-from src.position import Position
+from src.lineup.position import Position
 
 
 class CurrentPlayerSingleTeam:
@@ -19,6 +19,7 @@ class CurrentPlayerSingleTeam:
     @staticmethod
     def from_current_player(current_player: CurrentPlayer) -> list["__class__"]:
         """Generating a list of these from a player with many teams"""
+        print(current_player.teams)
         return [
             CurrentPlayerSingleTeam(current_player.name, team, current_player.position)
             for team in current_player.teams
