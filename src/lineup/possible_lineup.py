@@ -27,7 +27,7 @@ class PossibleLineup:
         compressed_toms = [
             (t, len([x for x in all_toms if x == t])) for t in individuals
         ]
-        compressed_toms.sort(key=lambda x: x[1])
+        compressed_toms.sort(key=lambda x: x[1], reverse=True)
             
         return dict(compressed_toms)
 
