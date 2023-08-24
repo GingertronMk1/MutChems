@@ -1,6 +1,7 @@
 from src.team.team import Team
 from itertools import repeat
 
+
 class TeamAndNumber:
     team: Team
     number: int = 1

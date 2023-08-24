@@ -18,30 +18,18 @@ class PossibleLineup:
         return "\n".join([str(player) for player in self.data])
 
     def all_values(self) -> dict[str, int]:
-        all_toms = [
-            team
-            for player in self.data
-            for team in player.team.expand()
-        ]
+        all_toms = [team for player in self.data for team in player.team.expand()]
         individuals = set(all_toms)
         compressed_toms = [
             (t, len([x for x in all_toms if x == t])) for t in individuals
         ]
         compressed_toms.sort(key=lambda x: x[1], reverse=True)
-            
+
         return dict(compressed_toms)
 
     def value(self) -> tuple[str, int]:
         val = self.all_values()
         return (max(val, key=val.get), max(val.values()))
-
-    @staticmethod
-    def compare(lineup_1: "__class__", lineup_2: "__class__") -> int:
-        lineup_1_val = lineup_1.value()
-        lineup_2_val = lineup_2.value()
-        if lineup_1_val[1] != lineup_2_val[1]:
-            return lineup_1_val[1] - lineup_2_val[1]
-        return len(lineup_2.all_values()) - len(lineup_1.all_values())
 
     @staticmethod
     def from_regular_lineup(lineup: list[CurrentPlayer]) -> list["__class__"]:
