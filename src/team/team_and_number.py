@@ -12,7 +12,10 @@ class TeamAndNumber:
 
     @staticmethod
     def from_string(init_string: str) -> list["__class__"]:
-        return [TeamAndNumber.from_string_part(sub_string) for sub_string in init_string.split('|')]
+        return [
+            TeamAndNumber.from_string_part(sub_string)
+            for sub_string in init_string.split("|")
+        ]
 
     @staticmethod
     def from_string_part(init_string: str) -> "__class__":

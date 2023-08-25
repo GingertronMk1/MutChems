@@ -15,8 +15,10 @@ from src.change.change_type import ChangeType
 
 def clear_screen() -> None:
     match os.name:
-        case 'nt': cmd = 'cls'
-        case other: cmd = 'clear'
+        case "nt":
+            cmd = "cls"
+        case other:
+            cmd = "clear"
     _ = os.system(cmd)
 
 
@@ -52,7 +54,9 @@ if __name__ == "__main__":
         all_players = change.apply(all_players)
         start_time = time.time()
 
-        total_number_of_lineups = functools.reduce(lambda x, y: x * y, [len(player.teams) for player in all_players])
+        total_number_of_lineups = functools.reduce(
+            lambda x, y: x * y, [len(player.teams) for player in all_players]
+        )
 
         print(f"\tConverting lineup into {total_number_of_lineups:,} possible lineups")
 
@@ -63,11 +67,13 @@ if __name__ == "__main__":
         n: int = 0
         current_percent: int = 0
 
-        def reduce_function(lineup_1: PossibleLineup, lineup_2: PossibleLineup) -> PossibleLineup:
+        def reduce_function(
+            lineup_1: PossibleLineup, lineup_2: PossibleLineup
+        ) -> PossibleLineup:
             global n
             global current_percent
             ret_lineup = lineup_1
-            if Value.compare_lineups(lineup_1, lineup_2) < 0 :
+            if Value.compare_lineups(lineup_1, lineup_2) < 0:
                 ret_lineup = lineup_2
             n += 1
             new_percent = int((n / total_number_of_lineups) * 100)
@@ -79,7 +85,7 @@ if __name__ == "__main__":
         bestPossible = functools.reduce(
             reduce_function,
             all_possibles,
-        ) # max(all_possibles, key=functools.cmp_to_key(Value.compare_lineups))
+        )  # max(all_possibles, key=functools.cmp_to_key(Value.compare_lineups))
 
         print("\tDetermined best possible lineup")
 
