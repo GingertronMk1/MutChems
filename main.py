@@ -1,44 +1,60 @@
 import functools
+import itertools
 import json
+import os
+import glob
+import time
 from src.player.current_player import CurrentPlayer
 from src.lineup.possible_lineup import PossibleLineup
 from src.lineup.position_group import PositionGroup
 from src.lineup.value import Value
 from src.change.change import Change
+from src.change.change_type import ChangeType
 
-with open("./data/team.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
+if __name__ == "__main__":
+    files = glob.glob("outputs/*.csv")
+    for f in files:
+        os.remove(f)
 
-print("Loaded data")
+    with open("./data/team.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-allPositionGroups: list[PositionGroup] = [
-    PositionGroup(posGroup) for posGroup in data["current"]
-]
+    print("Loaded data")
 
-all_players: list[CurrentPlayer] = [
-    player
-    for positionGroup in allPositionGroups
-    for player in CurrentPlayer.from_position_group(positionGroup)
-]
+    all_players = [
+        player
+        for posGroup in data["current"]
+        for player in CurrentPlayer.from_position_group_dict(posGroup)
+    ]
 
-changes: list[Change] = [Change.from_dict(change) for change in data["changes"]]
+    all_changes_dicts = data["changes"]
 
-allLineups: list[list[CurrentPlayer]] = [all_players]
+    data["changes"].insert(0, {"type": ChangeType.NOCHANGE.value})
 
-for change in changes:
-    allLineups.append(change.apply(allLineups[-1]))
+    changes: list[Change] = [Change.from_dict(change) for change in data["changes"]]
 
-for key, all_players in enumerate(allLineups):
-    print("Converted position groups into individual players")
+    for key, change in enumerate(changes):
+        print(change.pretty_print())
+        all_players = change.apply(all_players)
+        print("\t New lineup:")
+        for player in all_players:
+            print(f"\t\t{str(player)}")
+        start_time = time.time()
+        print("\tConverting position groups into individual players")
 
-    allPossibles = PossibleLineup.from_regular_lineup(all_players)
+        all_possibles = PossibleLineup.from_regular_lineup(all_players)
 
-    print(f"Generated all possible lineups, total of {len(allPossibles)}")
+        print(f"\tGenerated all possible lineups, total of {len(all_possibles)}")
 
-    bestPossible = max(allPossibles, key=functools.cmp_to_key(Value.compare_lineups))
+        bestPossible = functools.reduce(
+            lambda l1, l2: l1 if Value.compare_lineups(l1, l2) > 0 else l2,
+            all_possibles,
+        )  # max(all_possibles, key=functools.cmp_to_key(Value.compare_lineups))
 
-    print("Determined best possible lineup")
+        print("\tDetermined best possible lineup")
 
-    with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
-        bestPossible.write_to_csv(csvfile)
-print("Done!")
+        with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
+            bestPossible.write_to_csv(csvfile)
+        end_time = time.time()
+        print(f"\tCompleted change {key} in {(end_time - start_time):.2f} seconds")
+    print("Done!")

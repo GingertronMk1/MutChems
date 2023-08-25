@@ -43,9 +43,13 @@ class CurrentPlayer:
             for player in pos_group.players
         ]
 
+    @staticmethod
+    def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
+        return CurrentPlayer.from_position_group(PositionGroup(pos_group_dict))
+
     def __str__(self) -> str:
         return (
-            f"Player: {self.name}\n"
-            f"  Position: {self.position}\n"
-            f"  Teams: {', '.join([str(team) for teams in self.teams for team in teams])}"
+            f"Player: {self.name} | "
+            f"  Position: {self.position} | "
+            f"  Teams: {', '.join(str(team) for teams in self.teams for team in teams.children)}"
         )
