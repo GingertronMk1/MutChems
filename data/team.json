@@ -362,29 +362,20 @@
   ],
   "changes": [
     {
-      "type": "removals",
+      "type": "replacement",
       "removals": [
         "Dean Lowry"
-      ]
-    },
-    {
-      "type": "replacement",
+      ],
       "additions": [
         {
-          "name": "Cordarrelle Patterson",
-          "position": "Halfback",
+          "name": "Reggie White",
+          "position": "Left Defensive End",
           "teams": [
-            "Vikings",
-            "Raiders",
-            "Patriots",
-            "Bears",
-            "Falcons"
+            "Eagles",
+            "Packers",
+            "Panthers"
           ]
         }
-      ],
-      "removals": [
-        "Jahmyr Gibbs",
-        "Bijan Robinson"
       ]
     }
   ]
