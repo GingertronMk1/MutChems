@@ -23,7 +23,7 @@
         {
           "name": "Jahmyr Gibbs",
           "teams": [
-            "Lions.2"
+            "Lions|All32Teams"
           ]
         },
         {
@@ -68,7 +68,7 @@
         {
           "name": "Zay Flowers",
           "teams": [
-            "Ravens.2"
+            "Ravens|All32Teams"
           ]
         },
         {
@@ -314,7 +314,7 @@
         {
           "name": "Bryan Bresee",
           "teams": [
-            "Saints.2"
+            "Saints|All32Teams"
           ]
         },
         {
