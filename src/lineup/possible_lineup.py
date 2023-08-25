@@ -42,7 +42,13 @@ class PossibleLineup:
     def write_to_csv(self, outfile: TextIOWrapper) -> None:
         writer = csv.writer(outfile, delimiter=",")
         writer.writerow(["Name", "Position", "Team"])
+        player_position = None
         for player in self.data:
+            if player_position == None:
+                player_position = player.position
+            elif player_position != player.position:
+                writer.writerow(["---", "---", "---"])
+                player_position = player.position
             writer.writerow(
                 [
                     player.name,
@@ -51,6 +57,7 @@ class PossibleLineup:
                 ]
             )
         writer.writerow([None, None, None])
+        writer.writerow(["TOTALS", None, None])
         best_values = self.all_values()
         for key, value in best_values.items():
             writer.writerow([key.value, value, None])
