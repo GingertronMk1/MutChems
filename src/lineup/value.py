@@ -1,11 +1,11 @@
-from src.lineup.possible_lineup import PossibleLineup
+from src.lineup.variation import Variation
 
 
 class Value:
     tiers: list[tuple]
 
-    def __init__(self, possible_lineup: PossibleLineup) -> None:
-        all_teams = [t for player in possible_lineup.data for t in player.team.expand()]
+    def __init__(self, variation: Variation) -> None:
+        all_teams = [t for player in variation.data for t in player.team.expand()]
         individuals = set(all_teams)
         compressed_toms = [
             (t, len([x for x in all_teams if x == t])) for t in individuals
@@ -21,7 +21,7 @@ class Value:
         return len([ts for ts in self.tiers if ts[1] == max_tier])
 
     @staticmethod
-    def compare_lineups(lineup_1: PossibleLineup, lineup_2: PossibleLineup) -> int:
+    def compare_lineups(lineup_1: Variation, lineup_2: Variation) -> int:
         lineup_1_value = Value(lineup_1)
         lineup_2_value = Value(lineup_2)
 

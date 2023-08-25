@@ -55,3 +55,6 @@ class TeamOrMultiple:
 
     def __str__(self) -> str:
         return " | ".join(str(t_a_n) for t_a_n in self.children)
+
+    def contains_team(self, team: Team) -> bool:
+        return all(team == child.team for child in self.children)

@@ -6,11 +6,12 @@ import glob
 import time
 import sys
 from src.player.current_player import CurrentPlayer
-from src.lineup.possible_lineup import PossibleLineup
-from src.lineup.position_group import PositionGroup
+from src.lineup.variation import Variation
 from src.lineup.value import Value
+from src.lineup.lineup import Lineup
 from src.change.change import Change
 from src.change.change_type import ChangeType
+from src.team.team import Team
 
 
 def clear_screen() -> None:
@@ -51,16 +52,18 @@ if __name__ == "__main__":
 
     for key, change in enumerate(changes):
         print(change.pretty_print())
-        all_players = change.apply(all_players)
+        all_players = Lineup(change.apply(all_players))
+
+        all_players = all_players.filter_out_teams(all_players.all_teams_below_threshold())
         start_time = time.time()
 
         total_number_of_lineups = functools.reduce(
-            lambda x, y: x * y, [len(player.teams) for player in all_players]
+            lambda x, y: x * y, [len(player.teams) for player in all_players.players]
         )
 
         print(f"\tConverting lineup into {total_number_of_lineups:,} possible lineups")
 
-        all_possibles = PossibleLineup.from_regular_lineup(all_players)
+        all_possibles = all_players.to_variations()
 
         print("\tGenerated all possible lineups")
 
@@ -68,8 +71,8 @@ if __name__ == "__main__":
         current_percent: int = 0
 
         def reduce_function(
-            lineup_1: PossibleLineup, lineup_2: PossibleLineup
-        ) -> PossibleLineup:
+            lineup_1: Variation, lineup_2: Variation
+        ) -> Variation:
             global n
             global current_percent
             ret_lineup = lineup_1

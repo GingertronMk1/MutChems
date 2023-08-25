@@ -1,11 +1,10 @@
 from io import TextIOWrapper
-from itertools import product, groupby
 import csv
 from src.player.current_player import CurrentPlayer
 from src.player.current_player_single_team import CurrentPlayerSingleTeam
 
 
-class PossibleLineup:
+class Variation:
     THRESHOLD_FULL = 50
     THRESHOLD_HALF = 25
 
@@ -30,14 +29,6 @@ class PossibleLineup:
     def value(self) -> tuple[str, int]:
         val = self.all_values()
         return (max(val, key=val.get), max(val.values()))
-
-    @staticmethod
-    def from_regular_lineup(lineup: list[CurrentPlayer]) -> list["__class__"]:
-        all_players = [
-            CurrentPlayerSingleTeam.from_current_player(player) for player in lineup
-        ]
-
-        return [PossibleLineup(potential) for potential in product(*all_players)]
 
     def write_to_csv(self, outfile: TextIOWrapper) -> None:
         writer = csv.writer(outfile, delimiter=",")
