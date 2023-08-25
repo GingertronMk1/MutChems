@@ -1,6 +1,3 @@
 #!/usr/bin/env sh
 
-./bin/exec \
-    find ./outputs -not -name ".*" -type f \
-    | sort -n \
-    | xargs -I % bash -c "echo %; cat % | column -s , -t; echo ''" \;
+./bin/exec ./bin/internal/view-output

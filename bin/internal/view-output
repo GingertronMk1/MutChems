@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+find ./outputs -not -name ".*" -type f \
+| sort -n \
+| xargs -I % bash -c "echo %; cat % | column -s , -t; echo ''" \;
+
