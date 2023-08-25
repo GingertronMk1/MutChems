@@ -21,16 +21,23 @@ class TeamOrMultiple:
         return_val = []
         for string in strings:
             t_o_m = TeamOrMultiple.from_string(string)
-            all_teams = [t_a_n.team for t_a_n in t_o_m.children]
-            if Team.ALL32 in all_teams:
-              all_32_index = all_teams.index(Team.ALL32)
-              all_team_tan = t_o_m.children[all_32_index]
-              other_teams = [t_a_n for t_a_n in t_o_m.children if t_a_n.team != Team.ALL32]
-              for team in Team.all_teams():
-                  return_val.append(TeamOrMultiple([TeamAndNumber(team, all_team_tan.number)] + other_teams))
-            else:
-              return_val.append(t_o_m)
+            return_val.extend(t_o_m.expand_all_32())
         return return_val
+
+    def expand_all_32(self) -> list["__class__"]:
+        all_teams = [t_a_n.team for t_a_n in self.children]
+        if Team.ALL32 in all_teams:
+            all_32_index = all_teams.index(Team.ALL32)
+            all_team_tan = self.children[all_32_index]
+            other_teams = self.children
+            del other_teams[all_32_index]
+            return [
+                t_o_m
+                for team in Team.all_teams()
+                for t_o_m in TeamOrMultiple([TeamAndNumber(team, all_team_tan.number)] + other_teams).expand_all_32()
+            ]
+        else:
+            return [self]
 
     def expand(self) -> list[Team]:
         # print([type(t) for t in self.children])
