@@ -1,382 +1,382 @@
 {
-  "current": [
-    {
-      "position": "Quarterback",
-      "players": [
+    "current": [
         {
-          "name": "CJ Stroud",
-          "teams": [
-            "Texans.2"
-          ]
+            "position": "Quarterback",
+            "players": [
+                {
+                    "name": "CJ Stroud",
+                    "teams": [
+                        "Texans.2"
+                    ]
+                },
+                {
+                    "name": "Bryce Young",
+                    "teams": [
+                        "Panthers"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Bryce Young",
-          "teams": [
-            "Panthers"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Halfback",
-      "players": [
-        {
-          "name": "Jahmyr Gibbs",
-          "teams": [
-            "Lions|All32Teams"
-          ]
+            "position": "Halfback",
+            "players": [
+                {
+                    "name": "Jahmyr Gibbs",
+                    "teams": [
+                        "Lions|All32Teams"
+                    ]
+                },
+                {
+                    "name": "Bijan Robinson",
+                    "teams": [
+                        "Falcons.2"
+                    ]
+                },
+                {
+                    "name": "Frank Gore",
+                    "teams": [
+                        "49ers",
+                        "Colts",
+                        "Dolphins",
+                        "Bills",
+                        "Jets"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Bijan Robinson",
-          "teams": [
-            "Falcons.2"
-          ]
+            "position": "Fullback",
+            "players": [
+                {
+                    "name": "Franco Harris",
+                    "teams": [
+                        "Steelers",
+                        "Seahawks"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Frank Gore",
-          "teams": [
-            "49ers",
-            "Colts",
-            "Dolphins",
-            "Bills",
-            "Jets"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Fullback",
-      "players": [
-        {
-          "name": "Franco Harris",
-          "teams": [
-            "Steelers",
-            "Seahawks"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Wide Receiver",
-      "players": [
-        {
-          "name": "JJettas",
-          "teams": [
-            "Vikings"
-          ]
+            "position": "Wide Receiver",
+            "players": [
+                {
+                    "name": "JJettas",
+                    "teams": [
+                        "Vikings"
+                    ]
+                },
+                {
+                    "name": "Zay Flowers",
+                    "teams": [
+                        "Ravens|All32Teams"
+                    ]
+                },
+                {
+                    "name": "Kadarius Toney",
+                    "teams": [
+                        "Chiefs",
+                        "Giants"
+                    ]
+                },
+                {
+                    "name": "Marvin Mims",
+                    "teams": [
+                        "Broncos.2"
+                    ]
+                },
+                {
+                    "name": "Odell Beckham Jr",
+                    "teams": [
+                        "Giants",
+                        "Browns",
+                        "Rams",
+                        "Ravens"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Zay Flowers",
-          "teams": [
-            "Ravens|All32Teams"
-          ]
+            "position": "Tight End",
+            "players": [
+                {
+                    "name": "Darnell Washington",
+                    "teams": [
+                        "Steelers.2"
+                    ]
+                },
+                {
+                    "name": "Brenton Strange",
+                    "teams": [
+                        "Jaguars.2"
+                    ]
+                },
+                {
+                    "name": "Chris Mannhertz",
+                    "teams": [
+                        "Broncos"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Kadarius Toney",
-          "teams": [
-            "Chiefs",
-            "Giants"
-          ]
+            "position": "Left Tackle",
+            "players": [
+                {
+                    "name": "Paris Johnson Jr",
+                    "teams": [
+                        "Cardinals.2"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Marvin Mims",
-          "teams": [
-            "Broncos.2"
-          ]
+            "position": "Left Guard",
+            "players": [
+                {
+                    "name": "Kevin Mawae",
+                    "teams": [
+                        "Seahawks",
+                        "Jets",
+                        "Titans"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Odell Beckham Jr",
-          "teams": [
-            "Giants",
-            "Browns",
-            "Rams",
-            "Ravens"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Tight End",
-      "players": [
-        {
-          "name": "Darnell Washington",
-          "teams": [
-            "Steelers.2"
-          ]
+            "position": "Center",
+            "players": [
+                {
+                    "name": "John Michael Schmitz",
+                    "teams": [
+                        "Giants.2"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Brenton Strange",
-          "teams": [
-            "Jaguars.2"
-          ]
+            "position": "Right Guard",
+            "players": [
+                {
+                    "name": "Anthony Bradford",
+                    "teams": [
+                        "Seahawks.2"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Chris Mannhertz",
-          "teams": [
-            "Broncos"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Left Tackle",
-      "players": [
-        {
-          "name": "Paris Johnson Jr",
-          "teams": [
-            "Cardinals.2"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Left Guard",
-      "players": [
-        {
-          "name": "Kevin Mawae",
-          "teams": [
-            "Seahawks",
-            "Jets",
-            "Titans"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Center",
-      "players": [
-        {
-          "name": "John Michael Schmitz",
-          "teams": [
-            "Giants.2"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Right Guard",
-      "players": [
-        {
-          "name": "Anthony Bradford",
-          "teams": [
-            "Seahawks.2"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Right Tackle",
-      "players": [
-        {
-          "name": "Dawand Jones",
-          "teams": [
-            "Browns.2"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Free Safety",
-      "players": [
-        {
-          "name": "Jay Ward",
-          "teams": [
-            "Vikings.2"
-          ]
+            "position": "Right Tackle",
+            "players": [
+                {
+                    "name": "Dawand Jones",
+                    "teams": [
+                        "Browns.2"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Reed Blankenship",
-          "teams": [
-            "Eagles"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Strong Safety",
-      "players": [
-        {
-          "name": "Ji'Ayir Brown",
-          "teams": [
-            "49ers.2"
-          ]
+            "position": "Free Safety",
+            "players": [
+                {
+                    "name": "Jay Ward",
+                    "teams": [
+                        "Vikings.2"
+                    ]
+                },
+                {
+                    "name": "Reed Blankenship",
+                    "teams": [
+                        "Eagles"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Eric Berry",
-          "teams": [
-            "Chiefs"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Cornerback",
-      "players": [
-        {
-          "name": "Jalen Ramsey",
-          "teams": [
-            "Jaguars",
-            "Rams",
-            "Dolphins"
-          ]
+            "position": "Strong Safety",
+            "players": [
+                {
+                    "name": "Ji'Ayir Brown",
+                    "teams": [
+                        "49ers.2"
+                    ]
+                },
+                {
+                    "name": "Eric Berry",
+                    "teams": [
+                        "Chiefs"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Ronde Barber",
-          "teams": [
-            "All32Teams"
-          ]
+            "position": "Cornerback",
+            "players": [
+                {
+                    "name": "Jalen Ramsey",
+                    "teams": [
+                        "Jaguars",
+                        "Rams",
+                        "Dolphins"
+                    ]
+                },
+                {
+                    "name": "Ronde Barber",
+                    "teams": [
+                        "All32Teams"
+                    ]
+                },
+                {
+                    "name": "Cam Smith",
+                    "teams": [
+                        "Dolphins.2"
+                    ]
+                },
+                {
+                    "name": "DJ Turner",
+                    "teams": [
+                        "Bengals.2"
+                    ]
+                },
+                {
+                    "name": "Julius Brents",
+                    "teams": [
+                        "Colts.2"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Cam Smith",
-          "teams": [
-            "Dolphins.2"
-          ]
+            "position": "Right Outside Linebacker",
+            "players": [
+                {
+                    "name": "Tyree Wilson",
+                    "teams": [
+                        "Raiders.2"
+                    ]
+                },
+                {
+                    "name": "Travon Walker",
+                    "teams": [
+                        "Jaguars"
+                    ]
+                }
+            ]
         },
         {
-          "name": "DJ Turner",
-          "teams": [
-            "Bengals.2"
-          ]
+            "position": "Middle Linebacker",
+            "players": [
+                {
+                    "name": "Dorian Williams",
+                    "teams": [
+                        "Bills.2"
+                    ]
+                },
+                {
+                    "name": "Junior Seau",
+                    "teams": [
+                        "Chargers"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Julius Brents",
-          "teams": [
-            "Colts.2"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Right Outside Linebacker",
-      "players": [
-        {
-          "name": "Tyree Wilson",
-          "teams": [
-            "Raiders.2"
-          ]
+            "position": "Left Outside Linebacker",
+            "players": [
+                {
+                    "name": "Tuli Tuipulotu",
+                    "teams": [
+                        "Chargers.2"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Travon Walker",
-          "teams": [
-            "Jaguars"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Middle Linebacker",
-      "players": [
-        {
-          "name": "Dorian Williams",
-          "teams": [
-            "Bills.2"
-          ]
+            "position": "Right Defensive End",
+            "players": [
+                {
+                    "name": "Harrison Philips",
+                    "teams": [
+                        "Vikings"
+                    ]
+                },
+                {
+                    "name": "Dean Lowry",
+                    "teams": [
+                        "Packers"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Junior Seau",
-          "teams": [
-            "Chargers"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Left Outside Linebacker",
-      "players": [
-        {
-          "name": "Tuli Tuipulotu",
-          "teams": [
-            "Chargers.2"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Right Defensive End",
-      "players": [
-        {
-          "name": "Harrison Philips",
-          "teams": [
-            "Vikings"
-          ]
+            "position": "Defensive Tackle",
+            "players": [
+                {
+                    "name": "Bryan Bresee",
+                    "teams": [
+                        "Saints|All32Teams"
+                    ]
+                },
+                {
+                    "name": "Joe Klecko",
+                    "teams": [
+                        "Jets"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Dean Lowry",
-          "teams": [
-            "Packers"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Defensive Tackle",
-      "players": [
-        {
-          "name": "Bryan Bresee",
-          "teams": [
-            "Saints|All32Teams"
-          ]
+            "position": "Left Defensive End",
+            "players": [
+                {
+                    "name": "Ogbonna Okoronkwo",
+                    "teams": [
+                        "Browns",
+                        "Texans"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Joe Klecko",
-          "teams": [
-            "Jets"
-          ]
-        }
-      ]
-    },
-    {
-      "position": "Left Defensive End",
-      "players": [
+            "position": "Kicker",
+            "players": [
+                {
+                    "name": "Zane Gonzalez",
+                    "teams": [
+                        "49ers"
+                    ]
+                }
+            ]
+        },
         {
-          "name": "Ogbonna Okoronkwo",
-          "teams": [
-            "Browns",
-            "Texans"
-          ]
+            "position": "Punter",
+            "players": [
+                {
+                    "name": "Bradley Pinion",
+                    "teams": [
+                        "Falcons"
+                    ]
+                }
+            ]
         }
-      ]
-    },
-    {
-      "position": "Kicker",
-      "players": [
+    ],
+    "changes": [
         {
-          "name": "Zane Gonzalez",
-          "teams": [
-            "49ers"
-          ]
+            "type": "replacement",
+            "removals": [
+                "Dean Lowry"
+            ],
+            "additions": [
+                {
+                    "name": "Reggie White",
+                    "position": "Left Defensive End",
+                    "teams": [
+                        "Eagles",
+                        "Packers",
+                        "Panthers"
+                    ]
+                }
+            ]
         }
-      ]
-    },
-    {
-      "position": "Punter",
-      "players": [
-        {
-          "name": "Bradley Pinion",
-          "teams": [
-            "Falcons"
-          ]
-        }
-      ]
-    }
-  ],
-  "changes": [
-    {
-      "type": "replacement",
-      "removals": [
-        "Dean Lowry"
-      ],
-      "additions": [
-        {
-          "name": "Reggie White",
-          "position": "Left Defensive End",
-          "teams": [
-            "Eagles",
-            "Packers",
-            "Panthers"
-          ]
-        }
-      ]
-    }
-  ]
+    ]
 }
