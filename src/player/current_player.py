@@ -56,14 +56,11 @@ class CurrentPlayer:
             f"  Teams: {', '.join(str(t_o_m) for t_o_m in self.teams)}"
         )
 
-    def filter_out_team(self, team: Team) -> '__class__':
-        self.teams = [t_o_m for t_o_m in self.teams if not t_o_m.contains_team(team)]
+    def filter_out_teams(self, teams: list[Team]) -> '__class__':
+        if len(self.teams) < 2:
+            return self
+        self.teams = [t_o_m for t_o_m in self.teams if not t_o_m.contains_teams(teams)]
         if not self.teams:
             t_a_n = TeamAndNumber(Team.NO_TEAM, 0)
             self.teams = [ TeamOrMultiple(children=[t_a_n])]
-        return self
-
-    def filter_out_teams(self, teams: list[Team]) -> '__class__':
-        for team in teams:
-            self = self.filter_out_team(team)
         return self

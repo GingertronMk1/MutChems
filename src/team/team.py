@@ -42,7 +42,7 @@ class Team(Enum):
 
     @staticmethod
     def all_teams() -> list["__class__"]:
-        # return [t for t in list(Team) if t not in Team.jot_real_teams()]
+        return [t for t in list(Team) if t not in Team.not_real_teams()]
         return [Team.EAGLES, Team.SEAHAWKS]
 
     @staticmethod

@@ -54,8 +54,11 @@ if __name__ == "__main__":
         print(change.pretty_print())
         all_players = Lineup(change.apply(all_players))
 
-        all_players = all_players.filter_out_teams(all_players.all_teams_below_threshold())
+        all_players = all_players.filter_to_n_options()
+        # for player in all_players.players: print(player)
+        # sys.exit()
         start_time = time.time()
+
 
         total_number_of_lineups = functools.reduce(
             lambda x, y: x * y, [len(player.teams) for player in all_players.players]

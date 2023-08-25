@@ -2,6 +2,7 @@ from src.player.current_player import CurrentPlayer
 from src.lineup.variation import Variation
 from src.player.current_player_single_team import CurrentPlayerSingleTeam
 from itertools import product
+from functools import reduce
 from src.team.team import Team
 
 class Lineup:
@@ -47,3 +48,14 @@ class Lineup:
             if number < threshold:
                 return_val.append(team)
         return return_val
+
+    def num_options(self) -> int:
+        return reduce(lambda x, y: x * y, [len(player.teams) for player in self.players])
+
+    def filter_to_n_options(self, n = 1_000_000) -> '__class__':
+        threshold = 0
+        while self.num_options() > n:
+            self = self.filter_out_teams(self.all_teams_below_threshold(threshold))
+            threshold += 1
+        print(threshold)
+        return self
