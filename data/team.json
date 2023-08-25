@@ -295,12 +295,6 @@
             "position": "Right Defensive End",
             "players": [
                 {
-                    "name": "Harrison Philips",
-                    "teams": [
-                        "Vikings"
-                    ]
-                },
-                {
                     "name": "Dean Lowry",
                     "teams": [
                         "Packers"
@@ -334,6 +328,15 @@
                         "Browns",
                         "Texans"
                     ]
+                },
+                {
+                    "name": "Reggie White",
+                    "position": "Left Defensive End",
+                    "teams": [
+                        "Eagles",
+                        "Packers",
+                        "Panthers"
+                    ]
                 }
             ]
         },
@@ -362,23 +365,5 @@
             ]
         }
     ],
-    "changes": [
-        {
-            "type": "replacement",
-            "removals": [
-                "Dean Lowry"
-            ],
-            "additions": [
-                {
-                    "name": "Reggie White",
-                    "position": "Left Defensive End",
-                    "teams": [
-                        "Eagles",
-                        "Packers",
-                        "Panthers"
-                    ]
-                }
-            ]
-        }
-    ]
+    "changes": []
 }
