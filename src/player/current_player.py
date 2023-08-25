@@ -51,5 +51,5 @@ class CurrentPlayer:
         return (
             f"Player: {self.name} | "
             f"  Position: {self.position} | "
-            f"  Teams: {', '.join(str(team) for teams in self.teams for team in teams.children)}"
+            f"  Teams: {', '.join(str(t_o_m) for t_o_m in self.teams)}"
         )

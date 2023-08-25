@@ -38,3 +38,11 @@ class Team(Enum):
     TITANS = "Titans"
     VIKINGS = "Vikings"
     ALL32 = "All32Teams"
+
+    @staticmethod
+    def all_teams() -> list['__class__']:
+        # return [t for t in list(Team) if t != Team.ALL32]
+        return [
+            Team.EAGLES,
+            Team.SEAHAWKS
+        ]
