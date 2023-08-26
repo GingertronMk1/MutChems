@@ -4,15 +4,16 @@
             "position": "Quarterback",
             "players": [
                 {
-                    "name": "CJ Stroud",
-                    "teams": [
-                        "Texans.2"
-                    ]
-                },
-                {
                     "name": "Bryce Young",
                     "teams": [
                         "Panthers"
+                    ]
+                },
+                {
+
+                    "name": "CJ Stroud",
+                    "teams": [
+                        "Texans.2"
                     ]
                 }
             ]
@@ -33,13 +34,10 @@
                     ]
                 },
                 {
-                    "name": "Frank Gore",
+                    "name": "D'Andre Swift",
                     "teams": [
-                        "49ers",
-                        "Colts",
-                        "Dolphins",
-                        "Bills",
-                        "Jets"
+                      "Eagles",
+                      "Lions"
                     ]
                 }
             ]
@@ -60,6 +58,15 @@
             "position": "Wide Receiver",
             "players": [
                 {
+                    "name": "Devin Hester",
+                    "teams": [
+                        "Bears",
+                        "Falcons",
+                        "Ravens",
+                        "Seahawks"
+                    ]
+                },
+                {
                     "name": "JJettas",
                     "teams": [
                         "Vikings"
@@ -76,12 +83,6 @@
                     "teams": [
                         "Chiefs",
                         "Giants"
-                    ]
-                },
-                {
-                    "name": "Marvin Mims",
-                    "teams": [
-                        "Broncos.2"
                     ]
                 },
                 {
@@ -170,7 +171,7 @@
                 {
                     "name": "Dawand Jones",
                     "teams": [
-                        "Browns.2"
+                        "Browns|All32Teams"
                     ]
                 }
             ]
@@ -227,9 +228,11 @@
                     ]
                 },
                 {
-                    "name": "Cam Smith",
+                    "name": "Richard Sherman",
                     "teams": [
-                        "Dolphins.2"
+                        "Seahawks",
+                        "49ers",
+                        "Buccaneers"
                     ]
                 },
                 {
@@ -355,7 +358,7 @@
             "position": "Punter",
             "players": [
                 {
-                    "name": "Bradley Pinion",
+                    "name": "Corey Bojorquez",
                     "teams": [
                         "Bills",
                         "Packers",
@@ -378,7 +381,7 @@
                 }
             ],
             "removals": [
-                "Cam Smith"
+                "Julius Brents"
             ]
         }
     ]
