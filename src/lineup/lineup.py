@@ -60,6 +60,6 @@ class Lineup:
         threshold = 0
         while self.num_options() > max_options:
             filtered = self.filter_out_teams(self.all_teams_below_threshold(threshold))
-            self.teams = filtered.teams
+            self.players = filtered.players
             threshold += 1
         return self

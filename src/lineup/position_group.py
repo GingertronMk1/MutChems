@@ -1,6 +1,7 @@
 from src.lineup.position import Position
 from src.player.position_group_player import PositionGroupPlayer
 
+
 class PositionGroup:
     players: list[PositionGroupPlayer]
     position: Position

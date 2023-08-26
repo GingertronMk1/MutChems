@@ -1,5 +1,4 @@
 import functools
-import itertools
 import json
 import os
 import glob
@@ -10,15 +9,12 @@ from src.lineup.variation import Variation
 from src.lineup.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
-from src.change.change_type import ChangeType
-from src.team.team import Team
-
 
 def clear_screen() -> None:
     match os.name:
         case "nt":
             cmd = "cls"
-        case other:
+        case _:
             cmd = "clear"
     _ = os.system(cmd)
 
@@ -47,7 +43,6 @@ if __name__ == "__main__":
     for key, change in enumerate(changes):
         print(f"Applying change {key}: `{change.pretty_print()}`")
         working_lineup = change.apply(working_lineup)
-
         lineup = working_lineup.filter_to_n_options()
         start_time = time.time()
         total_number_of_lineups = lineup.num_options()
@@ -55,26 +50,34 @@ if __name__ == "__main__":
 
         print(f"Checking {total_number_of_lineups:,} options")
 
-        n: int = 0
-        current_percent: int = 0
-
-        def reduce_function(lineup_1: Variation, lineup_2: Variation) -> Variation:
-            global n
-            global current_percent
+        def reduce_function(accumulator: dict, lineup_2: Variation) -> Variation:
+            iteration = accumulator.get("iteration", 0) + 1
+            current_percent = accumulator.get("current_percent", 0)
+            lineup_1 = accumulator.get("lineup")
+            total_number_of_lineups = accumulator.get("total_number_of_lineups")
             ret_lineup = lineup_1
             if Value.compare_lineups(lineup_1, lineup_2) < 0:
                 ret_lineup = lineup_2
-            n += 1
-            new_percent = int((n / total_number_of_lineups) * 100)
+            new_percent = (100 * iteration) // total_number_of_lineups
             if new_percent > current_percent:
                 current_percent = new_percent
-                print(f"\t{new_percent}% done ({n:,} / {total_number_of_lineups:,})")
-            return ret_lineup
+                print(f"\t{new_percent}% done ({iteration:,} / {total_number_of_lineups:,})")
+            accumulator["lineup"] = ret_lineup
+            accumulator["iteration"] = iteration
+            accumulator["current_percent"] = current_percent
+            return accumulator
+
 
         bestPossible = functools.reduce(
             reduce_function,
             all_possibles,
-        )
+            {
+                "lineup": all_possibles[0],
+                "iteration": 0,
+                "current_percent": 0,
+                "total_number_of_lineups": total_number_of_lineups
+            }
+        ).get("lineup")
 
         with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
             bestPossible.write_to_csv(csvfile)
