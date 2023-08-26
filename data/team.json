@@ -365,5 +365,21 @@
             ]
         }
     ],
-    "changes": []
+    "changes": [
+        {
+            "type": "replacement",
+            "additions": [
+                {
+                    "name": "AJ Terrell",
+                    "position": "Cornerback",
+                    "teams": [
+                        "Falcons"
+                    ]
+                }
+            ],
+            "removals": [
+                "Cam Smith"
+            ]
+        }
+    ]
 }

@@ -1,6 +1,5 @@
 """A player in a position group"""
 from src.team.team_or_multiple import TeamOrMultiple
-from src.team.team import Team
 
 
 class PositionGroupPlayer:
@@ -9,6 +8,16 @@ class PositionGroupPlayer:
     name: str
     teams: list[TeamOrMultiple]
 
-    def __init__(self, initial_dict: dict) -> None:
-        self.name = initial_dict["name"]
-        self.teams = TeamOrMultiple.from_strings(initial_dict["teams"])
+    def __init__(self, name: str, teams: list[TeamOrMultiple] = None) -> None:
+        self.name = name
+        if teams is None:
+            self.teams = []
+        else:
+            self.teams = teams
+
+    @staticmethod
+    def from_dict(initial_dict: dict) -> '__class__':
+        return PositionGroupPlayer(
+            name=initial_dict.get('name', 'No Name Given'),
+            teams=TeamOrMultiple.from_strings(initial_dict.get('teams', []))
+        )

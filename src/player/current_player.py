@@ -47,7 +47,7 @@ class CurrentPlayer:
 
     @staticmethod
     def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
-        return CurrentPlayer.from_position_group(PositionGroup(pos_group_dict))
+        return CurrentPlayer.from_position_group(PositionGroup.from_dict(pos_group_dict))
 
     def __str__(self) -> str:
         return (
@@ -56,11 +56,11 @@ class CurrentPlayer:
             f"  Teams: {', '.join(str(t_o_m) for t_o_m in self.teams)}"
         )
 
-    def filter_out_teams(self, teams: list[Team]) -> '__class__':
+    def filter_out_teams(self, teams: list[Team]) -> "__class__":
         if len(self.teams) < 2:
             return self
         self.teams = [t_o_m for t_o_m in self.teams if not t_o_m.contains_teams(teams)]
         if not self.teams:
             t_a_n = TeamAndNumber(Team.NO_TEAM, 0)
-            self.teams = [ TeamOrMultiple(children=[t_a_n])]
+            self.teams = [TeamOrMultiple(children=[t_a_n])]
         return self

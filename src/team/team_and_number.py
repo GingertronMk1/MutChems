@@ -1,5 +1,5 @@
-from src.team.team import Team
 from itertools import repeat
+from src.team.team import Team
 
 
 class TeamAndNumber:

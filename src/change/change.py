@@ -1,5 +1,6 @@
 from src.change.change_type import ChangeType
 from src.player.current_player import CurrentPlayer
+from src.lineup.lineup import Lineup
 
 
 class Change:
@@ -9,7 +10,7 @@ class Change:
 
     def __init__(
         self,
-        change_type: str,
+        change_type: ChangeType,
         additions: list[CurrentPlayer] = None,
         removals: list[str] = None,
     ) -> None:
@@ -26,7 +27,7 @@ class Change:
     @staticmethod
     def from_dict(change_dict: dict) -> "__class__":
         return Change(
-            change_type=change_dict["type"],
+            change_type=ChangeType(change_dict.get("type")),
             additions=[
                 CurrentPlayer.from_dict(addition)
                 for addition in change_dict.get("additions", [])
@@ -34,22 +35,25 @@ class Change:
             removals=change_dict.get("removals", []),
         )
 
-    def apply(self, current_lineup: list[CurrentPlayer]) -> CurrentPlayer:
+    def apply(self, current_lineup: Lineup) -> Lineup:
+        print(self.change_type)
         match self.change_type:
             case ChangeType.NOCHANGE:
+                print(f"Not changing shit\n{current_lineup.pretty_print()}")
                 return current_lineup
             case ChangeType.REMOVALS:
-                return [
+                return Lineup(
                     current_player
-                    for current_player in current_lineup
+                    for current_player in current_lineup.players
                     if current_player.name not in self.removals
-                ]
+                )
             case ChangeType.ADDITIONS:
-                player_positions = [player.position for player in current_lineup]
+                current_lineup_players = list(current_lineup.players)
+                player_positions = [player.position for player in current_lineup_players]
                 for current_player in self.additions:
                     position_index = player_positions.index(current_player.position)
-                    current_lineup.insert(position_index, current_player)
-                return current_lineup
+                    current_lineup_players.insert(position_index, current_player)
+                return Lineup(current_lineup_players)
             case ChangeType.REPLACEMENT:
                 removed = Change(ChangeType.REMOVALS, removals=self.removals).apply(
                     current_lineup

@@ -5,6 +5,7 @@ from itertools import product
 from functools import reduce
 from src.team.team import Team
 
+
 class Lineup:
     players: list[CurrentPlayer]
 
@@ -13,12 +14,13 @@ class Lineup:
 
     def to_variations(self) -> list[Variation]:
         all_players = [
-            CurrentPlayerSingleTeam.from_current_player(player) for player in self.players
+            CurrentPlayerSingleTeam.from_current_player(player)
+            for player in self.players
         ]
 
         return [Variation(potential) for potential in product(*all_players)]
 
-    def filter_out_teams(self, teams: list[Team]) -> '__class__':
+    def filter_out_teams(self, teams: list[Team]) -> "__class__":
         self.players = [player.filter_out_teams(teams) for player in self.players]
         return self
 
@@ -50,9 +52,11 @@ class Lineup:
         return return_val
 
     def num_options(self) -> int:
-        return reduce(lambda x, y: x * y, [len(player.teams) for player in self.players])
+        return reduce(
+            lambda x, y: x * y, [len(player.teams) for player in self.players], 1
+        )
 
-    def filter_to_n_options(self, n = 1_000_000) -> '__class__':
+    def filter_to_n_options(self, n=1_000_000) -> "__class__":
         threshold = 0
         while self.num_options() > n:
             self = self.filter_out_teams(self.all_teams_below_threshold(threshold))

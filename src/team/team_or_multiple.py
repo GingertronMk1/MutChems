@@ -1,7 +1,6 @@
 """A team or multiple teams for chemistries"""
 from src.team.team import Team
 from src.team.team_and_number import TeamAndNumber
-import itertools
 
 
 class TeamOrMultiple:
@@ -9,8 +8,11 @@ class TeamOrMultiple:
 
     children: list[TeamAndNumber] = []
 
-    def __init__(self, children: list[TeamAndNumber] = []) -> None:
-        self.children = children
+    def __init__(self, children: list[TeamAndNumber] = None) -> None:
+        if children is None:
+            self.children = []
+        else:
+            self.children = children
 
     @staticmethod
     def from_string(string: str) -> "__class__":
@@ -38,8 +40,7 @@ class TeamOrMultiple:
                     [TeamAndNumber(team, all_team_tan.number)] + other_teams
                 ).expand_all_32()
             ]
-        else:
-            return [self.normalise()]
+        return [self.normalise()]
 
     def normalise(self) -> "__class__":
         acc_dict = {}

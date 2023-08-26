@@ -31,51 +31,33 @@ if __name__ == "__main__":
     with open("./data/team.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    print("Loaded data")
+   # print("Loaded data")
 
-    all_players = [
+    all_players: Lineup = Lineup(
         player
         for posGroup in data["current"]
         for player in CurrentPlayer.from_position_group_dict(posGroup)
-    ]
-
-    # for player in all_players:
-    #   print(player)
-
-    # sys.exit()
+    )
 
     all_changes_dicts = data["changes"]
 
-    data["changes"].insert(0, {"type": ChangeType.NOCHANGE.value})
-
     changes: list[Change] = [Change.from_dict(change) for change in data["changes"]]
+    changes = [Change(ChangeType.NOCHANGE)] + changes
 
     for key, change in enumerate(changes):
-        print(change.pretty_print())
-        all_players = Lineup(change.apply(all_players))
-
+        all_players = change.apply(all_players)
+        print(all_players.pretty_print())
         all_players = all_players.filter_to_n_options()
-        # for player in all_players.players: print(player)
-        # sys.exit()
         start_time = time.time()
 
-
-        total_number_of_lineups = functools.reduce(
-            lambda x, y: x * y, [len(player.teams) for player in all_players.players]
-        )
-
-        print(f"\tConverting lineup into {total_number_of_lineups:,} possible lineups")
+        total_number_of_lineups = all_players.num_options()
 
         all_possibles = all_players.to_variations()
-
-        print("\tGenerated all possible lineups")
 
         n: int = 0
         current_percent: int = 0
 
-        def reduce_function(
-            lineup_1: Variation, lineup_2: Variation
-        ) -> Variation:
+        def reduce_function(lineup_1: Variation, lineup_2: Variation) -> Variation:
             global n
             global current_percent
             ret_lineup = lineup_1
@@ -93,10 +75,10 @@ if __name__ == "__main__":
             all_possibles,
         )  # max(all_possibles, key=functools.cmp_to_key(Value.compare_lineups))
 
-        print("\tDetermined best possible lineup")
+       # print("\tDetermined best possible lineup")
 
         with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
             bestPossible.write_to_csv(csvfile)
         end_time = time.time()
-        print(f"\tCompleted change {key} in {(end_time - start_time):.2f} seconds")
-    print("Done!")
+       # print(f"\tCompleted change {key} in {(end_time - start_time):.2f} seconds")
+   # print("Done!")
