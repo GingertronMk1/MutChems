@@ -14,7 +14,7 @@ class Value:
         self.tiers = [(t, l // 5) for (t, l) in compressed_toms]
 
     def get_max_tier(self) -> int:
-        return max([t[1] for t in self.tiers])
+        return max(t[1] for t in self.tiers)
 
     def get_number_at_max_tier(self) -> int:
         max_tier = self.get_max_tier()

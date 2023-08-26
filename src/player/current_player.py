@@ -47,7 +47,9 @@ class CurrentPlayer:
 
     @staticmethod
     def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
-        return CurrentPlayer.from_position_group(PositionGroup.from_dict(pos_group_dict))
+        return CurrentPlayer.from_position_group(
+            PositionGroup.from_dict(pos_group_dict)
+        )
 
     def __str__(self) -> str:
         return (

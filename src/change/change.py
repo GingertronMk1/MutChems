@@ -32,7 +32,6 @@ class Change:
         )
 
     def apply(self, current_lineup: Lineup) -> Lineup:
-
         removed_players = [
             current_player
             for current_player in current_lineup.players
@@ -62,12 +61,12 @@ class Change:
         len_removals = len(self.removals)
         if len_additions and len_removals:
             return ChangeType.REPLACEMENT
-        elif len_additions:
+        if len_additions:
             return ChangeType.ADDITIONS
-        elif len_removals:
+        if len_removals:
             return ChangeType.REMOVALS
         return ChangeType.NOCHANGE
 
     @staticmethod
-    def no_change_change() -> '__class__':
+    def no_change_change() -> "__class__":
         return Change(ChangeType.NOCHANGE)

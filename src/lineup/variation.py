@@ -1,6 +1,5 @@
 from io import TextIOWrapper
 import csv
-from src.player.current_player import CurrentPlayer
 from src.player.current_player_single_team import CurrentPlayerSingleTeam
 
 
@@ -35,7 +34,7 @@ class Variation:
         writer.writerow(["Name", "Position", "Team"])
         player_position = None
         for player in self.data:
-            if player_position == None:
+            if player_position is None:
                 player_position = player.position
             elif player_position != player.position:
                 writer.writerow(["---", "---", "---"])

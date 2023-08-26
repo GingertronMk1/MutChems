@@ -39,7 +39,9 @@ if __name__ == "__main__":
 
     working_lineup: Lineup = Lineup(all_players)
 
-    changes: list[Change] = [Change.from_dict(change) for change in data.get("changes", [])]
+    changes: list[Change] = [
+        Change.from_dict(change) for change in data.get("changes", [])
+    ]
     changes.insert(0, Change())
 
     for key, change in enumerate(changes):
@@ -73,7 +75,6 @@ if __name__ == "__main__":
             reduce_function,
             all_possibles,
         )
-
 
         with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
             bestPossible.write_to_csv(csvfile)

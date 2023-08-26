@@ -16,8 +16,8 @@ class PositionGroupPlayer:
             self.teams = teams
 
     @staticmethod
-    def from_dict(initial_dict: dict) -> '__class__':
+    def from_dict(initial_dict: dict) -> "__class__":
         return PositionGroupPlayer(
-            name=initial_dict.get('name', 'No Name Given'),
-            teams=TeamOrMultiple.from_strings(initial_dict.get('teams', []))
+            name=initial_dict.get("name", "No Name Given"),
+            teams=TeamOrMultiple.from_strings(initial_dict.get("teams", [])),
         )

@@ -1,8 +1,8 @@
+from itertools import product
+from functools import reduce
 from src.player.current_player import CurrentPlayer
 from src.lineup.variation import Variation
 from src.player.current_player_single_team import CurrentPlayerSingleTeam
-from itertools import product
-from functools import reduce
 from src.team.team import Team
 
 
@@ -56,9 +56,10 @@ class Lineup:
             lambda x, y: x * y, [len(player.teams) for player in self.players], 1
         )
 
-    def filter_to_n_options(self, n=1_000_000) -> "__class__":
+    def filter_to_n_options(self, max_options=1_000_000) -> "__class__":
         threshold = 0
-        while self.num_options() > n:
-            self = self.filter_out_teams(self.all_teams_below_threshold(threshold))
+        while self.num_options() > max_options:
+            filtered = self.filter_out_teams(self.all_teams_below_threshold(threshold))
+            self.teams = filtered.teams
             threshold += 1
         return self
