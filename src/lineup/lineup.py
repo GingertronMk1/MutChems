@@ -61,5 +61,4 @@ class Lineup:
         while self.num_options() > n:
             self = self.filter_out_teams(self.all_teams_below_threshold(threshold))
             threshold += 1
-        print(threshold)
         return self

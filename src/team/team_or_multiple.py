@@ -51,7 +51,6 @@ class TeamOrMultiple:
         return self
 
     def expand(self) -> list[Team]:
-        # print([type(t) for t in self.children])
         return [t for child in self.children for t in child.expand()]
 
     def __str__(self) -> str:

@@ -31,7 +31,6 @@ class Value:
             lineup_1_value.get_number_at_max_tier()
             - lineup_2_value.get_number_at_max_tier()
         )
-        # print(f"{(tier_diff, number_at_tier_diff)}")
         if tier_diff != 0:
             return tier_diff
         return number_at_tier_diff
