@@ -1,20 +1,17 @@
 """One player with a single TeamOrMultiple option"""
+from dataclasses import dataclass
 from src.team.team_or_multiple import TeamOrMultiple
 from src.player.lineup_player import LineupPlayer
 from src.lineup.position import Position
 
 
+@dataclass
 class VariationPlayer:
     """One player with a single TeamOrMultiple option"""
 
     name: str = ""
     team: TeamOrMultiple
     position: Position
-
-    def __init__(self, name: str, team: TeamOrMultiple, position: Position) -> None:
-        self.name = name
-        self.team = team
-        self.position = position
 
     @staticmethod
     def from_lineup_player(lineup_player: LineupPlayer) -> list["__class__"]:

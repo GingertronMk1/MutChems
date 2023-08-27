@@ -1,35 +1,25 @@
 """A change to a Lineup"""
+from dataclasses import dataclass
+from enum import Enum
 from src.player.lineup_player import LineupPlayer
 from src.lineup.lineup import Lineup
-from enum import Enum
 
 
 class ChangeType(Enum):
     """The type of a change"""
+
     REMOVALS = "removals"
     ADDITIONS = "additions"
     REPLACEMENT = "replacement"
     NOCHANGE = "no_change"
 
+
+@dataclass
 class Change:
     """A change to a Lineup"""
 
-    additions: list[LineupPlayer]
-    removals: list[str]
-
-    def __init__(
-        self,
-        additions: list[LineupPlayer] = None,
-        removals: list[str] = None,
-    ) -> None:
-        if additions is None:
-            self.additions = []
-        else:
-            self.additions = additions
-        if removals is None:
-            self.removals = []
-        else:
-            self.removals = removals
+    additions: list[LineupPlayer] = []
+    removals: list[str] = []
 
     @staticmethod
     def from_dict(change_dict: dict) -> "__class__":

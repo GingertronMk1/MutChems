@@ -1,21 +1,24 @@
 """The value of a Variation"""
-from src.lineup.variation import Variation
 from dataclasses import dataclass
 from functools import reduce
+from src.lineup.variation import Variation
+
 
 @dataclass
 class ValueHelper:
+    """A helper class to accumulate a reducing list"""
+
     variation: Variation
     number_of_variations: int
     iteration: int = 0
     current_percent: int = 0
 
     @staticmethod
-    def from_list(variations: list[Variation]) -> '__class__':
-        return ValueHelper(
-            variations[0],
-            len(variations)
-        )
+    def from_list(variations: list[Variation]) -> "__class__":
+        """Create from a list of Variations"""
+        return ValueHelper(variations[0], len(variations))
+
+
 class Value:
     """The value of a Variation"""
 
@@ -56,7 +59,10 @@ class Value:
         return number_at_tier_diff
 
     @staticmethod
-    def __reduce_helper(accumulator: ValueHelper, variation_2: Variation) -> ValueHelper:
+    def __reduce_helper(
+        accumulator: ValueHelper, variation_2: Variation
+    ) -> ValueHelper:
+        """Used in the reducing of Variations to a single best one"""
         iteration = accumulator.iteration
         current_percent = accumulator.current_percent
         variation_1 = accumulator.variation
@@ -67,9 +73,7 @@ class Value:
         new_percent = (100 * iteration) // number_of_variations
         if new_percent > current_percent:
             current_percent = new_percent
-            print(
-                f"\t{new_percent}% done ({iteration:,} / {number_of_variations:,})"
-            )
+            print(f"\t{new_percent}% done ({iteration:,} / {number_of_variations:,})")
         accumulator.variation = ret_variation
         accumulator.iteration = iteration
         accumulator.current_percent = current_percent
@@ -77,9 +81,8 @@ class Value:
 
     @staticmethod
     def find_best_possible_variation(variations: list[Variation]) -> Variation:
+        """Finding the best of a list of Variations"""
         reduced = reduce(
-            Value.__reduce_helper,
-            variations,
-            ValueHelper.from_list(variations)
+            Value.__reduce_helper, variations, ValueHelper.from_list(variations)
         )
         return reduced.variation

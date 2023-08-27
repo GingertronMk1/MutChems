@@ -1,19 +1,14 @@
 """A player in a position group"""
+from dataclasses import dataclass
 from src.team.team_or_multiple import TeamOrMultiple
 
 
+@dataclass
 class PositionGroupPlayer:
     """A player in a position group"""
 
     name: str
     teams: list[TeamOrMultiple]
-
-    def __init__(self, name: str, teams: list[TeamOrMultiple] = None) -> None:
-        self.name = name
-        if teams is None:
-            self.teams = []
-        else:
-            self.teams = teams
 
     @staticmethod
     def from_dict(initial_dict: dict) -> "__class__":

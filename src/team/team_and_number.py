@@ -1,14 +1,15 @@
+"""Simple team/number combo - could probably be a named tuple tbh"""
+from dataclasses import dataclass
 from itertools import repeat
 from src.team.team import Team
 
 
+@dataclass
 class TeamAndNumber:
+    """Simple team/number combo - could probably be a named tuple tbh"""
+
     team: Team
     number: int = 1
-
-    def __init__(self, team: Team, number: int = 1) -> None:
-        self.team = team
-        self.number = number
 
     @staticmethod
     def from_string(init_string: str) -> list["__class__"]:

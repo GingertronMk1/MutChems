@@ -1,9 +1,11 @@
 """One option for a given Lineup"""
+from dataclasses import dataclass
 from io import TextIOWrapper
 import csv
 from src.player.variation_player import VariationPlayer
 
 
+@dataclass
 class Variation:
     """Basically an option for a given lineup - one set of team chemistry assignments"""
 
@@ -11,9 +13,6 @@ class Variation:
     THRESHOLD_HALF = 25
 
     data: list[VariationPlayer] = []
-
-    def __init__(self, data: list[VariationPlayer]) -> None:
-        self.data = data
 
     def __str__(self) -> str:
         """To string"""

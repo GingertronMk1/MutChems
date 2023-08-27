@@ -1,4 +1,5 @@
 """A base player object"""
+from dataclasses import dataclass
 from src.team.team_or_multiple import TeamOrMultiple
 from src.lineup.position import Position
 from src.player.position_group_player import PositionGroupPlayer
@@ -7,19 +8,13 @@ from src.team.team import Team
 from src.team.team_and_number import TeamAndNumber
 
 
+@dataclass
 class LineupPlayer:
     """A base player object"""
 
     name: str = ""
     teams: list[TeamOrMultiple] = []
     position: Position
-
-    def __init__(
-        self, name: str, teams: list[TeamOrMultiple], position: Position
-    ) -> None:
-        self.name = name
-        self.teams = teams
-        self.position = position
 
     @staticmethod
     def from_dict(initial_dict: dict) -> "__class__":
@@ -48,9 +43,7 @@ class LineupPlayer:
     @staticmethod
     def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
         """From a position group dict - basically skipping the position group part"""
-        return LineupPlayer.from_position_group(
-            PositionGroup.from_dict(pos_group_dict)
-        )
+        return LineupPlayer.from_position_group(PositionGroup.from_dict(pos_group_dict))
 
     def __str__(self) -> str:
         """Nicely print"""

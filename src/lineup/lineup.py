@@ -1,4 +1,5 @@
 """A list of players"""
+from dataclasses import dataclass
 from itertools import product
 from functools import reduce
 from src.player.lineup_player import LineupPlayer
@@ -7,19 +8,16 @@ from src.player.variation_player import VariationPlayer
 from src.team.team import Team
 
 
+@dataclass
 class Lineup:
     """A list of players"""
 
     players: list[LineupPlayer]
 
-    def __init__(self, players: list[LineupPlayer]) -> None:
-        self.players = players
-
     def to_variations(self) -> list[Variation]:
         """Convert to all possible variations"""
         all_players = [
-            VariationPlayer.from_lineup_player(player)
-            for player in self.players
+            VariationPlayer.from_lineup_player(player) for player in self.players
         ]
 
         return [Variation(potential) for potential in product(*all_players)]

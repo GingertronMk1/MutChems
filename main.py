@@ -1,24 +1,12 @@
-import functools
+"""The main event"""
 import json
 import os
 import glob
 import time
-import sys
 from src.player.lineup_player import LineupPlayer
-from src.lineup.variation import Variation
 from src.lineup.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
-
-
-def clear_screen() -> None:
-    match os.name:
-        case "nt":
-            cmd = "cls"
-        case _:
-            cmd = "clear"
-    _ = os.system(cmd)
-
 
 if __name__ == "__main__":
     files = glob.glob("outputs/*.csv")
