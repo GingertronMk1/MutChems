@@ -1,9 +1,0 @@
--- | Module: Data.Other
---
--- Just useful bits and bobs - should maybe be an env file? Idk
-module Data.Other where
-
--- | The threshold as a string
-squadFilterThresholdString :: String
-squadFilterThresholdString = "1 000 000"
-
