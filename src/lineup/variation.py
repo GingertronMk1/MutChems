@@ -59,8 +59,9 @@ class Variation:
         writer.writerow([None, None, None])
         writer.writerow(["TOTALS", None, None])
         best_values = self.all_values()
-        for key, value in best_values.items():
-            writer.writerow([key.value, value, None])
+        for team, value in best_values.items():
+            all_players_in_team = [player.name for player in self.data if team in player.expand_teams()]
+            writer.writerow([team.value, value, ' | '.join(all_players_in_team)])
 
     def contains_no_team_players(self) -> bool:
         return Team.NO_TEAM in self.all_teams()

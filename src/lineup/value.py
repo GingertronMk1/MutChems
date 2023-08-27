@@ -107,11 +107,11 @@ class Value:
 
     @staticmethod
     def get_best_lineup_variation(original_lineup: Lineup, iteration: int = 0) -> Variation:
-        print(f"Round {iteration}")
         original_lineup_players = deepcopy(original_lineup.players)
         if Team.NO_TEAM in original_lineup.all_teams_list():
             raise Exception("NoTeam players have made it into the start")
-        filtered_lineup = original_lineup.filter_to_n_options()
+        filtered_lineup: Lineup = original_lineup.filter_to_n_options()
+        print(f"Round {iteration}: {filtered_lineup.num_options()} options")
         best_possible = Value.find_best_possible_variation(filtered_lineup.to_variations())
         if best_possible.contains_no_team_players():
             for index, player in enumerate(best_possible.data):
