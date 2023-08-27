@@ -1,5 +1,5 @@
 """A team or multiple teams for chemistries"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from src.team.team import Team
 from src.team.team_and_number import TeamAndNumber
 
@@ -8,7 +8,7 @@ from src.team.team_and_number import TeamAndNumber
 class TeamOrMultiple:
     """A team or multiple teams for chemistries"""
 
-    children: list[TeamAndNumber] = []
+    children: list[TeamAndNumber] = field(default_factory=list)
 
     @staticmethod
     def from_string(string: str) -> "__class__":

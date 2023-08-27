@@ -1,5 +1,5 @@
 """Simple team/number combo - could probably be a named tuple tbh"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import repeat
 from src.team.team import Team
 

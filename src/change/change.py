@@ -1,5 +1,5 @@
 """A change to a Lineup"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from src.player.lineup_player import LineupPlayer
 from src.lineup.lineup import Lineup
@@ -18,8 +18,8 @@ class ChangeType(Enum):
 class Change:
     """A change to a Lineup"""
 
-    additions: list[LineupPlayer] = []
-    removals: list[str] = []
+    additions: list[LineupPlayer] = field(default_factory=list)
+    removals: list[str] = field(default_factory=list)
 
     @staticmethod
     def from_dict(change_dict: dict) -> "__class__":

@@ -1,5 +1,5 @@
 """A base player object"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from src.team.team_or_multiple import TeamOrMultiple
 from src.lineup.position import Position
 from src.player.position_group_player import PositionGroupPlayer
@@ -12,17 +12,17 @@ from src.team.team_and_number import TeamAndNumber
 class LineupPlayer:
     """A base player object"""
 
-    name: str = ""
-    teams: list[TeamOrMultiple] = []
+    name: str
     position: Position
+    teams: list[TeamOrMultiple] = field(default_factory=list)
 
     @staticmethod
     def from_dict(initial_dict: dict) -> "__class__":
         """Creating from a dict"""
         return LineupPlayer(
             name=initial_dict["name"],
-            teams=TeamOrMultiple.from_strings(initial_dict["teams"]),
             position=Position(initial_dict["position"]),
+            teams=TeamOrMultiple.from_strings(initial_dict["teams"]),
         )
 
     @staticmethod
@@ -30,7 +30,7 @@ class LineupPlayer:
         pgp: PositionGroupPlayer, pos: Position
     ) -> "__class__":
         """Creating from a position group player"""
-        return LineupPlayer(pgp.name, pgp.teams, pos)
+        return LineupPlayer(pgp.name, pos, pgp.teams)
 
     @staticmethod
     def from_position_group(pos_group: PositionGroup) -> list["__class__"]:

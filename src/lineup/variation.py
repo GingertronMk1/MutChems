@@ -1,5 +1,5 @@
 """One option for a given Lineup"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from io import TextIOWrapper
 import csv
 from src.player.variation_player import VariationPlayer
@@ -12,7 +12,7 @@ class Variation:
     THRESHOLD_FULL = 50
     THRESHOLD_HALF = 25
 
-    data: list[VariationPlayer] = []
+    data: list[VariationPlayer] = field(default_factory=list)
 
     def __str__(self) -> str:
         """To string"""

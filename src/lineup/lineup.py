@@ -1,5 +1,5 @@
 """A list of players"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import product
 from functools import reduce
 from src.player.lineup_player import LineupPlayer

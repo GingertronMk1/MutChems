@@ -1,5 +1,5 @@
 """One player with a single TeamOrMultiple option"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from src.team.team_or_multiple import TeamOrMultiple
 from src.player.lineup_player import LineupPlayer
 from src.lineup.position import Position
@@ -9,7 +9,7 @@ from src.lineup.position import Position
 class VariationPlayer:
     """One player with a single TeamOrMultiple option"""
 
-    name: str = ""
+    name: str
     team: TeamOrMultiple
     position: Position
 

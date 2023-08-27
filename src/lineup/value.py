@@ -1,5 +1,5 @@
 """The value of a Variation"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import reduce
 from src.lineup.variation import Variation
 
