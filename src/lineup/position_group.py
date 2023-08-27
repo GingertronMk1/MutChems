@@ -1,8 +1,11 @@
+"""A group of players joined by position"""
 from src.lineup.position import Position
 from src.player.position_group_player import PositionGroupPlayer
 
 
 class PositionGroup:
+    """A group of players joined by position"""
+
     players: list[PositionGroupPlayer]
     position: Position
 
@@ -14,6 +17,7 @@ class PositionGroup:
 
     @staticmethod
     def from_dict(initial_dict: dict) -> "__class__":
+        """Create from dict"""
         return PositionGroup(
             position=Position(initial_dict.get("position")),
             players=[

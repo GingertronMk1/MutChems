@@ -10,6 +10,7 @@ from src.lineup.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
 
+
 def clear_screen() -> None:
     match os.name:
         case "nt":
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     for f in files:
         os.remove(f)
 
-    with open("./data/team.json", "r", encoding="utf-8") as f:
+    with open("./input.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
     all_players: list[CurrentPlayer] = [
@@ -61,12 +62,13 @@ if __name__ == "__main__":
             new_percent = (100 * iteration) // total_number_of_lineups
             if new_percent > current_percent:
                 current_percent = new_percent
-                print(f"\t{new_percent}% done ({iteration:,} / {total_number_of_lineups:,})")
+                print(
+                    f"\t{new_percent}% done ({iteration:,} / {total_number_of_lineups:,})"
+                )
             accumulator["lineup"] = ret_lineup
             accumulator["iteration"] = iteration
             accumulator["current_percent"] = current_percent
             return accumulator
-
 
         bestPossible = functools.reduce(
             reduce_function,
@@ -75,8 +77,8 @@ if __name__ == "__main__":
                 "lineup": all_possibles[0],
                 "iteration": 0,
                 "current_percent": 0,
-                "total_number_of_lineups": total_number_of_lineups
-            }
+                "total_number_of_lineups": total_number_of_lineups,
+            },
         ).get("lineup")
 
         with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:

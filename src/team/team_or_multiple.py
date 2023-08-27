@@ -16,10 +16,12 @@ class TeamOrMultiple:
 
     @staticmethod
     def from_string(string: str) -> "__class__":
+        """Creating from a string of encoded values"""
         return TeamOrMultiple(children=TeamAndNumber.from_string(string))
 
     @staticmethod
     def from_strings(strings: list[str]) -> list["__class__"]:
+        """Creating from a list of strings, such that we can return a list and expand any instances of all 32 teams"""
         return_val = []
         for string in strings:
             t_o_m = TeamOrMultiple.from_string(string)
@@ -27,6 +29,7 @@ class TeamOrMultiple:
         return return_val
 
     def expand_all_32(self) -> list["__class__"]:
+        """Any instances of all32Teams get expanded to actually be all 32 teams"""
         all_teams = [t_a_n.team for t_a_n in self.children]
         if Team.ALL32 in all_teams:
             all_32_index = all_teams.index(Team.ALL32)
@@ -43,6 +46,7 @@ class TeamOrMultiple:
         return [self.normalise()]
 
     def normalise(self) -> "__class__":
+        """Any instances where it would be, for example, `Seahawks.1|Seahawks.1`, convert it to `Seahawks.2`"""
         acc_dict = {}
         for team_and_number in self.children:
             team_total = acc_dict.get(team_and_number.team, 0)
@@ -51,10 +55,13 @@ class TeamOrMultiple:
         return self
 
     def expand(self) -> list[Team]:
+        """Expand to a list of Teams, for counting purposes"""
         return [t for child in self.children for t in child.expand()]
 
-    def __str__(self) -> str:
-        return " | ".join(str(t_a_n) for t_a_n in self.children)
-
     def contains_teams(self, teams: list[Team]) -> bool:
+        """Does this team or multiple consist entirely of teams defined in this list?"""
         return all(child.team in teams for child in self.children)
+
+    def __str__(self) -> str:
+        """Effectively convert back to the encoded string"""
+        return " | ".join(str(t_a_n) for t_a_n in self.children)

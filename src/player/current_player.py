@@ -47,11 +47,13 @@ class CurrentPlayer:
 
     @staticmethod
     def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
+        """From a position group dict - basically skipping the position group part"""
         return CurrentPlayer.from_position_group(
             PositionGroup.from_dict(pos_group_dict)
         )
 
     def __str__(self) -> str:
+        """Nicely print"""
         return (
             f"Player: {self.name} | "
             f"  Position: {self.position} | "
@@ -59,6 +61,7 @@ class CurrentPlayer:
         )
 
     def filter_out_teams(self, teams: list[Team]) -> "__class__":
+        """Filtering out teams to cut down the number of possible variations"""
         if len(self.teams) < 2:
             return self
         self.teams = [t_o_m for t_o_m in self.teams if not t_o_m.contains_teams(teams)]
