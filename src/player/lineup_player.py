@@ -25,6 +25,13 @@ class LineupPlayer:
             teams=TeamOrMultiple.from_strings(initial_dict["teams"]),
         )
 
+    def expand_teams(self) -> list[Team]:
+        return [
+            team
+            for team_or_multiple in self.teams
+            for team in team_or_multiple.expand()
+        ]
+
     @staticmethod
     def from_position_group_player(
         pgp: PositionGroupPlayer, pos: Position

@@ -1,7 +1,11 @@
 """The value of a Variation"""
-from dataclasses import dataclass, field
+from copy import deepcopy
+from dataclasses import dataclass
 from functools import reduce
 from src.lineup.variation import Variation
+from src.team.team import Team
+from src.lineup.lineup import Lineup
+from src.player.lineup_player import LineupPlayer
 
 
 @dataclass
@@ -85,4 +89,27 @@ class Value:
         reduced = reduce(
             Value.__reduce_helper, variations, ValueHelper.from_list(variations)
         )
-        return reduced.variation
+        best_variation = reduced.variation
+        return best_variation
+
+    @staticmethod
+    def get_best_lineup_variation(original_lineup: Lineup, iteration: int = 0) -> Variation:
+        print(f"Round {iteration}")
+        original_lineup_players = deepcopy(original_lineup.players)
+        if Team.NO_TEAM in original_lineup.all_teams_list():
+            raise Exception("NoTeam players have made it into the start")
+        filtered_lineup = original_lineup.filter_to_n_options()
+        best_possible = Value.find_best_possible_variation(filtered_lineup.to_variations())
+        if best_possible.contains_no_team_players():
+            for index, player in enumerate(best_possible.data):
+                player_teams = player.expand_teams()
+                if Team.NO_TEAM not in player_teams:
+                    new_player =  LineupPlayer(
+                        player.name,
+                        player.position,
+                        [player.team],
+                    )
+                    original_lineup_players[index] = new_player
+            new_lineup = Lineup(original_lineup_players)
+            return Value.get_best_lineup_variation(new_lineup, iteration + 1)
+        return best_possible

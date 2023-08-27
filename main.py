@@ -1,4 +1,5 @@
 """The main event"""
+from copy import deepcopy
 import json
 import os
 import glob
@@ -32,14 +33,9 @@ if __name__ == "__main__":
     for key, change in enumerate(changes):
         print(f"Applying change {key}: `{change.pretty_print()}`")
         working_lineup = change.apply(working_lineup)
-        lineup = working_lineup.filter_to_n_options()
+        analysis_lineup = deepcopy(working_lineup)
         start_time = time.time()
-        total_number_of_lineups = lineup.num_options()
-        all_possibles = lineup.to_variations()
-
-        print(f"Checking {total_number_of_lineups:,} options")
-
-        best_possible = Value.find_best_possible_variation(all_possibles)
+        best_possible = Value.get_best_lineup_variation(analysis_lineup)
 
         with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
             best_possible.write_to_csv(csvfile)

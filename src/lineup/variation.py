@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from io import TextIOWrapper
 import csv
 from src.player.variation_player import VariationPlayer
+from src.team.team import Team
 
 
 @dataclass
@@ -18,9 +19,12 @@ class Variation:
         """To string"""
         return "\n".join([str(player) for player in self.data])
 
+    def all_teams(self) -> list[Team]:
+        return [team for player in self.data for team in player.expand_teams()]
+
     def all_values(self) -> dict[str, int]:
         """Get all teams and how many are represented"""
-        all_toms = [team for player in self.data for team in player.team.expand()]
+        all_toms = self.all_teams()
         individuals = set(all_toms)
         compressed_toms = [
             (t, len([x for x in all_toms if x == t])) for t in individuals
@@ -57,3 +61,6 @@ class Variation:
         best_values = self.all_values()
         for key, value in best_values.items():
             writer.writerow([key.value, value, None])
+
+    def contains_no_team_players(self) -> bool:
+        return Team.NO_TEAM in self.all_teams()
