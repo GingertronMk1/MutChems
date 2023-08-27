@@ -6,4 +6,6 @@ RUN pip install black
 RUN pip install pylint
 
 RUN apt update && \
-    apt install -y bsdmainutils
+    apt install -y \
+        bsdmainutils \
+        jq
