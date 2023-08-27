@@ -1,5 +1,5 @@
 """A change to a Lineup"""
-from src.player.current_player import CurrentPlayer
+from src.player.lineup_player import LineupPlayer
 from src.lineup.lineup import Lineup
 from enum import Enum
 
@@ -14,12 +14,12 @@ class ChangeType(Enum):
 class Change:
     """A change to a Lineup"""
 
-    additions: list[CurrentPlayer]
+    additions: list[LineupPlayer]
     removals: list[str]
 
     def __init__(
         self,
-        additions: list[CurrentPlayer] = None,
+        additions: list[LineupPlayer] = None,
         removals: list[str] = None,
     ) -> None:
         if additions is None:
@@ -36,7 +36,7 @@ class Change:
         """Generate a Change from a dict"""
         return Change(
             additions=[
-                CurrentPlayer.from_dict(addition)
+                LineupPlayer.from_dict(addition)
                 for addition in change_dict.get("additions", [])
             ],
             removals=change_dict.get("removals", []),
@@ -45,14 +45,14 @@ class Change:
     def apply(self, current_lineup: Lineup) -> Lineup:
         """Apply a change to a lineup"""
         removed_players = [
-            current_player
-            for current_player in current_lineup.players
-            if current_player.name not in self.removals
+            lineup_player
+            for lineup_player in current_lineup.players
+            if lineup_player.name not in self.removals
         ]
         player_positions = [player.position for player in removed_players]
-        for current_player in self.additions:
-            position_index = player_positions.index(current_player.position)
-            removed_players.insert(position_index, current_player)
+        for lineup_player in self.additions:
+            position_index = player_positions.index(lineup_player.position)
+            removed_players.insert(position_index, lineup_player)
         return Lineup(removed_players)
 
     def pretty_print(self) -> str:

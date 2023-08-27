@@ -7,7 +7,7 @@ from src.team.team import Team
 from src.team.team_and_number import TeamAndNumber
 
 
-class CurrentPlayer:
+class LineupPlayer:
     """A base player object"""
 
     name: str = ""
@@ -24,7 +24,7 @@ class CurrentPlayer:
     @staticmethod
     def from_dict(initial_dict: dict) -> "__class__":
         """Creating from a dict"""
-        return CurrentPlayer(
+        return LineupPlayer(
             name=initial_dict["name"],
             teams=TeamOrMultiple.from_strings(initial_dict["teams"]),
             position=Position(initial_dict["position"]),
@@ -35,20 +35,20 @@ class CurrentPlayer:
         pgp: PositionGroupPlayer, pos: Position
     ) -> "__class__":
         """Creating from a position group player"""
-        return CurrentPlayer(pgp.name, pgp.teams, pos)
+        return LineupPlayer(pgp.name, pgp.teams, pos)
 
     @staticmethod
     def from_position_group(pos_group: PositionGroup) -> list["__class__"]:
         """Creating from a position group"""
         return [
-            CurrentPlayer.from_position_group_player(player, pos_group.position)
+            LineupPlayer.from_position_group_player(player, pos_group.position)
             for player in pos_group.players
         ]
 
     @staticmethod
     def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
         """From a position group dict - basically skipping the position group part"""
-        return CurrentPlayer.from_position_group(
+        return LineupPlayer.from_position_group(
             PositionGroup.from_dict(pos_group_dict)
         )
 

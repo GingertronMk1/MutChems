@@ -1,24 +1,24 @@
 """A list of players"""
 from itertools import product
 from functools import reduce
-from src.player.current_player import CurrentPlayer
+from src.player.lineup_player import LineupPlayer
 from src.lineup.variation import Variation
-from src.player.current_player_single_team import CurrentPlayerSingleTeam
+from src.player.variation_player import VariationPlayer
 from src.team.team import Team
 
 
 class Lineup:
     """A list of players"""
 
-    players: list[CurrentPlayer]
+    players: list[LineupPlayer]
 
-    def __init__(self, players: list[CurrentPlayer]) -> None:
+    def __init__(self, players: list[LineupPlayer]) -> None:
         self.players = players
 
     def to_variations(self) -> list[Variation]:
         """Convert to all possible variations"""
         all_players = [
-            CurrentPlayerSingleTeam.from_current_player(player)
+            VariationPlayer.from_lineup_player(player)
             for player in self.players
         ]
 

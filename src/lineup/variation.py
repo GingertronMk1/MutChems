@@ -1,7 +1,7 @@
 """One option for a given Lineup"""
 from io import TextIOWrapper
 import csv
-from src.player.current_player_single_team import CurrentPlayerSingleTeam
+from src.player.variation_player import VariationPlayer
 
 
 class Variation:
@@ -10,9 +10,9 @@ class Variation:
     THRESHOLD_FULL = 50
     THRESHOLD_HALF = 25
 
-    data: list[CurrentPlayerSingleTeam] = []
+    data: list[VariationPlayer] = []
 
-    def __init__(self, data: list[CurrentPlayerSingleTeam]) -> None:
+    def __init__(self, data: list[VariationPlayer]) -> None:
         self.data = data
 
     def __str__(self) -> str:

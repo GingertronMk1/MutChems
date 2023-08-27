@@ -4,7 +4,7 @@ import os
 import glob
 import time
 import sys
-from src.player.current_player import CurrentPlayer
+from src.player.lineup_player import LineupPlayer
 from src.lineup.variation import Variation
 from src.lineup.value import Value
 from src.lineup.lineup import Lineup
@@ -28,10 +28,10 @@ if __name__ == "__main__":
     with open("./input.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    all_players: list[CurrentPlayer] = [
+    all_players: list[LineupPlayer] = [
         player
         for posGroup in data["current"]
-        for player in CurrentPlayer.from_position_group_dict(posGroup)
+        for player in LineupPlayer.from_position_group_dict(posGroup)
     ]
 
     working_lineup: Lineup = Lineup(all_players)
