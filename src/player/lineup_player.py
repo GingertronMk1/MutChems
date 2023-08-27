@@ -59,6 +59,6 @@ class LineupPlayer:
             return self
         self.teams = [t_o_m for t_o_m in self.teams if not t_o_m.contains_teams(teams)]
         if not self.teams:
-            t_a_n = TeamAndNumber(Team.NO_TEAM, 0)
+            t_a_n = TeamAndNumber(Team.NO_TEAM)
             self.teams = [TeamOrMultiple(children=[t_a_n])]
         return self
