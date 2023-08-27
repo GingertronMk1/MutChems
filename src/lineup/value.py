@@ -2,6 +2,7 @@
 from copy import deepcopy
 from dataclasses import dataclass
 from functools import reduce
+from statistics import mean
 from src.lineup.variation import Variation
 from src.team.team import Team
 from src.lineup.lineup import Lineup
@@ -35,16 +36,22 @@ class Value:
             (t, len([x for x in all_teams if x == t])) for t in individuals
         ]
         compressed_toms.sort(key=lambda x: x[1], reverse=True)
-        self.tiers = [(t, l // 5) for (t, l) in compressed_toms]
+        self.numbers = compressed_toms
+
+    def get_tiers(self) -> tuple:
+        return [(t, l // 5) for (t, l) in self.numbers]
 
     def get_max_tier(self) -> int:
         """What is the highest team value"""
-        return max(t[1] for t in self.tiers)
+        return max(t[1] for t in self.get_tiers())
 
     def get_number_at_max_tier(self) -> int:
         """How many are at that tier"""
         max_tier = self.get_max_tier()
-        return len([ts for ts in self.tiers if ts[1] == max_tier])
+        return len([ts for ts in self.get_tiers() if ts[1] == max_tier])
+
+    def get_mean(self) -> float:
+        return mean(t[1] ** 2 for t in self.numbers)
 
     @staticmethod
     def compare_variations(variation_1: Variation, variation_2: Variation) -> int:
@@ -54,13 +61,19 @@ class Value:
 
         tier_diff = variation_1_value.get_max_tier() - variation_2_value.get_max_tier()
 
+        if tier_diff != 0:
+            return tier_diff
+
         number_at_tier_diff = (
             variation_1_value.get_number_at_max_tier()
             - variation_2_value.get_number_at_max_tier()
         )
-        if tier_diff != 0:
-            return tier_diff
-        return number_at_tier_diff
+
+        if number_at_tier_diff != 0:
+            return number_at_tier_diff
+
+        mean_diff = variation_1_value.get_mean() - variation_2_value.get_mean()
+        return mean_diff
 
     @staticmethod
     def __reduce_helper(
