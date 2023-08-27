@@ -1,7 +1,21 @@
 """The value of a Variation"""
 from src.lineup.variation import Variation
+from dataclasses import dataclass
+from functools import reduce
 
+@dataclass
+class ValueHelper:
+    variation: Variation
+    number_of_variations: int
+    iteration: int = 0
+    current_percent: int = 0
 
+    @staticmethod
+    def from_list(variations: list[Variation]) -> '__class__':
+        return ValueHelper(
+            variations[0],
+            len(variations)
+        )
 class Value:
     """The value of a Variation"""
 
@@ -26,17 +40,46 @@ class Value:
         return len([ts for ts in self.tiers if ts[1] == max_tier])
 
     @staticmethod
-    def compare_lineups(lineup_1: Variation, lineup_2: Variation) -> int:
+    def compare_variations(variation_1: Variation, variation_2: Variation) -> int:
         """Compare variations by value"""
-        lineup_1_value = Value(lineup_1)
-        lineup_2_value = Value(lineup_2)
+        variation_1_value = Value(variation_1)
+        variation_2_value = Value(variation_2)
 
-        tier_diff = lineup_1_value.get_max_tier() - lineup_2_value.get_max_tier()
+        tier_diff = variation_1_value.get_max_tier() - variation_2_value.get_max_tier()
 
         number_at_tier_diff = (
-            lineup_1_value.get_number_at_max_tier()
-            - lineup_2_value.get_number_at_max_tier()
+            variation_1_value.get_number_at_max_tier()
+            - variation_2_value.get_number_at_max_tier()
         )
         if tier_diff != 0:
             return tier_diff
         return number_at_tier_diff
+
+    @staticmethod
+    def __reduce_helper(accumulator: ValueHelper, variation_2: Variation) -> ValueHelper:
+        iteration = accumulator.iteration
+        current_percent = accumulator.current_percent
+        variation_1 = accumulator.variation
+        number_of_variations = accumulator.number_of_variations
+        ret_variation = variation_1
+        if Value.compare_variations(variation_1, variation_2) < 0:
+            ret_variation = variation_2
+        new_percent = (100 * iteration) // number_of_variations
+        if new_percent > current_percent:
+            current_percent = new_percent
+            print(
+                f"\t{new_percent}% done ({iteration:,} / {number_of_variations:,})"
+            )
+        accumulator.variation = ret_variation
+        accumulator.iteration = iteration
+        accumulator.current_percent = current_percent
+        return accumulator
+
+    @staticmethod
+    def find_best_possible_variation(variations: list[Variation]) -> Variation:
+        reduced = reduce(
+            Value.__reduce_helper,
+            variations,
+            ValueHelper.from_list(variations)
+        )
+        return reduced.variation
