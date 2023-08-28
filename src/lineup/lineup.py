@@ -1,5 +1,5 @@
 """A list of players"""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from itertools import product
 from functools import reduce
 from src.player.lineup_player import LineupPlayer
@@ -50,6 +50,7 @@ class Lineup:
         return all_player_teams
 
     def all_teams_list(self) -> list[Team]:
+        """Get all teams in a Lineup"""
         return [team for player in self.players for team in player.expand_teams()]
 
     def all_teams_below_threshold(self, threshold: int = 5) -> list[Team]:

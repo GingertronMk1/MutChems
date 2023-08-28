@@ -1,5 +1,5 @@
 """A group of players joined by position"""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from src.lineup.position import Position
 from src.player.position_group_player import PositionGroupPlayer
 

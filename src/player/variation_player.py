@@ -1,5 +1,5 @@
 """One player with a single TeamOrMultiple option"""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from src.team.team_or_multiple import TeamOrMultiple
 from src.team.team import Team
 from src.player.lineup_player import LineupPlayer
@@ -23,4 +23,5 @@ class VariationPlayer:
         ]
 
     def expand_teams(self) -> list[Team]:
+        """Get all the teams in the player"""
         return self.team.expand()

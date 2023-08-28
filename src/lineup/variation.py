@@ -20,6 +20,7 @@ class Variation:
         return "\n".join([str(player) for player in self.data])
 
     def all_teams(self) -> list[Team]:
+        """Get all teams in variation"""
         return [team for player in self.data for team in player.expand_teams()]
 
     def all_values(self) -> dict[str, int]:
@@ -66,4 +67,5 @@ class Variation:
             writer.writerow([team.value, value, " | ".join(all_players_in_team)])
 
     def contains_no_team_players(self) -> bool:
+        """Does the variation contain players with NoTeam"""
         return Team.NO_TEAM in self.all_teams()

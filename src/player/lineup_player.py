@@ -26,6 +26,7 @@ class LineupPlayer:
         )
 
     def expand_teams(self) -> list[Team]:
+        """Get full list of teams in lineup"""
         return [
             team
             for team_or_multiple in self.teams

@@ -1,5 +1,5 @@
 """A player in a position group"""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from src.team.team_or_multiple import TeamOrMultiple
 
 

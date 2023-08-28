@@ -39,6 +39,7 @@ class Value:
         self.numbers = compressed_toms
 
     def get_tiers(self) -> tuple:
+        """Get the tiers of the teams in the Variation"""
         return [(t, l // 5) for (t, l) in self.numbers]
 
     def get_max_tier(self) -> int:
@@ -51,6 +52,7 @@ class Value:
         return len([ts for ts in self.get_tiers() if ts[1] == max_tier])
 
     def get_mean(self) -> float:
+        """Get the mean of squared values"""
         return mean(t[1] ** 2 for t in self.numbers)
 
     @staticmethod
@@ -109,6 +111,7 @@ class Value:
     def get_best_lineup_variation(
         original_lineup: Lineup, iteration: int = 0
     ) -> Variation:
+        """Get best variation from a given lineup"""
         original_lineup_players = deepcopy(original_lineup.players)
         if Team.NO_TEAM in original_lineup.all_teams_list():
             raise Exception("NoTeam players have made it into the start")
