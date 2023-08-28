@@ -50,11 +50,7 @@ class Lineup:
         return all_player_teams
 
     def all_teams_list(self) -> list[Team]:
-        return [
-            team
-            for player in self.players
-            for team in player.expand_teams()
-        ]
+        return [team for player in self.players for team in player.expand_teams()]
 
     def all_teams_below_threshold(self, threshold: int = 5) -> list[Team]:
         """Get all teams that have fewer than `threshold` instances"""
