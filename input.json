@@ -233,11 +233,9 @@
           ]
         },
         {
-          "name": "Richard Sherman",
+          "name": "Julius Brents",
           "teams": [
-            "Seahawks",
-            "49ers",
-            "Buccaneers"
+            "Colts"
           ]
         },
         {
@@ -369,7 +367,6 @@
   ],
   "changes": [
     {
-      "type": "replacement",
       "additions": [
         {
           "name": "AJ Terrell",
@@ -382,6 +379,22 @@
       "removals": [
         "DJ Turner"
       ]
+    },
+    {
+        "additions": [
+            {
+                "name": "Deandre Hopkins",
+                "position": "Wide Receiver",
+                "teams": [
+                    "Texans",
+                    "Cardinals",
+                    "Titans"
+                ]
+            }
+        ],
+        "removals": [
+            "Zay Flowers"
+        ]
     }
   ]
 }
