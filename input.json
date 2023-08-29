@@ -11,14 +11,13 @@
             "Seahawks",
             "Chiefs"
           ]
-
-
         },
         {
-           "name": "Bryce Young",
+          "name": "Bryce Young",
           "teams": [
             "Panthers"
-          ]       }
+          ]
+        }
       ]
     },
     {
@@ -324,14 +323,14 @@
             "Eagles",
             "Packers",
             "Panthers"
-          ]        },
+          ]
+        },
         {
           "name": "Ogbonna Okoronkwo",
           "teams": [
             "Browns",
             "Texans"
           ]
-
         }
       ]
     },
