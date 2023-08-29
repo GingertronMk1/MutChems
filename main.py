@@ -45,6 +45,6 @@ if __name__ == "__main__":
         start_time = time.time()
         best_possible = Value.get_best_lineup_variation(analysis_lineup)
 
-        with open(f"outputs/{key}-change.csv", "w", encoding="utf-8") as csvfile:
+        with open(f"outputs/{file_name}", "w", encoding="utf-8") as csvfile:
             best_possible.write_to_csv(csvfile)
         end_time = time.time()
