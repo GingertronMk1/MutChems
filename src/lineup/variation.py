@@ -54,7 +54,7 @@ class Variation:
                 [
                     player.name,
                     player.position.value,
-                    " | ".join([str(team) for team in player.team.children]),
+                    None,
                 ]
             )
         writer.writerow([None, None, None])
@@ -62,9 +62,11 @@ class Variation:
         best_values = self.all_values()
         for team, value in best_values.items():
             all_players_in_team = [
-                player.name for player in self.players if team in player.expand_teams()
+                player for player in self.players if team in player.expand_teams()
             ]
-            writer.writerow([team.value, value, " | ".join(all_players_in_team)])
+            writer.writerow([team.value, value, None])
+            for player in all_players_in_team:
+                writer.writerow([f'    - {player.name}', None, None])
 
     def contains_no_team_players(self) -> bool:
         """Does the variation contain players with NoTeam"""
