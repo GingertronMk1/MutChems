@@ -27,7 +27,19 @@ if __name__ == "__main__":
     changes.insert(0, Change())
 
     for key, change in enumerate(changes):
-        print(f"Applying change {key}: `{change.pretty_print()}`")
+        change_string = ""
+        file_name = ""
+        match(key):
+            case 0:
+                change_string = "Current lineup with no changes"
+                file_name = "0_current_lineup.csv"
+            case 1:
+                change_string = f"1 change: `{change.pretty_print()}`"
+                file_name = "1_change.csv"
+            case n:
+                change_string = f"{n} changes: `{change.pretty_print()}"
+                file_name = f"{n}_changes.csv"
+        print(change_string)
         working_lineup = change.apply(working_lineup)
         analysis_lineup = deepcopy(working_lineup)
         start_time = time.time()
