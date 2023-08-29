@@ -82,7 +82,7 @@ class Value:
         accumulator: ValueHelper, variation_2: Variation
     ) -> ValueHelper:
         """Used in the reducing of Variations to a single best one"""
-        iteration = accumulator.iteration
+        iteration = accumulator.iteration + 1
         current_percent = accumulator.current_percent
         variation_1 = accumulator.variation
         number_of_variations = accumulator.number_of_variations
