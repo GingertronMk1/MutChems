@@ -4,32 +4,30 @@
       "position": "Quarterback",
       "players": [
         {
-          "name": "Bryce Young",
+          "name": "Warren Moon",
           "teams": [
-            "Panthers"
+            "Titans",
+            "Vikings",
+            "Seahawks",
+            "Chiefs"
           ]
+
+
         },
         {
-          "name": "CJ Stroud",
+           "name": "Bryce Young",
           "teams": [
-            "Texans"
-          ]
-        }
+            "Panthers"
+          ]       }
       ]
     },
     {
       "position": "Halfback",
       "players": [
         {
-          "name": "Jahmyr Gibbs",
-          "teams": [
-            "Lions|All32Teams"
-          ]
-        },
-        {
           "name": "Bijan Robinson",
           "teams": [
-            "Falcons"
+            "Falcons|All32Teams"
           ]
         },
         {
@@ -38,6 +36,12 @@
             "Eagles",
             "Lions"
           ]
+        },
+        {
+          "name": "Frank Gore",
+          "teams": [
+            "49ers"
+          ]
         }
       ]
     },
@@ -45,10 +49,10 @@
       "position": "Fullback",
       "players": [
         {
-          "name": "Franco Harris",
+          "name": "Jakob Johnson",
           "teams": [
-            "Steelers",
-            "Seahawks"
+            "Patriots",
+            "Raiders"
           ]
         }
       ]
@@ -57,24 +61,9 @@
       "position": "Wide Receiver",
       "players": [
         {
-          "name": "Devin Hester",
-          "teams": [
-            "Bears",
-            "Falcons",
-            "Ravens",
-            "Seahawks"
-          ]
-        },
-        {
           "name": "JJettas",
           "teams": [
             "Vikings"
-          ]
-        },
-        {
-          "name": "Zay Flowers",
-          "teams": [
-            "Ravens"
           ]
         },
         {
@@ -85,12 +74,24 @@
           ]
         },
         {
+          "name": "Zay Flowers",
+          "teams": [
+            "Ravens"
+          ]
+        },
+        {
           "name": "Odell Beckham Jr",
           "teams": [
             "Giants",
             "Browns",
             "Rams",
             "Ravens"
+          ]
+        },
+        {
+          "name": "Marvin Mims Jr",
+          "teams": [
+            "Broncos"
           ]
         }
       ]
@@ -108,12 +109,6 @@
           "name": "Brenton Strange",
           "teams": [
             "Jaguars"
-          ]
-        },
-        {
-          "name": "Chris Mannhertz",
-          "teams": [
-            "Broncos"
           ]
         }
       ]
@@ -295,9 +290,10 @@
       "position": "Right Defensive End",
       "players": [
         {
-          "name": "Dean Lowry",
+          "name": "LJ Collier",
           "teams": [
-            "Packers"
+            "Seahawks",
+            "Cardinals"
           ]
         }
       ]
@@ -323,20 +319,19 @@
       "position": "Left Defensive End",
       "players": [
         {
+          "name": "Reggie White",
+          "teams": [
+            "Eagles",
+            "Packers",
+            "Panthers"
+          ]        },
+        {
           "name": "Ogbonna Okoronkwo",
           "teams": [
             "Browns",
             "Texans"
           ]
-        },
-        {
-          "name": "Reggie White",
-          "position": "Left Defensive End",
-          "teams": [
-            "Eagles",
-            "Packers",
-            "Panthers"
-          ]
+
         }
       ]
     },
@@ -381,20 +376,20 @@
       ]
     },
     {
-        "additions": [
-            {
-                "name": "Deandre Hopkins",
-                "position": "Wide Receiver",
-                "teams": [
-                    "Texans",
-                    "Cardinals",
-                    "Titans"
-                ]
-            }
-        ],
-        "removals": [
-            "Zay Flowers"
-        ]
+      "additions": [
+        {
+          "name": "Deandre Hopkins",
+          "position": "Wide Receiver",
+          "teams": [
+            "Texans",
+            "Cardinals",
+            "Titans"
+          ]
+        }
+      ],
+      "removals": [
+        "Zay Flowers"
+      ]
     }
   ]
 }
