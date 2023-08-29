@@ -389,6 +389,33 @@
       "removals": [
         "Zay Flowers"
       ]
+    },
+    {
+        "additions": [
+            {
+                "name": "Damien Lewis",
+                "position": "Left Guard",
+                "teams": [
+                    "Seahawks"
+                ]
+            }
+        ]
+    },
+    {
+        "additions": [
+            {
+                "name": "Kevin Mawae",
+                "position": "Center",
+                "teams": [
+                    "Seahawks",
+                    "Jets",
+                    "Titans"
+                ]
+            }
+        ],
+        "removals": [
+            "Kevin Mawae"
+        ]
     }
   ]
 }
