@@ -21,3 +21,6 @@ class PositionGroup:
                 for player in initial_dict.get("players", [])
             ],
         )
+
+    def add_player(self, player: PositionGroupPlayer) -> "__class__":
+        self.players.insert(0, player)

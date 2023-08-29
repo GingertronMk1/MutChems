@@ -8,6 +8,7 @@ from src.player.lineup_player import LineupPlayer
 from src.lineup.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
+from src.lineup.position_group import PositionGroup
 
 if __name__ == "__main__":
     files = glob.glob("outputs/*.csv")
@@ -17,13 +18,9 @@ if __name__ == "__main__":
     with open("./input.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    all_players: list[LineupPlayer] = [
-        player
-        for posGroup in data["current"]
-        for player in LineupPlayer.from_position_group_dict(posGroup)
-    ]
+    posGroups = [PositionGroup.from_dict(d) for d in data.get("current", [])]
 
-    working_lineup: Lineup = Lineup(all_players)
+    working_lineup: Lineup = Lineup.from_position_groups(posGroups)
 
     changes: list[Change] = [
         Change.from_dict(change) for change in data.get("changes", [])

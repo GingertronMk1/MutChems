@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from src.player.lineup_player import LineupPlayer
 from src.lineup.lineup import Lineup
+from src.lineup.position import Position
+from src.player.position_group_player import PositionGroupPlayer
 
 
 class ChangeType(Enum):
@@ -33,17 +35,24 @@ class Change:
         )
 
     def apply(self, current_lineup: Lineup) -> Lineup:
-        """Apply a change to a lineup"""
+        """
+            Apply a change to a lineup, first by removing the removals
+            then by adding the additions
+        """
         removed_players = [
             lineup_player
             for lineup_player in current_lineup.players
             if lineup_player.name not in self.removals
         ]
-        player_positions = [player.position for player in removed_players]
+        new_position_groups = Lineup(removed_players).to_position_groups()
         for lineup_player in self.additions:
-            position_index = player_positions.index(lineup_player.position)
-            removed_players.insert(position_index, lineup_player)
-        return Lineup(removed_players)
+            position_index = list(Position).index(lineup_player.position)
+            current_position_group = new_position_groups[position_index]
+            current_position_group.add_player(
+                PositionGroupPlayer(lineup_player.name, lineup_player.teams)
+            )
+            new_position_groups[position_index] = current_position_group
+        return Lineup.from_position_groups(new_position_groups)
 
     def pretty_print(self) -> str:
         """Nicely print a change"""

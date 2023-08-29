@@ -6,6 +6,9 @@ from src.player.lineup_player import LineupPlayer
 from src.lineup.variation import Variation
 from src.player.variation_player import VariationPlayer
 from src.team.team import Team
+from src.player.position_group_player import PositionGroupPlayer
+from src.lineup.position_group import PositionGroup
+from src.lineup.position import Position
 
 
 @dataclass
@@ -75,3 +78,26 @@ class Lineup:
             self.players = filtered.players
             threshold += 1
         return self
+
+    @staticmethod
+    def from_position_groups(groups: list[PositionGroup]) -> "__class__":
+        players = list(player
+            for posGroup in groups
+            for player in LineupPlayer.from_position_group(posGroup)
+        )
+        return Lineup(players)
+
+    def to_position_groups(self) -> list[PositionGroup]:
+        ret_values = []
+        for position in list(Position):
+            ret_values.append(
+                PositionGroup(
+                    position,
+                    [
+                        PositionGroupPlayer(player.name, player.teams)
+                        for player in self.players
+                        if player.position == position
+                    ],
+                )
+            )
+        return ret_values
