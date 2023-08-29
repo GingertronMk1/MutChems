@@ -36,8 +36,8 @@ class Change:
 
     def apply(self, current_lineup: Lineup) -> Lineup:
         """
-            Apply a change to a lineup, first by removing the removals
-            then by adding the additions
+        Apply a change to a lineup, first by removing the removals
+        then by adding the additions
         """
         removed_players = [
             lineup_player

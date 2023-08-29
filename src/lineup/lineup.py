@@ -81,13 +81,24 @@ class Lineup:
 
     @staticmethod
     def from_position_groups(groups: list[PositionGroup]) -> "__class__":
-        players = list(player
+        """Get from position groups"""
+        players = list(
+            player
             for posGroup in groups
             for player in LineupPlayer.from_position_group(posGroup)
         )
+        except_values = []
+        for position in list(Position):
+            if position not in [player.position for player in players]:
+                except_values.append(position)
+        if len(except_values) > 0:
+            raise ValueError(
+                f"Missing {','.join(position.value for position in except_values)}"
+            )
         return Lineup(players)
 
     def to_position_groups(self) -> list[PositionGroup]:
+        """Convert back to position groups"""
         ret_values = []
         for position in list(Position):
             ret_values.append(

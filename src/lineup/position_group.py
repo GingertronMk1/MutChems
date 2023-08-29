@@ -23,4 +23,5 @@ class PositionGroup:
         )
 
     def add_player(self, player: PositionGroupPlayer) -> "__class__":
+        """Add a player to the top of the group"""
         self.players.insert(0, player)

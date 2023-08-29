@@ -4,7 +4,6 @@ import json
 import os
 import glob
 import time
-from src.player.lineup_player import LineupPlayer
 from src.lineup.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
