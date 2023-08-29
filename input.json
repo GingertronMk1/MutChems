@@ -412,6 +412,46 @@
         "removals": [
             "Kevin Mawae"
         ]
+    },
+    {
+        "additions": [{
+            "name": "Franco Harris",
+            "position": "Fullback",
+            "teams": [
+                "Steelers",
+                "Seahawks"
+            ]
+        }],
+        "removals": ["Jakob Johnson"]
+    },
+    {
+        "additions": [{
+            "name": "Richard Sherman",
+            "position": "Cornerback",
+            "teams": [
+                "Seahawks",
+                "Buccaneers",
+                "49ers"
+            ]
+        }],
+        "removals": [
+            "Julius Brents"
+        ]
+    },
+    {
+        "additions": [{
+            "name": "Devin Hester",
+            "position": "Wide Receiver",
+            "teams": [
+                "Bears",
+                "Falcons",
+                "Seahawks",
+                "Ravens"
+            ]
+        }],
+        "removals": [
+            "Marvin Mims Jr"
+        ]
     }
   ]
 }
