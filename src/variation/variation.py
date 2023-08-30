@@ -13,15 +13,15 @@ class Variation:
     THRESHOLD_FULL = 50
     THRESHOLD_HALF = 25
 
-    data: list[VariationPlayer] = field(default_factory=list)
+    players: list[VariationPlayer] = field(default_factory=list)
 
     def __str__(self) -> str:
         """To string"""
-        return "\n".join([str(player) for player in self.data])
+        return "\n".join([str(player) for player in self.players])
 
     def all_teams(self) -> list[Team]:
         """Get all teams in variation"""
-        return [team for player in self.data for team in player.expand_teams()]
+        return [team for player in self.players for team in player.expand_teams()]
 
     def all_values(self) -> dict[str, int]:
         """Get all teams and how many are represented"""
@@ -44,7 +44,7 @@ class Variation:
         writer = csv.writer(outfile, delimiter=",")
         writer.writerow(["Name", "Position", "Team"])
         player_position = None
-        for player in self.data:
+        for player in self.players:
             if player_position is None:
                 player_position = player.position
             elif player_position != player.position:
@@ -54,7 +54,7 @@ class Variation:
                 [
                     player.name,
                     player.position.value,
-                    " | ".join([str(team) for team in player.team.children]),
+                    player.team
                 ]
             )
         writer.writerow([None, None, None])
@@ -62,9 +62,11 @@ class Variation:
         best_values = self.all_values()
         for team, value in best_values.items():
             all_players_in_team = [
-                player.name for player in self.data if team in player.expand_teams()
+                player for player in self.players if team in player.expand_teams()
             ]
-            writer.writerow([team.value, value, " | ".join(all_players_in_team)])
+            writer.writerow([team.value, value, None])
+            for player in all_players_in_team:
+                writer.writerow([f'    - {player.name}', None, None])
 
     def contains_no_team_players(self) -> bool:
         """Does the variation contain players with NoTeam"""

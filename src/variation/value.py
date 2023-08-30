@@ -3,7 +3,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 from functools import reduce
 from statistics import mean
-from src.lineup.variation import Variation
+from src.variation.variation import Variation
 from src.team.team import Team
 from src.lineup.lineup import Lineup
 from src.player.lineup_player import LineupPlayer
@@ -30,7 +30,7 @@ class Value:
     tiers: list[tuple]
 
     def __init__(self, variation: Variation) -> None:
-        all_teams = [t for player in variation.data for t in player.team.expand()]
+        all_teams = [t for player in variation.players for t in player.team.expand()]
         individuals = set(all_teams)
         compressed_toms = [
             (t, len([x for x in all_teams if x == t])) for t in individuals
@@ -82,7 +82,7 @@ class Value:
         accumulator: ValueHelper, variation_2: Variation
     ) -> ValueHelper:
         """Used in the reducing of Variations to a single best one"""
-        iteration = accumulator.iteration
+        iteration = accumulator.iteration + 1
         current_percent = accumulator.current_percent
         variation_1 = accumulator.variation
         number_of_variations = accumulator.number_of_variations
@@ -114,14 +114,14 @@ class Value:
         """Get best variation from a given lineup"""
         original_lineup_players = deepcopy(original_lineup.players)
         if Team.NO_TEAM in original_lineup.all_teams_list():
-            raise Exception("NoTeam players have made it into the start")
+            raise ValueError("NoTeam players have made it into the start")
         filtered_lineup: Lineup = original_lineup.filter_to_n_options()
         print(f"Round {iteration}: {filtered_lineup.num_options()} options")
         best_possible = Value.find_best_possible_variation(
             filtered_lineup.to_variations()
         )
         if best_possible.contains_no_team_players():
-            for index, player in enumerate(best_possible.data):
+            for index, player in enumerate(best_possible.players):
                 player_teams = player.expand_teams()
                 if Team.NO_TEAM not in player_teams:
                     new_player = LineupPlayer(
