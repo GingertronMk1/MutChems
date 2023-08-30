@@ -3,7 +3,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 from functools import reduce
 from statistics import mean
-from src.lineup.variation import Variation
+from src.variation.variation import Variation
 from src.team.team import Team
 from src.lineup.lineup import Lineup
 from src.player.lineup_player import LineupPlayer

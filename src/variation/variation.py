@@ -54,7 +54,7 @@ class Variation:
                 [
                     player.name,
                     player.position.value,
-                    None,
+                    player.team
                 ]
             )
         writer.writerow([None, None, None])

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from itertools import product
 from functools import reduce
 from src.player.lineup_player import LineupPlayer
-from src.lineup.variation import Variation
+from src.variation.variation import Variation
 from src.player.variation_player import VariationPlayer
 from src.team.team import Team
 from src.player.position_group_player import PositionGroupPlayer
