@@ -52,11 +52,12 @@
       "position": "Fullback",
       "players": [
         {
-          "name": "Jakob Johnson",
-          "teams": [
-            "Patriots",
-            "Raiders"
-          ]
+            "name": "Franco Harris",
+            "teams": [
+                "Steelers",
+                "Seahawks"
+            ]
+
         }
       ]
     },
@@ -416,17 +417,6 @@
         "removals": [
             "Kevin Mawae"
         ]
-    },
-    {
-        "additions": [{
-            "name": "Franco Harris",
-            "position": "Fullback",
-            "teams": [
-                "Steelers",
-                "Seahawks"
-            ]
-        }],
-        "removals": ["Jakob Johnson"]
     },
     {
         "additions": [{
