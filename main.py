@@ -27,7 +27,7 @@ if __name__ == "__main__":
     ]
     changes.insert(0, Change())
 
-    if sys.argv[1] == "print_changes":
+    if len(sys.argv) > 1 and sys.argv[1] == "print_changes":
         print("Just printing changes")
         for change in changes:
             print(change.pretty_print())
