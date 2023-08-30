@@ -15,3 +15,7 @@ If installing new, run `./bin/install` to install with all additional requiremen
     - Which has the highest maximum tier (multiple of 5 basically)
     - Which has the most `Team`s at that tier
     - Which has the most highest numbers of `Team`s (taking the mean of the square of the count of each `Team`)
+
+### MyPy
+
+https://mypy.readthedocs.io/en/stable/config_file.html
