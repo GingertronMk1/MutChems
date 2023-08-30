@@ -4,7 +4,8 @@ import json
 import os
 import glob
 import time
-from src.lineup.value import Value
+import sys
+from src.variation.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
 from src.lineup.position_group import PositionGroup
@@ -25,6 +26,12 @@ if __name__ == "__main__":
         Change.from_dict(change) for change in data.get("changes", [])
     ]
     changes.insert(0, Change())
+
+    if sys.argv[1] == "print_changes":
+        print("Just printing changes")
+        for change in changes:
+            print(change.pretty_print())
+        sys.exit(0)
 
     for key, change in enumerate(changes):
         change_string = ""
