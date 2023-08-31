@@ -91,4 +91,4 @@ jobs:
       - name: Commit and push
         run: |
           git commit -m "\"Deploy\" built file"
-          git push origin `git subtree split --prefix $OUTPUT_DIR main`:$OUTPUT_BRANCH --force
+          git push origin `git subtree split --prefix outputs main`:$OUTPUT_BRANCH --force
