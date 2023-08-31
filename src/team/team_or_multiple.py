@@ -11,12 +11,12 @@ class TeamOrMultiple:
     children: list[TeamAndNumber] = field(default_factory=list)
 
     @staticmethod
-    def from_string(string: str) -> "__class__":
+    def from_string(string: str) -> "TeamOrMultiple":
         """Creating from a string of encoded values"""
         return TeamOrMultiple(children=TeamAndNumber.from_string(string))
 
     @staticmethod
-    def from_strings(strings: list[str]) -> list["__class__"]:
+    def from_strings(strings: list[str]) -> list["TeamOrMultiple"]:
         """
         Creating from a list of strings,
         such that we can return a list and expand any instances of all
@@ -28,7 +28,7 @@ class TeamOrMultiple:
             return_val.extend(t_o_m.expand_all_32())
         return return_val
 
-    def expand_all_32(self) -> list["__class__"]:
+    def expand_all_32(self) -> list["TeamOrMultiple"]:
         """
         Any instances of all32Teams get expanded to actually be
         all 32 teams
@@ -48,13 +48,13 @@ class TeamOrMultiple:
             ]
         return [self.normalise()]
 
-    def normalise(self) -> "__class__":
+    def normalise(self) -> "TeamOrMultiple":
         """
         Any instances where it would be, for example,
         `Seahawks.1|Seahawks.1`,
         convert it to `Seahawks.2`
         """
-        acc_dict = {}
+        acc_dict: dict[Team, int] = {}
         for team_and_number in self.children:
             team_total = acc_dict.get(team_and_number.team, 0)
             acc_dict[team_and_number.team] = team_total + team_and_number.number

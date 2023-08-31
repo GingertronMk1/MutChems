@@ -9,6 +9,7 @@ from src.team.team import Team
 from src.player.position_group_player import PositionGroupPlayer
 from src.lineup.position_group import PositionGroup
 from src.lineup.position import Position
+from src.player.lineup_player import LineupPlayer
 
 
 @dataclass
@@ -23,9 +24,13 @@ class Lineup:
             VariationPlayer.from_lineup_player(player) for player in self.players
         ]
 
-        return [Variation(potential) for potential in product(*all_players)]
+        all_variation_players: list[list[VariationPlayer]] = list(
+            list(ps) for ps in product(*all_players)
+        )
 
-    def filter_out_teams(self, teams: list[Team]) -> "__class__":
+        return [Variation(potential) for potential in all_variation_players]
+
+    def filter_out_teams(self, teams: list[Team]) -> "Lineup":
         """Filter out a given list of Teams"""
         self.players = [player.filter_out_teams(teams) for player in self.players]
         return self
@@ -34,9 +39,9 @@ class Lineup:
         """Print nicely"""
         return "\n".join(str(player) for player in self.players)
 
-    def all_teams(self) -> dict:
+    def all_teams(self) -> dict[Team, int]:
         """Get all teams in the lineup"""
-        all_player_teams = {}
+        all_player_teams: dict[Team, int] = {}
         for player in self.players:
             all_teams = [
                 team
@@ -70,7 +75,7 @@ class Lineup:
             lambda x, y: x * y, [len(player.teams) for player in self.players], 1
         )
 
-    def filter_to_n_options(self, max_options=1_000_000) -> "__class__":
+    def filter_to_n_options(self, max_options=1_000_000) -> "Lineup":
         """Filter the available teams until we are under a given possible number of Variations"""
         threshold = 0
         while self.num_options() > max_options:
@@ -80,7 +85,7 @@ class Lineup:
         return self
 
     @staticmethod
-    def from_position_groups(groups: list[PositionGroup]) -> "__class__":
+    def from_position_groups(groups: list[PositionGroup]) -> "Lineup":
         """Get from position groups"""
         players = list(
             player

@@ -11,7 +11,7 @@ class PositionGroupPlayer:
     teams: list[TeamOrMultiple]
 
     @staticmethod
-    def from_dict(initial_dict: dict) -> "__class__":
+    def from_dict(initial_dict: dict) -> "PositionGroupPlayer":
         """Create from a dict"""
         return PositionGroupPlayer(
             name=initial_dict.get("name", "No Name Given"),

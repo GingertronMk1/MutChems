@@ -23,7 +23,7 @@ class Variation:
         """Get all teams in variation"""
         return [team for player in self.players for team in player.expand_teams()]
 
-    def all_values(self) -> dict[str, int]:
+    def all_values(self) -> dict[Team, int]:
         """Get all teams and how many are represented"""
         all_toms = self.all_teams()
         individuals = set(all_toms)
@@ -32,12 +32,12 @@ class Variation:
         ]
         compressed_toms.sort(key=lambda x: x[1], reverse=True)
 
-        return dict(compressed_toms)
+        return dict((key, value) for (key, value) in compressed_toms)
 
-    def value(self) -> tuple[str, int]:
+    def value(self) -> tuple[Team, int]:
         """Get a tuple containing the maximum team"""
         val = self.all_values()
-        return (max(val, key=val.get), max(val.values()))
+        return (max(val, key=val.__getitem__), max(val.values()))
 
     def write_to_csv(self, outfile: TextIOWrapper) -> None:
         """Write the best option to a given CSV file"""
@@ -50,13 +50,7 @@ class Variation:
             elif player_position != player.position:
                 writer.writerow(["---", "---", "---"])
                 player_position = player.position
-            writer.writerow(
-                [
-                    player.name,
-                    player.position.value,
-                    player.team
-                ]
-            )
+            writer.writerow([player.name, player.position.value, player.team])
         writer.writerow([None, None, None])
         writer.writerow(["TOTALS", None, None])
         best_values = self.all_values()
@@ -66,7 +60,7 @@ class Variation:
             ]
             writer.writerow([team.value, value, None])
             for player in all_players_in_team:
-                writer.writerow([f'    - {player.name}', None, None])
+                writer.writerow([f"    - {player.name}", None, None])
 
     def contains_no_team_players(self) -> bool:
         """Does the variation contain players with NoTeam"""

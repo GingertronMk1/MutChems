@@ -12,7 +12,7 @@ class PositionGroup:
     players: list[PositionGroupPlayer]
 
     @staticmethod
-    def from_dict(initial_dict: dict) -> "__class__":
+    def from_dict(initial_dict: dict) -> "PositionGroup":
         """Create from dict"""
         return PositionGroup(
             position=Position(initial_dict.get("position")),
@@ -22,6 +22,7 @@ class PositionGroup:
             ],
         )
 
-    def add_player(self, player: PositionGroupPlayer) -> "__class__":
+    def add_player(self, player: PositionGroupPlayer) -> "PositionGroup":
         """Add a player to the top of the group"""
         self.players.insert(0, player)
+        return self

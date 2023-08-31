@@ -15,7 +15,7 @@ class VariationPlayer:
     position: Position
 
     @staticmethod
-    def from_lineup_player(lineup_player: LineupPlayer) -> list["__class__"]:
+    def from_lineup_player(lineup_player: LineupPlayer) -> list["VariationPlayer"]:
         """Generating a list of these from a player with many teams"""
         return [
             VariationPlayer(lineup_player.name, team, lineup_player.position)

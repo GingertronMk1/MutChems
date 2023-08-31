@@ -19,7 +19,7 @@ class ValueHelper:
     current_percent: int = 0
 
     @staticmethod
-    def from_list(variations: list[Variation]) -> "__class__":
+    def from_list(variations: list[Variation]) -> "ValueHelper":
         """Create from a list of Variations"""
         return ValueHelper(variations[0], len(variations))
 
@@ -38,7 +38,7 @@ class Value:
         compressed_toms.sort(key=lambda x: x[1], reverse=True)
         self.numbers = compressed_toms
 
-    def get_tiers(self) -> tuple:
+    def get_tiers(self) -> list[tuple[Team, int]]:
         """Get the tiers of the teams in the Variation"""
         return [(t, l // 5) for (t, l) in self.numbers]
 
@@ -56,7 +56,7 @@ class Value:
         return mean(t[1] ** 2 for t in self.numbers)
 
     @staticmethod
-    def compare_variations(variation_1: Variation, variation_2: Variation) -> int:
+    def compare_variations(variation_1: Variation, variation_2: Variation) -> float:
         """Compare variations by value"""
         variation_1_value = Value(variation_1)
         variation_2_value = Value(variation_2)

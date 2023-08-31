@@ -17,7 +17,7 @@ class LineupPlayer:
     teams: list[TeamOrMultiple] = field(default_factory=list)
 
     @staticmethod
-    def from_dict(initial_dict: dict) -> "__class__":
+    def from_dict(initial_dict: dict) -> "LineupPlayer":
         """Creating from a dict"""
         return LineupPlayer(
             name=initial_dict["name"],
@@ -36,12 +36,12 @@ class LineupPlayer:
     @staticmethod
     def from_position_group_player(
         pgp: PositionGroupPlayer, pos: Position
-    ) -> "__class__":
+    ) -> "LineupPlayer":
         """Creating from a position group player"""
         return LineupPlayer(pgp.name, pos, pgp.teams)
 
     @staticmethod
-    def from_position_group(pos_group: PositionGroup) -> list["__class__"]:
+    def from_position_group(pos_group: PositionGroup) -> list["LineupPlayer"]:
         """Creating from a position group"""
         return [
             LineupPlayer.from_position_group_player(player, pos_group.position)
@@ -49,7 +49,7 @@ class LineupPlayer:
         ]
 
     @staticmethod
-    def from_position_group_dict(pos_group_dict: dict) -> list["__class__"]:
+    def from_position_group_dict(pos_group_dict: dict) -> list["LineupPlayer"]:
         """From a position group dict - basically skipping the position group part"""
         return LineupPlayer.from_position_group(PositionGroup.from_dict(pos_group_dict))
 
@@ -61,7 +61,7 @@ class LineupPlayer:
             f"  Teams: {', '.join(str(t_o_m) for t_o_m in self.teams)}"
         )
 
-    def filter_out_teams(self, teams: list[Team]) -> "__class__":
+    def filter_out_teams(self, teams: list[Team]) -> "LineupPlayer":
         """Filtering out teams to cut down the number of possible variations"""
         if len(self.teams) < 2:
             return self

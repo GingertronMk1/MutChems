@@ -24,7 +24,7 @@ class Change:
     removals: list[str] = field(default_factory=list)
 
     @staticmethod
-    def from_dict(change_dict: dict) -> "__class__":
+    def from_dict(change_dict: dict) -> "Change":
         """Generate a Change from a dict"""
         return Change(
             additions=[
@@ -67,6 +67,7 @@ class Change:
                 return f"Adding {str_additions}"
             case ChangeType.REPLACEMENT:
                 return f"Replacing {str_removals} with {str_additions}"
+        return "Somehow you've got something entirely else"
 
     def get_type(self) -> ChangeType:
         """Dynamically get the type of a change"""

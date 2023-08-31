@@ -9,14 +9,15 @@ from src.variation.value import Value
 from src.lineup.lineup import Lineup
 from src.change.change import Change
 from src.lineup.position_group import PositionGroup
+from io import TextIOWrapper
 
 if __name__ == "__main__":
-    files = glob.glob("outputs/*.csv")
-    for f in files:
-        os.remove(f)
+    old_csvs = glob.glob("outputs/*.csv")
+    for old_csv in old_csvs:
+        os.remove(old_csv)
 
-    with open("./input.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
+    f: TextIOWrapper = open("./input.json", "r", encoding="utf-8")
+    data = json.load(f)
 
     posGroups = [PositionGroup.from_dict(d) for d in data.get("current", [])]
 
@@ -36,7 +37,7 @@ if __name__ == "__main__":
     for key, change in enumerate(changes):
         change_string = ""
         file_name = ""
-        match(key):
+        match (key):
             case 0:
                 change_string = "Current lineup with no changes"
                 file_name = "0_current_lineup.csv"
