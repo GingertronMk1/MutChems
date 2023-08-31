@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.sha }}-output
-          path: $OUTPUT_DIR
+          path: ${{ env.OUTPUT_DIR }}
   ensure_branch_exists:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -79,7 +79,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ${{ github.sha }}-output
-          path: $OUTPUT_DIR
+          path: ${{ env.OUTPUT_DIR }}
       - name: FETCH
         run: git fetch origin
       - name: Configure git
