@@ -15,7 +15,7 @@ on:
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   OUTPUT_BRANCH: output/built
-  OUTPUT_DIR: ./outputs
+  OUTPUT_DIR: outputs
 
 # Allow one concurrent deployment
 concurrency:
@@ -32,7 +32,7 @@ jobs:
       - name: Install
         run: ./bin/install
       - name: Format
-        run: ./bin/format git fetch origin
+        run: ./bin/format
         continue-on-error: true
       - name: Lint
         run: ./bin/lint
@@ -86,9 +86,11 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+      - name: Token README
+        run: echo "# The Built Lineups" >> $OUTPUT_DIR/README.md
       - name: Add the file
         run: git add $OUTPUT_DIR/* -f
       - name: Commit and push
         run: |
           git commit -m "\"Deploy\" built file"
-          git push origin `git subtree split --prefix outputs main`:$OUTPUT_BRANCH --force
+          git push origin `git subtree split --prefix $OUTPUT_DIR main`:$OUTPUT_BRANCH --force
