@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.sha }}-output
-          path: ./output
+          path: ./outputs
   ensure_branch_exists:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -78,13 +78,13 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ${{ github.sha }}-output
-          path: ./output
+          path: ./outputs
       - name: Configure git
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
       - name: Add the file
-        run: git add output/* -f
+        run: git add outputs/* -f
       - name: Commit and push
         run: |
           git commit -m "\"Deploy\" built file"
