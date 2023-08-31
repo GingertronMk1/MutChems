@@ -93,9 +93,9 @@
           ]
         },
         {
-          "name": "Marvin Mims Jr",
+          "name": "D'Wayne Eskridge",
           "teams": [
-            "Broncos"
+            "Seahawks"
           ]
         }
       ]
@@ -114,6 +114,12 @@
           "teams": [
             "Jaguars"
           ]
+        },
+        {
+            "name": "Will Dissly",
+            "teams": [
+                "Seahawks"
+            ]
         }
       ]
     },
@@ -125,6 +131,12 @@
           "teams": [
             "Cardinals"
           ]
+        },
+        {
+            "name": "Charles Cross",
+            "teams": [
+                "Seahawks"
+            ]
         }
       ]
     },
@@ -238,9 +250,9 @@
           ]
         },
         {
-          "name": "DJ Turner",
+          "name": "Tariq Woolen",
           "teams": [
-            "Bengals"
+            "Seahawks"
           ]
         }
       ]
@@ -272,9 +284,10 @@
           ]
         },
         {
-          "name": "Junior Seau",
+          "name": "Bobby Wagner",
           "teams": [
-            "Chargers"
+            "Seahawks",
+            "Rams"
           ]
         }
       ]
