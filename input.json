@@ -148,11 +148,9 @@
       "position": "Left Guard",
       "players": [
         {
-          "name": "Kevin Mawae",
+          "name": "Landon Dickerson",
           "teams": [
-            "Seahawks",
-            "Jets",
-            "Titans"
+            "Eagles"
           ]
         }
       ]
@@ -161,9 +159,11 @@
       "position": "Center",
       "players": [
         {
-          "name": "John Michael Schmitz",
+          "name": "Kevin Mawae",
           "teams": [
-            "Giants"
+            "Seahawks",
+            "Jets",
+            "Titans"
           ]
         }
       ]
