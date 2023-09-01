@@ -460,6 +460,20 @@
         "removals": [
             "Odell Beckham Jr"
         ]
+    },
+    {
+        "additions": [
+            {
+                "name": "Kenneth Walker III",
+                "position": "Halfback",
+                "teams": [
+                    "Seahawks"
+                ]
+            }
+        ],
+        "removals": [
+            "Bijan Robinson"
+        ]
     }
   ]
 }
