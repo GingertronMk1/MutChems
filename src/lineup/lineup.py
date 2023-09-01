@@ -98,7 +98,7 @@ class Lineup:
                 except_values.append(position)
         if len(except_values) > 0:
             raise ValueError(
-                f"Missing {','.join(position.value for position in except_values)}"
+                f"Missing {','.join(position.value.name for position in except_values)}"
             )
         return Lineup(players)
 

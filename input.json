@@ -55,12 +55,11 @@
       "position": "FB",
       "players": [
         {
-            "name": "Franco Harris",
-            "teams": [
-                "Steelers",
-                "Seahawks"
-            ]
-
+          "name": "Franco Harris",
+          "teams": [
+            "Steelers",
+            "Seahawks"
+          ]
         }
       ]
     },
@@ -114,10 +113,10 @@
           ]
         },
         {
-            "name": "Will Dissly",
-            "teams": [
-                "Seahawks"
-            ]
+          "name": "Will Dissly",
+          "teams": [
+            "Seahawks"
+          ]
         }
       ]
     },
@@ -131,10 +130,10 @@
           ]
         },
         {
-            "name": "Charles Cross",
-            "teams": [
-                "Seahawks"
-            ]
+          "name": "Charles Cross",
+          "teams": [
+            "Seahawks"
+          ]
         }
       ]
     },
@@ -300,10 +299,10 @@
           ]
         },
         {
-            "name": "Derick Hall",
-            "teams": [
-                "Seahawks"
-            ]
+          "name": "Derick Hall",
+          "teams": [
+            "Seahawks"
+          ]
         }
       ]
     },
@@ -403,84 +402,88 @@
       ]
     },
     {
-        "additions": [
-            {
-                "name": "Damien Lewis",
-                "position": "LG",
-                "teams": [
-                    "Seahawks"
-                ]
-            },
-            {
-                "name": "Kevin Mawae",
-                "position": "C",
-                "teams": [
-                    "Seahawks",
-                    "Jets",
-                    "Titans"
-                ]
-            }
-        ],
-        "removals": [
-            "Kevin Mawae"
-        ]
+      "additions": [
+        {
+          "name": "Damien Lewis",
+          "position": "LG",
+          "teams": [
+            "Seahawks"
+          ]
+        },
+        {
+          "name": "Kevin Mawae",
+          "position": "C",
+          "teams": [
+            "Seahawks",
+            "Jets",
+            "Titans"
+          ]
+        }
+      ],
+      "removals": [
+        "Kevin Mawae"
+      ]
     },
     {
-        "additions": [{
-            "name": "Richard Sherman",
-            "position": "CB",
-            "teams": [
-                "Seahawks",
-                "Buccaneers",
-                "49ers"
-            ]
-        }],
-        "removals": [
-            "Jaylen Watson"
-        ]
+      "additions": [
+        {
+          "name": "Richard Sherman",
+          "position": "CB",
+          "teams": [
+            "Seahawks",
+            "Buccaneers",
+            "49ers"
+          ]
+        }
+      ],
+      "removals": [
+        "Jaylen Watson"
+      ]
     },
     {
-        "additions": [{
-            "name": "Devin Hester",
-            "position": "WR",
-            "teams": [
-                "Bears",
-                "Falcons",
-                "Seahawks",
-                "Ravens"
-            ]
-        }],
-        "removals": [
-            "Odell Beckham Jr"
-        ]
+      "additions": [
+        {
+          "name": "Devin Hester",
+          "position": "WR",
+          "teams": [
+            "Bears",
+            "Falcons",
+            "Seahawks",
+            "Ravens"
+          ]
+        }
+      ],
+      "removals": [
+        "Odell Beckham Jr"
+      ]
     },
     {
-        "additions": [
-            {
-                "name": "Kenneth Walker III",
-                "position": "HB",
-                "teams": [
-                    "Seahawks"
-                ]
-            }
-        ],
-        "removals": [
-            "Bijan Robinson"
-        ]
+      "additions": [
+        {
+          "name": "Kenneth Walker III",
+          "position": "HB",
+          "teams": [
+            "Seahawks"
+          ]
+        }
+      ],
+      "removals": [
+        "Bijan Robinson"
+      ]
     },
     {
-        "additions": [
-            {
-                "name": "Kam Chancellor",
-                "position": "SS",
-                "teams": [
-                    "Seahawks"
-                ]
-            }
-        ],
-        "removals": [
-            "Ji'Ayir Brown"
-        ]
+      "additions": [
+        {
+          "name": "Kam Chancellor",
+          "position": "SS",
+          "teams": [
+            "Seahawks"
+          ]
+        }
+      ],
+      "removals": [
+        "Ji'Ayir Brown"
+      ]
     }
   ]
 }

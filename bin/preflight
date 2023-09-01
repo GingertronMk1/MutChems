@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 
 ./bin/format
+./bin/format-json
 ./bin/lint

@@ -2,11 +2,11 @@
 from enum import Enum
 from dataclasses import dataclass
 
+
 @dataclass
 class NameAndAbbreviation:
     name: str
     abbreviation: str
-
 
 
 class Position(Enum):
@@ -41,9 +41,9 @@ class Position(Enum):
                 return pos
         raise ValueError(f"No position with name {name}")
 
+    @staticmethod
     def get_from_abbreviation(abbreviation: str) -> "Position":
         for pos in list(Position):
             if pos.value.abbreviation == abbreviation:
                 return pos
         raise ValueError(f"No position with abbreviation {abbreviation}")
-

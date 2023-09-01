@@ -14,8 +14,11 @@ class PositionGroup:
     @staticmethod
     def from_dict(initial_dict: dict) -> "PositionGroup":
         """Create from dict"""
+        position: str | None = initial_dict.get("position")
+        if position is None:
+            raise ValueError("No position found in dict")
         return PositionGroup(
-            position=Position.get_from_abbreviation(initial_dict.get("position")),
+            position=Position.get_from_abbreviation(position),
             players=[
                 PositionGroupPlayer.from_dict(player)
                 for player in initial_dict.get("players", [])

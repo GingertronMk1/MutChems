@@ -1,5 +1,7 @@
 """A list of teams in the NFL for chemistry purposes"""
 from enum import Enum
+
+
 class Team(Enum):
     """A list of teams in the NFL for chemistry purposes"""
 
@@ -47,8 +49,4 @@ class Team(Enum):
     @staticmethod
     def not_real_teams() -> list["Team"]:
         """All the not-real teams, so all32 and no team (for now)"""
-        return [
-            Team.ALL32,
-            Team.NO_TEAM,
-            Team.CAMPUS_HEROES
-        ]
+        return [Team.ALL32, Team.NO_TEAM, Team.CAMPUS_HEROES]
