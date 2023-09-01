@@ -50,7 +50,7 @@ class Variation:
             elif player_position != player.position:
                 writer.writerow(["---", "---", "---"])
                 player_position = player.position
-            writer.writerow([player.name, player.position.value, player.team])
+            writer.writerow([player.name, player.position.value.name, player.team])
         writer.writerow([None, None, None])
         writer.writerow(["TOTALS", None, None])
         best_values = self.all_values()

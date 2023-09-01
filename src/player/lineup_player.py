@@ -21,7 +21,7 @@ class LineupPlayer:
         """Creating from a dict"""
         return LineupPlayer(
             name=initial_dict["name"],
-            position=Position(initial_dict["position"]),
+            position=Position.get_from_abbreviation(initial_dict["position"]),
             teams=TeamOrMultiple.from_strings(initial_dict["teams"]),
         )
 

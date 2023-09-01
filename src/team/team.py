@@ -1,7 +1,5 @@
 """A list of teams in the NFL for chemistry purposes"""
 from enum import Enum
-
-
 class Team(Enum):
     """A list of teams in the NFL for chemistry purposes"""
 

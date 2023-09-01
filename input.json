@@ -1,7 +1,7 @@
 {
   "current": [
     {
-      "position": "Quarterback",
+      "position": "QB",
       "players": [
         {
           "name": "Warren Moon",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "position": "Halfback",
+      "position": "HB",
       "players": [
         {
           "name": "Bijan Robinson",
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "position": "Fullback",
+      "position": "FB",
       "players": [
         {
             "name": "Franco Harris",
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "position": "Wide Receiver",
+      "position": "WR",
       "players": [
         {
           "name": "JJettas",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "position": "Tight End",
+      "position": "TE",
       "players": [
         {
           "name": "Michael Mayer",
@@ -122,7 +122,7 @@
       ]
     },
     {
-      "position": "Left Tackle",
+      "position": "LT",
       "players": [
         {
           "name": "Paris Johnson Jr",
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "position": "Left Guard",
+      "position": "LG",
       "players": [
         {
           "name": "Landon Dickerson",
@@ -150,7 +150,7 @@
       ]
     },
     {
-      "position": "Center",
+      "position": "C",
       "players": [
         {
           "name": "Kevin Mawae",
@@ -163,7 +163,7 @@
       ]
     },
     {
-      "position": "Right Guard",
+      "position": "RG",
       "players": [
         {
           "name": "Anthony Bradford",
@@ -174,7 +174,7 @@
       ]
     },
     {
-      "position": "Right Tackle",
+      "position": "RT",
       "players": [
         {
           "name": "Dawand Jones",
@@ -185,7 +185,7 @@
       ]
     },
     {
-      "position": "Free Safety",
+      "position": "FS",
       "players": [
         {
           "name": "Jay Ward",
@@ -202,7 +202,7 @@
       ]
     },
     {
-      "position": "Strong Safety",
+      "position": "SS",
       "players": [
         {
           "name": "Ji'Ayir Brown",
@@ -219,7 +219,7 @@
       ]
     },
     {
-      "position": "Cornerback",
+      "position": "CB",
       "players": [
         {
           "name": "Jaylen Watson",
@@ -256,7 +256,7 @@
       ]
     },
     {
-      "position": "Right Outside Linebacker",
+      "position": "ROLB",
       "players": [
         {
           "name": "Tyree Wilson",
@@ -273,7 +273,7 @@
       ]
     },
     {
-      "position": "Middle Linebacker",
+      "position": "MLB",
       "players": [
         {
           "name": "BWagz",
@@ -291,7 +291,7 @@
       ]
     },
     {
-      "position": "Left Outside Linebacker",
+      "position": "LOLB",
       "players": [
         {
           "name": "Tuli Tuipulotu",
@@ -308,7 +308,7 @@
       ]
     },
     {
-      "position": "Right Defensive End",
+      "position": "RE",
       "players": [
         {
           "name": "LJ Collier",
@@ -320,7 +320,7 @@
       ]
     },
     {
-      "position": "Defensive Tackle",
+      "position": "DT",
       "players": [
         {
           "name": "Bryan Bresee",
@@ -337,7 +337,7 @@
       ]
     },
     {
-      "position": "Left Defensive End",
+      "position": "LE",
       "players": [
         {
           "name": "Reggie White",
@@ -357,7 +357,7 @@
       ]
     },
     {
-      "position": "Kicker",
+      "position": "K",
       "players": [
         {
           "name": "Jason Myers",
@@ -370,7 +370,7 @@
       ]
     },
     {
-      "position": "Punter",
+      "position": "P",
       "players": [
         {
           "name": "Michael Dickson",
@@ -386,7 +386,7 @@
       "additions": [
         {
           "name": "AJ Terrell",
-          "position": "Cornerback",
+          "position": "CB",
           "teams": [
             "Falcons"
           ]
@@ -400,7 +400,7 @@
       "additions": [
         {
           "name": "Deandre Hopkins",
-          "position": "Wide Receiver",
+          "position": "WR",
           "teams": [
             "Texans",
             "Cardinals",
@@ -413,14 +413,14 @@
         "additions": [
             {
                 "name": "Damien Lewis",
-                "position": "Left Guard",
+                "position": "LG",
                 "teams": [
                     "Seahawks"
                 ]
             },
             {
                 "name": "Kevin Mawae",
-                "position": "Center",
+                "position": "C",
                 "teams": [
                     "Seahawks",
                     "Jets",
@@ -435,7 +435,7 @@
     {
         "additions": [{
             "name": "Richard Sherman",
-            "position": "Cornerback",
+            "position": "CB",
             "teams": [
                 "Seahawks",
                 "Buccaneers",
@@ -449,7 +449,7 @@
     {
         "additions": [{
             "name": "Devin Hester",
-            "position": "Wide Receiver",
+            "position": "WR",
             "teams": [
                 "Bears",
                 "Falcons",
@@ -465,7 +465,7 @@
         "additions": [
             {
                 "name": "Kenneth Walker III",
-                "position": "Halfback",
+                "position": "HB",
                 "teams": [
                     "Seahawks"
                 ]
