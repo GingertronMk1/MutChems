@@ -346,13 +346,6 @@
             "Packers",
             "Panthers"
           ]
-        },
-        {
-          "name": "Ogbonna Okoronkwo",
-          "teams": [
-            "Browns",
-            "Texans"
-          ]
         }
       ]
     },
@@ -473,6 +466,20 @@
         ],
         "removals": [
             "Bijan Robinson"
+        ]
+    },
+    {
+        "additions": [
+            {
+                "name": "Kam Chancellor",
+                "position": "SS",
+                "teams": [
+                    "Seahawks"
+                ]
+            }
+        ],
+        "removals": [
+            "Ji'Ayir Brown"
         ]
     }
   ]
