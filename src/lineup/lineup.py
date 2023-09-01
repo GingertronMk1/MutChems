@@ -75,7 +75,7 @@ class Lineup:
             lambda x, y: x * y, [len(player.teams) for player in self.players], 1
         )
 
-    def filter_to_n_options(self, max_options=1_000_000) -> "Lineup":
+    def filter_to_n_options(self, max_options=500_000) -> "Lineup":
         """Filter the available teams until we are under a given possible number of Variations"""
         threshold = 0
         while self.num_options() > max_options:
