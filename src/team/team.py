@@ -39,6 +39,7 @@ class Team(Enum):
     TITANS = "Titans"
     VIKINGS = "Vikings"
     ALL32 = "All32Teams"
+    CAMPUS_HEROES = "CampusHeroes"
 
     @staticmethod
     def all_teams() -> list["Team"]:
@@ -48,4 +49,8 @@ class Team(Enum):
     @staticmethod
     def not_real_teams() -> list["Team"]:
         """All the not-real teams, so all32 and no team (for now)"""
-        return [Team.ALL32, Team.NO_TEAM]
+        return [
+            Team.ALL32,
+            Team.NO_TEAM,
+            Team.CAMPUS_HEROES
+        ]
