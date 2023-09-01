@@ -34,7 +34,13 @@ if __name__ == "__main__":
             print(change.pretty_print())
         sys.exit(0)
 
-    for key, change in enumerate(changes):
+    lineups: list[tuple[Change, Lineup]] = [(Change(), working_lineup)]
+
+    for change in changes:
+        print(f"Applying {change.pretty_print()}")
+        lineups.append((change, change.apply(deepcopy(lineups[-1][1]))))
+
+    for key, (change, lineup) in enumerate(lineups):
         change_string = ""
         file_name = ""
         match (key):
@@ -48,8 +54,7 @@ if __name__ == "__main__":
                 change_string = f"{n} changes: `{change.pretty_print()}"
                 file_name = f"{n}_changes.csv"
         print(change_string)
-        working_lineup = change.apply(working_lineup)
-        analysis_lineup = deepcopy(working_lineup)
+        analysis_lineup = deepcopy(lineup)
         start_time = time.time()
         best_possible = Value.get_best_lineup_variation(analysis_lineup)
 

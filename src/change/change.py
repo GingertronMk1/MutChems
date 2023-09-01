@@ -39,6 +39,10 @@ class Change:
         Apply a change to a lineup, first by removing the removals
         then by adding the additions
         """
+
+        for player in self.removals:
+            if player not in [player.name for player in current_lineup.players]:
+                raise ValueError(f"{player} not in lineup, so cannot be removed")
         removed_players = [
             lineup_player
             for lineup_player in current_lineup.players
