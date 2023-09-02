@@ -4,21 +4,20 @@
       "position": "QB",
       "players": [
         {
-          "name": "Warren Moon",
-          "teams": [
-            "Titans",
-            "Vikings",
-            "Seahawks",
-            "Chiefs"
-          ]
-        },
-        {
           "name": "Robert Griffin III",
           "teams": [
             "Commanders",
             "Browns",
             "Ravens",
             "CampusHeroes.4"
+          ]
+        },
+        {
+          "name": "Marcus Mariota",
+          "teams": [
+            "Titans",
+            "Falcons",
+            "Eagles"
           ]
         }
       ]
@@ -27,9 +26,10 @@
       "position": "HB",
       "players": [
         {
-          "name": "Bijan Robinson",
+          "name": "Kenneth Walker III",
           "teams": [
-            "Falcons|All32Teams"
+            "Seahawks",
+            "CampusHeroes"
           ]
         },
         {
@@ -40,13 +40,10 @@
           ]
         },
         {
-          "name": "Frank Gore",
+          "name": "Rashaad Penny",
           "teams": [
-            "49ers",
-            "Bills",
-            "Dolphins",
-            "Jets",
-            "Colts"
+            "Seahawks",
+            "Eagles"
           ]
         }
       ]
@@ -80,6 +77,15 @@
           ]
         },
         {
+          "name": "Devin Hester",
+          "teams": [
+            "Bears",
+            "Falcons",
+            "Seahawks",
+            "Ravens"
+          ]
+        },
+        {
           "name": "Odell Beckham Jr",
           "teams": [
             "Giants",
@@ -109,7 +115,7 @@
         {
           "name": "Darnell Washington",
           "teams": [
-            "Steelers"
+            "Steelers|All32Teams"
           ]
         },
         {
@@ -124,9 +130,9 @@
       "position": "LT",
       "players": [
         {
-          "name": "Paris Johnson Jr",
+          "name": "Jordan Mailata",
           "teams": [
-            "Cardinals"
+            "Eagles"
           ]
         },
         {
@@ -158,6 +164,12 @@
             "Jets",
             "Titans"
           ]
+        },
+        {
+          "name": "Cam Jurgens",
+          "teams": [
+            "Eagles"
+          ]
         }
       ]
     },
@@ -169,6 +181,12 @@
           "teams": [
             "Seahawks|All32Teams"
           ]
+        },
+        {
+          "name": "Sua Opeta",
+          "teams": [
+            "Eagles"
+          ]
         }
       ]
     },
@@ -179,6 +197,12 @@
           "name": "Dawand Jones",
           "teams": [
             "Browns|All32Teams"
+          ]
+        },
+        {
+          "name": "Jake Curhan",
+          "teams": [
+            "Seahawks"
           ]
         }
       ]
@@ -210,9 +234,10 @@
           ]
         },
         {
-          "name": "Eric Berry",
+          "name": "Jamal Adams",
           "teams": [
-            "Chiefs"
+            "Jets",
+            "Seahawks"
           ]
         }
       ]
@@ -264,9 +289,9 @@
           ]
         },
         {
-          "name": "Travon Walker",
+          "name": "Joshua Onujiogu",
           "teams": [
-            "Jaguars"
+            "Seahawks"
           ]
         }
       ]
@@ -285,6 +310,18 @@
           "name": "Dorian Williams",
           "teams": [
             "Bills"
+          ]
+        },
+        {
+          "name": "Nakobe Dean",
+          "teams": [
+            "Eagles"
+          ]
+        },
+        {
+          "name": "Devin Bush",
+          "teams": [
+            "Seahawks"
           ]
         }
       ]
@@ -315,6 +352,12 @@
             "Seahawks",
             "Cardinals"
           ]
+        },
+        {
+          "name": "Derek Barnett",
+          "teams": [
+            "Eagles"
+          ]
         }
       ]
     },
@@ -332,6 +375,18 @@
           "teams": [
             "Jets"
           ]
+        },
+        {
+          "name": "Kentavius Street",
+          "teams": [
+            "Eagles"
+          ]
+        },
+        {
+          "name": "Marlon Tuipulotu",
+          "teams": [
+            "Eagles"
+          ]
         }
       ]
     },
@@ -344,6 +399,12 @@
             "Eagles",
             "Packers",
             "Panthers"
+          ]
+        },
+        {
+          "name": "Tarron Jackson",
+          "teams": [
+            "Eagles"
           ]
         }
       ]
@@ -438,37 +499,6 @@
       ],
       "removals": [
         "Jaylen Watson"
-      ]
-    },
-    {
-      "additions": [
-        {
-          "name": "Devin Hester",
-          "position": "WR",
-          "teams": [
-            "Bears",
-            "Falcons",
-            "Seahawks",
-            "Ravens"
-          ]
-        }
-      ],
-      "removals": [
-        "Odell Beckham Jr"
-      ]
-    },
-    {
-      "additions": [
-        {
-          "name": "Kenneth Walker III",
-          "position": "HB",
-          "teams": [
-            "Seahawks"
-          ]
-        }
-      ],
-      "removals": [
-        "Bijan Robinson"
       ]
     },
     {
